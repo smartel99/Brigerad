@@ -1,0 +1,3 @@
+[submodule "Brigerad\\vendor\\spdlog"]
+	path = Brigerad\\vendor\\spdlog
+	url = https://github.com/gabime/spdlog

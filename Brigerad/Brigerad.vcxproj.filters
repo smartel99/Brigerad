@@ -4,6 +4,9 @@
     <Filter Include="Brigerad">
       <UniqueIdentifier>{05148AA8-F1E0-E4B3-1AFA-D25B06261A42}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Brigerad\Events">
+      <UniqueIdentifier>{4968AAF6-B5F3-17BB-BE04-9BAF2A0F74BB}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Brigerad.h" />
@@ -16,9 +19,22 @@
     <ClInclude Include="src\Brigerad\EntryPoint.h">
       <Filter>Brigerad</Filter>
     </ClInclude>
+    <ClInclude Include="src\Brigerad\Events\ApplicationEvent.h">
+      <Filter>Brigerad\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Brigerad\Events\Event.h">
+      <Filter>Brigerad\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Brigerad\Events\KeyEvents.h">
+      <Filter>Brigerad\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Brigerad\Events\MouseEvent.h">
+      <Filter>Brigerad\Events</Filter>
+    </ClInclude>
     <ClInclude Include="src\Brigerad\Log.h">
       <Filter>Brigerad</Filter>
     </ClInclude>
+    <ClInclude Include="src\brpch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Brigerad\Application.cpp">
@@ -27,5 +43,6 @@
     <ClCompile Include="src\Brigerad\Log.cpp">
       <Filter>Brigerad</Filter>
     </ClCompile>
+    <ClCompile Include="src\brpch.cpp" />
   </ItemGroup>
 </Project>

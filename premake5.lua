@@ -18,6 +18,9 @@ project "Brigerad"
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
+    pchheader "brpch.h"
+    pchsource "Brigerad/src/brpch.cpp"
+
     files
     {
         "%{prj.name}/src/**.h",
@@ -26,6 +29,7 @@ project "Brigerad"
 
     includedirs
     {
+        "%{prj.name}/src",
         "%{prj.name}/vendor/spdlog/include"
     }
 

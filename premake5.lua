@@ -10,6 +10,12 @@ workspace "Brigerad"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+-- Include directories relative to root folder (solution folder)
+IncludeDir = {}
+IncludeDir["GLFW"] = "Brigerad/vendor/GLFW/include"
+
+include "Brigerad/vendor/GLFW"
+
 project "Brigerad"
     location "Brigerad"
     kind "SharedLib"
@@ -30,7 +36,14 @@ project "Brigerad"
     includedirs
     {
         "%{prj.name}/src",
-        "%{prj.name}/vendor/spdlog/include"
+        "%{prj.name}/vendor/spdlog/include",
+        "%{IncludeDir.GLFW}"
+    }
+
+    links
+    {
+        "GLFW",
+        "opengl32.lib"
     }
 
     filter "system:windows"
@@ -50,7 +63,11 @@ project "Brigerad"
         }
 
     filter "configurations:Debug"
-        defines "BR_DEBUG"
+        defines 
+        {
+            "BR_DEBUG",
+            "BR_ENABLE_ASSERTS"
+        }
         symbols "On"
         
     filter "configurations:Release"

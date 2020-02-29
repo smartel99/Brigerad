@@ -15,7 +15,7 @@ project "Brigerad"
     kind "SharedLib"
     language "C++"
 
-    targetdire ("bin/" .. outputdir .. "/%{prj.name}")
+    targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
     pchheader "brpch.h"

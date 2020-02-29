@@ -23,7 +23,12 @@ public:
     }
 
 private:
+    /* Suppress "'Brigerad::Log::s_CoreLogger' : class 'std::shared_ptr<spdlog::logger>'
+     * needs to have dll - interface to be used by clients of class 'Brigerad::Log'"
+     */
+    #pragma warning(suppress: 4251)
     static std::shared_ptr<spdlog::logger> s_CoreLogger;
+    #pragma warning(suppress: 4251)
     static std::shared_ptr<spdlog::logger> s_ClientLogger;
 };
 

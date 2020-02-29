@@ -13,6 +13,7 @@
 #include <map>
 #include <unordered_map>
 
+#include "Brigerad/Log.h"
 
 #ifdef BR_PLATFORM_WINDOWS
 #include <Windows.h>

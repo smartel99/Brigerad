@@ -1,7 +1,7 @@
 
-[submodule "Brigerad\\\\vendor\\\\spdlog"]
-	path = Brigerad\\\\vendor\\\\spdlog
+[submodule "Brigerad/vendor/spdlog"]
+	path = Brigerad/vendor/spdlog
 	url = https://github.com/gabime/spdlog
-[submodule "Brigerad\\\\vendor\\\\GLFW"]
-	path = Brigerad\\\\vendor\\\\GLFW
+[submodule "Brigerad/vendor/GLFW"]
+	path = Brigerad/vendor/GLFW
 	url = https://github.com/TheCherno/GLFW

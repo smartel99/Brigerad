@@ -47,6 +47,12 @@
       <Filter>Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\brpch.h" />
+    <ClInclude Include="src\Brigerad\Layer.h">
+      <Filter>Brigerad</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Brigerad\LayerStack.h">
+      <Filter>Brigerad</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Brigerad\Application.cpp">
@@ -59,5 +65,11 @@
       <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\brpch.cpp" />
+    <ClCompile Include="src\Brigerad\Layer.cpp">
+      <Filter>Brigerad</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Brigerad\LayerStack.cpp">
+      <Filter>Brigerad</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

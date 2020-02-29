@@ -1,9 +1,10 @@
-#pragma once
+﻿#pragma once
 
 
 // For use by Brigerad applications.
 
 #include "Brigerad/Application.h"
+#include "Brigerad/Layer.h"
 #include "Brigerad/Log.h"
 
 // --- Entry Point ---

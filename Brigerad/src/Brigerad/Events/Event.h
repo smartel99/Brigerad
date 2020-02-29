@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "brpch.h"
 #include "Brigerad/Core.h"
 
@@ -72,6 +72,11 @@ public:
     inline bool IsInCategory(EventCategory category)
     {
         return GetCategoryFlags() & category;
+    }
+
+    inline bool Handled()
+    {
+        return m_handled;
     }
 
 protected:

@@ -149,6 +149,14 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Brigerad\Layer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="src\Brigerad\LayerStack.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="src\Brigerad.h" />
     <ClInclude Include="src\Brigerad\Application.h" />
     <ClInclude Include="src\Brigerad\Core.h" />
@@ -163,6 +171,8 @@
     <ClInclude Include="src\brpch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Brigerad\Layer.cpp" />
+    <ClCompile Include="src\Brigerad\LayerStack.cpp" />
     <ClCompile Include="src\Brigerad\Application.cpp" />
     <ClCompile Include="src\Brigerad\Log.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />

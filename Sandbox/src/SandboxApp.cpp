@@ -1,9 +1,31 @@
-#include "Brigerad.h"
+﻿#include "Brigerad.h"
+
+class ExampleLayer : public Brigerad::Layer
+{
+public:
+    ExampleLayer()
+        : Layer("Example")
+    {
+    }
+
+    void OnUpdate() override
+    {
+        BR_INFO("ExampleLayer::Update");
+    }
+
+    void OnEvent(Brigerad::Event& event) override
+    {
+        BR_TRACE("{0}", event);
+    }
+};
 
 class Sandbox :public Brigerad::Application
 {
 public:
-    Sandbox() = default;
+    Sandbox()
+    {
+        PushLayer(new ExampleLayer());
+    }
 
     ~Sandbox() override = default;
 };

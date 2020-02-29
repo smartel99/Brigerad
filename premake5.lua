@@ -68,14 +68,17 @@ project "Brigerad"
             "BR_DEBUG",
             "BR_ENABLE_ASSERTS"
         }
+        buildoptions "/MDd"
         symbols "On"
         
     filter "configurations:Release"
         defines "BR_RELEASE"
+        buildoptions "/MD"
         optimize "On"
         
     filter "configurations:Dist"
         defines "BR_DIST"
+        buildoptions "/MD"
         optimize "On"
 
 
@@ -117,14 +120,17 @@ project "Sandbox"
     
         filter "configurations:Debug"
             defines "BR_DEBUG"
+            buildoptions "/MDd"
             symbols "On"
             
         filter "configurations:Release"
             defines "BR_RELEASE"
+            buildoptions "/MD"
             optimize "On"
             
         filter "configurations:Dist"
             defines "BR_DIST"
+            buildoptions "/MD"
             optimize "On"
     
 

@@ -67,6 +67,8 @@
     <ClInclude Include="src\brpch.h" />
     <ClInclude Include="src\Brigerad\Input.h" />
     <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
+    <ClInclude Include="src\Brigerad\KeyCodes.h" />
+    <ClInclude Include="src\Brigerad\MouseButtonCodes.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Brigerad\Application.cpp">

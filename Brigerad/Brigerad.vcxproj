@@ -162,9 +162,11 @@
     <ClInclude Include="src\Brigerad\Events\MouseEvent.h" />
     <ClInclude Include="src\Brigerad\ImGui\ImGuiLayer.h" />
     <ClInclude Include="src\Brigerad\Input.h" />
+    <ClInclude Include="src\Brigerad\KeyCodes.h" />
     <ClInclude Include="src\Brigerad\Layer.h" />
     <ClInclude Include="src\Brigerad\LayerStack.h" />
     <ClInclude Include="src\Brigerad\Log.h" />
+    <ClInclude Include="src\Brigerad\MouseButtonCodes.h" />
     <ClInclude Include="src\Brigerad\Window.h" />
     <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.h" />
     <ClInclude Include="src\Platform\Windows\WindowsInput.h" />

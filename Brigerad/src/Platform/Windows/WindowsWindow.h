@@ -3,6 +3,7 @@
 #include "Brigerad/Window.h"
 
 #include <GLFW/glfw3.h>
+// struct GLFWindow;
 
 namespace Brigerad
 {

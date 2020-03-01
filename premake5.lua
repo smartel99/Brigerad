@@ -13,8 +13,12 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 -- Include directories relative to root folder (solution folder)
 IncludeDir = {}
 IncludeDir["GLFW"] = "Brigerad/vendor/GLFW/include"
+IncludeDir["Glad"] = "Brigerad/vendor/Glad/include"
+IncludeDir["ImGui"] = "Brigerad/vendor/ImGui"
 
 include "Brigerad/vendor/GLFW"
+include "Brigerad/vendor/Glad"
+include "Brigerad/vendor/ImGui"
 
 project "Brigerad"
     location "Brigerad"
@@ -37,12 +41,16 @@ project "Brigerad"
     {
         "%{prj.name}/src",
         "%{prj.name}/vendor/spdlog/include",
-        "%{IncludeDir.GLFW}"
+        "%{IncludeDir.GLFW}",
+        "%{IncludeDir.Glad}",
+        "%{IncludeDir.ImGui}",
     }
 
     links
     {
         "GLFW",
+        "Glad",
+        "ImGui",
         "opengl32.lib"
     }
 
@@ -55,6 +63,7 @@ project "Brigerad"
         {
             "BR_PLATFORM_WINDOWS",
             "BR_BUILD_DLL",
+            "GLFW_INCLUDE_NONE"
         }
 
         postbuildcommands

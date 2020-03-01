@@ -13,12 +13,12 @@ public:
     {
     }
 
-    inline const unsigned int GetWindowWidth() const
+    inline const unsigned int GetWidth() const
     {
         return m_width;
     }
 
-    inline const unsigned int GetWindowHeight() const
+    inline const unsigned int GetHeight() const
     {
         return m_height;
     }

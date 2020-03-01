@@ -4,6 +4,8 @@
 
 #include <glad/glad.h>
 
+#include "Input.h"
+
 namespace Brigerad
 {
 #define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
@@ -37,6 +39,9 @@ void Application::Run()
         {
             layer->OnUpdate();
         }
+
+        auto [x, y] = Input::GetMousePos();
+        BR_CORE_TRACE("{0}, {1}", x, y);
 
         m_window->OnUpdate();
     }

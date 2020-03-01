@@ -30,6 +30,7 @@ enum class EventType
     // Keyboard Events.
     KeyPressed,
     KeyReleased,
+    KeyTyped,
     // Mouse Events.
     MouseButtonPressed,
     MouseButtonReleased,

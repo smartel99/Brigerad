@@ -2,14 +2,21 @@
 #include "Application.h"
 
 
-#include <GLFW/glfw3.h>
+#include <glad/glad.h>
+
+#include "Input.h"
 
 namespace Brigerad
 {
 #define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
 
+Application* Application::s_instance = nullptr;
+
 Application::Application()
 {
+    BR_CORE_ASSERT(!s_instance, "Application already exists!")
+        s_instance = this;
+
     m_window = std::unique_ptr<Window>(Window::Create());
     m_window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 }
@@ -32,6 +39,9 @@ void Application::Run()
         {
             layer->OnUpdate();
         }
+
+        auto [x, y] = Input::GetMousePos();
+        BR_CORE_TRACE("{0}, {1}", x, y);
 
         m_window->OnUpdate();
     }
@@ -57,11 +67,13 @@ void Application::OnEvent(Event& e)
 void Application::PushLayer(Layer* layer)
 {
     m_layerStack.PushLayer(layer);
+    layer->OnAttach();
 }
 
 void Application::PushOverlay(Layer* layer)
 {
     m_layerStack.PushOverlay(layer);
+    layer->OnAttach();
 }
 
 bool Application::OnWindowClose(WindowCloseEvent& e)

@@ -5,6 +5,8 @@
 #include "Brigerad/Events/MouseEvent.h"
 #include "Brigerad/Events/KeyEvents.h"
 
+#include <glad/glad.h>
+
 namespace Brigerad
 {
 
@@ -75,6 +77,11 @@ void WindowsWindow::Init(const WindowProps& props)
 
     m_window = glfwCreateWindow((int)props.width, (int)props.height, m_data.title.c_str(), nullptr, nullptr);
     glfwMakeContextCurrent(m_window);
+
+    // Glad init stuff.
+    int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+    BR_CORE_ASSERT(status, "Failed to initialize Glad!");
+
     glfwSetWindowUserPointer(m_window, &m_data);
     SetVSync(true);
 
@@ -128,6 +135,15 @@ void WindowsWindow::Init(const WindowProps& props)
                                }
                            }
                        });
+
+    glfwSetCharCallback(m_window,
+                        [](GLFWwindow* window, unsigned int keycode)
+                        {
+                            WindowData& data =
+                                *reinterpret_cast<WindowData*>(glfwGetWindowUserPointer(window));
+                            KeyTypedEvent event(keycode);
+                            data.eventCallback(event);
+                        });
 
     glfwSetMouseButtonCallback(m_window,
                                [](GLFWwindow* window, int button, int action, int mod)

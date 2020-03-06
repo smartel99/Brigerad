@@ -23,8 +23,10 @@ include "Brigerad/vendor/ImGui"
 
 project "Brigerad"
     location "Brigerad"
-    kind "SharedLib"
+    kind "StaticLib"
     language "C++"
+    cppdialect "C++17"
+    staticruntime "On"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -56,9 +58,12 @@ project "Brigerad"
         "opengl32.lib"
     }
 
+    defines
+    {
+        "_CRT_SECURE_NO_WARNINGS"
+    }
+
     filter "system:windows"
-        cppdialect "C++17"
-        staticruntime "On"
         systemversion "latest"
 
         defines
@@ -68,29 +73,24 @@ project "Brigerad"
             "GLFW_INCLUDE_NONE"
         }
 
-        postbuildcommands
-        {
-            ("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
-        }
-
     filter "configurations:Debug"
         defines 
         {
             "BR_DEBUG",
             "BR_ENABLE_ASSERTS"
         }
-        buildoptions "/MDd"
-        symbols "On"
+        runtime "Debug"
+        symbols "on"
         
     filter "configurations:Release"
         defines "BR_RELEASE"
-        buildoptions "/MD"
-        optimize "On"
+        runtime "Release"
+        optimize "on"
         
     filter "configurations:Dist"
         defines "BR_DIST"
-        buildoptions "/MD"
-        optimize "On"
+        runtime "Release"
+        optimize "on"
 
 
 project "Sandbox"
@@ -98,6 +98,8 @@ project "Sandbox"
         kind "ConsoleApp"
 
         language "C++"
+        cppdialect "C++17"
+        staticruntime "On"
 
         targetdir ("bin/" .. outputdir .. "/%{prj.name}")
         objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -122,8 +124,6 @@ project "Sandbox"
         }
 
         filter "system:windows"
-            cppdialect "C++17"
-            staticruntime "On"
             systemversion "latest"
     
             defines
@@ -133,17 +133,17 @@ project "Sandbox"
     
         filter "configurations:Debug"
             defines "BR_DEBUG"
-            buildoptions "/MDd"
+            runtime "Debug"
             symbols "On"
             
         filter "configurations:Release"
             defines "BR_RELEASE"
-            buildoptions "/MD"
+            runtime "Release"
             optimize "On"
             
         filter "configurations:Dist"
             defines "BR_DIST"
-            buildoptions "/MD"
+            runtime "Release"
             optimize "On"
     
 

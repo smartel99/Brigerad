@@ -111,6 +111,7 @@ project "Sandbox"
         includedirs
         {
             "Brigerad/vendor/spdlog/include",
+            "Brigerad/vendor",
             "Brigerad/src",
             "%{IncludeDir.glm}",
         }

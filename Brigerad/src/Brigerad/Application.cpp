@@ -19,6 +19,10 @@ Application::Application()
 
     m_window = std::unique_ptr<Window>(Window::Create());
     m_window->SetEventCallback(BIND_EVENT_FN(OnEvent));
+
+    m_imguiLayer = new ImGuiLayer();
+
+    PushOverlay(m_imguiLayer);
 }
 
 
@@ -40,8 +44,13 @@ void Application::Run()
             layer->OnUpdate();
         }
 
-        auto [x, y] = Input::GetMousePos();
-        BR_CORE_TRACE("{0}, {1}", x, y);
+        m_imguiLayer->Begin();
+
+        for (Layer* layer : m_layerStack)
+        {
+            layer->OnImGuiRender();
+        }
+        m_imguiLayer->End();
 
         m_window->OnUpdate();
     }

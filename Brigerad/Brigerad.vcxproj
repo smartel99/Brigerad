@@ -168,18 +168,17 @@
     <ClInclude Include="src\Brigerad\Log.h" />
     <ClInclude Include="src\Brigerad\MouseButtonCodes.h" />
     <ClInclude Include="src\Brigerad\Window.h" />
-    <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.h" />
     <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\brpch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Brigerad\Application.cpp" />
+    <ClCompile Include="src\Brigerad\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Brigerad\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Brigerad\Layer.cpp" />
     <ClCompile Include="src\Brigerad\LayerStack.cpp" />
     <ClCompile Include="src\Brigerad\Log.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\brpch.cpp">

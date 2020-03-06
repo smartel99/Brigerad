@@ -6,6 +6,8 @@
 
 #include "Brigerad/Window.h"
 
+#include "Brigerad/ImGui/ImGuiLayer.h"
+
 namespace Brigerad
 {
 class BRIGERAD_API Application
@@ -35,6 +37,8 @@ private:
     bool OnWindowClose(WindowCloseEvent& e);
 
     std::unique_ptr<Window> m_window;
+    ImGuiLayer* m_imguiLayer;
+
     bool m_running = true;
     LayerStack m_layerStack;
 

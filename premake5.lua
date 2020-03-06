@@ -15,6 +15,7 @@ IncludeDir = {}
 IncludeDir["GLFW"] = "Brigerad/vendor/GLFW/include"
 IncludeDir["Glad"] = "Brigerad/vendor/Glad/include"
 IncludeDir["ImGui"] = "Brigerad/vendor/ImGui"
+IncludeDir["glm"] = "Brigerad/vendor/glm"
 
 include "Brigerad/vendor/GLFW"
 include "Brigerad/vendor/Glad"
@@ -44,6 +45,7 @@ project "Brigerad"
         "%{IncludeDir.GLFW}",
         "%{IncludeDir.Glad}",
         "%{IncludeDir.ImGui}",
+        "%{IncludeDir.glm}",
     }
 
     links
@@ -109,7 +111,8 @@ project "Sandbox"
         includedirs
         {
             "Brigerad/vendor/spdlog/include",
-            "Brigerad/src"
+            "Brigerad/src",
+            "%{IncludeDir.glm}",
         }
     
         links

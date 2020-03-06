@@ -46,6 +46,12 @@
     <ClInclude Include="src\Brigerad\ImGui\ImGuiLayer.h">
       <Filter>Brigerad\ImGui</Filter>
     </ClInclude>
+    <ClInclude Include="src\Brigerad\Input.h">
+      <Filter>Brigerad</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Brigerad\KeyCodes.h">
+      <Filter>Brigerad</Filter>
+    </ClInclude>
     <ClInclude Include="src\Brigerad\Layer.h">
       <Filter>Brigerad</Filter>
     </ClInclude>
@@ -55,20 +61,22 @@
     <ClInclude Include="src\Brigerad\Log.h">
       <Filter>Brigerad</Filter>
     </ClInclude>
+    <ClInclude Include="src\Brigerad\MouseButtonCodes.h">
+      <Filter>Brigerad</Filter>
+    </ClInclude>
     <ClInclude Include="src\Brigerad\Window.h">
       <Filter>Brigerad</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.h">
       <Filter>Platform\OpenGL</Filter>
     </ClInclude>
+    <ClInclude Include="src\Platform\Windows\WindowsInput.h">
+      <Filter>Platform\Windows</Filter>
+    </ClInclude>
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h">
       <Filter>Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\brpch.h" />
-    <ClInclude Include="src\Brigerad\Input.h" />
-    <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
-    <ClInclude Include="src\Brigerad\KeyCodes.h" />
-    <ClInclude Include="src\Brigerad\MouseButtonCodes.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Brigerad\Application.cpp">
@@ -89,10 +97,12 @@
     <ClCompile Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.cpp">
       <Filter>Platform\OpenGL</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp">
+      <Filter>Platform\Windows</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
       <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\brpch.cpp" />
-    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
   </ItemGroup>
 </Project>

@@ -1,5 +1,6 @@
 ﻿#include "Brigerad.h"
 
+
 class ExampleLayer : public Brigerad::Layer
 {
 public:

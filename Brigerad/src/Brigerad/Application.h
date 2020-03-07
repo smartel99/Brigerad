@@ -8,6 +8,8 @@
 
 #include "Brigerad/ImGui/ImGuiLayer.h"
 
+#include "Renderer/Shader.h"
+
 namespace Brigerad
 {
 class BRIGERAD_API Application
@@ -41,6 +43,9 @@ private:
 
     bool m_running = true;
     LayerStack m_layerStack;
+
+    unsigned int m_vertexArray, m_vertexBuffer, m_indexBuffer;
+    std::unique_ptr<Shader> m_shader;
 
 private:
     static Application* s_instance;

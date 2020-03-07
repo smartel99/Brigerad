@@ -155,7 +155,9 @@
     <ClInclude Include="src\Brigerad\LayerStack.h" />
     <ClInclude Include="src\Brigerad\Log.h" />
     <ClInclude Include="src\Brigerad\MouseButtonCodes.h" />
+    <ClInclude Include="src\Brigerad\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\Brigerad\Window.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\brpch.h" />
@@ -167,6 +169,7 @@
     <ClCompile Include="src\Brigerad\Layer.cpp" />
     <ClCompile Include="src\Brigerad\LayerStack.cpp" />
     <ClCompile Include="src\Brigerad\Log.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\brpch.cpp">

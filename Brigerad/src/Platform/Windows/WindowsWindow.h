@@ -1,8 +1,11 @@
 #pragma once
 
 #include "Brigerad/Window.h"
+#include "Brigerad/Renderer/GraphicsContext.h"
 
 #include <GLFW/glfw3.h>
+
+
 // struct GLFWindow;
 
 namespace Brigerad
@@ -44,6 +47,8 @@ private:
 
 private:
     GLFWwindow* m_window;
+
+    GraphicsContext* m_context;
 
     struct WindowData
     {

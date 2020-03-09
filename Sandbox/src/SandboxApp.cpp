@@ -1,5 +1,8 @@
 ﻿#include "Brigerad.h"
 
+
+#include "imgui/imgui.h"
+
 class ExampleLayer : public Brigerad::Layer
 {
 public:
@@ -16,6 +19,13 @@ public:
         }
     }
 
+    virtual void OnImGuiRender() override
+    {
+        ImGui::Begin("Test");
+        ImGui::TextUnformatted("Hello, World!");
+        ImGui::End();
+    }
+
     void OnEvent(Brigerad::Event& event) override
     {
 //         BR_TRACE("{0}", event);
@@ -28,7 +38,6 @@ public:
     Sandbox()
     {
         PushLayer(new ExampleLayer());
-        PushOverlay(new Brigerad::ImGuiLayer());
     }
 
     ~Sandbox() override = default;

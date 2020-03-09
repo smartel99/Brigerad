@@ -5,7 +5,8 @@
 #include "Brigerad/Events/MouseEvent.h"
 #include "Brigerad/Events/KeyEvents.h"
 
-#include <glad/glad.h>
+#include "Platform/OpenGL/OpenGLContext.h"
+
 
 namespace Brigerad
 {
@@ -34,7 +35,7 @@ WindowsWindow::~WindowsWindow()
 void WindowsWindow::OnUpdate()
 {
     glfwPollEvents();
-    glfwSwapBuffers(m_window);
+    m_context->SwapBuffers();
 }
 
 
@@ -66,6 +67,7 @@ void WindowsWindow::Init(const WindowProps& props)
 
     BR_CORE_INFO("Creating window {0} ({1}, {2})", props.title, props.width, props.height);
 
+
     if (!s_GLFWInitialized)
     {
         // TODO: glfwTerminate on system shutdown.
@@ -76,11 +78,11 @@ void WindowsWindow::Init(const WindowProps& props)
     }
 
     m_window = glfwCreateWindow((int)props.width, (int)props.height, m_data.title.c_str(), nullptr, nullptr);
-    glfwMakeContextCurrent(m_window);
 
-    // Glad init stuff.
-    int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-    BR_CORE_ASSERT(status, "Failed to initialize Glad!");
+    m_context = new OpenGLContext(m_window);
+    m_context->Init();
+    // ^
+
 
     glfwSetWindowUserPointer(m_window, &m_data);
     SetVSync(true);

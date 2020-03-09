@@ -49,6 +49,10 @@ public:
     {
     }
 
+    virtual void OnImGuiRender()
+    {
+    }
+
     virtual void OnEvent(Event& event)
     {
     }

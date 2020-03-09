@@ -10,8 +10,14 @@
     <Filter Include="Brigerad\ImGui">
       <UniqueIdentifier>{EFB8B4E8-DB86-A8EE-C41A-1915B0878453}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Brigerad\Renderer">
+      <UniqueIdentifier>{4BADE041-B7C3-DED7-003B-6AF96C90AF5F}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Platform">
       <UniqueIdentifier>{2AC788B4-1694-E3BF-3FAD-D1672BD9184E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\OpenGL">
+      <UniqueIdentifier>{1E7D2C1D-8A08-9AE1-9319-1DD6FF23F6E1}</UniqueIdentifier>
     </Filter>
     <Filter Include="Platform\Windows">
       <UniqueIdentifier>{64FBD71A-50F4-F66C-7926-DCF1657ED678}</UniqueIdentifier>
@@ -61,8 +67,32 @@
     <ClInclude Include="src\Brigerad\MouseButtonCodes.h">
       <Filter>Brigerad</Filter>
     </ClInclude>
+    <ClInclude Include="src\Brigerad\Renderer\Buffer.h">
+      <Filter>Brigerad\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Brigerad\Renderer\GraphicsContext.h">
+      <Filter>Brigerad\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Brigerad\Renderer\Renderer.h">
+      <Filter>Brigerad\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Brigerad\Renderer\Shader.h">
+      <Filter>Brigerad\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Brigerad\Renderer\Texture.h">
+      <Filter>Brigerad\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Brigerad\Window.h">
       <Filter>Brigerad</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h">
+      <Filter>Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h">
+      <Filter>Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLShader.h">
+      <Filter>Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\Windows\WindowsInput.h">
       <Filter>Platform\Windows</Filter>
@@ -71,14 +101,6 @@
       <Filter>Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\brpch.h" />
-    <ClInclude Include="src\Brigerad\Renderer\GraphicsContext.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
-    <ClInclude Include="src\Brigerad\Renderer\Shader.h" />
-    <ClInclude Include="src\Brigerad\Renderer\Buffer.h" />
-    <ClInclude Include="src\Brigerad\Renderer\Texture.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
-    <ClInclude Include="src\Brigerad\Renderer\Renderer.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLShader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Brigerad\Application.cpp">
@@ -99,6 +121,24 @@
     <ClCompile Include="src\Brigerad\Log.cpp">
       <Filter>Brigerad</Filter>
     </ClCompile>
+    <ClCompile Include="src\Brigerad\Renderer\Buffer.cpp">
+      <Filter>Brigerad\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Brigerad\Renderer\Renderer.cpp">
+      <Filter>Brigerad\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Brigerad\Renderer\Shader.cpp">
+      <Filter>Brigerad\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
+      <Filter>Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp">
+      <Filter>Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp">
+      <Filter>Platform\OpenGL</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp">
       <Filter>Platform\Windows</Filter>
     </ClCompile>
@@ -106,11 +146,5 @@
       <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\brpch.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
-    <ClCompile Include="src\Brigerad\Renderer\Shader.cpp" />
-    <ClCompile Include="src\Brigerad\Renderer\Buffer.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
-    <ClCompile Include="src\Brigerad\Renderer\Renderer.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp" />
   </ItemGroup>
 </Project>

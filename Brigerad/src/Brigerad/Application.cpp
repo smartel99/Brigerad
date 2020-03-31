@@ -66,14 +66,14 @@ Application::Application()
     float vertices[3 * 7] = {
         // X,     Y,    Z,    R,    G,    B,    A
         -0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
-         0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f,
-         0.0f,  0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f,
+         0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
+         0.0f,  0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f,
     };
 
     m_vertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
     BufferLayout layout = {
         { ShaderDataType::Float3, "a_position" },
-        { ShaderDataType::Float4, "a_color" },
+        { ShaderDataType::Float4, "a_Color" },
     };
 
     m_vertexBuffer->SetLayout(layout);
@@ -81,7 +81,7 @@ Application::Application()
     uint32_t index = 0;
     for (const auto& element : m_vertexBuffer->GetLayout())
     {
-        glEnableVertexAttribArray(0);
+        glEnableVertexAttribArray(index);
         glVertexAttribPointer(index,
                               element.GetComponentCount(),
                               ShaderDataTypeToOpenGLBaseType(element.type),
@@ -124,7 +124,7 @@ Application::Application()
 
         void main()
         {
-            color = vec4(v_Position * 0.5 + 0.5, 1.0);
+            //color = vec4(v_Position * 0.5 + 0.5, 1.0);
             color = v_Color;
         }
     )";
@@ -172,7 +172,7 @@ void Application::OnEvent(Event& e)
     EventDispatcher dispatcher(e);
     dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
 
-    BR_CORE_TRACE("{0}", e);
+//     BR_CORE_TRACE("{0}", e);
 
     for (auto it = m_layerStack.end(); it != m_layerStack.begin();)
     {

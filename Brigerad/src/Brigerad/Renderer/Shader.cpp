@@ -20,10 +20,10 @@ Shader* Shader::Create(const std::string& vertexSrc, const std::string& fragment
 {
     switch (Renderer::GetAPI())
     {
-        case RendererAPI::None:
+        case RendererAPI::API::None:
             BR_CORE_ASSERT(false, "RendererAPI::None is not a valid rendering API!");
             return nullptr;
-        case RendererAPI::OpenGL:
+        case RendererAPI::API::OpenGL:
             return new OpenGLShader(vertexSrc, fragmentSrc);
         default:
             BR_CORE_ASSERT(false, "Invalid rendering API!");

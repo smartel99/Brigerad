@@ -10,6 +10,9 @@
 
 #include "Renderer/Shader.h"
 #include "Renderer/Buffer.h"
+#include "Renderer/VertexArray.h"
+#include "Brigerad/Renderer/Renderer.h"
+#include "Brigerad/Renderer/OrthographicCamera.h"
 
 namespace Brigerad
 {
@@ -45,10 +48,11 @@ private:
     bool m_running = true;
     LayerStack m_layerStack;
 
-    unsigned int m_vertexArray;
-    std::unique_ptr<Shader> m_shader;
-    std::unique_ptr<VertexBuffer> m_vertexBuffer;
-    std::unique_ptr<IndexBuffer> m_indexBuffer;
+    std::shared_ptr<Shader> m_shader;
+    std::shared_ptr<VertexArray> m_vertexArray;
+
+    std::shared_ptr<Shader> m_redShader;
+    std::shared_ptr<VertexArray> m_squareVA;
 
 private:
     static Application* s_instance;

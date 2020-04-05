@@ -8,6 +8,8 @@
 
 #include "Brigerad/ImGui/ImGuiLayer.h"
 
+#include "Brigerad/Core/Timestep.h"
+
 #include "Renderer/Shader.h"
 #include "Renderer/Buffer.h"
 #include "Renderer/VertexArray.h"
@@ -42,17 +44,14 @@ public:
 private:
     bool OnWindowClose(WindowCloseEvent& e);
 
+private:
     std::unique_ptr<Window> m_window;
     ImGuiLayer* m_imguiLayer;
 
     bool m_running = true;
     LayerStack m_layerStack;
 
-    std::shared_ptr<Shader> m_shader;
-    std::shared_ptr<VertexArray> m_vertexArray;
-
-    std::shared_ptr<Shader> m_redShader;
-    std::shared_ptr<VertexArray> m_squareVA;
+    float m_lastFrameTime = 0.0f;
 
 private:
     static Application* s_instance;

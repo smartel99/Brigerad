@@ -3,7 +3,7 @@
  * @addtogroup Layer
  * @{
  * @file    Layer
- * @author  Client Microdata
+ * @author  Samuel Martel
  * @brief   Header for the Layer module.
  *
  * @date 2/29/2020 12:45:33 PM
@@ -17,6 +17,7 @@
 /* Includes */
 #include "Brigerad/Core.h"
 #include "Brigerad/Events/Event.h"
+#include "Brigerad/Core/Timestep.h"
 
 
 namespace Brigerad
@@ -45,7 +46,7 @@ public:
     {
     }
 
-    virtual void OnUpdate()
+    virtual void OnUpdate(Timestep timestep)
     {
     }
 

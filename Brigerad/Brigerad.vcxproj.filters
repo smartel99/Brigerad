@@ -85,6 +85,9 @@
     <ClInclude Include="src\Brigerad\Renderer\RenderCommand.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
     <ClInclude Include="src\Brigerad\Renderer\OrthographicCamera.h" />
+    <ClInclude Include="src\Brigerad\Core\Timestep.h" />
+    <ClInclude Include="src\Brigerad\Core\Time.h" />
+    <ClInclude Include="src\Platform\Windows\WindowsTime.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Brigerad\Application.cpp">

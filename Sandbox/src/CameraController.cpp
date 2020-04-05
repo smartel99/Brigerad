@@ -9,16 +9,22 @@
 #include "CameraController.h"
 
 #define BIND_EVENT_FN(x) std::bind(&CameraController::x, this, std::placeholders::_1)
+constexpr float MOVE_SPEED = 2.0f;
+constexpr float ROTATION_SPEED = 180.0f;
+
 
 CameraController::CameraController(float left, float right, float bottom, float top) :
     Brigerad::OrthographicCamera(left, right, bottom, top)
 {
 }
 
-void CameraController::OnUpdate()
+void CameraController::OnUpdate(Brigerad::Timestep ts)
 {
-    HandleKeys();
-    glm::vec3 newPos = GetPosition() + m_acceleration;
+    HandleKeys(ts);
+    glm::vec3 acc = glm::vec3(m_acceleration.x * ts,
+                              m_acceleration.y * ts,
+                              m_acceleration.z * ts);
+    glm::vec3 newPos = GetPosition() + acc;
     SetPosition(newPos);
 }
 
@@ -32,8 +38,11 @@ void CameraController::HandleEvent(Brigerad::Event& event)
 
 bool CameraController::HandleKeyPressedEvent(Brigerad::KeyPressedEvent& keyEvent)
 {
-    int key = keyEvent.GetKeyCode();
-    AddKeyToList(key);
+    if (keyEvent.GetRepeatCount() == 0)
+    {
+        int key = keyEvent.GetKeyCode();
+        AddKeyToList(key);
+    }
 
     return false;
 }
@@ -59,26 +68,28 @@ bool CameraController::HandleKeyReleasedEvent(Brigerad::KeyReleasedEvent& keyEve
 }
 
 
-void CameraController::HandleKeys()
+void CameraController::HandleKeys(Brigerad::Timestep ts)
 {
     for (int key : m_keys)
     {
+        float ds = (MOVE_SPEED * ts);
+        float dr = (ROTATION_SPEED * ts);
         // Down.
         if (key == BR_KEY_S)
         {
             // If not at max acceleration:
-            if (m_acceleration.y <= 0.10f)
+            if (m_acceleration.y <= 2.0f)
             {
-                m_acceleration.y += 0.005f;
+                m_acceleration.y += ds;
             }
         }
         // Up.
         if (key == BR_KEY_W)
         {
             // If not at max acceleration:
-            if (m_acceleration.y >= -0.10f)
+            if (m_acceleration.y >= -2.0f)
             {
-                m_acceleration.y -= 0.005f;
+                m_acceleration.y -= ds;
             }
         }
 
@@ -86,18 +97,18 @@ void CameraController::HandleKeys()
         if (key == BR_KEY_D)
         {
             // If not at max acceleration:
-            if (m_acceleration.x >= -0.10f)
+            if (m_acceleration.x >= -2.0f)
             {
-                m_acceleration.x -= 0.005f;
+                m_acceleration.x -= ds;
             }
         }
         // Left.
         if (key == BR_KEY_A)
         {
             // If not at max acceleration:
-            if (m_acceleration.x <= 0.10f)
+            if (m_acceleration.x <= 2.0f)
             {
-                m_acceleration.x += 0.005f;
+                m_acceleration.x += ds;
             }
         }
 
@@ -105,13 +116,15 @@ void CameraController::HandleKeys()
         if (key == BR_KEY_Q)
         {
             // Tilt CCW by 5 degrees.
-            SetRotation((GetRotation() + 5) >= 360 ? 0 : GetRotation() + 5);
+            SetRotation((GetRotation() + dr) >= 360 ?
+                        0 : GetRotation() + dr);
         }
         // Tilt CW.
         if (key == BR_KEY_E)
         {
             // Tilt CW by 5 degrees.
-            SetRotation((GetRotation() - 5) <= 0 ? 360 : GetRotation() - 5);
+            SetRotation((GetRotation() - dr) <= 0 ?
+                        360 : GetRotation() - dr);
         }
     }
 }

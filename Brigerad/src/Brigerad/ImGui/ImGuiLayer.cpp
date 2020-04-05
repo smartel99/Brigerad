@@ -74,8 +74,17 @@ void ImGuiLayer::OnDetach()
 
 void ImGuiLayer::OnImGuiRender()
 {
-    static bool show = true;
-    ImGui::ShowDemoWindow(&show);
+    auto& window = Application::Get().GetWindow();
+    bool isVSync = window.IsVSync();
+    ImGui::Begin("Settings");
+
+    if (ImGui::Checkbox("vsync", &isVSync))
+    {
+        window.SetVSync(isVSync);
+        BR_INFO("Set VSync to {0}", isVSync);
+    }
+
+    ImGui::End();
 }
 
 void ImGuiLayer::Begin()

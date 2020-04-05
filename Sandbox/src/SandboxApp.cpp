@@ -1,5 +1,5 @@
 ﻿#include "Brigerad.h"
-
+#include "Brigerad/Core/Timestep.h"
 #include "CameraController.h"
 
 #include "imgui/imgui.h"
@@ -134,12 +134,13 @@ public:
         m_redShader.reset(Brigerad::Shader::Create(redVertexSrc, redFragmentSrc));
     }
 
-    void OnUpdate() override
+    void OnUpdate(Brigerad::Timestep ts) override
     {
+//         BR_TRACE("Delta time: {0}s [{1}ms]", ts.GetSeconds(), ts.GetMilliseconds());
         Brigerad::RenderCommand::SetClearColor({ 0.2f, 0.2f, 0.2f, 1.0f });
         Brigerad::RenderCommand::Clear();
 
-        m_camera.OnUpdate();
+        m_camera.OnUpdate(ts);
 
         Brigerad::Renderer::BeginScene(m_camera);
 
@@ -152,6 +153,18 @@ public:
 
     virtual void OnImGuiRender() override
     {
+        ImGui::Begin("Camera");
+        {
+            auto pos = m_camera.GetPosition();
+            auto vel = m_camera.GetMovement();
+            float rot = m_camera.GetRotation();
+
+            ImGui::Text("Position: x=%0.3f y=%0.3f z=%0.3f", pos.x, pos.y, pos.z);
+            ImGui::Text("Velocity: x=%0.3f y=%0.3f z=%0.3f", vel.x, vel.y, vel.z);
+            ImGui::Text("Rotation: %0.0f deg", rot);
+
+            ImGui::End();
+        }
     }
 
     void OnEvent(Brigerad::Event& event) override

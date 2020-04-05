@@ -143,6 +143,8 @@
     <ClInclude Include="src\Brigerad.h" />
     <ClInclude Include="src\Brigerad\Application.h" />
     <ClInclude Include="src\Brigerad\Core.h" />
+    <ClInclude Include="src\Brigerad\Core\Time.h" />
+    <ClInclude Include="src\Brigerad\Core\Timestep.h" />
     <ClInclude Include="src\Brigerad\EntryPoint.h" />
     <ClInclude Include="src\Brigerad\Events\ApplicationEvent.h" />
     <ClInclude Include="src\Brigerad\Events\Event.h" />
@@ -171,6 +173,7 @@
     <ClInclude Include="src\Platform\OpenGL\OpenGLShader.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLVertexArray.h" />
     <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
+    <ClInclude Include="src\Platform\Windows\WindowsTime.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\brpch.h" />
   </ItemGroup>

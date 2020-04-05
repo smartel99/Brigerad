@@ -2,17 +2,17 @@
 
 
 #if BR_PLATFORM_WINDOWS
-#if BR_DYNAMIC_LINK
-#if BR_BUILD_DLL
-#define BRIGERAD_API __declspec(dllexport)
+#if     BR_DYNAMIC_LINK
+#if         BR_BUILD_DLL
+#define         BRIGERAD_API __declspec(dllexport)
 #else
-#define BRIGERAD_API __declspec(dllimport)
-#endif  // BR_BUILD_DLL
+#define         BRIGERAD_API __declspec(dllimport)
+#endif      // BR_BUILD_DLL
 #else
-#define BRIGERAD_API
+#define     BRIGERAD_API
 #endif  // BR_DYNAMIC_LINK
 #else
-#error Brigerad only support Windows
+#error  Brigerad only support Windows
 #endif  // BR_PLATFROM_WINDOWS
 
 #ifdef BR_ENABLE_ASSERTS

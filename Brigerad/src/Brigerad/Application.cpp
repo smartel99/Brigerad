@@ -3,6 +3,7 @@
 
 #include "Input.h"
 #include "Core/Time.h"
+#include "KeyCodes.h"
 
 
 namespace Brigerad
@@ -34,7 +35,6 @@ Application::~Application()
 
 void Application::Run()
 {
-    m_window->SetVSync(false);
     while (m_running)
     {
         float time = float(GetTime());
@@ -62,6 +62,7 @@ void Application::OnEvent(Event& e)
 {
     EventDispatcher dispatcher(e);
     dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
+    dispatcher.Dispatch<KeyPressedEvent>(BIND_EVENT_FN(OnKeyPressed));
 
     for (auto it = m_layerStack.end(); it != m_layerStack.begin();)
     {
@@ -89,6 +90,19 @@ bool Application::OnWindowClose(WindowCloseEvent& e)
 {
     m_running = false;
     return true;
+}
+
+bool Application::OnKeyPressed(KeyPressedEvent& e)
+{
+    if (e.GetKeyCode() == BR_KEY_ESCAPE && e.GetRepeatCount() == 0)
+    {
+        m_imguiLayer->ToggleIsVisible();
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 

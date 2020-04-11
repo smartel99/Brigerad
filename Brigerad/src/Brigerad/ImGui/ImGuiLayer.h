@@ -19,8 +19,17 @@ public:
 
     void Begin();
     void End();
+    inline void SetIsVisible(bool isVisible)
+    {
+        m_open = isVisible;
+    }
+    inline void ToggleIsVisible()
+    {
+        m_open = !m_open;
+    }
+
 private:
     float m_time = 0.0f;
-
+    bool m_open = false;
 };
 }

@@ -21,7 +21,7 @@ OrthographicCamera::OrthographicCamera(float left, float right, float bottom, fl
 }
 
 
-void OrthographicCamera::RecalculateVeiwMatrix()
+void OrthographicCamera::RecalculateViewMatrix()
 {
     glm::mat4 transform = glm::translate(glm::mat4(1.0f), m_position) *
         glm::rotate(glm::mat4(1.0f), glm::radians(m_rotation), glm::vec3(0, 0, 1));

@@ -132,7 +132,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\CameraController.cpp" />
+    <ClCompile Include="src\Controller.cpp" />
     <ClCompile Include="src\SandboxApp.cpp" />
+    <ClCompile Include="src\Shape.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Brigerad\Brigerad.vcxproj">
@@ -141,6 +143,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\CameraController.h" />
+    <ClInclude Include="src\Controller.h" />
+    <ClInclude Include="src\Shape.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

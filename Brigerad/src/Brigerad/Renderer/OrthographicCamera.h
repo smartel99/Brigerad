@@ -17,17 +17,17 @@ public:
     void SetPosition(const glm::vec3& position)
     {
         m_position = position;
-        RecalculateVeiwMatrix();
+        RecalculateViewMatrix();
     }
 
-    void SetRotation(float rotation)
-    {
-        m_rotation = rotation;
-        RecalculateVeiwMatrix();
-    }
     float GetRotation() const
     {
         return m_rotation;
+    }
+    void SetRotation(float rotation)
+    {
+        m_rotation = rotation;
+        RecalculateViewMatrix();
     }
 
     const glm::mat4& GetProjectionMatrix() const
@@ -43,7 +43,7 @@ public:
         return m_vpMatrix;
     }
 private:
-    void RecalculateVeiwMatrix();
+    void RecalculateViewMatrix();
 private:
     glm::mat4 m_projectionMatrix;
     glm::mat4 m_viewMatrix;

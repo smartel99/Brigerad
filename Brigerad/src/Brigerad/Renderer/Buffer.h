@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Brigerad/Core.h"
+
+#include <vector>
 
 namespace Brigerad
 {
@@ -178,6 +181,7 @@ public:
 
     virtual void SetLayout(const BufferLayout& layout) = 0;
     virtual const BufferLayout& GetLayout() = 0;
+    virtual const uint32_t GetId() const = 0;
 
     static VertexBuffer* Create(float* vertices, uint32_t size);
 
@@ -195,6 +199,8 @@ public:
     virtual void Unbind() const = 0;
 
     virtual uint32_t GetCount() const = 0;
+    virtual const uint32_t GetId() const = 0;
+
 
     static IndexBuffer* Create(uint32_t* indices, uint32_t count);
 

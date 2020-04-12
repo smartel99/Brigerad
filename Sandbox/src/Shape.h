@@ -24,7 +24,7 @@ public:
     void Submit();
     virtual void OnUpdate(Brigerad::Timestep ts) override;
 
-    const std::shared_ptr<Brigerad::Shader> GetShader() const
+    const Brigerad::Ref<Brigerad::Shader> GetShader() const
     {
         return m_shader;
     }
@@ -48,6 +48,16 @@ public:
     const glm::vec3& GetScale() const
     {
         return m_scaleVec;
+    }
+    void SetScale(const glm::vec3& scale)
+    {
+        m_scaleVec = scale;
+        RecalculateScale();
+    }
+    void SetScale(float scale)
+    {
+        m_scaleVec = glm::vec3(scale);
+        RecalculateScale();
     }
 
     const glm::vec3& GetColor() const
@@ -78,8 +88,8 @@ public:
                          const std::string& debugName = "Default");
 
 private:
-    std::shared_ptr<Brigerad::Shader> m_shader;
-    std::shared_ptr<Brigerad::VertexArray> m_vertexArray;
+    Brigerad::Ref<Brigerad::Shader> m_shader;
+    Brigerad::Ref<Brigerad::VertexArray> m_vertexArray;
     glm::mat4 m_transform;
     glm::mat4 m_scale;
     glm::mat4 m_ts;

@@ -18,8 +18,10 @@ Application::Application()
     BR_CORE_ASSERT(!s_instance, "Application already exists!")
         s_instance = this;
 
-    m_window = std::unique_ptr<Window>(Window::Create());
+    m_window = Scope<Window>(Window::Create());
     m_window->SetEventCallback(BIND_EVENT_FN(OnEvent));
+
+    Renderer::Init();
 
     m_imguiLayer = new ImGuiLayer();
 

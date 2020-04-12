@@ -46,7 +46,7 @@ private:
     bool OnKeyPressed(KeyPressedEvent& e);
 
 private:
-    std::unique_ptr<Window> m_window;
+    Scope<Window> m_window;
     ImGuiLayer* m_imguiLayer;
 
     bool m_running = true;

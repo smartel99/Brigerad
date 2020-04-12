@@ -73,16 +73,17 @@ public:
                                   indices, sizeof_array(indices),
                                   layout, vertexSrc, fragmentSrc, "Triangle"));
 
-        float squareVertices[3 * 4] = {
-            // X,     Y,    Z, 
-            -0.5f, -0.5f, 0.0f,
-             0.5f, -0.5f, 0.0f,
-             0.5f,  0.5f, 0.0f,
-            -0.5f,  0.5f, 0.0f,
+        float squareVertices[5 * 4] = {
+            // X,     Y,    Z,    Tx,   Ty
+            -0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
+             0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+             0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
+            -0.5f,  0.5f, 0.0f, 0.0f, 1.0f,
         };
 
         Brigerad::BufferLayout squareLayout = {
             { Brigerad::ShaderDataType::Float3, "a_position" },
+            { Brigerad::ShaderDataType::Float2, "a_TextCoord" },
         };
 
         uint32_t squareIndices[6] = {
@@ -123,6 +124,53 @@ public:
         m_square.reset(Shape::Create(squareVertices, sizeof(squareVertices),
                                      squareIndices, sizeof_array(squareIndices),
                                      squareLayout, flatColorVertexSrc, flatColorFragmentSrc, "Square"));
+
+        std::string textVertexSrc = R"(
+        #version 330 core
+        
+        layout(location = 0) in vec3 a_Position;
+        layout(location = 1) in vec2 a_TextCoord;
+
+        uniform mat4 u_vp;
+        uniform mat4 u_transform;
+
+        out vec2 v_TextCoord;
+
+        void main()
+        {
+            v_TextCoord = a_TextCoord;
+            // Set the position depending on the model and the camera.
+            gl_Position = u_vp * u_transform * vec4(a_Position, 1.0);
+        }
+        )";
+
+        std::string textFragmentSrc = R"(
+        #version 330 core
+        
+        layout(location = 0) out vec4 color;
+
+        in vec2 v_TextCoord;
+
+        uniform sampler2D u_Texture;
+
+        void main()
+        {
+            color = texture(u_Texture, v_TextCoord);
+            //color = vec4(v_TextCoord, 0.0 , 1.0);
+        }
+        )";
+
+
+        m_text.reset(Shape::Create(squareVertices, sizeof(squareVertices),
+                                   squareIndices, sizeof_array(squareIndices),
+                                   squareLayout, textVertexSrc, textFragmentSrc, "Texture"));
+        m_text->SetScale(15.f);
+
+        m_texture = Brigerad::Texture2D::Create("assets/textures/checkboard.png");
+        m_rald = Brigerad::Texture2D::Create("assets/textures/rald.png");
+
+        std::dynamic_pointer_cast<Brigerad::OpenGLShader>(m_text->GetShader())->Bind();
+        std::dynamic_pointer_cast<Brigerad::OpenGLShader>(m_text->GetShader())->UploadUniformInt("u_Texture", 0);
     }
 
     void OnUpdate(Brigerad::Timestep ts) override
@@ -154,7 +202,13 @@ public:
         }
         m_square->SetPosition(origin);
 
-        m_tri->Submit();
+        m_texture->Bind(0);
+        m_text->Submit();
+
+        m_rald->Bind(0);
+        m_text->Submit();
+
+//         m_tri->Submit();
 
 
         Brigerad::Renderer::EndScene();
@@ -234,9 +288,12 @@ public:
     }
 
 private:
-    std::shared_ptr<Shape> m_square;
-    std::shared_ptr<Shape> m_tri;
+    Brigerad::Ref<Shape> m_square;
+    Brigerad::Ref<Shape> m_text;
+    Brigerad::Ref<Shape> m_tri;
 
+    Brigerad::Ref<Brigerad::Texture2D> m_texture;
+    Brigerad::Ref<Brigerad::Texture2D> m_rald;
     CameraController m_camera;
     int m_activeController = 0;
 };

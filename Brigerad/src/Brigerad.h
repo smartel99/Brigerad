@@ -17,6 +17,7 @@
 #include "Brigerad/Renderer/Renderer.h"
 #include "Brigerad/Renderer/RenderCommand.h"
 #include "Brigerad/Renderer/Shader.h"
+#include "Brigerad/Renderer/Texture.h"
 #include "Brigerad/Renderer/Buffer.h"
 #include "Brigerad/Renderer/VertexArray.h"
 #include "Brigerad/Renderer/Renderer.h"

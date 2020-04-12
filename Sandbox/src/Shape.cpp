@@ -20,18 +20,24 @@ Shape::Shape(float* vecs, size_t vecCnt,
              const std::string& vertexShader,
              const std::string& fragmentShader,
              const std::string& debugName)
-    : Controller(), m_name(debugName), m_transform(1.0f), m_scale(1.0f), m_scaleVec(1.0f), m_ts(1.0f)
+    : Controller(),
+    m_name(debugName),
+    m_transform(1.0f),
+    m_scale(1.0f),
+    m_scaleVec(1.0f),
+    m_ts(1.0f),
+    m_color(0.0f)
 {
     m_vertexArray.reset(Brigerad::VertexArray::Create());
 
-    std::shared_ptr<Brigerad::VertexBuffer> vertexBuffer;
+    Brigerad::Ref<Brigerad::VertexBuffer> vertexBuffer;
     vertexBuffer.reset(Brigerad::VertexBuffer::Create(vecs, vecCnt));
 
     vertexBuffer->SetLayout(layout);
 
     m_vertexArray->AddVertexBuffer(vertexBuffer);
 
-    std::shared_ptr<Brigerad::IndexBuffer> indexBuffer;
+    Brigerad::Ref<Brigerad::IndexBuffer> indexBuffer;
     indexBuffer.reset(Brigerad::IndexBuffer::Create(indices, indicesCnt));
     m_vertexArray->SetIndexBuffer(indexBuffer);
 

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 
 #if BR_PLATFORM_WINDOWS
 #if     BR_DYNAMIC_LINK
@@ -29,3 +31,14 @@
 
 
 #define BR_BIND_EVENT_FN(fn) std::bind(&fn, this, std::placeholders::_1)
+
+
+namespace Brigerad
+{
+
+template<typename T>
+using Scope = std::unique_ptr<T>;
+
+template<typename T>
+using Ref = std::shared_ptr<T>;
+}

@@ -64,9 +64,9 @@ Application::Application()
 
 
     float vertices[3 * 7] = {
-        -0.5f, -0.5f, 0.0f, 1.0f,0.0f,1.0f,1.0f,
-         0.5f, -0.5f, 0.0f, 0.0f,1.0f,1.0f,1.0f,
-         0.0f,  0.5f, 0.0f, 1.0f,1.0f,0.0f,1.0f,
+        -0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+         0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
+         0.0f,  0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f,
     };
 
     m_vertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
@@ -81,6 +81,7 @@ Application::Application()
     for (const auto& element : m_vertexBuffer->GetLayout())
     {
         glEnableVertexAttribArray(0);
+        glEnableVertexAttribArray(1);
         glVertexAttribPointer(index,
                               element.GetComponentCount(),
                               ShaderDataTypeToOpenGLBaseType(element.type),
@@ -118,12 +119,12 @@ Application::Application()
         
         layout(location = 0) out vec4 color;
 
-        in vec3 v_Position;
+        in vec3 v_position;
         in vec4 v_Color;
 
         void main()
         {
-            color = vec4(v_Position * 0.5 + 0.5, 1.0);
+            // color = vec4(v_Position * 0.5 + 0.5, 1.0);
             color = v_Color;
         }
     )";

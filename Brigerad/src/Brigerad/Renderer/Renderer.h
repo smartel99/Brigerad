@@ -1,25 +1,37 @@
 #pragma once
 
+#include "RendererAPI.h"
+#include "RenderCommand.h"
+
+#include "OrthographicCamera.h"
+#include "Shader.h"
 
 namespace Brigerad
 {
-enum class RendererAPI
-{
-    None = 0,
-    OpenGL
-};
-
 class Renderer
 {
 public:
-    inline static RendererAPI GetAPI()
+    static void Init();
+
+    static void BeginScene(OrthographicCamera& camera);
+    static void EndScene();
+
+    static void Submit(const Ref<Shader>& shader,
+                       const Ref<VertexArray>& vertexArray,
+                       const glm::mat4& transform = glm::mat4(1.0f));
+
+    inline static RendererAPI::API GetAPI()
     {
-        return s_rendererApi;
+        return RendererAPI::GetAPI();
     }
 
 private:
-    static RendererAPI  s_rendererApi;
+    struct SceneData
+    {
+        glm::mat4 ViewProjectionMatrix;
+    };
 
+    static SceneData* m_sceneData;
 };
 
 }

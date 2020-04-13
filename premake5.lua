@@ -16,6 +16,7 @@ IncludeDir["GLFW"] = "Brigerad/vendor/GLFW/include"
 IncludeDir["Glad"] = "Brigerad/vendor/Glad/include"
 IncludeDir["ImGui"] = "Brigerad/vendor/ImGui"
 IncludeDir["glm"] = "Brigerad/vendor/glm"
+IncludeDir["stb_image"] = "Brigerad/vendor/stb_image"
 
 include "Brigerad/vendor/GLFW"
 include "Brigerad/vendor/Glad"
@@ -38,6 +39,10 @@ project "Brigerad"
     {
         "%{prj.name}/src/**.h",
         "%{prj.name}/src/**.cpp",
+        "%{prj.name}/vendor/stb_image/**.cpp",
+        "%{prj.name}/vendor/stb_image/**.h",
+        "%{prj.name}/vendor/glm/**.hpp",
+        "%{prj.name}/vendor/glm/**.inl",
     }
 
     includedirs
@@ -48,6 +53,8 @@ project "Brigerad"
         "%{IncludeDir.Glad}",
         "%{IncludeDir.ImGui}",
         "%{IncludeDir.glm}",
+        "%{IncludeDir.stb_image}",
+
     }
 
     links

@@ -8,8 +8,13 @@
 
 #include "Brigerad/ImGui/ImGuiLayer.h"
 
+#include "Brigerad/Core/Timestep.h"
+
 #include "Renderer/Shader.h"
 #include "Renderer/Buffer.h"
+#include "Renderer/VertexArray.h"
+#include "Brigerad/Renderer/Renderer.h"
+#include "Brigerad/Renderer/OrthographicCamera.h"
 
 namespace Brigerad
 {
@@ -38,17 +43,16 @@ public:
 
 private:
     bool OnWindowClose(WindowCloseEvent& e);
+    bool OnKeyPressed(KeyPressedEvent& e);
 
-    std::unique_ptr<Window> m_window;
+private:
+    Scope<Window> m_window;
     ImGuiLayer* m_imguiLayer;
 
     bool m_running = true;
     LayerStack m_layerStack;
 
-    unsigned int m_vertexArray;
-    std::unique_ptr<Shader> m_shader;
-    std::unique_ptr<VertexBuffer> m_vertexBuffer;
-    std::unique_ptr<IndexBuffer> m_indexBuffer;
+    float m_lastFrameTime = 0.0f;
 
 private:
     static Application* s_instance;

@@ -21,6 +21,10 @@ public:
         return m_layout;
     }
 
+    virtual const uint32_t GetId() const override
+    {
+        return m_rendererID;
+    }
 private:
     uint32_t m_rendererID;
     BufferLayout m_layout;
@@ -41,6 +45,10 @@ public:
         return m_count;
     }
 
+    virtual const uint32_t GetId() const override
+    {
+        return m_rendererID;
+    }
 private:
     uint32_t m_rendererID;
     uint32_t m_count;

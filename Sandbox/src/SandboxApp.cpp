@@ -125,45 +125,9 @@ public:
                                      squareIndices, sizeof_array(squareIndices),
                                      squareLayout, flatColorVertexSrc, flatColorFragmentSrc, "Square"));
 
-        std::string textVertexSrc = R"(
-        #version 330 core
-        
-        layout(location = 0) in vec3 a_Position;
-        layout(location = 1) in vec2 a_TextCoord;
-
-        uniform mat4 u_vp;
-        uniform mat4 u_transform;
-
-        out vec2 v_TextCoord;
-
-        void main()
-        {
-            v_TextCoord = a_TextCoord;
-            // Set the position depending on the model and the camera.
-            gl_Position = u_vp * u_transform * vec4(a_Position, 1.0);
-        }
-        )";
-
-        std::string textFragmentSrc = R"(
-        #version 330 core
-        
-        layout(location = 0) out vec4 color;
-
-        in vec2 v_TextCoord;
-
-        uniform sampler2D u_Texture;
-
-        void main()
-        {
-            color = texture(u_Texture, v_TextCoord);
-            //color = vec4(v_TextCoord, 0.0 , 1.0);
-        }
-        )";
-
-
         m_text.reset(Shape::Create(squareVertices, sizeof(squareVertices),
                                    squareIndices, sizeof_array(squareIndices),
-                                   squareLayout, textVertexSrc, textFragmentSrc, "Texture"));
+                                   squareLayout, "assets/shaders/Texture.glsl", "Texture"));
         m_text->SetScale(15.f);
 
         m_texture = Brigerad::Texture2D::Create("assets/textures/checkboard.png");

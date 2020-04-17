@@ -15,11 +15,17 @@ class Shape : public Controller
 {
 public:
     Shape(float* vecs, size_t vecCnt,
-          uint32_t* indices, size_t indicesCnd,
+          uint32_t* indices, size_t indicesCnt,
           const Brigerad::BufferLayout& layout,
           const std::string& vertexShader,
           const std::string& fragmentShader,
-          const std::string& debugName = "Default");
+          const std::string& debugName);
+
+    Shape(float* vecs, size_t vecCnt,
+          uint32_t* indices, size_t indicesCnt,
+          const Brigerad::BufferLayout& layout,
+          const std::string& filePath,
+          const std::string& debugName);
 
     void Submit();
     virtual void OnUpdate(Brigerad::Timestep ts) override;
@@ -85,7 +91,13 @@ public:
                          const Brigerad::BufferLayout& layout,
                          const std::string& vertexShader,
                          const std::string& fragmentShader,
-                         const std::string& debugName = "Default");
+                         const std::string& debugName);
+
+    static Shape* Create(float* vecs, size_t vecCnt,
+                         uint32_t* indices, size_t indicesCnd,
+                         const Brigerad::BufferLayout& layout,
+                         const std::string& filePath,
+                         const std::string& debugName);
 
 private:
     Brigerad::Ref<Brigerad::Shader> m_shader;
@@ -97,7 +109,7 @@ private:
 
     glm::vec3 m_color;
 
-    std::string m_name;
+    std::string m_name = "Default";
 
 private:
     virtual void HandleKeys(Brigerad::Timestep ts) override;

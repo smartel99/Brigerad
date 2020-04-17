@@ -15,6 +15,21 @@
 
 namespace Brigerad
 {
+Shader* Shader::Create(const std::string& filePath)
+{
+    switch (Renderer::GetAPI())
+    {
+        case RendererAPI::API::None:
+            BR_CORE_ASSERT(false, "RendererAPI::None is not a valid rendering API!");
+            return nullptr;
+        case RendererAPI::API::OpenGL:
+            return new OpenGLShader(filePath);
+        default:
+            BR_CORE_ASSERT(false, "Invalid rendering API!");
+            return nullptr;
+    }
+}
+
 
 Shader* Shader::Create(const std::string& vertexSrc, const std::string& fragmentSrc)
 {
@@ -30,6 +45,8 @@ Shader* Shader::Create(const std::string& vertexSrc, const std::string& fragment
             return nullptr;
     }
 }
+
+
 
 }
 

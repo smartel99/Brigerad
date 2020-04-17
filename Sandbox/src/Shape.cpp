@@ -44,6 +44,35 @@ Shape::Shape(float* vecs, size_t vecCnt,
     m_shader.reset(Brigerad::Shader::Create(vertexShader, fragmentShader));
 }
 
+Shape::Shape(float* vecs, size_t vecCnt,
+             uint32_t* indices, size_t indicesCnt,
+             const Brigerad::BufferLayout& layout,
+             const std::string& filePath,
+             const std::string& debugName)
+    : Controller(),
+    m_name(debugName),
+    m_transform(1.0f),
+    m_scale(1.0f),
+    m_scaleVec(1.0f),
+    m_ts(1.0f),
+    m_color(0.0f)
+{
+    m_vertexArray.reset(Brigerad::VertexArray::Create());
+
+    Brigerad::Ref<Brigerad::VertexBuffer> vertexBuffer;
+    vertexBuffer.reset(Brigerad::VertexBuffer::Create(vecs, vecCnt));
+
+    vertexBuffer->SetLayout(layout);
+
+    m_vertexArray->AddVertexBuffer(vertexBuffer);
+
+    Brigerad::Ref<Brigerad::IndexBuffer> indexBuffer;
+    indexBuffer.reset(Brigerad::IndexBuffer::Create(indices, indicesCnt));
+    m_vertexArray->SetIndexBuffer(indexBuffer);
+
+    m_shader.reset(Brigerad::Shader::Create(filePath));
+}
+
 
 void Shape::Submit()
 {
@@ -82,6 +111,11 @@ Shape* Shape::Create(float* vecs, size_t vecCnt,
                      const std::string& debugName)
 {
     return new Shape(vecs, vecCnt, indices, indicesCnd, layout, vertexShader, fragmentShader, debugName);
+}
+
+Shape* Shape::Create(float* vecs, size_t vecCnt, uint32_t* indices, size_t indicesCnd, const Brigerad::BufferLayout& layout, const std::string& filePath, const std::string& debugName)
+{
+    return new Shape(vecs, vecCnt, indices, indicesCnd, layout, filePath, debugName);
 }
 
 void Shape::HandleKeys(Brigerad::Timestep ts)

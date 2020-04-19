@@ -31,14 +31,14 @@ Shape::Shape(float* vecs, size_t vecCnt,
     m_vertexArray.reset(Brigerad::VertexArray::Create());
 
     Brigerad::Ref<Brigerad::VertexBuffer> vertexBuffer;
-    vertexBuffer.reset(Brigerad::VertexBuffer::Create(vecs, vecCnt));
+    vertexBuffer.reset(Brigerad::VertexBuffer::Create(vecs, uint32_t(vecCnt)));
 
     vertexBuffer->SetLayout(layout);
 
     m_vertexArray->AddVertexBuffer(vertexBuffer);
 
     Brigerad::Ref<Brigerad::IndexBuffer> indexBuffer;
-    indexBuffer.reset(Brigerad::IndexBuffer::Create(indices, indicesCnt));
+    indexBuffer.reset(Brigerad::IndexBuffer::Create(indices, uint32_t(indicesCnt)));
     m_vertexArray->SetIndexBuffer(indexBuffer);
 
     m_shader.reset(Brigerad::Shader::Create(vertexShader, fragmentShader));
@@ -60,14 +60,14 @@ Shape::Shape(float* vecs, size_t vecCnt,
     m_vertexArray.reset(Brigerad::VertexArray::Create());
 
     Brigerad::Ref<Brigerad::VertexBuffer> vertexBuffer;
-    vertexBuffer.reset(Brigerad::VertexBuffer::Create(vecs, vecCnt));
+    vertexBuffer.reset(Brigerad::VertexBuffer::Create(vecs, uint32_t(vecCnt)));
 
     vertexBuffer->SetLayout(layout);
 
     m_vertexArray->AddVertexBuffer(vertexBuffer);
 
     Brigerad::Ref<Brigerad::IndexBuffer> indexBuffer;
-    indexBuffer.reset(Brigerad::IndexBuffer::Create(indices, indicesCnt));
+    indexBuffer.reset(Brigerad::IndexBuffer::Create(indices, uint32_t(indicesCnt)));
     m_vertexArray->SetIndexBuffer(indexBuffer);
 
     m_shader.reset(Brigerad::Shader::Create(filePath));
@@ -128,7 +128,7 @@ void Shape::HandleKeys(Brigerad::Timestep ts)
         if (key == BR_KEY_W)
         {
             // If not at max acceleration:
-            if (m_acceleration.y <= 2.0f)
+            if (m_acceleration.y <= MAX_POS_SPEED)
             {
                 m_acceleration.y += ds;
             }
@@ -137,7 +137,7 @@ void Shape::HandleKeys(Brigerad::Timestep ts)
         if (key == BR_KEY_S)
         {
             // If not at max acceleration:
-            if (m_acceleration.y >= -2.0f)
+            if (m_acceleration.y >= MAX_NEG_SPEED)
             {
                 m_acceleration.y -= ds;
             }
@@ -147,7 +147,7 @@ void Shape::HandleKeys(Brigerad::Timestep ts)
         if (key == BR_KEY_A)
         {
             // If not at max acceleration:
-            if (m_acceleration.x >= -2.0f)
+            if (m_acceleration.x >= MAX_NEG_SPEED)
             {
                 m_acceleration.x -= ds;
             }
@@ -156,7 +156,7 @@ void Shape::HandleKeys(Brigerad::Timestep ts)
         if (key == BR_KEY_D)
         {
             // If not at max acceleration:
-            if (m_acceleration.x <= 2.0f)
+            if (m_acceleration.x <= MAX_POS_SPEED)
             {
                 m_acceleration.x += ds;
             }

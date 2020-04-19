@@ -8,8 +8,11 @@
 
 #include <glm/glm.hpp>
 
-constexpr float MOVE_SPEED = 2.0f;
+constexpr float MOVE_SPEED = 7.50f;
 constexpr float ROTATION_SPEED = 180.0f;
+constexpr float MAX_POS_SPEED = 10.0f;
+constexpr float MAX_NEG_SPEED = -10.0f;
+
 
 class Controller
 {

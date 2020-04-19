@@ -71,6 +71,7 @@ struct BufferElements
     }
 
     BufferElements()
+        : name(""), type(ShaderDataType::None), size(0), offset(0), normalized(false)
     {
     }
 

@@ -70,7 +70,10 @@ public:
         return GetName();
     }
 
+    // enum type 'Brigerad::EventCategory' is unscoped...
+    #pragma warning(disable: 26812)
     inline bool IsInCategory(EventCategory category)
+        #pragma warning(default: 26812)
     {
         return GetCategoryFlags() & category;
     }

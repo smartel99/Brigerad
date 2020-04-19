@@ -81,12 +81,16 @@ void OpenGLVertexArray::AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer)
     for (const auto& element : layout)
     {
         glEnableVertexAttribArray(index);
+        // "'type cast': conversion from 'const uint32_t' to 'const void*' of greater size."
+        // This is desired behavior.
+        #pragma warning(disable:4312)
         glVertexAttribPointer(index,
                               element.GetComponentCount(),
                               ShaderDataTypeToOpenGLBaseType(element.type),
                               element.normalized ? GL_TRUE : GL_FALSE,
                               layout.GetStride(),
                               (const void*)element.offset);
+        #pragma warning(default:4312)
         index++;
     }
 

@@ -33,7 +33,7 @@ void CameraController::HandleKeys(Brigerad::Timestep ts)
         if (key == BR_KEY_S)
         {
             // If not at max acceleration:
-            if (m_acceleration.y <= 2.0f)
+            if (m_acceleration.y <= MAX_POS_SPEED)
             {
                 m_acceleration.y += ds;
             }
@@ -42,7 +42,7 @@ void CameraController::HandleKeys(Brigerad::Timestep ts)
         if (key == BR_KEY_W)
         {
             // If not at max acceleration:
-            if (m_acceleration.y >= -2.0f)
+            if (m_acceleration.y >= MAX_NEG_SPEED)
             {
                 m_acceleration.y -= ds;
             }
@@ -52,7 +52,7 @@ void CameraController::HandleKeys(Brigerad::Timestep ts)
         if (key == BR_KEY_D)
         {
             // If not at max acceleration:
-            if (m_acceleration.x >= -2.0f)
+            if (m_acceleration.x >= MAX_NEG_SPEED)
             {
                 m_acceleration.x -= ds;
             }
@@ -61,7 +61,7 @@ void CameraController::HandleKeys(Brigerad::Timestep ts)
         if (key == BR_KEY_A)
         {
             // If not at max acceleration:
-            if (m_acceleration.x <= 2.0f)
+            if (m_acceleration.x <= MAX_POS_SPEED)
             {
                 m_acceleration.x += ds;
             }

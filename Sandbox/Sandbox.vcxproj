@@ -136,6 +136,9 @@
     <ClInclude Include="src\Shape.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="assets\shaders\RGB.glsl">
+      <FileType>CppCode</FileType>
+    </None>
     <ClCompile Include="src\CameraController.cpp" />
     <ClCompile Include="src\Controller.cpp" />
     <ClCompile Include="src\SandboxApp.cpp" />
@@ -147,6 +150,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="assets\shaders\FlatColor.glsl" />
     <None Include="assets\shaders\Texture.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

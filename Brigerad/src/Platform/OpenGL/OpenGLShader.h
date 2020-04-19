@@ -13,11 +13,17 @@ class OpenGLShader : public Shader
 {
 public:
     OpenGLShader(const std::string& filePath);
-    OpenGLShader(const std::string& vertexSrc, const std::string& fragmentSrc);
+    OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc);
     ~OpenGLShader() override;
 
     void Bind() const override;
     void Unbind() const override;
+
+    virtual const std::string& GetName() const override
+    {
+        return m_name;
+    }
+
     const uint32_t GetId() const
     {
         return m_rendererID;
@@ -40,5 +46,6 @@ private:
 
 private:
     uint32_t m_rendererID;
+    std::string m_name;
 };
 }

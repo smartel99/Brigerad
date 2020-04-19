@@ -33,9 +33,13 @@ public:
             0, 1, 2
         };
 
-        m_tri.reset(Shape::Create(vertices, sizeof(vertices),
-                                  indices, sizeof_array(indices),
-                                  layout, "assets/shaders/RGB.glsl", "Triangle"));
+        m_shaderLibrary.Load("assets/shaders/FlatColor.glsl");
+        m_shaderLibrary.Load("assets/shaders/Texture.glsl");
+        m_shaderLibrary.Load("assets/shaders/RGB.glsl");
+
+        m_tri = Shape::Create(vertices, sizeof(vertices),
+                              indices, sizeof_array(indices),
+                              layout, m_shaderLibrary.Get("RGB"), "Triangle");
 
         float squareVertices[5 * 4] = {
             // X,     Y,    Z,    Tx,   Ty
@@ -54,13 +58,14 @@ public:
             0, 1, 2, 2, 3, 0
         };
 
-        m_square.reset(Shape::Create(squareVertices, sizeof(squareVertices),
-                                     squareIndices, sizeof_array(squareIndices),
-                                     squareLayout, "assets/shaders/FlatColor.glsl", "Square"));
 
-        m_text.reset(Shape::Create(squareVertices, sizeof(squareVertices),
-                                   squareIndices, sizeof_array(squareIndices),
-                                   squareLayout, "assets/shaders/Texture.glsl", "Texture"));
+        m_square = Shape::Create(squareVertices, sizeof(squareVertices),
+                                 squareIndices, sizeof_array(squareIndices),
+                                 squareLayout, m_shaderLibrary.Get("FlatColor"), "Square");
+
+        m_text = Shape::Create(squareVertices, sizeof(squareVertices),
+                               squareIndices, sizeof_array(squareIndices),
+                               squareLayout, m_shaderLibrary.Get("Texture"), "Texture");
         m_text->SetScale(15.f);
 
         m_texture = Brigerad::Texture2D::Create("assets/textures/checkboard.png");
@@ -185,6 +190,7 @@ public:
     }
 
 private:
+    Brigerad::ShaderLibrary m_shaderLibrary;
     Brigerad::Ref<Shape> m_square;
     Brigerad::Ref<Shape> m_text;
     Brigerad::Ref<Shape> m_tri;

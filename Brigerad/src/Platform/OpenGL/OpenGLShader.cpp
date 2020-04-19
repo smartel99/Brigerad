@@ -38,12 +38,22 @@ OpenGLShader::OpenGLShader(const std::string& filePath)
     std::string src = ReadFile(filePath);
     auto shaderSources = PreProcess(src);
     Compile(shaderSources);
+
+    // Extract name from path.
+    size_t lastSlash = filePath.find_last_of(R"(/\)");
+    lastSlash = lastSlash == std::string::npos ? 0 : lastSlash + 1;
+    size_t lastDot = filePath.rfind('.');
+
+    size_t count = lastDot == std::string::npos ?
+        filePath.size() - lastSlash
+        : lastDot - lastSlash;
+    m_name = filePath.substr(lastSlash, count);
 }
 
 
 
-OpenGLShader::OpenGLShader(const std::string& vertexSrc, const std::string& fragmentSrc)
-    :m_rendererID(0)
+OpenGLShader::OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc)
+    :m_rendererID(0), m_name(name)
 {
     std::unordered_map<GLenum, std::string> srcs;
     srcs[GL_VERTEX_SHADER] = vertexSrc;
@@ -60,7 +70,7 @@ OpenGLShader::~OpenGLShader()
 std::string OpenGLShader::ReadFile(const std::string& filePath)
 {
     std::string result = "";
-    std::ifstream in = std::ifstream(filePath, std::ios::in, std::ios::binary);
+    std::ifstream in = std::ifstream(filePath, std::ios::in | std::ios::binary);
     if (in)
     {
         // Move to the very end of the file.
@@ -112,7 +122,9 @@ void OpenGLShader::Compile(const std::unordered_map<GLenum, std::string>& shader
 {
     // Get a program object.
     GLuint program = glCreateProgram();
-    std::vector<GLuint> shaderIDs = std::vector<GLuint>(shaderSrcs.size());
+    BR_CORE_ASSERT(shaderSrcs.size() <= 2, "Maximum 2 shaders per file");
+    std::array<GLuint, 2> shaderIDs;
+    int shaderIdIdx = 0;
 
     for (auto& kv : shaderSrcs)
     {
@@ -149,7 +161,7 @@ void OpenGLShader::Compile(const std::unordered_map<GLenum, std::string>& shader
 
         // Attach our shaders to our program
         glAttachShader(program, shader);
-        shaderIDs.emplace_back(shader);
+        shaderIDs[shaderIdIdx++] = shader;
     }
 
     // Vertex and Fragment shaders are successfully compiled.

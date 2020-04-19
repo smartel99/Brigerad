@@ -15,7 +15,7 @@
 
 namespace Brigerad
 {
-Shader* Shader::Create(const std::string& filePath)
+Ref<Shader> Shader::Create(const std::string& filePath)
 {
     switch (Renderer::GetAPI())
     {
@@ -23,7 +23,7 @@ Shader* Shader::Create(const std::string& filePath)
             BR_CORE_ASSERT(false, "RendererAPI::None is not a valid rendering API!");
             return nullptr;
         case RendererAPI::API::OpenGL:
-            return new OpenGLShader(filePath);
+            return std::make_shared<OpenGLShader>(filePath);
         default:
             BR_CORE_ASSERT(false, "Invalid rendering API!");
             return nullptr;
@@ -31,7 +31,7 @@ Shader* Shader::Create(const std::string& filePath)
 }
 
 
-Shader* Shader::Create(const std::string& vertexSrc, const std::string& fragmentSrc)
+Ref<Shader> Shader::Create(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc)
 {
     switch (Renderer::GetAPI())
     {
@@ -39,13 +39,56 @@ Shader* Shader::Create(const std::string& vertexSrc, const std::string& fragment
             BR_CORE_ASSERT(false, "RendererAPI::None is not a valid rendering API!");
             return nullptr;
         case RendererAPI::API::OpenGL:
-            return new OpenGLShader(vertexSrc, fragmentSrc);
+            return std::make_shared<OpenGLShader>(name, vertexSrc, fragmentSrc);
         default:
             BR_CORE_ASSERT(false, "Invalid rendering API!");
             return nullptr;
     }
 }
 
+
+
+void ShaderLibrary::Add(const Ref<Shader>& shader)
+{
+    auto& name = shader->GetName();
+    BR_CORE_ASSERT(!Exists(name), "Shader already exists!");
+    Add(name, shader);
+}
+
+void ShaderLibrary::Add(const std::string& name, const Ref<Shader>& shader)
+{
+    BR_CORE_ASSERT(!Exists(name), "Shader already exists!");
+    m_shaders[name] = shader;
+}
+
+
+Brigerad::Ref<Brigerad::Shader> ShaderLibrary::Load(const std::string& filePath)
+{
+    auto shader = Shader::Create(filePath);
+    Add(shader);
+    return shader;
+}
+
+
+Brigerad::Ref<Brigerad::Shader> ShaderLibrary::Load(const std::string& name, const std::string& filePath)
+{
+    auto shader = Shader::Create(filePath);
+    Add(name, shader);
+    return shader;
+}
+
+
+Brigerad::Ref<Brigerad::Shader> ShaderLibrary::Get(const std::string& name)
+{
+    BR_CORE_ASSERT(Exists(name), "Shader not found!");
+
+    return m_shaders[name];
+}
+
+bool ShaderLibrary::Exists(const std::string& name) const
+{
+    return m_shaders.find(name) != m_shaders.end();
+}
 
 
 }

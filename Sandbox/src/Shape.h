@@ -27,6 +27,12 @@ public:
           const std::string& filePath,
           const std::string& debugName);
 
+    Shape(float* vecs, size_t vecCnt,
+          uint32_t* indices, size_t indicesCnd,
+          const Brigerad::BufferLayout& layout,
+          const Brigerad::Ref<Brigerad::Shader>& shader,
+          const std::string& debugName);
+
     void Submit();
     virtual void OnUpdate(Brigerad::Timestep ts) override;
 
@@ -86,18 +92,24 @@ public:
             ->UploadUniformFloat3("u_Color", m_color);
     }
 
-    static Shape* Create(float* vecs, size_t vecCnt,
-                         uint32_t* indices, size_t indicesCnd,
-                         const Brigerad::BufferLayout& layout,
-                         const std::string& vertexShader,
-                         const std::string& fragmentShader,
-                         const std::string& debugName);
+    static Brigerad::Ref<Shape> Create(float* vecs, size_t vecCnt,
+                                       uint32_t* indices, size_t indicesCnd,
+                                       const Brigerad::BufferLayout& layout,
+                                       const std::string& vertexShader,
+                                       const std::string& fragmentShader,
+                                       const std::string& debugName);
 
-    static Shape* Create(float* vecs, size_t vecCnt,
-                         uint32_t* indices, size_t indicesCnd,
-                         const Brigerad::BufferLayout& layout,
-                         const std::string& filePath,
-                         const std::string& debugName);
+    static Brigerad::Ref<Shape> Create(float* vecs, size_t vecCnt,
+                                       uint32_t* indices, size_t indicesCnd,
+                                       const Brigerad::BufferLayout& layout,
+                                       const std::string& filePath,
+                                       const std::string& debugName);
+
+    static Brigerad::Ref<Shape> Create(float* vecs, size_t vecCnt,
+                                       uint32_t* indices, size_t indicesCnd,
+                                       const Brigerad::BufferLayout& layout,
+                                       const Brigerad::Ref<Brigerad::Shader>& shader,
+                                       const std::string& debugName);
 
 private:
     Brigerad::Ref<Brigerad::Shader> m_shader;

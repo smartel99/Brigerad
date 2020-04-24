@@ -57,14 +57,6 @@ project "Brigerad"
 
     }
 
-    links
-    {
-        "GLFW",
-        "Glad",
-        "ImGui",
-        "opengl32.lib"
-    }
-
     defines
     {
         "_CRT_SECURE_NO_WARNINGS"
@@ -79,6 +71,42 @@ project "Brigerad"
             "BR_BUILD_DLL",
             "GLFW_INCLUDE_NONE"
         }
+
+        links
+        {
+            "GLFW",
+            "Glad",
+            "ImGui",
+            "opengl32.lib"
+        }
+
+    filter "system:linux"
+        systemversion "latest"
+
+	    defines
+	    {
+	        "BR_PLATFORM_LINUX",
+	        "GLFW_INCLUDE_NONE"
+        }
+
+        links
+        {
+            "GL",
+            "m",
+            "dl",
+            "Xinerama",
+            "Xrandr",
+            "Xi",
+            "Xcursor",
+            "X11",
+            "Xxf86vm",
+            "pthread",
+            "GLFW",
+            "Glad",
+            "ImGui",
+        }
+
+        linkoptions { "`wx-config --libs`" }
 
     filter "configurations:Debug"
         defines 
@@ -124,11 +152,6 @@ project "Sandbox"
             "Brigerad/src",
             "%{IncludeDir.glm}",
         }
-    
-        links
-        {
-            "Brigerad"
-        }
 
         filter "system:windows"
             systemversion "latest"
@@ -137,8 +160,46 @@ project "Sandbox"
             {
                 "BR_PLATFORM_WINDOWS",
             }
+
+            links
+            {
+                "Brigerad",
+                "GLFW",
+                "Glad",
+                "ImGui",
+                "opengl32.lib"
+            }
     
-        filter "configurations:Debug"
+	    filter "system:linux"
+	        systemversion "latest"
+
+	        defines
+	        {
+                "BR_PLATFORM_LINUX",
+            }
+
+            links
+            {
+                "Brigerad",
+                "GL",
+                "m",
+                "dl",
+                "Xinerama",
+                "Xrandr",
+                "Xi",
+                "Xcursor",
+                "X11",
+                "Xxf86vm",
+                "pthread",
+                "GLFW",
+                "Glad",
+                "ImGui",
+            }
+
+            linkoptions { "`wx-config --libs`" }
+            postbuildcommands{"cp -r assets ../bin/" .. outputdir .. "/%{prj.name}"}
+            
+            filter "configurations:Debug"
             defines "BR_DEBUG"
             runtime "Debug"
             symbols "On"

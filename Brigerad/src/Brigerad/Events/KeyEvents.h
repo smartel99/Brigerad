@@ -2,7 +2,6 @@
 
 #include "Event.h"
 
-
 namespace Brigerad
 {
 class BRIGERAD_API KeyEvent : public Event
@@ -43,12 +42,11 @@ public:
         return ss.str();
     }
 
-    EVENT_CLASS_TYPE(KeyPressed)
+    EVENT_CLASS_TYPE(EventType::KeyPressed)
 
 private:
     int m_repeatCount;
 };
-
 
 class BRIGERAD_API KeyReleasedEvent : public KeyEvent
 {
@@ -65,7 +63,7 @@ public:
         return ss.str();
     }
 
-    EVENT_CLASS_TYPE(KeyReleased)
+    EVENT_CLASS_TYPE(EventType::KeyReleased)
 };
 
 class BRIGERAD_API KeyTypedEvent : public KeyEvent
@@ -76,7 +74,6 @@ public:
     {
     }
 
-
     std::string ToString() const override
     {
         std::stringstream ss;
@@ -84,9 +81,9 @@ public:
         return ss.str();
     }
 
-    EVENT_CLASS_TYPE(KeyTyped)
+    EVENT_CLASS_TYPE(EventType::KeyTyped)
 
 private:
 };
 
-}
+} // namespace Brigerad

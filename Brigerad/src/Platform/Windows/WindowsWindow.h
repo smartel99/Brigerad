@@ -1,10 +1,9 @@
 #pragma once
-
+#if defined(BR_PLATFORM_WINDOWS)
 #include "Brigerad/Window.h"
 #include "Brigerad/Renderer/GraphicsContext.h"
 
 #include <GLFW/glfw3.h>
-
 
 // struct GLFWindow;
 
@@ -13,7 +12,7 @@ namespace Brigerad
 class WindowsWindow : public Window
 {
 public:
-    WindowsWindow(const WindowProps& props);
+    WindowsWindow(const WindowProps &props);
     virtual ~WindowsWindow() override;
 
     void OnUpdate() override;
@@ -28,7 +27,7 @@ public:
     }
 
     // Window attributes.
-    inline void SetEventCallback(const EventCallbackFn& callback) override
+    inline void SetEventCallback(const EventCallbackFn &callback) override
     {
         m_data.eventCallback = callback;
     }
@@ -36,19 +35,19 @@ public:
     void SetVSync(bool enabled) override;
     bool IsVSync() const override;
 
-    inline void* GetNativeWindow() const override
+    inline void *GetNativeWindow() const override
     {
-        return reinterpret_cast<void*>(m_window);
+        return reinterpret_cast<void *>(m_window);
     }
 
 private:
-    virtual void Init(const WindowProps& props);
+    virtual void Init(const WindowProps &props);
     virtual void Shutdown();
 
 private:
-    GLFWwindow* m_window;
+    GLFWwindow *m_window;
 
-    GraphicsContext* m_context;
+    GraphicsContext *m_context;
 
     struct WindowData
     {
@@ -61,4 +60,5 @@ private:
 
     WindowData m_data;
 };
-}
+} // namespace Brigerad
+#endif

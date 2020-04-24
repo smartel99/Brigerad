@@ -2,7 +2,6 @@
 #include "brpch.h"
 #include "Brigerad/Core.h"
 
-
 namespace Brigerad
 {
 // Events in Brigerad are currently blocking, meaning when an event occurs,
@@ -48,20 +47,22 @@ enum EventCategory
     EventCategoryMouseButton = BIT(4),
 };
 
-#define EVENT_CLASS_TYPE(type)  static EventType GetStaticType() { return EventType::##type; }\
-                                virtual EventType GetEventType() const override { return GetStaticType(); }\
-                                virtual const char* GetName() const override { return #type; }
+#define EVENT_CLASS_TYPE(type)                                                  \
+    static EventType GetStaticType() { return type; }                           \
+    virtual EventType GetEventType() const override { return GetStaticType(); } \
+    virtual const char *GetName() const override { return #type; }
 
-#define EVENT_CLASS_CATEGORY(category) virtual int GetCategoryFlags() const override { return category; }
-
+#define EVENT_CLASS_CATEGORY(category) \
+    virtual int GetCategoryFlags() const override { return category; }
 
 class BRIGERAD_API Event
 {
     friend class EventDispatcher;
+
 public:
     // Pure virtual methods, they must be implemented by inheriting classes.
     virtual EventType GetEventType() const = 0;
-    virtual const char* GetName() const = 0;
+    virtual const char *GetName() const = 0;
     virtual int GetCategoryFlags() const = 0;
 
     // Default, overridable method.
@@ -70,10 +71,10 @@ public:
         return GetName();
     }
 
-    // enum type 'Brigerad::EventCategory' is unscoped...
-    #pragma warning(disable: 26812)
+// enum type 'Brigerad::EventCategory' is unscoped...
+#pragma warning(disable : 26812)
     inline bool IsInCategory(EventCategory category)
-        #pragma warning(default: 26812)
+#pragma warning(default : 26812)
     {
         return GetCategoryFlags() & category;
     }
@@ -87,36 +88,34 @@ protected:
     bool m_handled = false;
 };
 
-
 class EventDispatcher
 {
-    template<typename T>
-    using EventFn = std::function<bool(T&)>;
+    template <typename T>
+    using EventFn = std::function<bool(T &)>;
 
 public:
-    EventDispatcher(Event& event)
+    EventDispatcher(Event &event)
         : m_event(event)
     {
     }
 
-    template<typename T>
+    template <typename T>
     bool Dispatch(EventFn<T> func)
     {
         if (m_event.GetEventType() == T::GetStaticType())
         {
-            m_event.m_handled = func(*(T*)&m_event);
+            m_event.m_handled = func(*(T *)&m_event);
             return true;
         }
         return false;
     }
 
 private:
-    Event& m_event;
+    Event &m_event;
 };
 
-
-inline std::ostream& operator<<(std::ostream& os, const Event& e)
+inline std::ostream &operator<<(std::ostream &os, const Event &e)
 {
     return os << e.ToString();
 }
-}
+} // namespace Brigerad

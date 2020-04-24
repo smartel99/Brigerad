@@ -4,11 +4,11 @@
 #include "Shape.h"
 #include "Platform/OpenGL/OpenGLShader.h"
 
-#include "imgui/imgui.h"
+#include "ImGui/imgui.h"
 
 #include <glm/gtc/type_ptr.hpp>
 
-#define sizeof_array(x) sizeof(x)/sizeof(x[0])
+#define sizeof_array(x) sizeof(x) / sizeof(x[0])
 
 class ExampleLayer : public Brigerad::Layer
 {
@@ -19,23 +19,40 @@ public:
 
         float vertices[3 * 7] = {
             // X,     Y,    Z,    R,    G,    B,    A
-            -0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
-             0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
-             0.0f,  0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f,
+            -0.5f,
+            -0.5f,
+            0.0f,
+            1.0f,
+            0.0f,
+            0.0f,
+            1.0f,
+            0.5f,
+            -0.5f,
+            0.0f,
+            0.0f,
+            1.0f,
+            0.0f,
+            1.0f,
+            0.0f,
+            0.5f,
+            0.0f,
+            0.0f,
+            0.0f,
+            1.0f,
+            1.0f,
         };
 
         Brigerad::BufferLayout layout = {
-            { Brigerad::ShaderDataType::Float3, "a_position" },
-            { Brigerad::ShaderDataType::Float4, "a_Color" },
+            {Brigerad::ShaderDataType::Float3, "a_position"},
+            {Brigerad::ShaderDataType::Float4, "a_Color"},
         };
 
         uint32_t indices[3] = {
-            0, 1, 2
-        };
+            0, 1, 2};
 
-        m_shaderLibrary.Load("assets/shaders/FlatColor.glsl");
-        m_shaderLibrary.Load("assets/shaders/Texture.glsl");
-        m_shaderLibrary.Load("assets/shaders/RGB.glsl");
+        m_shaderLibrary.Load("../assets/shaders/FlatColor.glsl");
+        m_shaderLibrary.Load("../assets/shaders/Texture.glsl");
+        m_shaderLibrary.Load("../assets/shaders/RGB.glsl");
 
         m_tri = Shape::Create(vertices, sizeof(vertices),
                               indices, sizeof_array(indices),
@@ -43,21 +60,35 @@ public:
 
         float squareVertices[5 * 4] = {
             // X,     Y,    Z,    Tx,   Ty
-            -0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
-             0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
-             0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
-            -0.5f,  0.5f, 0.0f, 0.0f, 1.0f,
+            -0.5f,
+            -0.5f,
+            0.0f,
+            0.0f,
+            0.0f,
+            0.5f,
+            -0.5f,
+            0.0f,
+            1.0f,
+            0.0f,
+            0.5f,
+            0.5f,
+            0.0f,
+            1.0f,
+            1.0f,
+            -0.5f,
+            0.5f,
+            0.0f,
+            0.0f,
+            1.0f,
         };
 
         Brigerad::BufferLayout squareLayout = {
-            { Brigerad::ShaderDataType::Float3, "a_position" },
-            { Brigerad::ShaderDataType::Float2, "a_TextCoord" },
+            {Brigerad::ShaderDataType::Float3, "a_position"},
+            {Brigerad::ShaderDataType::Float2, "a_TextCoord"},
         };
 
         uint32_t squareIndices[6] = {
-            0, 1, 2, 2, 3, 0
-        };
-
+            0, 1, 2, 2, 3, 0};
 
         m_square = Shape::Create(squareVertices, sizeof(squareVertices),
                                  squareIndices, sizeof_array(squareIndices),
@@ -77,8 +108,8 @@ public:
 
     void OnUpdate(Brigerad::Timestep ts) override
     {
-//         BR_TRACE("Delta time: {0}s [{1}ms]", ts.GetSeconds(), ts.GetMilliseconds());
-        Brigerad::RenderCommand::SetClearColor({ 0.2f, 0.2f, 0.2f, 1.0f });
+        //         BR_TRACE("Delta time: {0}s [{1}ms]", ts.GetSeconds(), ts.GetMilliseconds());
+        Brigerad::RenderCommand::SetClearColor({0.2f, 0.2f, 0.2f, 1.0f});
         Brigerad::RenderCommand::Clear();
 
         m_camera.OnUpdate(ts);
@@ -110,15 +141,14 @@ public:
         m_rald->Bind(0);
         m_text->Submit();
 
-//         m_tri->Submit();
-
+        //         m_tri->Submit();
 
         Brigerad::Renderer::EndScene();
     }
 
     virtual void OnImGuiRender() override
     {
-        const char* controllers[] = { "Camera", "Square", "Triangle" };
+        const char *controllers[] = {"Camera", "Square", "Triangle"};
 
         ImGui::Begin("Controllers");
         {
@@ -173,19 +203,19 @@ public:
         }
     }
 
-    void OnEvent(Brigerad::Event& event) override
+    void OnEvent(Brigerad::Event &event) override
     {
         switch (m_activeController)
         {
-            case 0:
-                m_camera.HandleEvent(event);
-                break;
-            case 1:
-                m_square->HandleEvent(event);
-                break;
-            case 2:
-                m_tri->HandleEvent(event);
-                break;
+        case 0:
+            m_camera.HandleEvent(event);
+            break;
+        case 1:
+            m_square->HandleEvent(event);
+            break;
+        case 2:
+            m_tri->HandleEvent(event);
+            break;
         }
     }
 
@@ -201,8 +231,7 @@ private:
     int m_activeController = 0;
 };
 
-
-class Sandbox :public Brigerad::Application
+class Sandbox : public Brigerad::Application
 {
 public:
     Sandbox()
@@ -213,7 +242,7 @@ public:
     ~Sandbox() override = default;
 };
 
-Brigerad::Application* Brigerad::CreateApplication()
+Brigerad::Application *Brigerad::CreateApplication()
 {
     return new Sandbox();
 }

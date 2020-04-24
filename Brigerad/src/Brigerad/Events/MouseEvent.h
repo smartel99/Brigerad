@@ -2,7 +2,6 @@
 
 #include "Brigerad/Events/Event.h"
 
-
 namespace Brigerad
 {
 class BRIGERAD_API MouseMovedEvent : public Event
@@ -30,19 +29,17 @@ public:
         return ss.str();
     }
 
-    EVENT_CLASS_TYPE(MouseMoved);
+    EVENT_CLASS_TYPE(EventType::MouseMoved);
     EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput);
 
 private:
     float m_mouseX, m_mouseY;
 };
 
-
 class BRIGERAD_API MouseScrolledEvent : public Event
 {
 public:
-    MouseScrolledEvent(float xOffset, float yOffset) :
-        m_xOffset(xOffset), m_yOffset(yOffset)
+    MouseScrolledEvent(float xOffset, float yOffset) : m_xOffset(xOffset), m_yOffset(yOffset)
     {
     }
 
@@ -62,13 +59,12 @@ public:
         return ss.str();
     }
 
-    EVENT_CLASS_TYPE(MouseScrolled);
+    EVENT_CLASS_TYPE(EventType::MouseScrolled);
     EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput);
 
 private:
     float m_xOffset, m_yOffset;
 };
-
 
 class BRIGERAD_API MouseButtonEvent : public Event
 {
@@ -89,7 +85,6 @@ protected:
     int m_button;
 };
 
-
 class BRIGERAD_API MouseButtonPressedEvent : public MouseButtonEvent
 {
 public:
@@ -105,9 +100,8 @@ public:
         return ss.str();
     }
 
-    EVENT_CLASS_TYPE(MouseButtonPressed)
+    EVENT_CLASS_TYPE(EventType::MouseButtonPressed)
 };
-
 
 class BRIGERAD_API MouseButtonReleasedEvent : public MouseButtonEvent
 {
@@ -124,6 +118,6 @@ public:
         return ss.str();
     }
 
-    EVENT_CLASS_TYPE(MouseButtonReleased)
+    EVENT_CLASS_TYPE(EventType::MouseButtonReleased)
 };
-}
+} // namespace Brigerad

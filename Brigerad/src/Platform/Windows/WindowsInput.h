@@ -1,5 +1,5 @@
 #pragma once
-
+#if defined(BR_PLATFORM_WINDOWS)
 #include "Brigerad/Input.h"
 
 namespace Brigerad
@@ -12,6 +12,6 @@ protected:
     virtual float GetMouseXImpl() override;
     virtual float GetMouseYImpl() override;
     virtual std::pair<float, float> GetMousePosImpl() override;
-
 };
-}
+} // namespace Brigerad
+#endif

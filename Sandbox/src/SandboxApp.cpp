@@ -18,7 +18,7 @@ public:
     {
 
         float vertices[3 * 7] = {
-            // X,     Y,    Z,    R,    G,    B,    A
+            // 0
             -0.5f,
             -0.5f,
             0.0f,
@@ -26,6 +26,7 @@ public:
             0.0f,
             0.0f,
             1.0f,
+            // 1
             0.5f,
             -0.5f,
             0.0f,
@@ -33,6 +34,7 @@ public:
             1.0f,
             0.0f,
             1.0f,
+            // 2
             0.0f,
             0.5f,
             0.0f,
@@ -50,31 +52,34 @@ public:
         uint32_t indices[3] = {
             0, 1, 2};
 
-        m_shaderLibrary.Load("../assets/shaders/FlatColor.glsl");
-        m_shaderLibrary.Load("../assets/shaders/Texture.glsl");
-        m_shaderLibrary.Load("../assets/shaders/RGB.glsl");
+        m_shaderLibrary.Load("assets/shaders/FlatColor.glsl");
+        m_shaderLibrary.Load("assets/shaders/Texture.glsl");
+        m_shaderLibrary.Load("assets/shaders/RGB.glsl");
 
         m_tri = Shape::Create(vertices, sizeof(vertices),
                               indices, sizeof_array(indices),
                               layout, m_shaderLibrary.Get("RGB"), "Triangle");
 
         float squareVertices[5 * 4] = {
-            // X,     Y,    Z,    Tx,   Ty
+            // 0
             -0.5f,
             -0.5f,
             0.0f,
             0.0f,
             0.0f,
+            // 1
             0.5f,
             -0.5f,
             0.0f,
             1.0f,
             0.0f,
+            // 2
             0.5f,
             0.5f,
             0.0f,
             1.0f,
             1.0f,
+            // 3
             -0.5f,
             0.5f,
             0.0f,
@@ -100,7 +105,7 @@ public:
         m_text->SetScale(15.f);
 
         m_texture = Brigerad::Texture2D::Create("assets/textures/checkboard.png");
-        m_rald = Brigerad::Texture2D::Create("assets/textures/rald.png");
+        m_rald = Brigerad::Texture2D::Create("assets/textures/Rald.png");
 
         std::dynamic_pointer_cast<Brigerad::OpenGLShader>(m_text->GetShader())->Bind();
         std::dynamic_pointer_cast<Brigerad::OpenGLShader>(m_text->GetShader())->UploadUniformInt("u_Texture", 0);

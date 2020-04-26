@@ -26,7 +26,7 @@ ifeq ($(config),debug)
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
   LIBS += vendor/GLFW/bin/Debug-linux-x86_64/GLFW/libGLFW.a vendor/Glad/bin/Debug-linux-x86_64/Glad/libGlad.a vendor/ImGui/bin/Debug-linux-x86_64/ImGui/libImGui.a -lGL -lm -ldl -lXinerama -lXrandr -lXi -lXcursor -lX11 -lXxf86vm -lpthread
   LDDEPS += vendor/GLFW/bin/Debug-linux-x86_64/GLFW/libGLFW.a vendor/Glad/bin/Debug-linux-x86_64/Glad/libGlad.a vendor/ImGui/bin/Debug-linux-x86_64/ImGui/libImGui.a
-  ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 `wx-config --libs`
+  ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64
   LINKCMD = $(AR) -rcs "$@" $(OBJECTS)
   define PREBUILDCMDS
   endef
@@ -55,7 +55,7 @@ ifeq ($(config),release)
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
   LIBS += vendor/GLFW/bin/Release-linux-x86_64/GLFW/libGLFW.a vendor/Glad/bin/Release-linux-x86_64/Glad/libGlad.a vendor/ImGui/bin/Release-linux-x86_64/ImGui/libImGui.a -lGL -lm -ldl -lXinerama -lXrandr -lXi -lXcursor -lX11 -lXxf86vm -lpthread
   LDDEPS += vendor/GLFW/bin/Release-linux-x86_64/GLFW/libGLFW.a vendor/Glad/bin/Release-linux-x86_64/Glad/libGlad.a vendor/ImGui/bin/Release-linux-x86_64/ImGui/libImGui.a
-  ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 -s `wx-config --libs`
+  ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 -s
   LINKCMD = $(AR) -rcs "$@" $(OBJECTS)
   define PREBUILDCMDS
   endef
@@ -84,7 +84,7 @@ ifeq ($(config),dist)
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
   LIBS += vendor/GLFW/bin/Dist-linux-x86_64/GLFW/libGLFW.a vendor/Glad/bin/Dist-linux-x86_64/Glad/libGlad.a vendor/ImGui/bin/Dist-linux-x86_64/ImGui/libImGui.a -lGL -lm -ldl -lXinerama -lXrandr -lXi -lXcursor -lX11 -lXxf86vm -lpthread
   LDDEPS += vendor/GLFW/bin/Dist-linux-x86_64/GLFW/libGLFW.a vendor/Glad/bin/Dist-linux-x86_64/Glad/libGlad.a vendor/ImGui/bin/Dist-linux-x86_64/ImGui/libImGui.a
-  ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 -s `wx-config --libs`
+  ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 -s
   LINKCMD = $(AR) -rcs "$@" $(OBJECTS)
   define PREBUILDCMDS
   endef
@@ -104,6 +104,7 @@ OBJECTS := \
 	$(OBJDIR)/Layer.o \
 	$(OBJDIR)/LayerStack.o \
 	$(OBJDIR)/Log.o \
+	$(OBJDIR)/OrthographicCameraController.o \
 	$(OBJDIR)/Buffer.o \
 	$(OBJDIR)/OrthographicCamera.o \
 	$(OBJDIR)/RenderCommand.o \
@@ -198,6 +199,9 @@ $(OBJDIR)/LayerStack.o: src/Brigerad/LayerStack.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Log.o: src/Brigerad/Log.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/OrthographicCameraController.o: src/Brigerad/OrthographicCameraController.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Buffer.o: src/Brigerad/Renderer/Buffer.cpp

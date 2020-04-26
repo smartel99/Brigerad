@@ -3,39 +3,40 @@
 #include <memory>
 
 #if !defined(BR_PLATFORM_WINDOWS) && !defined(BR_PLATFORM_LINUX)
-#if defined(__WIN32) || defined(WIN32) || defined(__WIN32__)
-#undef BR_PLATFORM_LINUX
-#define BR_PLATFORM_WINDOWS
-#endif
-#if defined(__LINUX__) || defined(__unix) || defined(__unix__)
-#undef BR_PLATFORM_WINDOWS
-#define BR_PLATFORM_LINUX
-#endif
+    #if defined(__WIN32) || defined(WIN32) || defined(__WIN32__)
+        #undef BR_PLATFORM_LINUX
+        #define BR_PLATFORM_WINDOWS
+    #endif
+    #if defined(__LINUX__) || defined(__unix) || defined(__unix__)
+        #undef BR_PLATFORM_WINDOWS
+        #define BR_PLATFORM_LINUX
+    #endif
 #endif
 
 #if defined(BR_PLATFORM_WINDOWS)
-#if defined(BR_DYNAMIC_LINK)
-#if defined(BR_BUILD_DLL)
-#define BRIGERAD_API __declspec(dllexport)
-#else
-#define BRIGERAD_API __declspec(dllimport)
-#endif // BR_BUILD_DLL
-#else
-#define BRIGERAD_API
-#endif // BR_DYNAMIC_LINK
+    #if defined(BR_DYNAMIC_LINK)
+        #if defined(BR_BUILD_DLL)
+            #define BRIGERAD_API __declspec(dllexport)
+        #else
+            #define BRIGERAD_API __declspec(dllimport)
+        #endif // BR_BUILD_DLL
+    #else
+        #define BRIGERAD_API
+    #endif // BR_DYNAMIC_LINK
 #elif defined(BR_PLATFORM_LINUX)
-#define BRIGERAD_API
+    #define BRIGERAD_API
 #else
-#error Brigerad only support Windows and Linux
+    #error Brigerad only support Windows and Linux
 #endif // BR_PLATFROM_WINDOWS
 
+// This should check the compiler used, not the OS.
 #if defined(BR_PLATFORM_WINDOWS)
-#define DEBUG_BREAK(...) __debugbreak()
+    #define DEBUG_BREAK(...) __debugbreak()
 #elif defined(BR_PLATFORM_LINUX)
-#include <signal.h>
-#define DEBUG_BREAK(...) raise(SIGTRAP)
+    #include <signal.h>
+    #define DEBUG_BREAK(...) raise(SIGTRAP)
 #else
-#error Brigerad only support Windows and Linux
+    #error Brigerad only support Windows and Linux
 #endif
 
 #ifdef BR_ENABLE_ASSERTS
@@ -56,8 +57,8 @@
         }                                                        \
     }
 #else
-#define BR_ASSERT(x, ...)
-#define BR_CORE_ASSERT(x, ...)
+    #define BR_ASSERT(x, ...)
+    #define BR_CORE_ASSERT(x, ...)
 #endif
 
 #define BIT(x) (1 << (x))
@@ -72,4 +73,5 @@ using Scope = std::unique_ptr<T>;
 
 template <typename T>
 using Ref = std::shared_ptr<T>;
+
 } // namespace Brigerad

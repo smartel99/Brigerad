@@ -6,7 +6,7 @@
         {
             "label": "g++ build active file",
             "type": "shell",
-            "command": "make -j12"
+            "command": "vendor/bin/premake/premake5 gmake && make -j12"
         }
     ]
 }

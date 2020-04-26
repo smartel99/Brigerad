@@ -1,6 +1,6 @@
 ﻿#include "Brigerad.h"
 #include "Brigerad/Core/Timestep.h"
-#include "CameraController.h"
+#include "Brigerad/OrthographicCameraController.h"
 #include "Shape.h"
 #include "Platform/OpenGL/OpenGLShader.h"
 
@@ -14,7 +14,7 @@ class ExampleLayer : public Brigerad::Layer
 {
 public:
     ExampleLayer()
-        : Layer("Example"), m_camera(-16.0f, 16.0f, -9.0f, 9.0f)
+        : Layer("Example"), m_camera(1280.0f / 720.0f)
     {
 
         float vertices[3 * 7] = {
@@ -113,6 +113,10 @@ public:
 
     void OnUpdate(Brigerad::Timestep ts) override
     {
+        // Update.
+        m_camera.OnUpdate(ts);
+
+        // Render.
         //         BR_TRACE("Delta time: {0}s [{1}ms]", ts.GetSeconds(), ts.GetMilliseconds());
         Brigerad::RenderCommand::SetClearColor({0.2f, 0.2f, 0.2f, 1.0f});
         Brigerad::RenderCommand::Clear();
@@ -121,7 +125,7 @@ public:
         m_square->OnUpdate(ts);
         m_tri->OnUpdate(ts);
 
-        Brigerad::Renderer::BeginScene(m_camera);
+        Brigerad::Renderer::BeginScene(m_camera.GetCamera());
 
         glm::vec3 origin = m_square->GetPosition();
 
@@ -174,13 +178,7 @@ public:
             auto sca = glm::vec3(0.0f);
             float rot = 0.0f;
 
-            if (m_activeController == 0)
-            {
-                pos = m_camera.GetPosition();
-                vel = m_camera.GetMovement();
-                rot = m_camera.GetRotation();
-            }
-            else if (m_activeController == 1)
+            if (m_activeController == 1)
             {
                 pos = m_square->GetPosition();
                 vel = m_square->GetMovement();
@@ -210,11 +208,9 @@ public:
 
     void OnEvent(Brigerad::Event &event) override
     {
+        m_camera.OnEvent(event);
         switch (m_activeController)
         {
-        case 0:
-            m_camera.HandleEvent(event);
-            break;
         case 1:
             m_square->HandleEvent(event);
             break;
@@ -232,7 +228,7 @@ private:
 
     Brigerad::Ref<Brigerad::Texture2D> m_texture;
     Brigerad::Ref<Brigerad::Texture2D> m_rald;
-    CameraController m_camera;
+    Brigerad::OrthographicCameraController m_camera;
     int m_activeController = 0;
 };
 

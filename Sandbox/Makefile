@@ -24,7 +24,7 @@ ifeq ($(config),debug)
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
   LIBS += ../bin/Debug-linux-x86_64/Brigerad/libBrigerad.a ../Brigerad/vendor/GLFW/bin/Debug-linux-x86_64/GLFW/libGLFW.a ../Brigerad/vendor/Glad/bin/Debug-linux-x86_64/Glad/libGlad.a ../Brigerad/vendor/ImGui/bin/Debug-linux-x86_64/ImGui/libImGui.a -lGL -lm -ldl -lXinerama -lXrandr -lXi -lXcursor -lX11 -lXxf86vm -lpthread
   LDDEPS += ../bin/Debug-linux-x86_64/Brigerad/libBrigerad.a ../Brigerad/vendor/GLFW/bin/Debug-linux-x86_64/GLFW/libGLFW.a ../Brigerad/vendor/Glad/bin/Debug-linux-x86_64/Glad/libGlad.a ../Brigerad/vendor/ImGui/bin/Debug-linux-x86_64/ImGui/libImGui.a
-  ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 `wx-config --libs`
+  ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
   define PREBUILDCMDS
   endef
@@ -53,7 +53,7 @@ ifeq ($(config),release)
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
   LIBS += ../bin/Release-linux-x86_64/Brigerad/libBrigerad.a ../Brigerad/vendor/GLFW/bin/Release-linux-x86_64/GLFW/libGLFW.a ../Brigerad/vendor/Glad/bin/Release-linux-x86_64/Glad/libGlad.a ../Brigerad/vendor/ImGui/bin/Release-linux-x86_64/ImGui/libImGui.a -lGL -lm -ldl -lXinerama -lXrandr -lXi -lXcursor -lX11 -lXxf86vm -lpthread
   LDDEPS += ../bin/Release-linux-x86_64/Brigerad/libBrigerad.a ../Brigerad/vendor/GLFW/bin/Release-linux-x86_64/GLFW/libGLFW.a ../Brigerad/vendor/Glad/bin/Release-linux-x86_64/Glad/libGlad.a ../Brigerad/vendor/ImGui/bin/Release-linux-x86_64/ImGui/libImGui.a
-  ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 -s `wx-config --libs`
+  ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 -s
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
   define PREBUILDCMDS
   endef
@@ -82,7 +82,7 @@ ifeq ($(config),dist)
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
   LIBS += ../bin/Dist-linux-x86_64/Brigerad/libBrigerad.a ../Brigerad/vendor/GLFW/bin/Dist-linux-x86_64/GLFW/libGLFW.a ../Brigerad/vendor/Glad/bin/Dist-linux-x86_64/Glad/libGlad.a ../Brigerad/vendor/ImGui/bin/Dist-linux-x86_64/ImGui/libImGui.a -lGL -lm -ldl -lXinerama -lXrandr -lXi -lXcursor -lX11 -lXxf86vm -lpthread
   LDDEPS += ../bin/Dist-linux-x86_64/Brigerad/libBrigerad.a ../Brigerad/vendor/GLFW/bin/Dist-linux-x86_64/GLFW/libGLFW.a ../Brigerad/vendor/Glad/bin/Dist-linux-x86_64/Glad/libGlad.a ../Brigerad/vendor/ImGui/bin/Dist-linux-x86_64/ImGui/libImGui.a
-  ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 -s `wx-config --libs`
+  ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 -s
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
   define PREBUILDCMDS
   endef

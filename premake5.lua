@@ -106,8 +106,6 @@ project "Brigerad"
             "ImGui",
         }
 
-        linkoptions { "`wx-config --libs`" }
-
     filter "configurations:Debug"
         defines 
         {
@@ -196,7 +194,6 @@ project "Sandbox"
                 "ImGui",
             }
 
-            linkoptions { "`wx-config --libs`" }
             postbuildcommands{"cp -r assets ../bin/" .. outputdir .. "/%{prj.name}"}
             
             filter "configurations:Debug"

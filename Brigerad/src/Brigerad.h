@@ -1,18 +1,17 @@
 ﻿#pragma once
 
-
 // For use by Brigerad applications.
 
-#include "Brigerad/Application.h"
-#include "Brigerad/Layer.h"
-#include "Brigerad/Log.h"
+#include "Brigerad/Core/Application.h"
+#include "Brigerad/Core/Layer.h"
+#include "Brigerad/Core/Log.h"
 #include "Brigerad/ImGui/ImGuiLayer.h"
 
 #include "Brigerad/Core/Timestep.h"
 
-#include "Brigerad/Input.h"
-#include "Brigerad/KeyCodes.h"
-#include "Brigerad/MouseButtonCodes.h"
+#include "Brigerad/Core/Input.h"
+#include "Brigerad/Core/KeyCodes.h"
+#include "Brigerad/Core/MouseButtonCodes.h"
 
 #include "Brigerad/Renderer/Renderer.h"
 #include "Brigerad/Renderer/RenderCommand.h"
@@ -23,7 +22,6 @@
 #include "Brigerad/Renderer/Renderer.h"
 #include "Brigerad/Renderer/OrthographicCamera.h"
 
-
 // --- Entry Point ---
-#include "Brigerad/EntryPoint.h"
+#include "Brigerad/Core/EntryPoint.h"
 // -------------------

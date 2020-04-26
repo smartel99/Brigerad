@@ -2,7 +2,7 @@
 #include "Application.h"
 
 #include "Input.h"
-#include "Core/Time.h"
+#include "Brigerad/Core/Time.h"
 #include "KeyCodes.h"
 
 namespace Brigerad

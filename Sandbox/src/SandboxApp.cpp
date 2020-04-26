@@ -1,6 +1,6 @@
 ﻿#include "Brigerad.h"
 #include "Brigerad/Core/Timestep.h"
-#include "Brigerad/OrthographicCameraController.h"
+#include "Brigerad/Renderer/OrthographicCameraController.h"
 #include "Shape.h"
 #include "Platform/OpenGL/OpenGLShader.h"
 

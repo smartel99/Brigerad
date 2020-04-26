@@ -5,7 +5,17 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "g++ - Build and debug active file",
+            "name": "Release",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/bin/Debug-linux-x86_64/Sandbox/Sandbox",
+            "args": [],
+            "cwd": "${workspaceFolder}/bin/Debug-linux-x86_64/Sandbox/",
+            "environment": [],
+            "preLaunchTask": "g++ build release",
+        },
+        {
+            "name": "Debug",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/bin/Debug-linux-x86_64/Sandbox/Sandbox",
@@ -22,7 +32,7 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "g++ build active file",
+            "preLaunchTask": "g++ build debug",
             "miDebuggerPath": "/usr/bin/gdb"
         }
     ]

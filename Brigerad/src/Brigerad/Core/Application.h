@@ -1,18 +1,18 @@
 ﻿#pragma once
-#include "Core.h"
-#include "Events/Event.h"
-#include "Brigerad/LayerStack.h"
+#include "Brigerad/Core/Core.h"
+#include "Brigerad/Events/Event.h"
+#include "Brigerad/Core/LayerStack.h"
 #include "Brigerad/Events/ApplicationEvent.h"
 
-#include "Brigerad/Window.h"
+#include "Brigerad/Core/Window.h"
 
 #include "Brigerad/ImGui/ImGuiLayer.h"
 
 #include "Brigerad/Core/Timestep.h"
 
-#include "Renderer/Shader.h"
-#include "Renderer/Buffer.h"
-#include "Renderer/VertexArray.h"
+#include "Brigerad/Renderer/Shader.h"
+#include "Brigerad/Renderer/Buffer.h"
+#include "Brigerad/Renderer/VertexArray.h"
 #include "Brigerad/Renderer/Renderer.h"
 #include "Brigerad/Renderer/OrthographicCamera.h"
 

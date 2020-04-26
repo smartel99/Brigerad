@@ -8,7 +8,7 @@
  */
 #include "brpch.h"
 #include "LinuxInput.h"
-#include "Brigerad/Application.h"
+#include "Brigerad/Core/Application.h"
 #if defined(BR_PLATFORM_LINUX)
 
 #include <GLFW/glfw3.h>

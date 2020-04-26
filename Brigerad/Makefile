@@ -99,14 +99,14 @@ endif
 
 OBJECTS := \
 	$(OBJDIR)/Application.o \
-	$(OBJDIR)/ImGuiBuild.o \
-	$(OBJDIR)/ImGuiLayer.o \
 	$(OBJDIR)/Layer.o \
 	$(OBJDIR)/LayerStack.o \
 	$(OBJDIR)/Log.o \
-	$(OBJDIR)/OrthographicCameraController.o \
+	$(OBJDIR)/ImGuiBuild.o \
+	$(OBJDIR)/ImGuiLayer.o \
 	$(OBJDIR)/Buffer.o \
 	$(OBJDIR)/OrthographicCamera.o \
+	$(OBJDIR)/OrthographicCameraController.o \
 	$(OBJDIR)/RenderCommand.o \
 	$(OBJDIR)/Renderer.o \
 	$(OBJDIR)/RendererAPI.o \
@@ -183,7 +183,16 @@ else
 $(OBJECTS): | $(OBJDIR)
 endif
 
-$(OBJDIR)/Application.o: src/Brigerad/Application.cpp
+$(OBJDIR)/Application.o: src/Brigerad/Core/Application.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/Layer.o: src/Brigerad/Core/Layer.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/LayerStack.o: src/Brigerad/Core/LayerStack.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/Log.o: src/Brigerad/Core/Log.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/ImGuiBuild.o: src/Brigerad/ImGui/ImGuiBuild.cpp
@@ -192,22 +201,13 @@ $(OBJDIR)/ImGuiBuild.o: src/Brigerad/ImGui/ImGuiBuild.cpp
 $(OBJDIR)/ImGuiLayer.o: src/Brigerad/ImGui/ImGuiLayer.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/Layer.o: src/Brigerad/Layer.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/LayerStack.o: src/Brigerad/LayerStack.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/Log.o: src/Brigerad/Log.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/OrthographicCameraController.o: src/Brigerad/OrthographicCameraController.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Buffer.o: src/Brigerad/Renderer/Buffer.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/OrthographicCamera.o: src/Brigerad/Renderer/OrthographicCamera.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/OrthographicCameraController.o: src/Brigerad/Renderer/OrthographicCameraController.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/RenderCommand.o: src/Brigerad/Renderer/RenderCommand.cpp

@@ -1,8 +1,8 @@
 #include "brpch.h"
 #include "OrthographicCameraController.h"
 
-#include "Brigerad/Input.h"
-#include "Brigerad/KeyCodes.h"
+#include "Brigerad/Core/Input.h"
+#include "Brigerad/Core/KeyCodes.h"
 
 namespace Brigerad
 {

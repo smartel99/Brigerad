@@ -1,6 +1,6 @@
 #pragma once
 #if defined(BR_PLATFORM_LINUX)
-#include "Brigerad/Window.h"
+#include "Brigerad/Core/Window.h"
 #include "Brigerad/Renderer/GraphicsContext.h"
 
 #include <GLFW/glfw3.h>

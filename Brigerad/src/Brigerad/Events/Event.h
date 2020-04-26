@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "brpch.h"
-#include "Brigerad/Core.h"
+#include "Brigerad/Core/Core.h"
 
 namespace Brigerad
 {

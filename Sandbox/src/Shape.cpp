@@ -9,24 +9,23 @@
 #include "Shape.h"
 
 #include "Brigerad/Renderer/Renderer.h"
-#include "Brigerad/Log.h"
+#include "Brigerad/Core/Log.h"
 
 #include <glm/gtc/matrix_transform.hpp>
 
-
-Shape::Shape(float* vecs, size_t vecCnt,
-             uint32_t* indices, size_t indicesCnt,
-             const Brigerad::BufferLayout& layout,
-             const std::string& vertexShader,
-             const std::string& fragmentShader,
-             const std::string& debugName)
+Shape::Shape(float *vecs, size_t vecCnt,
+             uint32_t *indices, size_t indicesCnt,
+             const Brigerad::BufferLayout &layout,
+             const std::string &vertexShader,
+             const std::string &fragmentShader,
+             const std::string &debugName)
     : Controller(),
-    m_name(debugName),
-    m_transform(1.0f),
-    m_scale(1.0f),
-    m_scaleVec(1.0f),
-    m_ts(1.0f),
-    m_color(0.0f)
+      m_name(debugName),
+      m_transform(1.0f),
+      m_scale(1.0f),
+      m_scaleVec(1.0f),
+      m_ts(1.0f),
+      m_color(0.0f)
 {
     m_vertexArray.reset(Brigerad::VertexArray::Create());
 
@@ -44,18 +43,18 @@ Shape::Shape(float* vecs, size_t vecCnt,
     m_shader = Brigerad::Shader::Create(debugName, vertexShader, fragmentShader);
 }
 
-Shape::Shape(float* vecs, size_t vecCnt,
-             uint32_t* indices, size_t indicesCnt,
-             const Brigerad::BufferLayout& layout,
-             const std::string& filePath,
-             const std::string& debugName)
+Shape::Shape(float *vecs, size_t vecCnt,
+             uint32_t *indices, size_t indicesCnt,
+             const Brigerad::BufferLayout &layout,
+             const std::string &filePath,
+             const std::string &debugName)
     : Controller(),
-    m_name(debugName),
-    m_transform(1.0f),
-    m_scale(1.0f),
-    m_scaleVec(1.0f),
-    m_ts(1.0f),
-    m_color(0.0f)
+      m_name(debugName),
+      m_transform(1.0f),
+      m_scale(1.0f),
+      m_scaleVec(1.0f),
+      m_ts(1.0f),
+      m_color(0.0f)
 {
     m_vertexArray.reset(Brigerad::VertexArray::Create());
 
@@ -73,19 +72,19 @@ Shape::Shape(float* vecs, size_t vecCnt,
     m_shader = Brigerad::Shader::Create(filePath);
 }
 
-Shape::Shape(float* vecs, size_t vecCnt,
-             uint32_t* indices, size_t indicesCnt,
-             const Brigerad::BufferLayout& layout,
-             const Brigerad::Ref<Brigerad::Shader>& shader,
-             const std::string& debugName)
+Shape::Shape(float *vecs, size_t vecCnt,
+             uint32_t *indices, size_t indicesCnt,
+             const Brigerad::BufferLayout &layout,
+             const Brigerad::Ref<Brigerad::Shader> &shader,
+             const std::string &debugName)
     : Controller(),
-    m_name(debugName),
-    m_transform(1.0f),
-    m_scale(1.0f),
-    m_scaleVec(1.0f),
-    m_ts(1.0f),
-    m_color(0.0f),
-    m_shader(shader)
+      m_name(debugName),
+      m_transform(1.0f),
+      m_scale(1.0f),
+      m_scaleVec(1.0f),
+      m_ts(1.0f),
+      m_color(0.0f),
+      m_shader(shader)
 {
     m_vertexArray.reset(Brigerad::VertexArray::Create());
 
@@ -101,17 +100,16 @@ Shape::Shape(float* vecs, size_t vecCnt,
     m_vertexArray->SetIndexBuffer(indexBuffer);
 }
 
-
 void Shape::Submit()
 {
-//     BR_INFO("Shape: {0}", m_name);
-//     BR_INFO("Vertex Buffers:");
-//     for (const auto& vb : m_vertexArray->GetVertexBuffers())
-//     {
-//         BR_INFO("\t- {0}", vb->GetId());
-//     }
-//     BR_INFO("Index Buffer: {0}", m_vertexArray->GetIndexBuffers()->GetId());
-//     BR_INFO("Shader ID: {0}\n", m_shader->GetId());
+    //     BR_INFO("Shape: {0}", m_name);
+    //     BR_INFO("Vertex Buffers:");
+    //     for (const auto& vb : m_vertexArray->GetVertexBuffers())
+    //     {
+    //         BR_INFO("\t- {0}", vb->GetId());
+    //     }
+    //     BR_INFO("Index Buffer: {0}", m_vertexArray->GetIndexBuffers()->GetId());
+    //     BR_INFO("Shader ID: {0}\n", m_shader->GetId());
 
     Brigerad::Renderer::Submit(m_shader, m_vertexArray, m_ts);
 }
@@ -131,22 +129,22 @@ void Shape::OnUpdate(Brigerad::Timestep ts)
     }
 }
 
-Brigerad::Ref<Shape> Shape::Create(float* vecs, size_t vecCnt,
-                                   uint32_t* indices, size_t indicesCnd,
-                                   const Brigerad::BufferLayout& layout,
-                                   const std::string& vertexShader,
-                                   const std::string& fragmentShader,
-                                   const std::string& debugName)
+Brigerad::Ref<Shape> Shape::Create(float *vecs, size_t vecCnt,
+                                   uint32_t *indices, size_t indicesCnd,
+                                   const Brigerad::BufferLayout &layout,
+                                   const std::string &vertexShader,
+                                   const std::string &fragmentShader,
+                                   const std::string &debugName)
 {
     return std::make_shared<Shape>(vecs, vecCnt, indices, indicesCnd, layout, vertexShader, fragmentShader, debugName);
 }
 
-Brigerad::Ref<Shape> Shape::Create(float* vecs, size_t vecCnt, uint32_t* indices, size_t indicesCnd, const Brigerad::BufferLayout& layout, const std::string& filePath, const std::string& debugName)
+Brigerad::Ref<Shape> Shape::Create(float *vecs, size_t vecCnt, uint32_t *indices, size_t indicesCnd, const Brigerad::BufferLayout &layout, const std::string &filePath, const std::string &debugName)
 {
     return std::make_shared<Shape>(vecs, vecCnt, indices, indicesCnd, layout, filePath, debugName);
 }
 
-Brigerad::Ref<Shape> Shape::Create(float* vecs, size_t vecCnt, uint32_t* indices, size_t indicesCnd, const Brigerad::BufferLayout& layout, const Brigerad::Ref<Brigerad::Shader>& shader, const std::string& debugName)
+Brigerad::Ref<Shape> Shape::Create(float *vecs, size_t vecCnt, uint32_t *indices, size_t indicesCnd, const Brigerad::BufferLayout &layout, const Brigerad::Ref<Brigerad::Shader> &shader, const std::string &debugName)
 {
     return std::make_shared<Shape>(vecs, vecCnt, indices, indicesCnd, layout, shader, debugName);
 }
@@ -199,15 +197,13 @@ void Shape::HandleKeys(Brigerad::Timestep ts)
         if (key == BR_KEY_Q)
         {
             // Tilt CCW by 5 degrees.
-            m_rotation = ((m_rotation + dr) >= 360 ?
-                          0 : m_rotation + dr);
+            m_rotation = ((m_rotation + dr) >= 360 ? 0 : m_rotation + dr);
         }
         // Tilt CW.
         if (key == BR_KEY_E)
         {
             // Tilt CW by 5 degrees.
-            m_rotation = ((m_rotation - dr) <= 0 ?
-                          360 : m_rotation - dr);
+            m_rotation = ((m_rotation - dr) <= 0 ? 360 : m_rotation - dr);
         }
 
         // Scale X axis +.
@@ -240,7 +236,7 @@ void Shape::HandleKeys(Brigerad::Timestep ts)
 void Shape::RecalculateTransform()
 {
     m_transform = glm::translate(glm::mat4(1.0f), m_position) *
-        glm::rotate(glm::mat4(1.0f), glm::radians(m_rotation), glm::vec3(0, 0, 1));
+                  glm::rotate(glm::mat4(1.0f), glm::radians(m_rotation), glm::vec3(0, 0, 1));
 
     m_ts = m_transform * m_scale;
 }
@@ -250,6 +246,3 @@ void Shape::RecalculateScale()
     m_scale = glm::scale(glm::mat4(1.0f), m_scaleVec);
     m_ts = m_transform * m_scale;
 }
-
-
-

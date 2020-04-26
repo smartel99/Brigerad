@@ -1,6 +1,5 @@
 #pragma once
 
-// #include "Brigerad/Core.h"
 #include <filesystem>
 
 #if defined(BR_PLATFORM_WINDOWS) || defined(BR_PLATFORM_LINUX)

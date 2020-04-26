@@ -137,6 +137,7 @@ project "Sandbox"
         targetdir ("bin/" .. outputdir .. "/%{prj.name}")
         objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
+        
         files
         {
             "%{prj.name}/src/**.h",

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Brigerad/Core.h"
+#include "Brigerad/Core/Core.h"
 
 namespace Brigerad
 {
@@ -33,7 +33,6 @@ public:
         return s_instance->GetMousePosImpl();
     }
 
-
     // Actual implementation, platform-defined.
 protected:
     virtual bool IsKeyPressedImpl(int keycode) = 0;
@@ -43,6 +42,6 @@ protected:
     virtual std::pair<float, float> GetMousePosImpl() = 0;
 
 private:
-    static Input* s_instance;
+    static Input *s_instance;
 };
-}
+} // namespace Brigerad

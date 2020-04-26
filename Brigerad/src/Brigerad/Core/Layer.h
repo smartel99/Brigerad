@@ -15,27 +15,24 @@
 
 /*****************************************************************************/
 /* Includes */
-#include "Brigerad/Core.h"
+#include "Brigerad/Core/Core.h"
 #include "Brigerad/Events/Event.h"
 #include "Brigerad/Core/Timestep.h"
-
 
 namespace Brigerad
 {
 /*****************************************************************************/
 /* Exported defines */
 
-
 /*****************************************************************************/
 /* Exported macro */
-
 
 /*****************************************************************************/
 /* Exported types */
 class BRIGERAD_API Layer
 {
 public:
-    Layer(const std::string& name = "Layer");
+    Layer(const std::string &name = "Layer");
     virtual ~Layer();
 
     virtual void OnAttach()
@@ -54,11 +51,11 @@ public:
     {
     }
 
-    virtual void OnEvent(Event& event)
+    virtual void OnEvent(Event &event)
     {
     }
 
-    inline const std::string& GetName() const
+    inline const std::string &GetName() const
     {
         return m_debugName;
     }
@@ -70,8 +67,7 @@ protected:
 /*****************************************************************************/
 /* Exported functions */
 
-
-}
+} // namespace Brigerad
 /* Have a wonderful day :) */
 #endif /* _Layer */
 /**

@@ -5,18 +5,16 @@
 #include "Core/Time.h"
 #include "KeyCodes.h"
 
-
 namespace Brigerad
 {
 #define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
 
-Application* Application::s_instance = nullptr;
-
+Application *Application::s_instance = nullptr;
 
 Application::Application()
 {
     BR_CORE_ASSERT(!s_instance, "Application already exists!")
-        s_instance = this;
+    s_instance = this;
 
     m_window = Scope<Window>(Window::Create());
     m_window->SetEventCallback(BIND_EVENT_FN(OnEvent));
@@ -28,29 +26,30 @@ Application::Application()
     PushOverlay(m_imguiLayer);
 }
 
-
 Application::~Application()
 {
-
 }
-
 
 void Application::Run()
 {
     while (m_running)
     {
+
         float time = float(GetTime());
         Timestep timestep = time - m_lastFrameTime;
         m_lastFrameTime = time;
 
-        for (Layer* layer : m_layerStack)
+        if (m_minimized == false)
         {
-            layer->OnUpdate(timestep);
+            for (Layer *layer : m_layerStack)
+            {
+                layer->OnUpdate(timestep);
+            }
         }
 
         m_imguiLayer->Begin();
 
-        for (Layer* layer : m_layerStack)
+        for (Layer *layer : m_layerStack)
         {
             layer->OnImGuiRender();
         }
@@ -60,10 +59,11 @@ void Application::Run()
     }
 }
 
-void Application::OnEvent(Event& e)
+void Application::OnEvent(Event &e)
 {
     EventDispatcher dispatcher(e);
     dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
+    dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(OnWindowResize));
     dispatcher.Dispatch<KeyPressedEvent>(BIND_EVENT_FN(OnKeyPressed));
 
     for (auto it = m_layerStack.end(); it != m_layerStack.begin();)
@@ -76,25 +76,39 @@ void Application::OnEvent(Event& e)
     }
 }
 
-void Application::PushLayer(Layer* layer)
+void Application::PushLayer(Layer *layer)
 {
     m_layerStack.PushLayer(layer);
     layer->OnAttach();
 }
 
-void Application::PushOverlay(Layer* layer)
+void Application::PushOverlay(Layer *layer)
 {
     m_layerStack.PushOverlay(layer);
     layer->OnAttach();
 }
 
-bool Application::OnWindowClose(WindowCloseEvent& e)
+bool Application::OnWindowClose(WindowCloseEvent &e)
 {
     m_running = false;
     return true;
 }
 
-bool Application::OnKeyPressed(KeyPressedEvent& e)
+bool Application::OnWindowResize(WindowResizeEvent &e)
+{
+    if (e.GetHeight() == 0 || e.GetWidth() == 0)
+    {
+        m_minimized = true;
+        return false;
+    }
+    m_minimized = false;
+
+    Renderer::OnWindowResize(e.GetWidth(), e.GetHeight());
+
+    return false;
+}
+
+bool Application::OnKeyPressed(KeyPressedEvent &e)
 {
     if (e.GetKeyCode() == BR_KEY_ESCAPE && e.GetRepeatCount() == 0)
     {
@@ -107,5 +121,4 @@ bool Application::OnKeyPressed(KeyPressedEvent& e)
     }
 }
 
-
-}
+} // namespace Brigerad

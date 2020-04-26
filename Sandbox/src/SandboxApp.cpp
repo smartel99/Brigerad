@@ -157,67 +157,14 @@ public:
 
     virtual void OnImGuiRender() override
     {
-        const char *controllers[] = {"Camera", "Square", "Triangle"};
-
-        ImGui::Begin("Controllers");
-        {
-            if (ImGui::BeginCombo("Active Controller", controllers[m_activeController]))
-            {
-                for (int i = 0; i < sizeof_array(controllers); i++)
-                {
-                    if (ImGui::Selectable(controllers[i]))
-                    {
-                        m_activeController = i;
-                    }
-                }
-                ImGui::EndCombo();
-            }
-
-            auto pos = glm::vec3(0.0f);
-            auto vel = glm::vec3(0.0f);
-            auto sca = glm::vec3(0.0f);
-            float rot = 0.0f;
-
-            if (m_activeController == 1)
-            {
-                pos = m_square->GetPosition();
-                vel = m_square->GetMovement();
-                sca = m_square->GetScale();
-                rot = m_square->GetRotation();
-            }
-            else if (m_activeController == 2)
-            {
-                pos = m_tri->GetPosition();
-                vel = m_tri->GetMovement();
-                sca = m_tri->GetScale();
-                rot = m_tri->GetRotation();
-            }
-
-            ImGui::Text("Position: x=%0.3f y=%0.3f z=%0.3f", pos.x, pos.y, pos.z);
-            ImGui::Text("Velocity: x=%0.3f y=%0.3f z=%0.3f", vel.x, vel.y, vel.z);
-            ImGui::Text("Scale: x=%0.3f y=%0.3f z=%0.3f", sca.x, sca.y, sca.z);
-            ImGui::Text("Rotation: %0.0f deg", rot);
-
-            ImGui::End();
-
-            ImGui::Begin("Sandbox Settings");
-            ImGui::ColorEdit3("Square Color", glm::value_ptr(m_square->GetColorRef()));
-            ImGui::End();
-        }
+        ImGui::Begin("Sandbox Settings");
+        ImGui::ColorEdit3("Square Color", glm::value_ptr(m_square->GetColorRef()));
+        ImGui::End();
     }
 
     void OnEvent(Brigerad::Event &event) override
     {
         m_camera.OnEvent(event);
-        switch (m_activeController)
-        {
-        case 1:
-            m_square->HandleEvent(event);
-            break;
-        case 2:
-            m_tri->HandleEvent(event);
-            break;
-        }
     }
 
 private:

@@ -26,38 +26,40 @@ public:
 
     void Run();
 
-    void OnEvent(Event& e);
+    void OnEvent(Event &e);
 
-    void PushLayer(Layer* layer);
-    void PushOverlay(Layer* layer);
+    void PushLayer(Layer *layer);
+    void PushOverlay(Layer *layer);
 
-    inline Window& GetWindow()
+    inline Window &GetWindow()
     {
         return *m_window;
     }
 
-    inline static Application& Get()
+    inline static Application &Get()
     {
         return *s_instance;
     }
 
 private:
-    bool OnWindowClose(WindowCloseEvent& e);
-    bool OnKeyPressed(KeyPressedEvent& e);
+    bool OnWindowClose(WindowCloseEvent &e);
+    bool OnWindowResize(WindowResizeEvent &e);
+    bool OnKeyPressed(KeyPressedEvent &e);
 
 private:
     Scope<Window> m_window;
-    ImGuiLayer* m_imguiLayer;
+    ImGuiLayer *m_imguiLayer;
 
     bool m_running = true;
+    bool m_minimized = false;
     LayerStack m_layerStack;
 
     float m_lastFrameTime = 0.0f;
 
 private:
-    static Application* s_instance;
+    static Application *s_instance;
 };
 
 // To be defined in client.
-Application* CreateApplication();
-}
+Application *CreateApplication();
+} // namespace Brigerad

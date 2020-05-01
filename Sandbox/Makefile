@@ -100,6 +100,7 @@ endif
 OBJECTS := \
 	$(OBJDIR)/CameraController.o \
 	$(OBJDIR)/Controller.o \
+	$(OBJDIR)/Sandbox2D.o \
 	$(OBJDIR)/SandboxApp.o \
 	$(OBJDIR)/Shape.o \
 
@@ -164,6 +165,9 @@ $(OBJDIR)/CameraController.o: src/CameraController.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Controller.o: src/Controller.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/Sandbox2D.o: src/Sandbox2D.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/SandboxApp.o: src/SandboxApp.cpp

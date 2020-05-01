@@ -14,19 +14,18 @@
 
 namespace Brigerad
 {
-VertexArray* VertexArray::Create()
+Ref<VertexArray> VertexArray::Create()
 {
     switch (Renderer::GetAPI())
     {
-        case RendererAPI::API::None:
-            BR_CORE_ASSERT(false, "RendererAPI::None is currently not supported!");
-            return nullptr;
-        case RendererAPI::API::OpenGL:
-            return new OpenGLVertexArray();
-        default:
-            BR_CORE_ASSERT(false, "Invalid RendererAPI!");
-            return nullptr;
+    case RendererAPI::API::None:
+        BR_CORE_ASSERT(false, "RendererAPI::None is currently not supported!");
+        return nullptr;
+    case RendererAPI::API::OpenGL:
+        return std::make_shared<OpenGLVertexArray>();
+    default:
+        BR_CORE_ASSERT(false, "Invalid RendererAPI!");
+        return nullptr;
     }
 }
-}
-
+} // namespace Brigerad

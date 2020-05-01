@@ -25,9 +25,9 @@ Shape::Shape(float *vecs, size_t vecCnt,
       m_scale(1.0f),
       m_scaleVec(1.0f),
       m_ts(1.0f),
-      m_color(0.0f)
+      m_color(0.2f, 0.3f, 0.8f, 1.0f)
 {
-    m_vertexArray.reset(Brigerad::VertexArray::Create());
+    m_vertexArray = Brigerad::VertexArray::Create();
 
     Brigerad::Ref<Brigerad::VertexBuffer> vertexBuffer;
     vertexBuffer.reset(Brigerad::VertexBuffer::Create(vecs, uint32_t(vecCnt)));
@@ -54,9 +54,9 @@ Shape::Shape(float *vecs, size_t vecCnt,
       m_scale(1.0f),
       m_scaleVec(1.0f),
       m_ts(1.0f),
-      m_color(0.0f)
+      m_color(0.2f, 0.3f, 0.8f, 1.0f)
 {
-    m_vertexArray.reset(Brigerad::VertexArray::Create());
+    m_vertexArray = Brigerad::VertexArray::Create();
 
     Brigerad::Ref<Brigerad::VertexBuffer> vertexBuffer;
     vertexBuffer.reset(Brigerad::VertexBuffer::Create(vecs, uint32_t(vecCnt)));
@@ -83,10 +83,10 @@ Shape::Shape(float *vecs, size_t vecCnt,
       m_scale(1.0f),
       m_scaleVec(1.0f),
       m_ts(1.0f),
-      m_color(0.0f),
+      m_color(0.2f, 0.3f, 0.8f, 1.0f),
       m_shader(shader)
 {
-    m_vertexArray.reset(Brigerad::VertexArray::Create());
+    m_vertexArray = Brigerad::VertexArray::Create();
 
     Brigerad::Ref<Brigerad::VertexBuffer> vertexBuffer;
     vertexBuffer.reset(Brigerad::VertexBuffer::Create(vecs, uint32_t(vecCnt)));

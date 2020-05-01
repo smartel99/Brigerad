@@ -72,24 +72,24 @@ public:
         RecalculateScale();
     }
 
-    const glm::vec3& GetColor() const
+    const glm::vec4& GetColor() const
     {
         return m_color;
     }
-    glm::vec3& GetColorRef()
+    glm::vec4& GetColorRef()
     {
         return m_color;
     }
-    void SetColor(const glm::vec3& color)
+    void SetColor(const glm::vec4& color)
     {
         m_color = color;
         std::dynamic_pointer_cast<Brigerad::OpenGLShader>(m_shader)
-            ->UploadUniformFloat3("u_Color", color);
+            ->UploadUniformFloat4("u_Color", color);
     }
     void UploadColor() const
     {
         std::dynamic_pointer_cast<Brigerad::OpenGLShader>(m_shader)
-            ->UploadUniformFloat3("u_Color", m_color);
+            ->UploadUniformFloat4("u_Color", m_color);
     }
 
     static Brigerad::Ref<Shape> Create(float* vecs, size_t vecCnt,
@@ -119,7 +119,7 @@ private:
     glm::mat4 m_ts;
     glm::vec3 m_scaleVec;
 
-    glm::vec3 m_color;
+    glm::vec4 m_color;
 
     std::string m_name = "Default";
 

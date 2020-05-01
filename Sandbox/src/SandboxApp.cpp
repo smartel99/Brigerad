@@ -1,8 +1,10 @@
 ﻿#include "Brigerad.h"
-#include "Brigerad/Core/Timestep.h"
-#include "Brigerad/Renderer/OrthographicCameraController.h"
-#include "Shape.h"
+#include "Brigerad/Core/EntryPoint.h"
+
 #include "Platform/OpenGL/OpenGLShader.h"
+
+#include "Shape.h"
+#include "Sandbox2D.h"
 
 #include "ImGui/imgui.h"
 
@@ -12,11 +14,9 @@
 
 class ExampleLayer : public Brigerad::Layer
 {
-public:
-    ExampleLayer()
-        : Layer("Example"), m_camera(1280.0f / 720.0f)
+    public:
+    ExampleLayer() : Layer("Example"), m_camera(1280.0f / 720.0f)
     {
-
         float vertices[3 * 7] = {
             // 0
             -0.5f,
@@ -45,20 +45,18 @@ public:
         };
 
         Brigerad::BufferLayout layout = {
-            {Brigerad::ShaderDataType::Float3, "a_position"},
-            {Brigerad::ShaderDataType::Float4, "a_Color"},
+            { Brigerad::ShaderDataType::Float3, "a_position" },
+            { Brigerad::ShaderDataType::Float4, "a_Color" },
         };
 
-        uint32_t indices[3] = {
-            0, 1, 2};
+        uint32_t indices[3] = { 0, 1, 2 };
 
         m_shaderLibrary.Load("assets/shaders/FlatColor.glsl");
         m_shaderLibrary.Load("assets/shaders/Texture.glsl");
         m_shaderLibrary.Load("assets/shaders/RGB.glsl");
 
-        m_tri = Shape::Create(vertices, sizeof(vertices),
-                              indices, sizeof_array(indices),
-                              layout, m_shaderLibrary.Get("RGB"), "Triangle");
+        m_tri = Shape::Create(
+        vertices, sizeof(vertices), indices, sizeof_array(indices), layout, m_shaderLibrary.Get("RGB"), "Triangle");
 
         float squareVertices[5 * 4] = {
             // 0
@@ -88,24 +86,31 @@ public:
         };
 
         Brigerad::BufferLayout squareLayout = {
-            {Brigerad::ShaderDataType::Float3, "a_position"},
-            {Brigerad::ShaderDataType::Float2, "a_TextCoord"},
+            { Brigerad::ShaderDataType::Float3, "a_position" },
+            { Brigerad::ShaderDataType::Float2, "a_TextCoord" },
         };
 
-        uint32_t squareIndices[6] = {
-            0, 1, 2, 2, 3, 0};
+        uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
 
-        m_square = Shape::Create(squareVertices, sizeof(squareVertices),
-                                 squareIndices, sizeof_array(squareIndices),
-                                 squareLayout, m_shaderLibrary.Get("FlatColor"), "Square");
+        m_square = Shape::Create(squareVertices,
+                                 sizeof(squareVertices),
+                                 squareIndices,
+                                 sizeof_array(squareIndices),
+                                 squareLayout,
+                                 m_shaderLibrary.Get("FlatColor"),
+                                 "Square");
 
-        m_text = Shape::Create(squareVertices, sizeof(squareVertices),
-                               squareIndices, sizeof_array(squareIndices),
-                               squareLayout, m_shaderLibrary.Get("Texture"), "Texture");
+        m_text = Shape::Create(squareVertices,
+                               sizeof(squareVertices),
+                               squareIndices,
+                               sizeof_array(squareIndices),
+                               squareLayout,
+                               m_shaderLibrary.Get("Texture"),
+                               "Texture");
         m_text->SetScale(15.f);
 
         m_texture = Brigerad::Texture2D::Create("assets/textures/checkboard.png");
-        m_rald = Brigerad::Texture2D::Create("assets/textures/Rald.png");
+        m_rald    = Brigerad::Texture2D::Create("assets/textures/Rald.png");
 
         std::dynamic_pointer_cast<Brigerad::OpenGLShader>(m_text->GetShader())->Bind();
         std::dynamic_pointer_cast<Brigerad::OpenGLShader>(m_text->GetShader())->UploadUniformInt("u_Texture", 0);
@@ -118,7 +123,7 @@ public:
 
         // Render.
         //         BR_TRACE("Delta time: {0}s [{1}ms]", ts.GetSeconds(), ts.GetMilliseconds());
-        Brigerad::RenderCommand::SetClearColor({0.2f, 0.2f, 0.2f, 1.0f});
+        Brigerad::RenderCommand::SetClearColor({ 0.2f, 0.2f, 0.2f, 1.0f });
         Brigerad::RenderCommand::Clear();
 
         m_camera.OnUpdate(ts);
@@ -162,12 +167,9 @@ public:
         ImGui::End();
     }
 
-    void OnEvent(Brigerad::Event &event) override
-    {
-        m_camera.OnEvent(event);
-    }
+    void OnEvent(Brigerad::Event& event) override { m_camera.OnEvent(event); }
 
-private:
+    private:
     Brigerad::ShaderLibrary m_shaderLibrary;
     Brigerad::Ref<Shape> m_square;
     Brigerad::Ref<Shape> m_text;
@@ -181,16 +183,14 @@ private:
 
 class Sandbox : public Brigerad::Application
 {
-public:
+    public:
     Sandbox()
     {
-        PushLayer(new ExampleLayer());
+        // PushLayer(new ExampleLayer());
+        PushLayer(new Sandbox2D());
     }
 
     ~Sandbox() override = default;
 };
 
-Brigerad::Application *Brigerad::CreateApplication()
-{
-    return new Sandbox();
-}
+Brigerad::Application* Brigerad::CreateApplication() { return new Sandbox(); }

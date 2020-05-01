@@ -21,7 +21,4 @@
 #include "Brigerad/Renderer/VertexArray.h"
 #include "Brigerad/Renderer/Renderer.h"
 #include "Brigerad/Renderer/OrthographicCamera.h"
-
-// --- Entry Point ---
-#include "Brigerad/Core/EntryPoint.h"
-// -------------------
+#include "Brigerad/Renderer/OrthographicCameraController.h"

@@ -22,6 +22,9 @@
     <Filter Include="src\Platform">
       <UniqueIdentifier>{21CA02E5-0D2D-9289-B6B2-CA3FA2F45D0C}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Platform\Linux">
+      <UniqueIdentifier>{0052F1F1-EC35-B247-5596-AC9A41999CC9}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Platform\OpenGL">
       <UniqueIdentifier>{35A49437-A105-7245-2A73-B8F796D3A804}</UniqueIdentifier>
     </Filter>
@@ -57,11 +60,32 @@
     <ClInclude Include="src\Brigerad.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\Brigerad\Application.h">
-      <Filter>src\Brigerad</Filter>
+    <ClInclude Include="src\Brigerad\Core\Application.h">
+      <Filter>src\Brigerad\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Brigerad\Core.h">
-      <Filter>src\Brigerad</Filter>
+    <ClInclude Include="src\Brigerad\Core\Core.h">
+      <Filter>src\Brigerad\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Brigerad\Core\EntryPoint.h">
+      <Filter>src\Brigerad\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Brigerad\Core\Input.h">
+      <Filter>src\Brigerad\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Brigerad\Core\KeyCodes.h">
+      <Filter>src\Brigerad\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Brigerad\Core\Layer.h">
+      <Filter>src\Brigerad\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Brigerad\Core\LayerStack.h">
+      <Filter>src\Brigerad\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Brigerad\Core\Log.h">
+      <Filter>src\Brigerad\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Brigerad\Core\MouseButtonCodes.h">
+      <Filter>src\Brigerad\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Brigerad\Core\Time.h">
       <Filter>src\Brigerad\Core</Filter>
@@ -69,8 +93,8 @@
     <ClInclude Include="src\Brigerad\Core\Timestep.h">
       <Filter>src\Brigerad\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Brigerad\EntryPoint.h">
-      <Filter>src\Brigerad</Filter>
+    <ClInclude Include="src\Brigerad\Core\Window.h">
+      <Filter>src\Brigerad\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Brigerad\Events\ApplicationEvent.h">
       <Filter>src\Brigerad\Events</Filter>
@@ -87,24 +111,6 @@
     <ClInclude Include="src\Brigerad\ImGui\ImGuiLayer.h">
       <Filter>src\Brigerad\ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="src\Brigerad\Input.h">
-      <Filter>src\Brigerad</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Brigerad\KeyCodes.h">
-      <Filter>src\Brigerad</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Brigerad\Layer.h">
-      <Filter>src\Brigerad</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Brigerad\LayerStack.h">
-      <Filter>src\Brigerad</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Brigerad\Log.h">
-      <Filter>src\Brigerad</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Brigerad\MouseButtonCodes.h">
-      <Filter>src\Brigerad</Filter>
-    </ClInclude>
     <ClInclude Include="src\Brigerad\Renderer\Buffer.h">
       <Filter>src\Brigerad\Renderer</Filter>
     </ClInclude>
@@ -114,10 +120,16 @@
     <ClInclude Include="src\Brigerad\Renderer\OrthographicCamera.h">
       <Filter>src\Brigerad\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Brigerad\Renderer\OrthographicCameraController.h">
+      <Filter>src\Brigerad\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Brigerad\Renderer\RenderCommand.h">
       <Filter>src\Brigerad\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Brigerad\Renderer\Renderer.h">
+      <Filter>src\Brigerad\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Brigerad\Renderer\Renderer2D.h">
       <Filter>src\Brigerad\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Brigerad\Renderer\RendererAPI.h">
@@ -132,8 +144,14 @@
     <ClInclude Include="src\Brigerad\Renderer\VertexArray.h">
       <Filter>src\Brigerad\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\Brigerad\Window.h">
-      <Filter>src\Brigerad</Filter>
+    <ClInclude Include="src\Platform\Linux\LinuxInput.h">
+      <Filter>src\Platform\Linux</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\Linux\LinuxTime.h">
+      <Filter>src\Platform\Linux</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\Linux\LinuxWindow.h">
+      <Filter>src\Platform\Linux</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h">
       <Filter>src\Platform\OpenGL</Filter>
@@ -474,6 +492,60 @@
     <ClInclude Include="vendor\glm\glm\ext\matrix_float4x4_precision.hpp">
       <Filter>vendor\glm\glm\ext</Filter>
     </ClInclude>
+    <ClInclude Include="vendor\glm\glm\ext\matrix_int2x2.hpp">
+      <Filter>vendor\glm\glm\ext</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\glm\glm\ext\matrix_int2x2_sized.hpp">
+      <Filter>vendor\glm\glm\ext</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\glm\glm\ext\matrix_int2x3.hpp">
+      <Filter>vendor\glm\glm\ext</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\glm\glm\ext\matrix_int2x3_sized.hpp">
+      <Filter>vendor\glm\glm\ext</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\glm\glm\ext\matrix_int2x4.hpp">
+      <Filter>vendor\glm\glm\ext</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\glm\glm\ext\matrix_int2x4_sized.hpp">
+      <Filter>vendor\glm\glm\ext</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\glm\glm\ext\matrix_int3x2.hpp">
+      <Filter>vendor\glm\glm\ext</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\glm\glm\ext\matrix_int3x2_sized.hpp">
+      <Filter>vendor\glm\glm\ext</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\glm\glm\ext\matrix_int3x3.hpp">
+      <Filter>vendor\glm\glm\ext</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\glm\glm\ext\matrix_int3x3_sized.hpp">
+      <Filter>vendor\glm\glm\ext</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\glm\glm\ext\matrix_int3x4.hpp">
+      <Filter>vendor\glm\glm\ext</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\glm\glm\ext\matrix_int3x4_sized.hpp">
+      <Filter>vendor\glm\glm\ext</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\glm\glm\ext\matrix_int4x2.hpp">
+      <Filter>vendor\glm\glm\ext</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\glm\glm\ext\matrix_int4x2_sized.hpp">
+      <Filter>vendor\glm\glm\ext</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\glm\glm\ext\matrix_int4x3.hpp">
+      <Filter>vendor\glm\glm\ext</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\glm\glm\ext\matrix_int4x3_sized.hpp">
+      <Filter>vendor\glm\glm\ext</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\glm\glm\ext\matrix_int4x4.hpp">
+      <Filter>vendor\glm\glm\ext</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\glm\glm\ext\matrix_int4x4_sized.hpp">
+      <Filter>vendor\glm\glm\ext</Filter>
+    </ClInclude>
     <ClInclude Include="vendor\glm\glm\ext\matrix_projection.hpp">
       <Filter>vendor\glm\glm\ext</Filter>
     </ClInclude>
@@ -490,6 +562,60 @@
       <Filter>vendor\glm\glm\ext</Filter>
     </ClInclude>
     <ClInclude Include="vendor\glm\glm\ext\matrix_transform.inl">
+      <Filter>vendor\glm\glm\ext</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\glm\glm\ext\matrix_uint2x2.hpp">
+      <Filter>vendor\glm\glm\ext</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\glm\glm\ext\matrix_uint2x2_sized.hpp">
+      <Filter>vendor\glm\glm\ext</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\glm\glm\ext\matrix_uint2x3.hpp">
+      <Filter>vendor\glm\glm\ext</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\glm\glm\ext\matrix_uint2x3_sized.hpp">
+      <Filter>vendor\glm\glm\ext</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\glm\glm\ext\matrix_uint2x4.hpp">
+      <Filter>vendor\glm\glm\ext</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\glm\glm\ext\matrix_uint2x4_sized.hpp">
+      <Filter>vendor\glm\glm\ext</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\glm\glm\ext\matrix_uint3x2.hpp">
+      <Filter>vendor\glm\glm\ext</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\glm\glm\ext\matrix_uint3x2_sized.hpp">
+      <Filter>vendor\glm\glm\ext</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\glm\glm\ext\matrix_uint3x3.hpp">
+      <Filter>vendor\glm\glm\ext</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\glm\glm\ext\matrix_uint3x3_sized.hpp">
+      <Filter>vendor\glm\glm\ext</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\glm\glm\ext\matrix_uint3x4.hpp">
+      <Filter>vendor\glm\glm\ext</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\glm\glm\ext\matrix_uint3x4_sized.hpp">
+      <Filter>vendor\glm\glm\ext</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\glm\glm\ext\matrix_uint4x2.hpp">
+      <Filter>vendor\glm\glm\ext</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\glm\glm\ext\matrix_uint4x2_sized.hpp">
+      <Filter>vendor\glm\glm\ext</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\glm\glm\ext\matrix_uint4x3.hpp">
+      <Filter>vendor\glm\glm\ext</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\glm\glm\ext\matrix_uint4x3_sized.hpp">
+      <Filter>vendor\glm\glm\ext</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\glm\glm\ext\matrix_uint4x4.hpp">
+      <Filter>vendor\glm\glm\ext</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\glm\glm\ext\matrix_uint4x4_sized.hpp">
       <Filter>vendor\glm\glm\ext</Filter>
     </ClInclude>
     <ClInclude Include="vendor\glm\glm\ext\quaternion_common.hpp">
@@ -666,16 +792,10 @@
     <ClInclude Include="vendor\glm\glm\ext\vector_int1.hpp">
       <Filter>vendor\glm\glm\ext</Filter>
     </ClInclude>
-    <ClInclude Include="vendor\glm\glm\ext\vector_int1_precision.hpp">
-      <Filter>vendor\glm\glm\ext</Filter>
-    </ClInclude>
     <ClInclude Include="vendor\glm\glm\ext\vector_int1_sized.hpp">
       <Filter>vendor\glm\glm\ext</Filter>
     </ClInclude>
     <ClInclude Include="vendor\glm\glm\ext\vector_int2.hpp">
-      <Filter>vendor\glm\glm\ext</Filter>
-    </ClInclude>
-    <ClInclude Include="vendor\glm\glm\ext\vector_int2_precision.hpp">
       <Filter>vendor\glm\glm\ext</Filter>
     </ClInclude>
     <ClInclude Include="vendor\glm\glm\ext\vector_int2_sized.hpp">
@@ -684,16 +804,10 @@
     <ClInclude Include="vendor\glm\glm\ext\vector_int3.hpp">
       <Filter>vendor\glm\glm\ext</Filter>
     </ClInclude>
-    <ClInclude Include="vendor\glm\glm\ext\vector_int3_precision.hpp">
-      <Filter>vendor\glm\glm\ext</Filter>
-    </ClInclude>
     <ClInclude Include="vendor\glm\glm\ext\vector_int3_sized.hpp">
       <Filter>vendor\glm\glm\ext</Filter>
     </ClInclude>
     <ClInclude Include="vendor\glm\glm\ext\vector_int4.hpp">
-      <Filter>vendor\glm\glm\ext</Filter>
-    </ClInclude>
-    <ClInclude Include="vendor\glm\glm\ext\vector_int4_precision.hpp">
       <Filter>vendor\glm\glm\ext</Filter>
     </ClInclude>
     <ClInclude Include="vendor\glm\glm\ext\vector_int4_sized.hpp">
@@ -720,16 +834,10 @@
     <ClInclude Include="vendor\glm\glm\ext\vector_uint1.hpp">
       <Filter>vendor\glm\glm\ext</Filter>
     </ClInclude>
-    <ClInclude Include="vendor\glm\glm\ext\vector_uint1_precision.hpp">
-      <Filter>vendor\glm\glm\ext</Filter>
-    </ClInclude>
     <ClInclude Include="vendor\glm\glm\ext\vector_uint1_sized.hpp">
       <Filter>vendor\glm\glm\ext</Filter>
     </ClInclude>
     <ClInclude Include="vendor\glm\glm\ext\vector_uint2.hpp">
-      <Filter>vendor\glm\glm\ext</Filter>
-    </ClInclude>
-    <ClInclude Include="vendor\glm\glm\ext\vector_uint2_precision.hpp">
       <Filter>vendor\glm\glm\ext</Filter>
     </ClInclude>
     <ClInclude Include="vendor\glm\glm\ext\vector_uint2_sized.hpp">
@@ -738,16 +846,10 @@
     <ClInclude Include="vendor\glm\glm\ext\vector_uint3.hpp">
       <Filter>vendor\glm\glm\ext</Filter>
     </ClInclude>
-    <ClInclude Include="vendor\glm\glm\ext\vector_uint3_precision.hpp">
-      <Filter>vendor\glm\glm\ext</Filter>
-    </ClInclude>
     <ClInclude Include="vendor\glm\glm\ext\vector_uint3_sized.hpp">
       <Filter>vendor\glm\glm\ext</Filter>
     </ClInclude>
     <ClInclude Include="vendor\glm\glm\ext\vector_uint4.hpp">
-      <Filter>vendor\glm\glm\ext</Filter>
-    </ClInclude>
-    <ClInclude Include="vendor\glm\glm\ext\vector_uint4_precision.hpp">
       <Filter>vendor\glm\glm\ext</Filter>
     </ClInclude>
     <ClInclude Include="vendor\glm\glm\ext\vector_uint4_sized.hpp">
@@ -1310,8 +1412,17 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Brigerad\Application.cpp">
-      <Filter>src\Brigerad</Filter>
+    <ClCompile Include="src\Brigerad\Core\Application.cpp">
+      <Filter>src\Brigerad\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Brigerad\Core\Layer.cpp">
+      <Filter>src\Brigerad\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Brigerad\Core\LayerStack.cpp">
+      <Filter>src\Brigerad\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Brigerad\Core\Log.cpp">
+      <Filter>src\Brigerad\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Brigerad\ImGui\ImGuiBuild.cpp">
       <Filter>src\Brigerad\ImGui</Filter>
@@ -1319,25 +1430,22 @@
     <ClCompile Include="src\Brigerad\ImGui\ImGuiLayer.cpp">
       <Filter>src\Brigerad\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="src\Brigerad\Layer.cpp">
-      <Filter>src\Brigerad</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Brigerad\LayerStack.cpp">
-      <Filter>src\Brigerad</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Brigerad\Log.cpp">
-      <Filter>src\Brigerad</Filter>
-    </ClCompile>
     <ClCompile Include="src\Brigerad\Renderer\Buffer.cpp">
       <Filter>src\Brigerad\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Brigerad\Renderer\OrthographicCamera.cpp">
       <Filter>src\Brigerad\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Brigerad\Renderer\OrthographicCameraController.cpp">
+      <Filter>src\Brigerad\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\Brigerad\Renderer\RenderCommand.cpp">
       <Filter>src\Brigerad\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Brigerad\Renderer\Renderer.cpp">
+      <Filter>src\Brigerad\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Brigerad\Renderer\Renderer2D.cpp">
       <Filter>src\Brigerad\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Brigerad\Renderer\RendererAPI.cpp">
@@ -1351,6 +1459,12 @@
     </ClCompile>
     <ClCompile Include="src\Brigerad\Renderer\VertexArray.cpp">
       <Filter>src\Brigerad\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\Linux\LinuxInput.cpp">
+      <Filter>src\Platform\Linux</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\Linux\LinuxWindow.cpp">
+      <Filter>src\Platform\Linux</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
       <Filter>src\Platform\OpenGL</Filter>

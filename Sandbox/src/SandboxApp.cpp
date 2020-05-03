@@ -55,8 +55,13 @@ class ExampleLayer : public Brigerad::Layer
         m_shaderLibrary.Load("assets/shaders/Texture.glsl");
         m_shaderLibrary.Load("assets/shaders/RGB.glsl");
 
-        m_tri = Shape::Create(
-        vertices, sizeof(vertices), indices, sizeof_array(indices), layout, m_shaderLibrary.Get("RGB"), "Triangle");
+        m_tri = Shape::Create(vertices,
+                              sizeof(vertices),
+                              indices,
+                              sizeof_array(indices),
+                              layout,
+                              m_shaderLibrary.Get("RGB"),
+                              "Triangle");
 
         float squareVertices[5 * 4] = {
             // 0
@@ -109,11 +114,13 @@ class ExampleLayer : public Brigerad::Layer
                                "Texture");
         m_text->SetScale(15.f);
 
-        m_texture = Brigerad::Texture2D::Create("assets/textures/checkboard.png");
-        m_rald    = Brigerad::Texture2D::Create("assets/textures/Rald.png");
+        m_texture =
+          Brigerad::Texture2D::Create("assets/textures/checkboard.png");
+        m_rald = Brigerad::Texture2D::Create("assets/textures/Rald.png");
 
         std::dynamic_pointer_cast<Brigerad::OpenGLShader>(m_text->GetShader())->Bind();
-        std::dynamic_pointer_cast<Brigerad::OpenGLShader>(m_text->GetShader())->UploadUniformInt("u_Texture", 0);
+        std::dynamic_pointer_cast<Brigerad::OpenGLShader>(m_text->GetShader())
+          ->UploadUniformInt("u_Texture", 0);
     }
 
     void OnUpdate(Brigerad::Timestep ts) override
@@ -141,7 +148,9 @@ class ExampleLayer : public Brigerad::Layer
         {
             for (int x = 0; x < 20; x++)
             {
-                glm::vec3 tmpPos((x * 1.1f) + origin.x, (y * 1.1f) + origin.y, origin.z);
+                glm::vec3 tmpPos((x * 1.1f) + origin.x,
+                                 (y * 1.1f) + origin.y,
+                                 origin.z);
                 m_square->SetPosition(tmpPos);
 
                 m_square->Submit();

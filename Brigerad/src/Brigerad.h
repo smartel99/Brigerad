@@ -20,5 +20,6 @@
 #include "Brigerad/Renderer/Buffer.h"
 #include "Brigerad/Renderer/VertexArray.h"
 #include "Brigerad/Renderer/Renderer.h"
+#include "Brigerad/Renderer/Renderer2D.h"
 #include "Brigerad/Renderer/OrthographicCamera.h"
 #include "Brigerad/Renderer/OrthographicCameraController.h"

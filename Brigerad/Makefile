@@ -109,6 +109,7 @@ OBJECTS := \
 	$(OBJDIR)/OrthographicCameraController.o \
 	$(OBJDIR)/RenderCommand.o \
 	$(OBJDIR)/Renderer.o \
+	$(OBJDIR)/Renderer2D.o \
 	$(OBJDIR)/RendererAPI.o \
 	$(OBJDIR)/Shader.o \
 	$(OBJDIR)/Texture.o \
@@ -214,6 +215,9 @@ $(OBJDIR)/RenderCommand.o: src/Brigerad/Renderer/RenderCommand.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Renderer.o: src/Brigerad/Renderer/Renderer.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/Renderer2D.o: src/Brigerad/Renderer/Renderer2D.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/RendererAPI.o: src/Brigerad/Renderer/RendererAPI.cpp

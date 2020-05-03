@@ -182,7 +182,7 @@ public:
     virtual const BufferLayout &GetLayout() = 0;
     virtual const uint32_t GetId() const = 0;
 
-    static VertexBuffer *Create(float *vertices, uint32_t size);
+    static Ref<VertexBuffer> Create(float *vertices, uint32_t size);
 };
 
 class IndexBuffer
@@ -198,7 +198,7 @@ public:
     virtual uint32_t GetCount() const = 0;
     virtual const uint32_t GetId() const = 0;
 
-    static IndexBuffer *Create(uint32_t *indices, uint32_t count);
+    static Ref<IndexBuffer> Create(uint32_t *indices, uint32_t count);
 };
 
 } // namespace Brigerad

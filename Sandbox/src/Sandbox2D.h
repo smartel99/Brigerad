@@ -18,8 +18,6 @@ class Sandbox2D : public Brigerad::Layer
 
     private:
     Brigerad::OrthographicCameraController m_camera;
-
-    // Temp.
-    Brigerad::ShaderLibrary m_shaderLibrary;
-    Brigerad::Ref<Shape> m_square;
+    glm::vec4 m_color = { 1.0f, 0.0f, 0.0f, 1.0f };
+    Brigerad::Ref<Brigerad::Texture2D> m_texture;
 };

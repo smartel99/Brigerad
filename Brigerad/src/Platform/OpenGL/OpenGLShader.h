@@ -11,7 +11,7 @@ namespace Brigerad
 {
 class OpenGLShader : public Shader
 {
-public:
+    public:
     OpenGLShader(const std::string& filePath);
     OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc);
     ~OpenGLShader() override;
@@ -19,15 +19,15 @@ public:
     void Bind() const override;
     void Unbind() const override;
 
-    virtual const std::string& GetName() const override
-    {
-        return m_name;
-    }
+    virtual void SetInt(const std::string& name, int value) override;
 
-    const uint32_t GetId() const
-    {
-        return m_rendererID;
-    }
+    virtual void SetFloat(const std::string& name, float value) override;
+    virtual void SetFloat2(const std::string& name, const glm::vec2& value) override;
+    virtual void SetFloat3(const std::string& name, const glm::vec3& value) override;
+    virtual void SetFloat4(const std::string& name, const glm::vec4& value) override;
+
+    virtual void SetMat3(const std::string& name, const glm::mat3& value) override;
+    virtual void SetMat4(const std::string& name, const glm::mat4& value) override;
 
     void UploadUniformInt(const std::string& name, int value);
 
@@ -39,13 +39,17 @@ public:
     void UploadUniformMat3(const std::string& name, const glm::mat3& matrix);
     void UploadUniformMat4(const std::string& name, const glm::mat4& matrix);
 
-private:
+    virtual const std::string& GetName() const override { return m_name; }
+
+    const uint32_t GetId() const { return m_rendererID; }
+
+    private:
     std::string ReadFile(const std::string& filePath);
     std::unordered_map<GLenum, std::string> PreProcess(const std::string& source);
     void Compile(const std::unordered_map<GLenum, std::string>& shaderSrcs);
 
-private:
-    uint32_t m_rendererID;
-    std::string m_name;
+    private:
+    uint32_t m_rendererID;  // Internal OpenGL program ID.
+    std::string m_name;     // Debug name of the shader.
 };
-}
+}  // namespace Brigerad

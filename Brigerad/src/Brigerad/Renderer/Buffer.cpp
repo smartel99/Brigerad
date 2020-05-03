@@ -16,8 +16,7 @@ namespace Brigerad
 {
 
 
-
-VertexBuffer* VertexBuffer::Create(float* vertices, uint32_t size)
+Ref<VertexBuffer> VertexBuffer::Create(float* vertices, uint32_t size)
 {
     switch (Renderer::GetAPI())
     {
@@ -25,14 +24,14 @@ VertexBuffer* VertexBuffer::Create(float* vertices, uint32_t size)
             BR_CORE_ASSERT(false, "RendererAPI::None is currently not supported!");
             return nullptr;
         case RendererAPI::API::OpenGL:
-            return new OpenGLVertexBuffer(vertices, size);
+            return std::make_unique<OpenGLVertexBuffer>(vertices, size);
         default:
             BR_CORE_ASSERT(false, "Invalid RendererAPI!");
             return nullptr;
     }
 }
 
-IndexBuffer* IndexBuffer::Create(uint32_t* vertices, uint32_t size)
+Ref<IndexBuffer> IndexBuffer::Create(uint32_t* vertices, uint32_t size)
 {
     switch (Renderer::GetAPI())
     {
@@ -40,7 +39,7 @@ IndexBuffer* IndexBuffer::Create(uint32_t* vertices, uint32_t size)
             BR_CORE_ASSERT(false, "RendererAPI::None is currently not supported!");
             return nullptr;
         case RendererAPI::API::OpenGL:
-            return new OpenGLIndexBuffer(vertices, size);
+            return std::make_unique<OpenGLIndexBuffer>(vertices, size);
         default:
             BR_CORE_ASSERT(false, "Invalid RendererAPI!");
             return nullptr;

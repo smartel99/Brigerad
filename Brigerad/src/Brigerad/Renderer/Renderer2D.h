@@ -15,6 +15,8 @@ class Renderer2D
     static void BeginScene(const OrthographicCamera& camera);
     static void EndScene();
 
+    static long long GetFrameCount();
+
     // Primitives
     static void DrawQuad(const glm::vec2& pos,
                          const glm::vec2& size,

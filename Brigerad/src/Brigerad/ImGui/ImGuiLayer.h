@@ -9,7 +9,7 @@ namespace Brigerad
 {
 class BRIGERAD_API ImGuiLayer : public Layer
 {
-public:
+    public:
     ImGuiLayer();
     ~ImGuiLayer() override;
 
@@ -19,17 +19,15 @@ public:
 
     void Begin();
     void End();
-    inline void SetIsVisible(bool isVisible)
-    {
-        m_open = isVisible;
-    }
-    inline void ToggleIsVisible()
-    {
-        m_open = !m_open;
-    }
+    inline void SetIsVisible(bool isVisible) { m_open = isVisible; }
+    inline void ToggleIsVisible() { m_open = !m_open; }
 
-private:
-    float m_time = 0.0f;
-    bool m_open = false;
+    private:
+    double m_time = 0.0;
+    bool m_open   = false;
+
+    bool m_isProfiling          = false;
+    double m_profilingStartTime = 0.0;
+    double m_profilingDuration  = 1.0;
 };
-}
+}  // namespace Brigerad

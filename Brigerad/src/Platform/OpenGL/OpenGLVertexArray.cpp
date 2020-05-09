@@ -59,14 +59,12 @@ OpenGLVertexArray::~OpenGLVertexArray()
 
 void OpenGLVertexArray::Bind() const
 {
+    BR_PROFILE_FUNCTION();
     glBindVertexArray(m_rendererId);
 }
 
 
-void OpenGLVertexArray::Unbind() const
-{
-    glBindVertexArray(0);
-}
+void OpenGLVertexArray::Unbind() const { glBindVertexArray(0); }
 
 
 void OpenGLVertexArray::AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer)
@@ -76,21 +74,21 @@ void OpenGLVertexArray::AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer)
     glBindVertexArray(m_rendererId);
     vertexBuffer->Bind();
 
-    uint32_t index = 0;
+    uint32_t index     = 0;
     const auto& layout = vertexBuffer->GetLayout();
     for (const auto& element : layout)
     {
         glEnableVertexAttribArray(index);
-        // "'type cast': conversion from 'const uint32_t' to 'const void*' of greater size."
-        // This is desired behavior.
-        #pragma warning(disable:4312)
+// "'type cast': conversion from 'const uint32_t' to 'const void*' of greater
+// size." This is desired behavior.
+#pragma warning(disable : 4312)
         glVertexAttribPointer(index,
                               element.GetComponentCount(),
                               ShaderDataTypeToOpenGLBaseType(element.type),
                               element.normalized ? GL_TRUE : GL_FALSE,
                               layout.GetStride(),
                               (const void*)element.offset);
-        #pragma warning(default:4312)
+#pragma warning(default : 4312)
         index++;
     }
 
@@ -116,5 +114,4 @@ const Ref<IndexBuffer>& OpenGLVertexArray::GetIndexBuffers() const
     return m_indexBuffer;
 }
 
-}
-
+}  // namespace Brigerad

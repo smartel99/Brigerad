@@ -14,6 +14,8 @@ struct Renderer2DStorage
     Ref<VertexArray> vertexArray;
     Ref<Shader> textureShader;
     Ref<Texture2D> whiteTexture;
+
+    long long frameCount = 0;
 };
 
 static Renderer2DStorage* s_data;
@@ -63,10 +65,13 @@ void Renderer2D::BeginScene(const OrthographicCamera& camera)
 {
     s_data->textureShader->Bind();
     s_data->textureShader->SetMat4("u_ViewProjection", camera.GetViewProjectionMatrix());
+
+    s_data->frameCount++;
 }
 
 void Renderer2D::EndScene() {}
 
+long long Renderer2D::GetFrameCount() { return s_data->frameCount; }
 
 // Primitives
 void Renderer2D::DrawQuad(const glm::vec2& pos, const glm::vec2& size, const glm::vec4& color, float rotation)
@@ -76,6 +81,7 @@ void Renderer2D::DrawQuad(const glm::vec2& pos, const glm::vec2& size, const glm
 
 void Renderer2D::DrawQuad(const glm::vec3& pos, const glm::vec2& size, const glm::vec4& color, float rotation)
 {
+    BR_PROFILE_FUNCTION();
     s_data->textureShader->SetFloat4("u_Color", color);
     s_data->whiteTexture->Bind();
 

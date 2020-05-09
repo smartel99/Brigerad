@@ -82,6 +82,7 @@ void OpenGLTexture2D::SetData(void* data, uint32_t size)
 
 void OpenGLTexture2D::Bind(uint32_t slot) const
 {
+    BR_PROFILE_FUNCTION();
     glBindTextureUnit(slot, m_rendererID);
 }
 

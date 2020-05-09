@@ -19,15 +19,15 @@
             #define BRIGERAD_API __declspec(dllexport)
         #else
             #define BRIGERAD_API __declspec(dllimport)
-        #endif // BR_BUILD_DLL
+        #endif  // BR_BUILD_DLL
     #else
         #define BRIGERAD_API
-    #endif // BR_DYNAMIC_LINK
+    #endif  // BR_DYNAMIC_LINK
 #elif defined(BR_PLATFORM_LINUX)
     #define BRIGERAD_API
 #else
     #error Brigerad only support Windows and Linux
-#endif // BR_PLATFROM_WINDOWS
+#endif  // BR_PLATFROM_WINDOWS
 
 // This should check the compiler used, not the OS.
 #if defined(BR_PLATFORM_WINDOWS)
@@ -39,23 +39,43 @@
     #error Brigerad only support Windows and Linux
 #endif
 
+// Define the function signature macro for the compiler being used.
+#if defined(_MSC_VER)
+    // Visual Studio
+    #define FUNCSIG __FUNCSIG__
+#elif defined(__GNUC__)
+    // GCC
+    #define FUNCSIG __PRETTY_FUNCTION__
+#elif defined(__clang__)
+    // clang
+    #define FUNCSIG __PRETTY_FUNCTION__
+#elif defined(__MINGW32__)
+    // MinGW 32/MinGW-w64 32 bits
+    #define FUNCSIG __PRETTY_FUNCTION__
+#elif defined(__MINGW64__)
+    // MinGW-w64 64 bits
+    #define FUNCSIG __PRETTY_FUNCTION__
+#else
+    #error Unsupported Compiler
+#endif
+
 #ifdef BR_ENABLE_ASSERTS
-#define BR_ASSERT(x, ...)                                   \
-    {                                                       \
-        if (!(x))                                           \
-        {                                                   \
-            BR_ERROR("Assertion Failed: {0}", __VA_ARGS__); \
-            DEBUG_BREAK();                                  \
-        }                                                   \
-    }
-#define BR_CORE_ASSERT(x, ...)                                   \
-    {                                                            \
-        if (!(x))                                                \
-        {                                                        \
-            BR_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); \
-            DEBUG_BREAK();                                       \
-        }                                                        \
-    }
+    #define BR_ASSERT(x, ...)                                   \
+        {                                                       \
+            if (!(x))                                           \
+            {                                                   \
+                BR_ERROR("Assertion Failed: {0}", __VA_ARGS__); \
+                DEBUG_BREAK();                                  \
+            }                                                   \
+        }
+    #define BR_CORE_ASSERT(x, ...)                                   \
+        {                                                            \
+            if (!(x))                                                \
+            {                                                        \
+                BR_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); \
+                DEBUG_BREAK();                                       \
+            }                                                        \
+        }
 #else
     #define BR_ASSERT(x, ...)
     #define BR_CORE_ASSERT(x, ...)
@@ -74,4 +94,4 @@ using Scope = std::unique_ptr<T>;
 template <typename T>
 using Ref = std::shared_ptr<T>;
 
-} // namespace Brigerad
+}  // namespace Brigerad

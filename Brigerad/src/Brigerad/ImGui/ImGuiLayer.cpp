@@ -20,43 +20,39 @@
 
 namespace Brigerad
 {
-ImGuiLayer::ImGuiLayer()
-    : Layer("ImGuiLayer")
-{
-}
+ImGuiLayer::ImGuiLayer() : Layer("ImGuiLayer") {}
 
-ImGuiLayer::~ImGuiLayer()
-{
-}
+ImGuiLayer::~ImGuiLayer() {}
 
 void ImGuiLayer::OnAttach()
 {
     // Setup Dear ImGui context.
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
-    ImGuiIO &io = ImGui::GetIO();
+    ImGuiIO& io = ImGui::GetIO();
     (void)io;
-    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable keyboard control.
-                                                          //     io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;    // Enable Gamepad control.
-    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;     // Enable docking.
-    io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;   // Enable multi-viewport / platform window.
-                                                          //     io.ConfigFlags |= ImGuiConfigFlags_ViewportsNoTaskBarIcons;
-                                                          //     io.ConfigFlags |= ImGuiConfigFlags_ViewportsNoMerge;
-                                                          //
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;  // Enable keyboard control.
+                                                           //     io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;    // Enable Gamepad control.
+    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;  // Enable docking.
+    io.ConfigFlags |=
+      ImGuiConfigFlags_ViewportsEnable;  // Enable multi-viewport / platform window.
+                                         //     io.ConfigFlags |= ImGuiConfigFlags_ViewportsNoTaskBarIcons;
+                                         //     io.ConfigFlags |= ImGuiConfigFlags_ViewportsNoMerge;
+                                         //
     // Setup dear Imgui style.
     ImGui::StyleColorsDark();
 
     // When view ports are enabled we tweak WindowRounding/WindowBg
     // so platform windows can look identical to regular ones.
-    ImGuiStyle &style = ImGui::GetStyle();
+    ImGuiStyle& style = ImGui::GetStyle();
     if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
     {
-        style.WindowRounding = 0.0f;
+        style.WindowRounding              = 0.0f;
         style.Colors[ImGuiCol_WindowBg].w = 1.0f;
     }
 
-    Application &app = Application::Get();
-    GLFWwindow *window = static_cast<GLFWwindow *>(app.GetWindow().GetNativeWindow());
+    Application& app = Application::Get();
+    GLFWwindow* window = static_cast<GLFWwindow*>(app.GetWindow().GetNativeWindow());
 
     // Setup Platform/Renderer bindings.
     ImGui_ImplGlfw_InitForOpenGL(window, true);
@@ -72,12 +68,22 @@ void ImGuiLayer::OnDetach()
 
 void ImGuiLayer::OnImGuiRender()
 {
+    m_time = ImGui::GetTime();
+
+    if (m_isProfiling == true)
+    {
+        if (m_time >= m_profilingStartTime + m_profilingDuration)
+        {
+            m_isProfiling = false;
+            BR_PROFILE_END_SESSION();
+        }
+    }
     if (m_open == false)
     {
         return;
     }
 
-    auto &window = Application::Get().GetWindow();
+    auto& window = Application::Get().GetWindow();
     bool isVSync = window.IsVSync();
     if (ImGui::Begin("Settings", &m_open))
     {
@@ -86,6 +92,27 @@ void ImGuiLayer::OnImGuiRender()
             window.SetVSync(isVSync);
             BR_INFO("Set VSync to {0}", isVSync);
         }
+
+        if (ImGui::Button(m_isProfiling == false ? "Start Profiling" : "Stop  Profiling"))
+        {
+            if (m_isProfiling == false)
+            {
+                m_profilingStartTime = m_profilingDuration > 0 ?
+                                         m_time :
+                                         std::numeric_limits<double>::max();
+                BR_PROFILE_BEGIN_SESSION("Profiling Session", "BrigeradProfiling-Session.json");
+                m_isProfiling = true;
+            }
+            else
+            {
+                BR_PROFILE_END_SESSION();
+                m_isProfiling = false;
+            }
+        }
+
+        ImGui::SameLine();
+
+        ImGui::InputDouble("Profiling Duration", &m_profilingDuration, 0.001, 0.100, "%0.3f");
 
         ImGui::End();
     }
@@ -100,9 +127,10 @@ void ImGuiLayer::Begin()
 
 void ImGuiLayer::End()
 {
-    ImGuiIO &io = ImGui::GetIO();
-    Application &app = Application::Get();
-    io.DisplaySize = ImVec2(float(app.GetWindow().GetWidth()), float(app.GetWindow().GetHeight()));
+    ImGuiIO& io      = ImGui::GetIO();
+    Application& app = Application::Get();
+    io.DisplaySize =
+      ImVec2(float(app.GetWindow().GetWidth()), float(app.GetWindow().GetHeight()));
 
     // Rendering.
     ImGui::Render();
@@ -110,11 +138,11 @@ void ImGuiLayer::End()
 
     if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
     {
-        GLFWwindow *backup_current_window = glfwGetCurrentContext();
+        GLFWwindow* backup_current_window = glfwGetCurrentContext();
         ImGui::UpdatePlatformWindows();
         ImGui::RenderPlatformWindowsDefault();
         glfwMakeContextCurrent(backup_current_window);
     }
 }
 
-} // namespace Brigerad
+}  // namespace Brigerad

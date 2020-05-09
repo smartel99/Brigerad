@@ -10,29 +10,29 @@ namespace Brigerad
 {
 class Renderer
 {
-public:
+    public:
     static void Init();
     static void OnWindowResize(uint32_t width, uint32_t height);
 
-    static void BeginScene(OrthographicCamera &camera);
+    static void BeginScene(OrthographicCamera& camera);
     static void EndScene();
 
-    static void Submit(const Ref<Shader> &shader,
-                       const Ref<VertexArray> &vertexArray,
-                       const glm::mat4 &transform = glm::mat4(1.0f));
+    static long long GetFrameCount();
 
-    inline static RendererAPI::API GetAPI()
-    {
-        return RendererAPI::GetAPI();
-    }
+    static void Submit(const Ref<Shader>& shader,
+                       const Ref<VertexArray>& vertexArray,
+                       const glm::mat4& transform = glm::mat4(1.0f));
 
-private:
+    inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
+
+    private:
     struct SceneData
     {
         glm::mat4 ViewProjectionMatrix;
+        long long FrameCount;
     };
 
-    static SceneData *m_sceneData;
+    static SceneData* m_sceneData;
 };
 
-} // namespace Brigerad
+}  // namespace Brigerad

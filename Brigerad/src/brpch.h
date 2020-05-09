@@ -15,6 +15,8 @@
 
 #include "Brigerad/Core/Log.h"
 
+#include "Brigerad/Debug/Instrumentor.h"
+
 #ifdef BR_PLATFORM_WINDOWS
-#include <Windows.h>
+    #include <Windows.h>
 #endif

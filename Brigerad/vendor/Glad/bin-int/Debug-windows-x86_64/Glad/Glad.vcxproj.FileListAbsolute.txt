@@ -1,0 +1,2 @@
+D:\dev\Brigerad\Brigerad\vendor\Glad\bin\Debug-windows-x86_64\Glad\Glad.pdb
+D:\dev\Brigerad\Brigerad\vendor\Glad\bin-int\Debug-windows-x86_64\Glad\Glad.pdb

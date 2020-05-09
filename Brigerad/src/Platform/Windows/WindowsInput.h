@@ -1,6 +1,6 @@
 #pragma once
 #if defined(BR_PLATFORM_WINDOWS)
-#include "Brigerad/Input.h"
+#include "Brigerad/Core/Input.h"
 
 namespace Brigerad
 {

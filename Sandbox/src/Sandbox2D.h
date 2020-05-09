@@ -20,4 +20,13 @@ class Sandbox2D : public Brigerad::Layer
     Brigerad::OrthographicCameraController m_camera;
     glm::vec4 m_color = { 1.0f, 0.0f, 0.0f, 1.0f };
     Brigerad::Ref<Brigerad::Texture2D> m_texture;
+
+
+    struct ProfileResult
+    {
+        const char* name;
+        float time;
+    };
+
+    std::vector<ProfileResult> m_profileResults;
 };

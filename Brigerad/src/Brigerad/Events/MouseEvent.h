@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Brigerad/Events/Event.h"
+#include "Brigerad/Core/MouseButtonCodes.h"
 
 namespace Brigerad
 {
@@ -69,7 +70,7 @@ private:
 class BRIGERAD_API MouseButtonEvent : public Event
 {
 public:
-    inline int GetMouseButton() const
+    inline MouseCode GetMouseButton() const
     {
         return m_button;
     }
@@ -77,18 +78,18 @@ public:
     EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
 
 protected:
-    MouseButtonEvent(int button)
+    MouseButtonEvent(MouseCode button)
         : m_button(button)
     {
     }
 
-    int m_button;
+    MouseCode m_button;
 };
 
 class BRIGERAD_API MouseButtonPressedEvent : public MouseButtonEvent
 {
 public:
-    MouseButtonPressedEvent(int button)
+    MouseButtonPressedEvent(MouseCode button)
         : MouseButtonEvent(button)
     {
     }
@@ -106,7 +107,7 @@ public:
 class BRIGERAD_API MouseButtonReleasedEvent : public MouseButtonEvent
 {
 public:
-    MouseButtonReleasedEvent(int button)
+    MouseButtonReleasedEvent(MouseCode button)
         : MouseButtonEvent(button)
     {
     }

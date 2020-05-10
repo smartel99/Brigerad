@@ -15,6 +15,8 @@ CameraController::CameraController(float left, float right, float bottom, float 
 
 void CameraController::OnUpdate(Brigerad::Timestep ts)
 {
+    BR_PROFILE_FUNCTION();
+
     HandleKeys(ts);
     glm::vec3 acc = glm::vec3(m_acceleration.x * ts,
                               m_acceleration.y * ts,
@@ -25,7 +27,7 @@ void CameraController::OnUpdate(Brigerad::Timestep ts)
 
 void CameraController::HandleKeys(Brigerad::Timestep ts)
 {
-    for (int key : m_keys)
+    for (Brigerad::KeyCode key : m_keys)
     {
         float ds = (MOVE_SPEED * ts);
         float dr = (ROTATION_SPEED * ts);

@@ -53,6 +53,8 @@ static GLenum ShaderTypeFromString(const std::string& type)
  */
 OpenGLShader::OpenGLShader(const std::string& filePath)
 {
+    BR_PROFILE_FUNCTION();
+
     // Dump the file into a string.
     std::string src = ReadFile(filePath);
     // Split the vertex and fragment shaders into key-value pairs.
@@ -62,11 +64,11 @@ OpenGLShader::OpenGLShader(const std::string& filePath)
 
     // Extract name from path.
     size_t lastSlash = filePath.find_last_of(R"(/\)");
-    lastSlash        = lastSlash == std::string::npos ? 0 : lastSlash + 1;
-    size_t lastDot   = filePath.rfind('.');
+    lastSlash = lastSlash == std::string::npos ? 0 : lastSlash + 1;
+    size_t lastDot = filePath.rfind('.');
 
     size_t count = lastDot == std::string::npos ? filePath.size() - lastSlash :
-                                                  lastDot - lastSlash;
+        lastDot - lastSlash;
     m_name = filePath.substr(lastSlash, count);
 }
 
@@ -81,11 +83,13 @@ OpenGLShader::OpenGLShader(const std::string& filePath)
 OpenGLShader::OpenGLShader(const std::string& name,
                            const std::string& vertexSrc,
                            const std::string& fragmentSrc)
-: m_rendererID(0), m_name(name)
+    : m_rendererID(0), m_name(name)
 {
+    BR_PROFILE_FUNCTION();
+
     // Put the source strings into an ordered map.
     std::unordered_map<GLenum, std::string> srcs;
-    srcs[GL_VERTEX_SHADER]   = vertexSrc;
+    srcs[GL_VERTEX_SHADER] = vertexSrc;
     srcs[GL_FRAGMENT_SHADER] = fragmentSrc;
     // Compile the two shaders.
     Compile(srcs);
@@ -96,7 +100,11 @@ OpenGLShader::OpenGLShader(const std::string& name,
  * @brief Destroy the OpenGLShader object.
  *        This removes the shader program from the OpenGL context.
  */
-OpenGLShader::~OpenGLShader() { glDeleteProgram(m_rendererID); }
+OpenGLShader::~OpenGLShader()
+{
+    BR_PROFILE_FUNCTION();
+    glDeleteProgram(m_rendererID);
+}
 
 
 /**
@@ -107,6 +115,8 @@ OpenGLShader::~OpenGLShader() { glDeleteProgram(m_rendererID); }
  */
 std::string OpenGLShader::ReadFile(const std::string& filePath)
 {
+    BR_PROFILE_FUNCTION();
+
     std::string result = "";
     std::ifstream in = std::ifstream(filePath, std::ios::in | std::ios::binary);
     if (in.is_open())
@@ -144,10 +154,12 @@ std::string OpenGLShader::ReadFile(const std::string& filePath)
  */
 std::unordered_map<GLenum, std::string> OpenGLShader::PreProcess(const std::string& source)
 {
+    BR_PROFILE_FUNCTION();
+
     std::unordered_map<GLenum, std::string> shaderSources;
 
     const char* typeToken = "#type";
-    size_t typeTokenLen   = strlen(typeToken);
+    size_t typeTokenLen = strlen(typeToken);
     // Find the first "#type" token.
     size_t pos = source.find(typeToken, 0);
     // For as long as we can find a new "#type" token:
@@ -169,11 +181,11 @@ std::unordered_map<GLenum, std::string> OpenGLShader::PreProcess(const std::stri
 
         // Find the next "#type" token.
         size_t nextLinePos = source.find_first_not_of("\r\n", eol);
-        pos                = source.find(typeToken, nextLinePos);
+        pos = source.find(typeToken, nextLinePos);
         // Add the source to the map.
         shaderSources[ShaderTypeFromString(type)] =
-          source.substr(nextLinePos,
-                        pos - (nextLinePos == std::string::npos ? source.size() - 1 : nextLinePos));
+            source.substr(nextLinePos,
+                          pos - (nextLinePos == std::string::npos ? source.size() - 1 : nextLinePos));
     }
 
     return shaderSources;
@@ -186,7 +198,8 @@ std::unordered_map<GLenum, std::string> OpenGLShader::PreProcess(const std::stri
  */
 void OpenGLShader::Compile(const std::unordered_map<GLenum, std::string>& shaderSrcs)
 {
-    // Create an OpenGL program.
+    BR_PROFILE_FUNCTION();
+        // Create an OpenGL program.
     GLuint program = glCreateProgram();
     BR_CORE_ASSERT(shaderSrcs.size() <= 2, "Maximum 2 shaders per file");
     std::array<GLuint, 2> shaderIDs;
@@ -195,7 +208,7 @@ void OpenGLShader::Compile(const std::unordered_map<GLenum, std::string>& shader
     // For each shaders in the map:
     for (auto& kv : shaderSrcs)
     {
-        GLenum type               = kv.first;
+        GLenum type = kv.first;
         const std::string& source = kv.second;
 
         // Create an empty shader handle.
@@ -278,6 +291,8 @@ void OpenGLShader::Compile(const std::unordered_map<GLenum, std::string>& shader
  */
 void OpenGLShader::Bind() const
 {
+    BR_PROFILE_FUNCTION();
+
     // If this shader is not the currently bound shader:
     if (m_rendererID != pActiveShader)
     {
@@ -293,6 +308,8 @@ void OpenGLShader::Bind() const
  */
 void OpenGLShader::Unbind() const
 {
+    BR_PROFILE_FUNCTION();
+
     pActiveShader = 0;
     glUseProgram(0);
 }
@@ -306,6 +323,8 @@ void OpenGLShader::Unbind() const
  */
 void OpenGLShader::SetInt(const std::string& name, int value)
 {
+    BR_PROFILE_FUNCTION();
+
     UploadUniformInt(name, value);
 }
 
@@ -317,6 +336,8 @@ void OpenGLShader::SetInt(const std::string& name, int value)
  */
 void OpenGLShader::SetFloat(const std::string& name, float value)
 {
+    BR_PROFILE_FUNCTION();
+
     UploadUniformFloat(name, value);
 }
 
@@ -328,6 +349,8 @@ void OpenGLShader::SetFloat(const std::string& name, float value)
  */
 void OpenGLShader::SetFloat2(const std::string& name, const glm::vec2& value)
 {
+    BR_PROFILE_FUNCTION();
+
     UploadUniformFloat2(name, value);
 }
 
@@ -339,6 +362,8 @@ void OpenGLShader::SetFloat2(const std::string& name, const glm::vec2& value)
  */
 void OpenGLShader::SetFloat3(const std::string& name, const glm::vec3& value)
 {
+    BR_PROFILE_FUNCTION();
+
     UploadUniformFloat3(name, value);
 }
 
@@ -350,6 +375,8 @@ void OpenGLShader::SetFloat3(const std::string& name, const glm::vec3& value)
  */
 void OpenGLShader::SetFloat4(const std::string& name, const glm::vec4& value)
 {
+    BR_PROFILE_FUNCTION();
+
     UploadUniformFloat4(name, value);
 }
 
@@ -361,6 +388,8 @@ void OpenGLShader::SetFloat4(const std::string& name, const glm::vec4& value)
  */
 void OpenGLShader::SetMat3(const std::string& name, const glm::mat3& value)
 {
+    BR_PROFILE_FUNCTION();
+
     UploadUniformMat3(name, value);
 }
 
@@ -372,6 +401,8 @@ void OpenGLShader::SetMat3(const std::string& name, const glm::mat3& value)
  */
 void OpenGLShader::SetMat4(const std::string& name, const glm::mat4& value)
 {
+    BR_PROFILE_FUNCTION();
+
     UploadUniformMat4(name, value);
 }
 

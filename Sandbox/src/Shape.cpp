@@ -162,7 +162,7 @@ Brigerad::Ref<Shape> Shape::Create(float* vecs,
 
 void Shape::HandleKeys(Brigerad::Timestep ts)
 {
-    for (int key : m_keys)
+    for (Brigerad::KeyCode key : m_keys)
     {
         float ds = (MOVE_SPEED * ts);
         float dr = (ROTATION_SPEED * ts);

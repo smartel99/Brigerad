@@ -153,6 +153,7 @@
     <ClInclude Include="src\Brigerad\Core\Time.h" />
     <ClInclude Include="src\Brigerad\Core\Timestep.h" />
     <ClInclude Include="src\Brigerad\Core\Window.h" />
+    <ClInclude Include="src\Brigerad\Debug\Instrumentor.h" />
     <ClInclude Include="src\Brigerad\Events\ApplicationEvent.h" />
     <ClInclude Include="src\Brigerad\Events\Event.h" />
     <ClInclude Include="src\Brigerad\Events\KeyEvents.h" />
@@ -600,6 +601,7 @@
     <ClCompile Include="src\Brigerad\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Brigerad\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Brigerad\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\Brigerad\Renderer\GraphicsContext.cpp" />
     <ClCompile Include="src\Brigerad\Renderer\OrthographicCamera.cpp" />
     <ClCompile Include="src\Brigerad\Renderer\OrthographicCameraController.cpp" />
     <ClCompile Include="src\Brigerad\Renderer\RenderCommand.cpp" />

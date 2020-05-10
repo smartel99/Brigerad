@@ -45,12 +45,12 @@ protected:
     glm::vec3 m_acceleration = glm::vec3(0.0f);
     glm::vec3 m_position = glm::vec3(0.0f);
     float m_rotation = 0.0f;
-    std::vector<int> m_keys = {};
+    std::vector<Brigerad::KeyCode> m_keys = {};
 
 protected:
     bool HandleKeyPressedEvent(Brigerad::KeyPressedEvent &keyEvent);
     bool HandleKeyReleasedEvent(Brigerad::KeyReleasedEvent &keyEvent);
     virtual void HandleKeys(Brigerad::Timestep ts);
-    void AddKeyToList(int key);
-    void RemoveKeyFromList(int key);
+    void AddKeyToList(Brigerad::KeyCode key);
+    void RemoveKeyFromList(Brigerad::KeyCode key);
 };

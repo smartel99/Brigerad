@@ -3,25 +3,29 @@
 #include <glm/gtc/type_ptr.hpp>
 
 
-Sandbox2D::Sandbox2D() : Layer("Sandbox2D"), m_camera(1280.0f / 720.0f) {}
+Sandbox2D::Sandbox2D() : Layer("Sandbox2D"), m_camera(1280.0f / 720.0f)
+{
+}
 
 void Sandbox2D::OnAttach()
 {
+    BR_PROFILE_FUNCTION();
+
     m_texture = Brigerad::Texture2D::Create("assets/textures/checkboard.png");
 }
 
-void Sandbox2D::OnDetach() {}
+void Sandbox2D::OnDetach()
+{
+    BR_PROFILE_FUNCTION();
+}
 
 void Sandbox2D::OnUpdate(Brigerad::Timestep ts)
 {
     BR_PROFILE_FUNCTION();
     // Update.
-    {
-        BR_PROFILE_SCOPE("CameraController::OnUpdate");
-        m_camera.OnUpdate(ts);
-    }
+    m_camera.OnUpdate(ts);
 
-    // Render.
+// Render.
     {
         BR_PROFILE_SCOPE("Renderer Prep");
         Brigerad::RenderCommand::SetClearColor({ 0.2f, 0.2f, 0.2f, 1.0f });
@@ -57,4 +61,7 @@ void Sandbox2D::OnImGuiRender()
     ImGui::End();
 }
 
-void Sandbox2D::OnEvent(Brigerad::Event& e) { m_camera.OnEvent(e); }
+void Sandbox2D::OnEvent(Brigerad::Event& e)
+{
+    m_camera.OnEvent(e);
+}

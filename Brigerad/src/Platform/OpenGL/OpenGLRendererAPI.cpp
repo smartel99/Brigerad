@@ -14,6 +14,8 @@ namespace Brigerad
 {
 void OpenGLRendererAPI::Init()
 {
+    BR_PROFILE_FUNCTION();
+
     // Enable alpha blending.
     glEnable(GL_BLEND);
     // Set the way the blending is done.

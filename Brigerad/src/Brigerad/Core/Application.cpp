@@ -9,12 +9,14 @@ namespace Brigerad
 {
 #define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
 
-Application *Application::s_instance = nullptr;
+Application* Application::s_instance = nullptr;
 
 Application::Application()
 {
+    BR_PROFILE_FUNCTION();
+
     BR_CORE_ASSERT(!s_instance, "Application already exists!")
-    s_instance = this;
+        s_instance = this;
 
     m_window = Scope<Window>(Window::Create());
     m_window->SetEventCallback(BIND_EVENT_FN(OnEvent));
@@ -26,14 +28,15 @@ Application::Application()
     PushOverlay(m_imguiLayer);
 }
 
-Application::~Application()
-{
-}
+Application::~Application() = default;
 
 void Application::Run()
 {
+    BR_PROFILE_FUNCTION();
+
     while (m_running)
     {
+        BR_PROFILE_SCOPE("RunLoop");
 
         float time = float(GetTime());
         Timestep timestep = time - m_lastFrameTime;
@@ -41,26 +44,34 @@ void Application::Run()
 
         if (m_minimized == false)
         {
-            for (Layer *layer : m_layerStack)
             {
-                layer->OnUpdate(timestep);
+                BR_PROFILE_SCOPE("Layer Stack OnUpdate");
+                for (Layer* layer : m_layerStack)
+                {
+                    layer->OnUpdate(timestep);
+                }
             }
+
+            m_imguiLayer->Begin();
+            {
+                BR_PROFILE_SCOPE("LayerStack OnImGuiRender");
+                for (Layer* layer : m_layerStack)
+                {
+                    layer->OnImGuiRender();
+                }
+            }
+            m_imguiLayer->End();
         }
 
-        m_imguiLayer->Begin();
-
-        for (Layer *layer : m_layerStack)
-        {
-            layer->OnImGuiRender();
-        }
-        m_imguiLayer->End();
 
         m_window->OnUpdate();
     }
 }
 
-void Application::OnEvent(Event &e)
+void Application::OnEvent(Event& e)
 {
+    BR_PROFILE_FUNCTION();
+
     EventDispatcher dispatcher(e);
     dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
     dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(OnWindowResize));
@@ -76,26 +87,32 @@ void Application::OnEvent(Event &e)
     }
 }
 
-void Application::PushLayer(Layer *layer)
+void Application::PushLayer(Layer* layer)
 {
+    BR_PROFILE_FUNCTION();
+
     m_layerStack.PushLayer(layer);
     layer->OnAttach();
 }
 
-void Application::PushOverlay(Layer *layer)
+void Application::PushOverlay(Layer* layer)
 {
+    BR_PROFILE_FUNCTION();
+
     m_layerStack.PushOverlay(layer);
     layer->OnAttach();
 }
 
-bool Application::OnWindowClose(WindowCloseEvent &e)
+bool Application::OnWindowClose(WindowCloseEvent& e)
 {
     m_running = false;
     return true;
 }
 
-bool Application::OnWindowResize(WindowResizeEvent &e)
+bool Application::OnWindowResize(WindowResizeEvent& e)
 {
+    BR_PROFILE_FUNCTION();
+
     if (e.GetHeight() == 0 || e.GetWidth() == 0)
     {
         m_minimized = true;
@@ -108,8 +125,10 @@ bool Application::OnWindowResize(WindowResizeEvent &e)
     return false;
 }
 
-bool Application::OnKeyPressed(KeyPressedEvent &e)
+bool Application::OnKeyPressed(KeyPressedEvent& e)
 {
+    BR_PROFILE_FUNCTION();
+
     if (e.GetKeyCode() == BR_KEY_ESCAPE && e.GetRepeatCount() == 0)
     {
         m_imguiLayer->ToggleIsVisible();

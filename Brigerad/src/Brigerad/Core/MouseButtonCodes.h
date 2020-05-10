@@ -1,16 +1,41 @@
 #pragma once
 
+namespace Brigerad
+{
+typedef enum class MouseCode : uint16_t
+{
+    // From glfw3.h
+    Button0 = 0,
+    Button1 = 1,
+    Button2 = 2,
+    Button3 = 3,
+    Button4 = 4,
+    Button5 = 5,
+    Button6 = 6,
+    Button7 = 7,
 
-// From BR3.h
-#define BR_MOUSE_BUTTON_1         0
-#define BR_MOUSE_BUTTON_2         1
-#define BR_MOUSE_BUTTON_3         2
-#define BR_MOUSE_BUTTON_4         3
-#define BR_MOUSE_BUTTON_5         4
-#define BR_MOUSE_BUTTON_6         5
-#define BR_MOUSE_BUTTON_7         6
-#define BR_MOUSE_BUTTON_8         7
-#define BR_MOUSE_BUTTON_LAST      BR_MOUSE_BUTTON_8
-#define BR_MOUSE_BUTTON_LEFT      BR_MOUSE_BUTTON_1
-#define BR_MOUSE_BUTTON_RIGHT     BR_MOUSE_BUTTON_2
-#define BR_MOUSE_BUTTON_MIDDLE    BR_MOUSE_BUTTON_3
+    ButtonLast = Button7,
+    ButtonLeft = Button0,
+    ButtonRight = Button1,
+    ButtonMiddle = Button2
+} Mouse;
+
+inline std::ostream& operator<<(std::ostream& os, MouseCode mouseCode)
+{
+    os << static_cast<int32_t>(mouseCode);
+    return os;
+}
+}
+
+#define BR_MOUSE_BUTTON_0      ::Brigerad::Mouse::Button0
+#define BR_MOUSE_BUTTON_1      ::Brigerad::Mouse::Button1
+#define BR_MOUSE_BUTTON_2      ::Brigerad::Mouse::Button2
+#define BR_MOUSE_BUTTON_3      ::Brigerad::Mouse::Button3
+#define BR_MOUSE_BUTTON_4      ::Brigerad::Mouse::Button4
+#define BR_MOUSE_BUTTON_5      ::Brigerad::Mouse::Button5
+#define BR_MOUSE_BUTTON_6      ::Brigerad::Mouse::Button6
+#define BR_MOUSE_BUTTON_7      ::Brigerad::Mouse::Button7
+#define BR_MOUSE_BUTTON_LAST   ::Brigerad::Mouse::ButtonLast
+#define BR_MOUSE_BUTTON_LEFT   ::Brigerad::Mouse::ButtonLeft
+#define BR_MOUSE_BUTTON_RIGHT  ::Brigerad::Mouse::ButtonRight
+#define BR_MOUSE_BUTTON_MIDDLE ::Brigerad::Mouse::ButtonMiddle

@@ -20,12 +20,16 @@
 
 namespace Brigerad
 {
-ImGuiLayer::ImGuiLayer() : Layer("ImGuiLayer") {}
+ImGuiLayer::ImGuiLayer() : Layer("ImGuiLayer")
+{
+}
 
-ImGuiLayer::~ImGuiLayer() {}
+ImGuiLayer::~ImGuiLayer() = default;
 
 void ImGuiLayer::OnAttach()
 {
+    BR_PROFILE_FUNCTION();
+
     // Setup Dear ImGui context.
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
@@ -35,11 +39,11 @@ void ImGuiLayer::OnAttach()
                                                            //     io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;    // Enable Gamepad control.
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;  // Enable docking.
     io.ConfigFlags |=
-      ImGuiConfigFlags_ViewportsEnable;  // Enable multi-viewport / platform window.
-                                         //     io.ConfigFlags |= ImGuiConfigFlags_ViewportsNoTaskBarIcons;
-                                         //     io.ConfigFlags |= ImGuiConfigFlags_ViewportsNoMerge;
-                                         //
-    // Setup dear Imgui style.
+        ImGuiConfigFlags_ViewportsEnable;  // Enable multi-viewport / platform window.
+                                           //     io.ConfigFlags |= ImGuiConfigFlags_ViewportsNoTaskBarIcons;
+                                           //     io.ConfigFlags |= ImGuiConfigFlags_ViewportsNoMerge;
+                                           //
+      // Setup dear Imgui style.
     ImGui::StyleColorsDark();
 
     // When view ports are enabled we tweak WindowRounding/WindowBg
@@ -47,7 +51,7 @@ void ImGuiLayer::OnAttach()
     ImGuiStyle& style = ImGui::GetStyle();
     if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
     {
-        style.WindowRounding              = 0.0f;
+        style.WindowRounding = 0.0f;
         style.Colors[ImGuiCol_WindowBg].w = 1.0f;
     }
 
@@ -61,6 +65,8 @@ void ImGuiLayer::OnAttach()
 
 void ImGuiLayer::OnDetach()
 {
+    BR_PROFILE_FUNCTION();
+
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
@@ -68,6 +74,8 @@ void ImGuiLayer::OnDetach()
 
 void ImGuiLayer::OnImGuiRender()
 {
+    BR_PROFILE_FUNCTION();
+
     m_time = ImGui::GetTime();
 
     if (m_isProfiling == true)
@@ -98,8 +106,8 @@ void ImGuiLayer::OnImGuiRender()
             if (m_isProfiling == false)
             {
                 m_profilingStartTime = m_profilingDuration > 0 ?
-                                         m_time :
-                                         std::numeric_limits<double>::max();
+                    m_time :
+                    std::numeric_limits<double>::max();
                 BR_PROFILE_BEGIN_SESSION("Profiling Session", "BrigeradProfiling-Session.json");
                 m_isProfiling = true;
             }
@@ -120,6 +128,8 @@ void ImGuiLayer::OnImGuiRender()
 
 void ImGuiLayer::Begin()
 {
+    BR_PROFILE_FUNCTION();
+
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
@@ -127,12 +137,14 @@ void ImGuiLayer::Begin()
 
 void ImGuiLayer::End()
 {
-    ImGuiIO& io      = ImGui::GetIO();
+    BR_PROFILE_FUNCTION();
+
+    ImGuiIO& io = ImGui::GetIO();
     Application& app = Application::Get();
     io.DisplaySize =
-      ImVec2(float(app.GetWindow().GetWidth()), float(app.GetWindow().GetHeight()));
+        ImVec2(float(app.GetWindow().GetWidth()), float(app.GetWindow().GetHeight()));
 
-    // Rendering.
+      // Rendering.
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 

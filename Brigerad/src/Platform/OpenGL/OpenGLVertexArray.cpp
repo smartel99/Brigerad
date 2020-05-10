@@ -49,11 +49,15 @@ static GLenum ShaderDataTypeToOpenGLBaseType(ShaderDataType type)
 
 OpenGLVertexArray::OpenGLVertexArray()
 {
+    BR_PROFILE_FUNCTION();
+
     glCreateVertexArrays(1, &m_rendererId);
 }
 
 OpenGLVertexArray::~OpenGLVertexArray()
 {
+    BR_PROFILE_FUNCTION();
+
     glDeleteVertexArrays(1, &m_rendererId);
 }
 
@@ -64,31 +68,37 @@ void OpenGLVertexArray::Bind() const
 }
 
 
-void OpenGLVertexArray::Unbind() const { glBindVertexArray(0); }
+void OpenGLVertexArray::Unbind() const
+{
+    BR_PROFILE_FUNCTION();
+    glBindVertexArray(0);
+}
 
 
 void OpenGLVertexArray::AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer)
 {
+    BR_PROFILE_FUNCTION();
+
     BR_CORE_ASSERT(vertexBuffer->GetLayout().GetElements().size(), "Vertex buffer has no layout");
 
     glBindVertexArray(m_rendererId);
     vertexBuffer->Bind();
 
-    uint32_t index     = 0;
+    uint32_t index = 0;
     const auto& layout = vertexBuffer->GetLayout();
     for (const auto& element : layout)
     {
         glEnableVertexAttribArray(index);
 // "'type cast': conversion from 'const uint32_t' to 'const void*' of greater
 // size." This is desired behavior.
-#pragma warning(disable : 4312)
+        #pragma warning(disable : 4312)
         glVertexAttribPointer(index,
                               element.GetComponentCount(),
                               ShaderDataTypeToOpenGLBaseType(element.type),
                               element.normalized ? GL_TRUE : GL_FALSE,
                               layout.GetStride(),
                               (const void*)element.offset);
-#pragma warning(default : 4312)
+        #pragma warning(default : 4312)
         index++;
     }
 

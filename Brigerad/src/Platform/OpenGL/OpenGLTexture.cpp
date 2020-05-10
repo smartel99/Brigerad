@@ -15,6 +15,8 @@ namespace Brigerad
 OpenGLTexture2D::OpenGLTexture2D(uint32_t width, uint32_t height)
 : m_width(width), m_height(height)
 {
+    BR_PROFILE_FUNCTION();
+
     m_internalFormat = GL_RGBA8;
     m_dataFormat     = GL_RGBA;
 
@@ -31,9 +33,15 @@ OpenGLTexture2D::OpenGLTexture2D(uint32_t width, uint32_t height)
 
 OpenGLTexture2D::OpenGLTexture2D(const std::string& path) : m_path(path)
 {
+    BR_PROFILE_FUNCTION();
+
     int width, height, channels;
     stbi_set_flip_vertically_on_load(1);
-    stbi_uc* data = stbi_load(path.c_str(), &width, &height, &channels, 0);
+    stbi_uc* data = nullptr;
+    {
+        BR_PROFILE_SCOPE("stbi_load - OpenGLTexture2D::OpenGLTexture2D(const std::string&)");
+        data = stbi_load(path.c_str(), &width, &height, &channels, 0);
+    }
     BR_CORE_ASSERT(data, "Failed to load image!");
     m_width  = width;
     m_height = height;
@@ -70,10 +78,17 @@ OpenGLTexture2D::OpenGLTexture2D(const std::string& path) : m_path(path)
 }
 
 
-OpenGLTexture2D::~OpenGLTexture2D() { glDeleteTextures(1, &m_rendererID); }
+OpenGLTexture2D::~OpenGLTexture2D()
+{
+    BR_PROFILE_FUNCTION();
+
+    glDeleteTextures(1, &m_rendererID);
+}
 
 void OpenGLTexture2D::SetData(void* data, uint32_t size)
 {
+    BR_PROFILE_FUNCTION();
+
     BR_CORE_ASSERT(size == m_width * m_height * (m_dataFormat == GL_RGBA ? 4 : 3),
                    "Data must be entire texture!");
 
@@ -83,6 +98,7 @@ void OpenGLTexture2D::SetData(void* data, uint32_t size)
 void OpenGLTexture2D::Bind(uint32_t slot) const
 {
     BR_PROFILE_FUNCTION();
+
     glBindTextureUnit(slot, m_rendererID);
 }
 

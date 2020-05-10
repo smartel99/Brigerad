@@ -16,18 +16,18 @@ namespace Brigerad
 {
 Input *Input::s_instance = new WindowsInput();
 
-bool WindowsInput::IsKeyPressedImpl(int keycode)
+bool WindowsInput::IsKeyPressedImpl(KeyCode keycode)
 {
     auto window = static_cast<GLFWwindow *>(Application::Get().GetWindow().GetNativeWindow());
-    auto state = glfwGetKey(window, keycode);
+    auto state = glfwGetKey(window, int(keycode));
 
     return (state == GLFW_PRESS || state == GLFW_REPEAT);
 }
 
-bool WindowsInput::IsMouseButtonPressedImpl(int button)
+bool WindowsInput::IsMouseButtonPressedImpl(MouseCode button)
 {
     auto window = static_cast<GLFWwindow *>(Application::Get().GetWindow().GetNativeWindow());
-    auto state = glfwGetMouseButton(window, button);
+    auto state = glfwGetMouseButton(window, int(button));
 
     return state == GLFW_PRESS;
 }

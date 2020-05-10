@@ -18,6 +18,7 @@ Renderer::SceneData* Renderer::m_sceneData = new Renderer::SceneData;
 
 void Renderer::Init()
 {
+    BR_PROFILE_FUNCTION();
     RenderCommand::Init();
     Renderer2D::Init();
 }

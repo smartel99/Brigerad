@@ -32,7 +32,7 @@ bool Controller::HandleKeyPressedEvent(Brigerad::KeyPressedEvent& keyEvent)
 {
     if (keyEvent.GetRepeatCount() == 0)
     {
-        int key = keyEvent.GetKeyCode();
+        Brigerad::KeyCode key = keyEvent.GetKeyCode();
         AddKeyToList(key);
     }
 
@@ -42,7 +42,7 @@ bool Controller::HandleKeyPressedEvent(Brigerad::KeyPressedEvent& keyEvent)
 
 bool Controller::HandleKeyReleasedEvent(Brigerad::KeyReleasedEvent& keyEvent)
 {
-    int key = keyEvent.GetKeyCode();
+    Brigerad::KeyCode key = keyEvent.GetKeyCode();
     // Up/Down.
     if (key == BR_KEY_W || key == BR_KEY_S)
     {
@@ -62,7 +62,7 @@ bool Controller::HandleKeyReleasedEvent(Brigerad::KeyReleasedEvent& keyEvent)
 
 void Controller::HandleKeys(Brigerad::Timestep ts)
 {
-    for (int key : m_keys)
+    for (Brigerad::KeyCode key : m_keys)
     {
         float ds = (MOVE_SPEED * ts);
         float dr = (ROTATION_SPEED * ts);
@@ -122,9 +122,9 @@ void Controller::HandleKeys(Brigerad::Timestep ts)
 }
 
 
-void Controller::AddKeyToList(int key)
+void Controller::AddKeyToList(Brigerad::KeyCode key)
 {
-    for (int k : m_keys)
+    for (Brigerad::KeyCode k : m_keys)
     {
         if (k == key)
         {
@@ -136,7 +136,7 @@ void Controller::AddKeyToList(int key)
 }
 
 
-void Controller::RemoveKeyFromList(int key)
+void Controller::RemoveKeyFromList(Brigerad::KeyCode key)
 {
     for (auto k = m_keys.begin(); k != m_keys.end(); k++)
     {

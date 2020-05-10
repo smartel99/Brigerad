@@ -4,9 +4,7 @@
 
 namespace Brigerad
 {
-LayerStack::LayerStack()
-{
-}
+LayerStack::LayerStack() = default;
 
 LayerStack::~LayerStack()
 {

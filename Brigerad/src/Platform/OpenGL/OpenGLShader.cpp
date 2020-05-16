@@ -64,11 +64,11 @@ OpenGLShader::OpenGLShader(const std::string& filePath)
 
     // Extract name from path.
     size_t lastSlash = filePath.find_last_of(R"(/\)");
-    lastSlash = lastSlash == std::string::npos ? 0 : lastSlash + 1;
-    size_t lastDot = filePath.rfind('.');
+    lastSlash        = lastSlash == std::string::npos ? 0 : lastSlash + 1;
+    size_t lastDot   = filePath.rfind('.');
 
     size_t count = lastDot == std::string::npos ? filePath.size() - lastSlash :
-        lastDot - lastSlash;
+                                                  lastDot - lastSlash;
     m_name = filePath.substr(lastSlash, count);
 }
 
@@ -83,13 +83,13 @@ OpenGLShader::OpenGLShader(const std::string& filePath)
 OpenGLShader::OpenGLShader(const std::string& name,
                            const std::string& vertexSrc,
                            const std::string& fragmentSrc)
-    : m_rendererID(0), m_name(name)
+: m_rendererID(0), m_name(name)
 {
     BR_PROFILE_FUNCTION();
 
     // Put the source strings into an ordered map.
     std::unordered_map<GLenum, std::string> srcs;
-    srcs[GL_VERTEX_SHADER] = vertexSrc;
+    srcs[GL_VERTEX_SHADER]   = vertexSrc;
     srcs[GL_FRAGMENT_SHADER] = fragmentSrc;
     // Compile the two shaders.
     Compile(srcs);
@@ -159,7 +159,7 @@ std::unordered_map<GLenum, std::string> OpenGLShader::PreProcess(const std::stri
     std::unordered_map<GLenum, std::string> shaderSources;
 
     const char* typeToken = "#type";
-    size_t typeTokenLen = strlen(typeToken);
+    size_t typeTokenLen   = strlen(typeToken);
     // Find the first "#type" token.
     size_t pos = source.find(typeToken, 0);
     // For as long as we can find a new "#type" token:
@@ -181,11 +181,11 @@ std::unordered_map<GLenum, std::string> OpenGLShader::PreProcess(const std::stri
 
         // Find the next "#type" token.
         size_t nextLinePos = source.find_first_not_of("\r\n", eol);
-        pos = source.find(typeToken, nextLinePos);
+        pos                = source.find(typeToken, nextLinePos);
         // Add the source to the map.
         shaderSources[ShaderTypeFromString(type)] =
-            source.substr(nextLinePos,
-                          pos - (nextLinePos == std::string::npos ? source.size() - 1 : nextLinePos));
+          source.substr(nextLinePos,
+                        pos - (nextLinePos == std::string::npos ? source.size() - 1 : nextLinePos));
     }
 
     return shaderSources;
@@ -199,7 +199,7 @@ std::unordered_map<GLenum, std::string> OpenGLShader::PreProcess(const std::stri
 void OpenGLShader::Compile(const std::unordered_map<GLenum, std::string>& shaderSrcs)
 {
     BR_PROFILE_FUNCTION();
-        // Create an OpenGL program.
+    // Create an OpenGL program.
     GLuint program = glCreateProgram();
     BR_CORE_ASSERT(shaderSrcs.size() <= 2, "Maximum 2 shaders per file");
     std::array<GLuint, 2> shaderIDs;
@@ -208,7 +208,7 @@ void OpenGLShader::Compile(const std::unordered_map<GLenum, std::string>& shader
     // For each shaders in the map:
     for (auto& kv : shaderSrcs)
     {
-        GLenum type = kv.first;
+        GLenum type               = kv.first;
         const std::string& source = kv.second;
 
         // Create an empty shader handle.
@@ -329,6 +329,20 @@ void OpenGLShader::SetInt(const std::string& name, int value)
 }
 
 /**
+ * @brief Set a uniform array of integer values in the shader.
+ *
+ * @param name The name of the uniform.
+ * @param values The values to assign to that uniform.
+ * @param count The number of values to assign to that uniform.
+ */
+void OpenGLShader::SetIntArray(const std::string& name, int* values, uint32_t count)
+{
+    BR_PROFILE_FUNCTION();
+
+    UploadUniformIntArray(name, values, count);
+}
+
+/**
  * @brief Set a float uniform value in the shader.
  *
  * @param name The name of the uniform.
@@ -421,6 +435,12 @@ void OpenGLShader::UploadUniformInt(const std::string& name, int value)
 {
     GLint location = glGetUniformLocation(m_rendererID, name.c_str());
     glUniform1i(location, value);
+}
+
+void OpenGLShader::UploadUniformIntArray(const std::string& name, int* values, uint32_t count)
+{
+    GLint location = glGetUniformLocation(m_rendererID, name.c_str());
+    glUniform1iv(location, count, values);
 }
 
 /**

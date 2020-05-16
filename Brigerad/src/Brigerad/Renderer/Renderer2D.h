@@ -14,29 +14,48 @@ class Renderer2D
 
     static void BeginScene(const OrthographicCamera& camera);
     static void EndScene();
+    static void Flush();
 
     static long long GetFrameCount();
 
-    // Primitives
+    /* ------------------------------------------------------------------------- */
+    /* Primitives -------------------------------------------------------------- */
+    /* ------------------------------------------------------------------------- */
+
+    // ----- DRAW QUAD -----
+    static void DrawQuad(const glm::vec2& pos, const glm::vec2& size, const glm::vec4& color);
+    static void DrawQuad(const glm::vec3& pos, const glm::vec2& size, const glm::vec4& color);
     static void DrawQuad(const glm::vec2& pos,
                          const glm::vec2& size,
-                         const glm::vec4& color,
-                         float rotation = 0);
+                         const Ref<Texture2D>& texture,
+                         const glm::vec2& textScale = glm::vec2(1.0f),
+                         const glm::vec4& tint      = glm::vec4(1.0f));
     static void DrawQuad(const glm::vec3& pos,
                          const glm::vec2& size,
-                         const glm::vec4& color,
-                         float rotation = 0);
-    static void DrawQuad(const glm::vec2& pos,
-                         const glm::vec2& size,
-                         const Ref<Texture>& texture,
+                         const Ref<Texture2D>& texture,
                          const glm::vec2& textScale = glm::vec2(1.0f),
-                         const glm::vec4& tint      = glm::vec4(1.0f),
-                         float rotation             = 0);
-    static void DrawQuad(const glm::vec3& pos,
-                         const glm::vec2& size,
-                         const Ref<Texture>& texture,
-                         const glm::vec2& textScale = glm::vec2(1.0f),
-                         const glm::vec4& tint      = glm::vec4(1.0f),
-                         float rotation             = 0);
+                         const glm::vec4& tint      = glm::vec4(1.0f));
+
+    // ----- DRAW ROTATED QUAD -----
+    static void DrawRotatedQuad(const glm::vec2& pos,
+                                const glm::vec2& size,
+                                const glm::vec4& color,
+                                float rotation = 0);
+    static void DrawRotatedQuad(const glm::vec3& pos,
+                                const glm::vec2& size,
+                                const glm::vec4& color,
+                                float rotation = 0);
+    static void DrawRotatedQuad(const glm::vec2& pos,
+                                const glm::vec2& size,
+                                const Ref<Texture2D>& texture,
+                                const glm::vec2& textScale = glm::vec2(1.0f),
+                                const glm::vec4& tint      = glm::vec4(1.0f),
+                                float rotation             = 0);
+    static void DrawRotatedQuad(const glm::vec3& pos,
+                                const glm::vec2& size,
+                                const Ref<Texture2D>& texture,
+                                const glm::vec2& textScale = glm::vec2(1.0f),
+                                const glm::vec4& tint      = glm::vec4(1.0f),
+                                float rotation             = 0);
 };
 }  // namespace Brigerad

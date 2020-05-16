@@ -105,6 +105,7 @@ OBJECTS := \
 	$(OBJDIR)/ImGuiBuild.o \
 	$(OBJDIR)/ImGuiLayer.o \
 	$(OBJDIR)/Buffer.o \
+	$(OBJDIR)/GraphicsContext.o \
 	$(OBJDIR)/OrthographicCamera.o \
 	$(OBJDIR)/OrthographicCameraController.o \
 	$(OBJDIR)/RenderCommand.o \
@@ -122,8 +123,6 @@ OBJECTS := \
 	$(OBJDIR)/OpenGLShader.o \
 	$(OBJDIR)/OpenGLTexture.o \
 	$(OBJDIR)/OpenGLVertexArray.o \
-	$(OBJDIR)/WindowsInput.o \
-	$(OBJDIR)/WindowsWindow.o \
 	$(OBJDIR)/brpch.o \
 	$(OBJDIR)/stb_image.o \
 
@@ -205,6 +204,9 @@ $(OBJDIR)/ImGuiLayer.o: src/Brigerad/ImGui/ImGuiLayer.cpp
 $(OBJDIR)/Buffer.o: src/Brigerad/Renderer/Buffer.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/GraphicsContext.o: src/Brigerad/Renderer/GraphicsContext.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/OrthographicCamera.o: src/Brigerad/Renderer/OrthographicCamera.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
@@ -254,12 +256,6 @@ $(OBJDIR)/OpenGLTexture.o: src/Platform/OpenGL/OpenGLTexture.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/OpenGLVertexArray.o: src/Platform/OpenGL/OpenGLVertexArray.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/WindowsInput.o: src/Platform/Windows/WindowsInput.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/WindowsWindow.o: src/Platform/Windows/WindowsWindow.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/brpch.o: src/brpch.cpp

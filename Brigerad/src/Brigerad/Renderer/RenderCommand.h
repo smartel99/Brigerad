@@ -19,10 +19,10 @@ class RenderCommand
 
     inline static void Clear() { s_rendererAPI->Clear(); }
 
-    inline static void DrawIndexed(const Ref<VertexArray>& vertexArray)
+    inline static void DrawIndexed(const Ref<VertexArray>& vertexArray, uint32_t count = 0)
     {
         BR_PROFILE_FUNCTION();
-        s_rendererAPI->DrawIndexed(vertexArray);
+        s_rendererAPI->DrawIndexed(vertexArray, count);
     }
 
     inline static void Init() { s_rendererAPI->Init(); }

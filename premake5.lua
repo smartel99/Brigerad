@@ -122,7 +122,8 @@ project "Brigerad"
         defines 
         {
             "BR_DEBUG",
-            "BR_ENABLE_ASSERTS"
+            "BR_ENABLE_ASSERTS",
+            "BR_PROFILE"
         }
         runtime "Debug"
         symbols "on"
@@ -210,7 +211,11 @@ project "Sandbox"
             postbuildcommands{"cp -r assets ../bin/" .. outputdir .. "/%{prj.name}"}
             
             filter "configurations:Debug"
-            defines "BR_DEBUG"
+            defines 
+            {
+                "BR_DEBUG",
+                "BR_PROFILE"
+            }
             runtime "Debug"
             symbols "On"
             

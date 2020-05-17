@@ -47,10 +47,10 @@ struct InstrumentationSession
     std::chrono::time_point<std::chrono::high_resolution_clock> EndPoint;
 
     InstrumentationSession(const std::string& name, long long duration = 0)
-        : Name(name)
+    : Name(name)
     {
         EndPoint =
-            duration != 0 ?
+          duration != 0 ?
             std::chrono::high_resolution_clock::now() + std::chrono::milliseconds(duration) :
             std::chrono::time_point<std::chrono::high_resolution_clock>::max();
     }
@@ -58,19 +58,17 @@ struct InstrumentationSession
 
 class Instrumentor
 {
-private:
+    private:
     InstrumentationSession* m_currentSession;
     std::ofstream m_outputStream;
     int m_profileCount;
 
-public:
-    Instrumentor() : m_currentSession(nullptr), m_profileCount(0)
-    {
-    }
+    public:
+    Instrumentor() : m_currentSession(nullptr), m_profileCount(0) {}
 
     void BeginSession(const std::string& name,
                       const std::string& filepath = "results.json",
-                      long long duration = 0)
+                      long long duration          = 0)
     {
         m_outputStream.open(filepath);
         WriteHeader();
@@ -83,7 +81,7 @@ public:
         m_outputStream.close();
         delete m_currentSession;
         m_currentSession = nullptr;
-        m_profileCount = 0;
+        m_profileCount   = 0;
     }
 
     void WriteProfile(const ProfileResult& result)
@@ -102,19 +100,19 @@ public:
         std::replace(name.begin(), name.end(), '"', '\'');
 
         m_outputStream << '{' << R"("cat":"function",)"
-            << R"("dur":)" << (result.End - result.Start) << ','
-            << R"("name":")" << name << R"(",)"
-            << R"("ph":"X",)"
-            << R"("pid":0,)"
-            << R"("tid":)" << result.ThreadID << ','
-            << R"("ts":)" << result.Start << '}';
+                       << R"("dur":)" << (result.End - result.Start) << ','
+                       << R"("name":")" << name << R"(",)"
+                       << R"("ph":"X",)"
+                       << R"("pid":0,)"
+                       << R"("tid":)" << result.ThreadID << ',' << R"("ts":)"
+                       << result.Start << '}';
 
         m_outputStream.flush();
 
         if (result.End >= std::chrono::time_point_cast<std::chrono::microseconds>(
-            m_currentSession->EndPoint)
-            .time_since_epoch()
-            .count())
+                            m_currentSession->EndPoint)
+                            .time_since_epoch()
+                            .count())
         {
             EndSession();
             return;
@@ -143,7 +141,7 @@ public:
 
 class InstrumentationTimer
 {
-public:
+    public:
     InstrumentationTimer(const char* name) : m_name(name), m_stopped(false)
     {
         m_startTimepoint = GetTime();
@@ -162,28 +160,29 @@ public:
         auto endTimepoint = GetTime();
 
         long long start = std::chrono::time_point_cast<std::chrono::microseconds>(m_startTimepoint)
-            .time_since_epoch()
-            .count();
+                            .time_since_epoch()
+                            .count();
         long long end = std::chrono::time_point_cast<std::chrono::microseconds>(endTimepoint)
-            .time_since_epoch()
-            .count();
+                          .time_since_epoch()
+                          .count();
 
-        uint32_t threadID = (uint32_t)std::hash<std::thread::id>{}(std::this_thread::get_id());
+        uint32_t threadID =
+          (uint32_t)std::hash<std::thread::id>{}(std::this_thread::get_id());
         Instrumentor::Get().WriteProfile({ m_name, start, end, threadID });
 
         m_stopped = true;
     }
 
-private:
+    private:
     const char* m_name;
     std::chrono::time_point<std::chrono::high_resolution_clock> m_startTimepoint;
     bool m_stopped;
 
-private:
+    private:
     std::chrono::time_point<std::chrono::high_resolution_clock> GetTime()
     {
         static auto lastTime = std::chrono::high_resolution_clock::now();
-        auto time = std::chrono::high_resolution_clock::now();
+        auto time            = std::chrono::high_resolution_clock::now();
 
         if (time == lastTime)
         {
@@ -198,17 +197,30 @@ private:
 
 #define BR_PROFILE 1
 
-#if BR_PROFILE
-#define BR_PROFILE_BEGIN_SESSION(name, filepath) \
+#if defined(BR_PROFILE)
+    /**
+     * @brief Initialize a profiling session.
+     */
+    #define BR_PROFILE_BEGIN_SESSION(name, filepath) \
         ::Brigerad::Instrumentor::Get().BeginSession(name, filepath)
-#define BR_PROFILE_END_SESSION() \
+    /**
+     * @brief End a profiling session and
+     *        dump it into the file set in BR_PROFILE_BEGIN_SESSION.
+     */
+    #define BR_PROFILE_END_SESSION() \
         ::Brigerad::Instrumentor::Get().EndSession()
-#define BR_PROFILE_SCOPE(name) \
+    /**
+     * @brief Measure the execution time of the current scope.
+     */
+    #define BR_PROFILE_SCOPE(name) \
         ::Brigerad::InstrumentationTimer timer##__LINE__(name);
-#define BR_PROFILE_FUNCTION() BR_PROFILE_SCOPE(FUNCSIG)
+    /**
+     * @brief Measure the execution time of the current function.
+     */
+    #define BR_PROFILE_FUNCTION() BR_PROFILE_SCOPE(FUNCSIG)
 #else
-#define BR_PROFILE_BEGIN_SESSION(name, filepath)
-#define BR_PROFILE_END_SESSION()
-#define BR_PROFILE_SCOPE(name)
-#define BR_PROFILE_FUNCTION()
+    #define BR_PROFILE_BEGIN_SESSION(name, filepath)
+    #define BR_PROFILE_END_SESSION()
+    #define BR_PROFILE_SCOPE(name)
+    #define BR_PROFILE_FUNCTION()
 #endif

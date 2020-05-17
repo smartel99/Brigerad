@@ -17,7 +17,7 @@ ifeq ($(config),debug)
   OBJDIR = ../bin-int/Debug-linux-x86_64/Brigerad
   PCH = src/brpch.h
   GCH = $(OBJDIR)/$(notdir $(PCH)).gch
-  DEFINES += -D_CRT_SECURE_NO_WARNINGS -DBR_PLATFORM_LINUX -DGLFW_INCLUDE_NONE -DBR_DEBUG -DBR_ENABLE_ASSERTS
+  DEFINES += -D_CRT_SECURE_NO_WARNINGS -DBR_PLATFORM_LINUX -DGLFW_INCLUDE_NONE -DBR_DEBUG -DBR_ENABLE_ASSERTS -DBR_PROFILE
   INCLUDES += -Isrc -Ivendor/spdlog/include -Ivendor/GLFW/include -Ivendor/Glad/include -Ivendor/ImGui -Ivendor/glm -Ivendor/stb_image
   FORCE_INCLUDE += -include $(OBJDIR)/$(notdir $(PCH))
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)

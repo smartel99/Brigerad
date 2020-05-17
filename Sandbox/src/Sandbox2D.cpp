@@ -30,17 +30,33 @@ void Sandbox2D::OnUpdate(Brigerad::Timestep ts)
         BR_PROFILE_SCOPE("Renderer Draw");
         Brigerad::Renderer2D::BeginScene(m_camera.GetCamera());
 
+        static float rot = 0;
+        rot += ts * 20;
         Brigerad::Renderer2D::DrawQuad({ -1.0f, 0.0f },
                                        { 0.8f, 0.8f },
                                        { 0.8f, 0.2f, 0.3f, 1.0f });
+
+        for (float i = 0; i < 360; i += 0.05)
+        {
+            Brigerad::Renderer2D::DrawRotatedQuad({ -1.5f, -0.5f },
+                                                  { 0.8f, 0.8f },
+                                                  { 0.8f, 0.2f, 0.3f, 1.0f },
+                                                  i);
+        }
         Brigerad::Renderer2D::DrawQuad({ 0.5f, -0.5f },
                                        { 0.5f, 0.75f },
                                        { 0.2f, 0.3f, 0.8f, 1.0f });
-        Brigerad::Renderer2D::DrawQuad({ -5.0f, -5.0f, -0.1f },
+        Brigerad::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.1f },
                                        { 10.0f, 10.0f },
                                        m_texture,
                                        { 10.0f, 10.0f },
                                        { 0.5f, 0.5f, 0.5f, 1.0f });
+        Brigerad::Renderer2D::DrawRotatedQuad({ 0.0f, 0.0f },
+                                              { 1.0f, 1.0f },
+                                              m_texture,
+                                              { 10.0f, 10.0f },
+                                              { 0.5f, 0.5f, 0.5f, 1.0f },
+                                              rot);
 
         Brigerad::Renderer2D::EndScene();
     }

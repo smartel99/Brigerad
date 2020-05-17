@@ -57,5 +57,18 @@ class Renderer2D
                                 const glm::vec2& textScale = glm::vec2(1.0f),
                                 const glm::vec4& tint      = glm::vec4(1.0f),
                                 float rotation             = 0);
+
+
+    // Statistics
+    struct Statistics
+    {
+        uint32_t drawCalls = 0;
+        uint32_t quadCount = 0;
+
+        uint32_t GetTotalVertexCount() { return quadCount * 4; }
+        uint32_t GetTotalIndexCount() { return quadCount * 6; }
+    };
+    static Statistics GetStats();
+    static void ResetStats();
 };
 }  // namespace Brigerad

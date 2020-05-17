@@ -15,7 +15,7 @@ ifeq ($(config),debug)
   TARGETDIR = ../bin/Debug-linux-x86_64/Sandbox
   TARGET = $(TARGETDIR)/Sandbox
   OBJDIR = ../bin-int/Debug-linux-x86_64/Sandbox
-  DEFINES += -DBR_PLATFORM_LINUX -DBR_DEBUG
+  DEFINES += -DBR_PLATFORM_LINUX -DBR_DEBUG -DBR_PROFILE
   INCLUDES += -I../Brigerad/vendor/spdlog/include -I../Brigerad/vendor -I../Brigerad/src -I../Brigerad/vendor/glm
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)

@@ -28,9 +28,9 @@ struct QuadVertex
 struct Renderer2DData
 {
     // Maximum amount of quads a single draw call can handle.
-    const uint32_t maxQuads    = 10000;         // Max 10k quads.
-    const uint32_t maxVertices = maxQuads * 4;  // 4 vertices per quad.
-    const uint32_t maxIndices  = maxQuads * 6;  // 6 indices per quad.
+    static const uint32_t maxQuads    = 100000;         // Max 10k quads.
+    static const uint32_t maxVertices = maxQuads * 4;  // 4 vertices per quad.
+    static const uint32_t maxIndices  = maxQuads * 6;  // 6 indices per quad.
     static const uint32_t maxTextureSlots = 32;  // Max number of textures per draw call.
 
     Ref<VertexArray> vertexArray;
@@ -194,12 +194,15 @@ void Renderer2D::EndScene()
     Flush();
 }
 
+
 /**
  * @brief Bind all queued textures and render the queue.
  */
 void Renderer2D::Flush()
 {
     BR_PROFILE_FUNCTION();
+
+    s_data.stats.drawCalls++;
 
     // Bind all active textures.
     for (uint32_t i = 0; i < s_data.textureSlotIndex; i++)
@@ -209,6 +212,20 @@ void Renderer2D::Flush()
     // Draw the entire vertex array.
     RenderCommand::DrawIndexed(s_data.vertexArray, s_data.quadIndexCount);
 }
+
+void Renderer2D::FlushAndReset()
+{
+    EndScene();
+
+    // Reset the quad buffer.
+    s_data.quadIndexCount      = 0;
+    s_data.quadVertexBufferPtr = s_data.quadVertexBufferBase;
+
+    // Reset the texture buffer.
+    // We set it to 1 instead of 0 because slot 0 is reserved to the 1x1 white texture.
+    s_data.textureSlotIndex = 1;
+}
+
 
 /**
  * @brief   Get the number of frames that has been rendered since the beginning
@@ -248,8 +265,14 @@ void Renderer2D::DrawQuad(const glm::vec3& pos, const glm::vec2& size, const glm
 {
     BR_PROFILE_FUNCTION();
 
-    const float texIndex = 0.0f;  // White Texture.
+    // If the quad queue is full:
+    if (s_data.quadIndexCount >= Renderer2DData::maxIndices)
+    {
+        // Render the queue and start a new one.
+        FlushAndReset();
+    }
 
+    const float texIndex = 0.0f;  // White Texture.
 
     glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) *
                           glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
@@ -327,6 +350,13 @@ void Renderer2D::DrawQuad(const glm::vec3& pos,
 {
     BR_PROFILE_FUNCTION();
 
+    // If the quad queue is full:
+    if (s_data.quadIndexCount >= Renderer2DData::maxIndices)
+    {
+        // Render the queue and start a new one.
+        FlushAndReset();
+    }
+
     float textureIndex = 0.0f;
 
     // Look up in the texture queue for the texture.
@@ -385,7 +415,7 @@ void Renderer2D::DrawQuad(const glm::vec3& pos,
 
     // A quad has 6 indices, increment the indicies count by that many.
     s_data.quadIndexCount += 6;
-    
+
     s_data.stats.quadCount++;
 }
 
@@ -422,11 +452,18 @@ void Renderer2D::DrawRotatedQuad(const glm::vec3& pos,
 {
     BR_PROFILE_FUNCTION();
 
+    // If the quad queue is full:
+    if (s_data.quadIndexCount >= Renderer2DData::maxIndices)
+    {
+        // Render the queue and start a new one.
+        FlushAndReset();
+    }
+
     const float texIndex = 0.0f;  // White Texture.
 
     glm::mat4 transform =
       glm::translate(glm::mat4(1.0f), pos) *
-      glm::rotate(glm::mat4(1.0f), glm::radians(rotation), { 0, 0, 1 }) *
+      glm::rotate(glm::mat4(1.0f), rotation, { 0, 0, 1 }) *
       glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
 
     // Setup the first vertex of the quad.
@@ -506,6 +543,13 @@ void Renderer2D::DrawRotatedQuad(const glm::vec3& pos,
 {
     BR_PROFILE_FUNCTION();
 
+    // If the quad queue is full:
+    if (s_data.quadIndexCount >= Renderer2DData::maxIndices)
+    {
+        // Render the queue and start a new one.
+        FlushAndReset();
+    }
+
     // Check if the texture is already in the texture queue.
     float textureIndex = 0.0f;
     for (uint32_t i = 1; i < s_data.textureSlotIndex; i++)
@@ -528,7 +572,7 @@ void Renderer2D::DrawRotatedQuad(const glm::vec3& pos,
 
     glm::mat4 transform =
       glm::translate(glm::mat4(1.0f), pos) *
-      glm::rotate(glm::mat4(1.0f), glm::radians(rotation), { 0, 0, 1 }) *
+      glm::rotate(glm::mat4(1.0f), rotation, { 0, 0, 1 }) *
       glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
 
     // Setup the first vertex of the quad.

@@ -6,6 +6,15 @@
 
 namespace Brigerad
 {
+struct OrthographicCameraBounds
+{
+    float left, right;
+    float bottom, top;
+
+    float GetWidth() { return right - left; }
+    float GetHeight() { return top - bottom; }
+};
+
 class OrthographicCameraController
 {
     public:
@@ -20,6 +29,8 @@ class OrthographicCameraController
     inline void SetZoomLevel(float level) { m_zoomLevel = level; }
     inline float GetZoomLevel() const { return m_zoomLevel; }
 
+    const OrthographicCameraBounds& GetBounds() const { return m_bounds; }
+
     private:
     bool OnMouseScrolled(MouseScrolledEvent& e);
     bool OnWindowResized(WindowResizeEvent& e);
@@ -28,6 +39,7 @@ class OrthographicCameraController
     float m_aspectRatio;
     float m_zoomLevel = 0.5f;
     OrthographicCamera m_camera;
+    OrthographicCameraBounds m_bounds;
 
     bool m_allowRotation       = false;
     glm::vec3 m_cameraPosition = { 0.0f, 0.0f, 0.0f };

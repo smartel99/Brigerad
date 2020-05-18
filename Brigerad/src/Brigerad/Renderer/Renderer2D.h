@@ -70,5 +70,8 @@ class Renderer2D
     };
     static Statistics GetStats();
     static void ResetStats();
+
+    private:
+    static void FlushAndReset();
 };
 }  // namespace Brigerad

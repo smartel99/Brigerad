@@ -11,7 +11,10 @@ constexpr float MAX_POS_SPEED = 10.0f;
 constexpr float MAX_NEG_SPEED = -10.0f;
 
 OrthographicCameraController::OrthographicCameraController(float aspectRatio, bool rotation)
-    : m_aspectRatio(aspectRatio), m_camera(-m_aspectRatio * m_zoomLevel, m_aspectRatio * m_zoomLevel, -m_zoomLevel, m_zoomLevel), m_allowRotation(rotation)
+: m_aspectRatio(aspectRatio),
+  m_bounds({ -m_aspectRatio * m_zoomLevel, m_aspectRatio * m_zoomLevel, -m_zoomLevel, m_zoomLevel }),
+  m_camera(-m_aspectRatio * m_zoomLevel, m_aspectRatio * m_zoomLevel, -m_zoomLevel, m_zoomLevel),
+  m_allowRotation(rotation)
 {
 }
 
@@ -63,28 +66,38 @@ void OrthographicCameraController::OnUpdate(Timestep ts)
     m_cameraTranslationSpeed = m_zoomLevel;
 }
 
-void OrthographicCameraController::OnEvent(Event &e)
+void OrthographicCameraController::OnEvent(Event& e)
 {
     EventDispatcher dispatcher(e);
-    dispatcher.Dispatch<MouseScrolledEvent>(BR_BIND_EVENT_FN(OrthographicCameraController::OnMouseScrolled));
-    dispatcher.Dispatch<WindowResizeEvent>(BR_BIND_EVENT_FN(OrthographicCameraController::OnWindowResized));
+    dispatcher.Dispatch<MouseScrolledEvent>(
+      BR_BIND_EVENT_FN(OrthographicCameraController::OnMouseScrolled));
+    dispatcher.Dispatch<WindowResizeEvent>(
+      BR_BIND_EVENT_FN(OrthographicCameraController::OnWindowResized));
 }
 
-bool OrthographicCameraController::OnMouseScrolled(MouseScrolledEvent &e)
+bool OrthographicCameraController::OnMouseScrolled(MouseScrolledEvent& e)
 {
     m_zoomLevel -= e.GetYOffset();
     m_zoomLevel = std::max(m_zoomLevel, 0.25f);
-    m_camera.SetProjection(-m_aspectRatio * m_zoomLevel, m_aspectRatio * m_zoomLevel, -m_zoomLevel, m_zoomLevel);
+    m_bounds    = { -m_aspectRatio * m_zoomLevel, m_aspectRatio * m_zoomLevel, -m_zoomLevel, m_zoomLevel };
+    m_camera.SetProjection(m_bounds.left,
+                           m_bounds.right,
+                           m_bounds.bottom,
+                           m_bounds.top);
 
     return false;
 }
 
-bool OrthographicCameraController::OnWindowResized(WindowResizeEvent &e)
+bool OrthographicCameraController::OnWindowResized(WindowResizeEvent& e)
 {
     m_aspectRatio = (float)e.GetWidth() / (float)e.GetHeight();
-    m_camera.SetProjection(-m_aspectRatio * m_zoomLevel, m_aspectRatio * m_zoomLevel, -m_zoomLevel, m_zoomLevel);
+    m_bounds      = { -m_aspectRatio * m_zoomLevel, m_aspectRatio * m_zoomLevel, -m_zoomLevel, m_zoomLevel };
+    m_camera.SetProjection(m_bounds.left,
+                           m_bounds.right,
+                           m_bounds.bottom,
+                           m_bounds.top);
 
     return false;
 }
 
-} // namespace Brigerad
+}  // namespace Brigerad

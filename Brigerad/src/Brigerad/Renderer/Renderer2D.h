@@ -2,6 +2,7 @@
 
 #include "Brigerad/Renderer/OrthographicCamera.h"
 #include "Brigerad/Renderer/Texture.h"
+#include "Brigerad/Renderer/SubTexture2D.h"
 
 
 namespace Brigerad
@@ -35,6 +36,16 @@ class Renderer2D
                          const Ref<Texture2D>& texture,
                          const glm::vec2& textScale = glm::vec2(1.0f),
                          const glm::vec4& tint      = glm::vec4(1.0f));
+    static void DrawQuad(const glm::vec2& pos,
+                         const glm::vec2& size,
+                         const Ref<SubTexture2D>& texture,
+                         const glm::vec2& textScale = glm::vec2(1.0f),
+                         const glm::vec4& tint      = glm::vec4(1.0f));
+    static void DrawQuad(const glm::vec3& pos,
+                         const glm::vec2& size,
+                         const Ref<SubTexture2D>& texture,
+                         const glm::vec2& textScale = glm::vec2(1.0f),
+                         const glm::vec4& tint      = glm::vec4(1.0f));
 
     // ----- DRAW ROTATED QUAD -----
     static void DrawRotatedQuad(const glm::vec2& pos,
@@ -54,6 +65,18 @@ class Renderer2D
     static void DrawRotatedQuad(const glm::vec3& pos,
                                 const glm::vec2& size,
                                 const Ref<Texture2D>& texture,
+                                const glm::vec2& textScale = glm::vec2(1.0f),
+                                const glm::vec4& tint      = glm::vec4(1.0f),
+                                float rotation             = 0);
+    static void DrawRotatedQuad(const glm::vec2& pos,
+                                const glm::vec2& size,
+                                const Ref<SubTexture2D>& texture,
+                                const glm::vec2& textScale = glm::vec2(1.0f),
+                                const glm::vec4& tint      = glm::vec4(1.0f),
+                                float rotation             = 0);
+    static void DrawRotatedQuad(const glm::vec3& pos,
+                                const glm::vec2& size,
+                                const Ref<SubTexture2D>& texture,
                                 const glm::vec2& textScale = glm::vec2(1.0f),
                                 const glm::vec4& tint      = glm::vec4(1.0f),
                                 float rotation             = 0);

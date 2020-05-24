@@ -14,7 +14,7 @@ struct ParticleProps
 class ParticleSystem
 {
     public:
-    ParticleSystem();
+    ParticleSystem(uint32_t maxParticles = 10000);
 
     void OnUpdate(Brigerad::Timestep ts);
     void OnRender(Brigerad::OrthographicCamera& camera);

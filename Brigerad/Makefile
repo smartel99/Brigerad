@@ -113,6 +113,7 @@ OBJECTS := \
 	$(OBJDIR)/Renderer2D.o \
 	$(OBJDIR)/RendererAPI.o \
 	$(OBJDIR)/Shader.o \
+	$(OBJDIR)/SubTexture2D.o \
 	$(OBJDIR)/Texture.o \
 	$(OBJDIR)/VertexArray.o \
 	$(OBJDIR)/LinuxInput.o \
@@ -226,6 +227,9 @@ $(OBJDIR)/RendererAPI.o: src/Brigerad/Renderer/RendererAPI.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Shader.o: src/Brigerad/Renderer/Shader.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/SubTexture2D.o: src/Brigerad/Renderer/SubTexture2D.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Texture.o: src/Brigerad/Renderer/Texture.cpp

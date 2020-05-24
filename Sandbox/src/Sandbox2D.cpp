@@ -11,6 +11,17 @@ void Sandbox2D::OnAttach()
     BR_PROFILE_FUNCTION();
 
     m_texture = Brigerad::Texture2D::Create("assets/textures/checkboard.png");
+    m_spriteSheet =
+      Brigerad::Texture2D::Create("assets/game/textures/RPGpack_sheet_2X.png");
+
+    m_stairTex = Brigerad::SubTexture2D::CreateFromCoords(m_spriteSheet,
+                                                          { 8.0f, 6.0f },
+                                                          { 128.0f, 128.0f });
+
+    m_treeTex = Brigerad::SubTexture2D::CreateFromCoords(m_spriteSheet,
+                                                         { 2.0f, 1.0f },
+                                                         { 128.0f, 128.0f },
+                                                         { 1, 2 });
 
     m_particle.colorBegin = { 255 / 255.0f, 0.0f, 0.0f, 1.0f };
     m_particle.colorEnd   = { 127 / 255.0f, 0.0f, 0.0f, 1.0f };
@@ -36,6 +47,7 @@ void Sandbox2D::OnUpdate(Brigerad::Timestep ts)
         Brigerad::RenderCommand::SetClearColor({ 0.2f, 0.2f, 0.2f, 1.0f });
         Brigerad::RenderCommand::Clear();
     }
+#if 0
     {
         BR_PROFILE_SCOPE("Renderer Draw");
         Brigerad::Renderer2D::BeginScene(m_camera.GetCamera());
@@ -83,23 +95,40 @@ void Sandbox2D::OnUpdate(Brigerad::Timestep ts)
 
         Brigerad::Renderer2D::EndScene();
     }
+#endif
 
-    if (Brigerad::Input::IsMouseButtonPressed(BR_MOUSE_BUTTON_LEFT))
     {
-        auto [x, y] = Brigerad::Input::GetMousePos();
-        auto width  = Brigerad::Application::Get().GetWindow().GetWidth();
-        auto height = Brigerad::Application::Get().GetWindow().GetHeight();
-
-        auto bounds = m_camera.GetBounds();
-        auto pos    = m_camera.GetCamera().GetPosition();
-        x = (x / width) * bounds.GetWidth() - bounds.GetWidth() * 0.5f;
-        y = bounds.GetHeight() * 0.5f - (y / height) * bounds.GetHeight();
-        m_particle.position = { x + pos.x, y + pos.y };
-        for (int i = 0; i < 50; i++)
+        BR_PROFILE_SCOPE("Particle System");
+        if (Brigerad::Input::IsMouseButtonPressed(BR_MOUSE_BUTTON_LEFT))
         {
-            m_particleSystem.Emit(m_particle);
+            auto [x, y] = Brigerad::Input::GetMousePos();
+            auto width  = Brigerad::Application::Get().GetWindow().GetWidth();
+            auto height = Brigerad::Application::Get().GetWindow().GetHeight();
+
+            auto bounds = m_camera.GetBounds();
+            auto pos    = m_camera.GetCamera().GetPosition();
+            x = (x / width) * bounds.GetWidth() - bounds.GetWidth() * 0.5f;
+            y = bounds.GetHeight() * 0.5f - (y / height) * bounds.GetHeight();
+            m_particle.position = { x + pos.x, y + pos.y };
+            for (int i = 0; i < 5; i++)
+            {
+                m_particleSystem.Emit(m_particle);
+            }
         }
     }
+
+    Brigerad::Renderer2D::BeginScene(m_camera.GetCamera());
+    Brigerad::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.0f },
+                                   { 1.0f, 1.0f },
+                                   m_stairTex,
+                                   { 1.0f, 1.0f },
+                                   { 1.0f, 1.0f, 1.0f, 1.0f });
+    Brigerad::Renderer2D::DrawQuad({ 1.0f, 0.0f, -0.0f },
+                                   { 1.0f, 2.0f },
+                                   m_treeTex,
+                                   { 1.0f, 1.0f },
+                                   { 1.0f, 1.0f, 1.0f, 1.0f });
+    Brigerad::Renderer2D::EndScene();
 
     m_particleSystem.OnUpdate(ts);
     m_particleSystem.OnRender(m_camera.GetCamera());

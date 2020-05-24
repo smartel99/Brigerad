@@ -23,6 +23,10 @@ class Sandbox2D : public Brigerad::Layer
     Brigerad::OrthographicCameraController m_camera;
     glm::vec4 m_color = { 1.0f, 0.0f, 0.0f, 1.0f };
     Brigerad::Ref<Brigerad::Texture2D> m_texture;
+    Brigerad::Ref<Brigerad::Texture2D> m_spriteSheet;
+
+    Brigerad::Ref<Brigerad::SubTexture2D> m_stairTex;
+    Brigerad::Ref<Brigerad::SubTexture2D> m_treeTex;
 
     ParticleSystem m_particleSystem;
     ParticleProps m_particle;

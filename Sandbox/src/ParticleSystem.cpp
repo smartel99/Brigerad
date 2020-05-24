@@ -26,7 +26,11 @@ class Random
 std::mt19937 Random::s_randomEngine;
 std::uniform_int_distribution<std::mt19937::result_type> Random::s_distribution;
 
-ParticleSystem::ParticleSystem() { m_particlePool.resize(10000); }
+ParticleSystem::ParticleSystem(uint32_t maxParticles)
+: m_poolIndex(maxParticles - 1)
+{
+    m_particlePool.resize(maxParticles);
+}
 
 void ParticleSystem::OnUpdate(Brigerad::Timestep ts)
 {

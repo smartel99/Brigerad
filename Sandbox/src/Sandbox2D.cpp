@@ -47,6 +47,13 @@ void Sandbox2D::OnUpdate(Brigerad::Timestep ts)
         Brigerad::RenderCommand::SetClearColor({ 0.2f, 0.2f, 0.2f, 1.0f });
         Brigerad::RenderCommand::Clear();
     }
+
+    // //                       Label,  position,              size
+    // if (Brigerad::UI::Button("Test", glm::vec2(0.0f, 2.0f), glm::vec2(2.0f, 1.0f)))
+    // {
+    //     BR_TRACE("Button pressed!");
+    // }
+
 #if 0
     {
         BR_PROFILE_SCOPE("Renderer Draw");
@@ -146,8 +153,6 @@ void Sandbox2D::OnImGuiRender()
     ImGui::Text("Quads: %d", stats.quadCount);
     ImGui::Text("Vertices: %d", stats.GetTotalVertexCount());
     ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
-
-    ImGui::ColorEdit4("Square Color", glm::value_ptr(m_color));
 
     ImGui::End();
 }

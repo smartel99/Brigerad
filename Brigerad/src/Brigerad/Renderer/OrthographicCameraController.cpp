@@ -75,27 +75,28 @@ void OrthographicCameraController::OnEvent(Event& e)
       BR_BIND_EVENT_FN(OrthographicCameraController::OnWindowResized));
 }
 
-bool OrthographicCameraController::OnMouseScrolled(MouseScrolledEvent& e)
+
+void OrthographicCameraController::CalculateView()
 {
-    m_zoomLevel -= e.GetYOffset();
-    m_zoomLevel = std::max(m_zoomLevel, 0.25f);
-    m_bounds    = { -m_aspectRatio * m_zoomLevel, m_aspectRatio * m_zoomLevel, -m_zoomLevel, m_zoomLevel };
+    m_bounds = { -m_aspectRatio * m_zoomLevel, m_aspectRatio * m_zoomLevel, -m_zoomLevel, m_zoomLevel };
     m_camera.SetProjection(m_bounds.left,
                            m_bounds.right,
                            m_bounds.bottom,
                            m_bounds.top);
+}
 
+bool OrthographicCameraController::OnMouseScrolled(MouseScrolledEvent& e)
+{
+    m_zoomLevel -= e.GetYOffset();
+    m_zoomLevel = std::max(m_zoomLevel, 0.25f);
+    CalculateView();
     return false;
 }
 
 bool OrthographicCameraController::OnWindowResized(WindowResizeEvent& e)
 {
     m_aspectRatio = (float)e.GetWidth() / (float)e.GetHeight();
-    m_bounds      = { -m_aspectRatio * m_zoomLevel, m_aspectRatio * m_zoomLevel, -m_zoomLevel, m_zoomLevel };
-    m_camera.SetProjection(m_bounds.left,
-                           m_bounds.right,
-                           m_bounds.bottom,
-                           m_bounds.top);
+    CalculateView();
 
     return false;
 }

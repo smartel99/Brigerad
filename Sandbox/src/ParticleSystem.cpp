@@ -9,16 +9,19 @@
 
 class Random
 {
-    public:
-    static void Init() { s_randomEngine.seed(std::random_device()()); }
+public:
+    static void Init()
+    {
+        s_randomEngine.seed(std::random_device()());
+    }
 
     static float Float()
     {
         return (float)s_distribution(s_randomEngine) /
-               (float)std::numeric_limits<long long>::max();
+            (float)std::numeric_limits<uint32_t>::max();
     }
 
-    private:
+private:
     static std::mt19937 s_randomEngine;
     static std::uniform_int_distribution<std::mt19937::result_type> s_distribution;
 };
@@ -27,7 +30,7 @@ std::mt19937 Random::s_randomEngine;
 std::uniform_int_distribution<std::mt19937::result_type> Random::s_distribution;
 
 ParticleSystem::ParticleSystem(uint32_t maxParticles)
-: m_poolIndex(maxParticles - 1)
+    : m_poolIndex(maxParticles - 1)
 {
     m_particlePool.resize(maxParticles);
 }
@@ -64,7 +67,7 @@ void ParticleSystem::OnRender(Brigerad::OrthographicCamera& camera)
         }
 
         // Fade away particles.
-        float life      = particle.lifeRemaining / particle.lifeTime;
+        float life = particle.lifeRemaining / particle.lifeTime;
         glm::vec4 color = glm::lerp(particle.colorEnd, particle.colorBegin, life);
 
         float size = glm::lerp(particle.sizeEnd, particle.sizeBegin, life);
@@ -81,9 +84,9 @@ void ParticleSystem::OnRender(Brigerad::OrthographicCamera& camera)
 void ParticleSystem::Emit(const ParticleProps& particleProps)
 {
     Particle& particle = m_particlePool[m_poolIndex];
-    particle.active    = true;
-    particle.position  = particleProps.position;
-    particle.rotation  = Random::Float() * 2.0f * glm::pi<float>();
+    particle.active = true;
+    particle.position = particleProps.position;
+    particle.rotation = Random::Float() * 2.0f * glm::pi<float>();
 
     // Velocity
     particle.velocity = particleProps.velocity;
@@ -92,12 +95,12 @@ void ParticleSystem::Emit(const ParticleProps& particleProps)
 
     // Color
     particle.colorBegin = particleProps.colorBegin;
-    particle.colorEnd   = particleProps.colorEnd;
+    particle.colorEnd = particleProps.colorEnd;
 
-    particle.lifeTime      = particleProps.lifeTime;
+    particle.lifeTime = particleProps.lifeTime;
     particle.lifeRemaining = particleProps.lifeTime;
-    particle.sizeBegin     = particleProps.sizeBegin +
-                         particleProps.sizeVariation * (Random::Float() - 0.5f);
+    particle.sizeBegin = particleProps.sizeBegin +
+        particleProps.sizeVariation * (Random::Float() - 0.5f);
     particle.sizeEnd = particleProps.sizeEnd;
 
     m_poolIndex = --m_poolIndex % m_particlePool.size();

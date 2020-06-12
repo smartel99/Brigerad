@@ -76,7 +76,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>brpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;BR_PLATFORM_WINDOWS;BR_BUILD_DLL;GLFW_INCLUDE_NONE;BR_DEBUG;BR_ENABLE_ASSERTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;BR_PLATFORM_WINDOWS;BR_BUILD_DLL;GLFW_INCLUDE_NONE;BR_DEBUG;BR_ENABLE_ASSERTS;BR_PROFILE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\ImGui;vendor\glm;vendor\stb_image;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
@@ -144,14 +144,17 @@
     <ClInclude Include="src\Brigerad\Core\Application.h" />
     <ClInclude Include="src\Brigerad\Core\Core.h" />
     <ClInclude Include="src\Brigerad\Core\EntryPoint.h" />
+    <ClInclude Include="src\Brigerad\Core\File.h" />
     <ClInclude Include="src\Brigerad\Core\Input.h" />
     <ClInclude Include="src\Brigerad\Core\KeyCodes.h" />
     <ClInclude Include="src\Brigerad\Core\Layer.h" />
     <ClInclude Include="src\Brigerad\Core\LayerStack.h" />
     <ClInclude Include="src\Brigerad\Core\Log.h" />
+    <ClInclude Include="src\Brigerad\Core\Memory.h" />
     <ClInclude Include="src\Brigerad\Core\MouseButtonCodes.h" />
     <ClInclude Include="src\Brigerad\Core\Time.h" />
     <ClInclude Include="src\Brigerad\Core\Timestep.h" />
+    <ClInclude Include="src\Brigerad\Core\Types.h" />
     <ClInclude Include="src\Brigerad\Core\Window.h" />
     <ClInclude Include="src\Brigerad\Debug\Instrumentor.h" />
     <ClInclude Include="src\Brigerad\Events\ApplicationEvent.h" />
@@ -168,11 +171,14 @@
     <ClInclude Include="src\Brigerad\Renderer\Renderer2D.h" />
     <ClInclude Include="src\Brigerad\Renderer\RendererAPI.h" />
     <ClInclude Include="src\Brigerad\Renderer\Shader.h" />
+    <ClInclude Include="src\Brigerad\Renderer\SubTexture2D.h" />
     <ClInclude Include="src\Brigerad\Renderer\Texture.h" />
     <ClInclude Include="src\Brigerad\Renderer\VertexArray.h" />
-    <ClInclude Include="src\Platform\Linux\LinuxInput.h" />
-    <ClInclude Include="src\Platform\Linux\LinuxTime.h" />
-    <ClInclude Include="src\Platform\Linux\LinuxWindow.h" />
+    <ClInclude Include="src\Brigerad\UI\Font.h" />
+    <ClInclude Include="src\Brigerad\UI\stbTypes.h" />
+    <ClInclude Include="src\Brigerad\UI\Text.h" />
+    <ClInclude Include="src\Brigerad\UI\UI.h" />
+    <ClInclude Include="src\Brigerad\UI\UICore.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
@@ -595,9 +601,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Brigerad\Core\Application.cpp" />
+    <ClCompile Include="src\Brigerad\Core\File.cpp" />
     <ClCompile Include="src\Brigerad\Core\Layer.cpp" />
     <ClCompile Include="src\Brigerad\Core\LayerStack.cpp" />
     <ClCompile Include="src\Brigerad\Core\Log.cpp" />
+    <ClCompile Include="src\Brigerad\Core\Memory.cpp" />
     <ClCompile Include="src\Brigerad\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Brigerad\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Brigerad\Renderer\Buffer.cpp" />
@@ -609,10 +617,11 @@
     <ClCompile Include="src\Brigerad\Renderer\Renderer2D.cpp" />
     <ClCompile Include="src\Brigerad\Renderer\RendererAPI.cpp" />
     <ClCompile Include="src\Brigerad\Renderer\Shader.cpp" />
+    <ClCompile Include="src\Brigerad\Renderer\SubTexture2D.cpp" />
     <ClCompile Include="src\Brigerad\Renderer\Texture.cpp" />
     <ClCompile Include="src\Brigerad\Renderer\VertexArray.cpp" />
-    <ClCompile Include="src\Platform\Linux\LinuxInput.cpp" />
-    <ClCompile Include="src\Platform\Linux\LinuxWindow.cpp" />
+    <ClCompile Include="src\Brigerad\UI\Font.cpp" />
+    <ClCompile Include="src\Brigerad\UI\Text.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />

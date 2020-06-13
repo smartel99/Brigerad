@@ -153,15 +153,6 @@
     <ClInclude Include="src\Brigerad\Renderer\VertexArray.h">
       <Filter>src\Brigerad\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\Brigerad\UI\Text.h">
-      <Filter>src\Brigerad\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Brigerad\UI\UI.h">
-      <Filter>src\Brigerad\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Brigerad\UI\UICore.h">
-      <Filter>src\Brigerad\UI</Filter>
-    </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h">
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
@@ -1419,11 +1410,9 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\Brigerad\UI\Font.h" />
     <ClInclude Include="src\Brigerad\Core\Types.h" />
     <ClInclude Include="src\Brigerad\Core\Memory.h" />
     <ClInclude Include="src\Brigerad\Core\File.h" />
-    <ClInclude Include="src\Brigerad\UI\stbTypes.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Brigerad\Core\Application.cpp">
@@ -1480,9 +1469,6 @@
     <ClCompile Include="src\Brigerad\Renderer\VertexArray.cpp">
       <Filter>src\Brigerad\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="src\Brigerad\UI\Text.cpp">
-      <Filter>src\Brigerad\UI</Filter>
-    </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
@@ -1513,8 +1499,6 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="src\Brigerad\UI\Font.cpp" />
     <ClCompile Include="src\Brigerad\Core\Memory.cpp" />
-    <ClCompile Include="src\Brigerad\Core\File.cpp" />
   </ItemGroup>
 </Project>

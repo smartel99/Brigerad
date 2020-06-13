@@ -14,9 +14,7 @@ namespace Memory
 // disabled exceptions.
 //-----------------------------------------------------------------------------
 
-struct BrNewDummy
-{
-};
+
 
 
 #define BR_ALLOC(_SIZE) Brigerad::Memory::MemAlloc(_SIZE)
@@ -37,6 +35,10 @@ void* MemAlloc(size_t size);
 void MemFree(void* ptr);
 }
 }
+
+struct BrNewDummy
+{
+};
 
 inline void* operator new(size_t, BrNewDummy, void* ptr)
 {

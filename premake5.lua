@@ -83,7 +83,10 @@ project "Brigerad"
         excludes
         {
             "%{prj.name}/src/Platform/Linux/**.h",
-            "%{prj.name}/src/Platform/Linux/**.cpp"
+            "%{prj.name}/src/Platform/Linux/**.cpp",
+            "%{prj.name}/src/UI/**.h",
+            "%{prj.name}/src/UI/**.cpp",
+            "%{prj.name}/src/Core/File.*"
         }
 
     filter "system:linux"

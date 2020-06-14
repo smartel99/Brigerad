@@ -24,3 +24,4 @@
 #include "Brigerad/Renderer/Renderer2D.h"
 #include "Brigerad/Renderer/OrthographicCamera.h"
 #include "Brigerad/Renderer/OrthographicCameraController.h"
+#include "Brigerad/Renderer/FrameBuffer.h"

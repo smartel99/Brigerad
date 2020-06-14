@@ -4,9 +4,9 @@
  * @brief   Header for the Application module.
  * @version 0.1
  * @date    2020-05-14
- * 
+ *
  * @copyright Copyright (c) 2020
- * 
+ *
  */
 #include "brpch.h"
 #include "Application.h"
@@ -21,7 +21,7 @@ namespace Brigerad
 
 /**
  * @brief   Singleton instance of the running application
- * 
+ *
  */
 Application* Application::s_instance = nullptr;
 
@@ -53,13 +53,13 @@ Application::Application()
 }
 
 /**
- * @brief   Destroy the Application:: Application object 
+ * @brief   Destroy the Application:: Application object
  */
 Application::~Application() = default;
 
 /**
  * @brief   The main run loop of the application, where all layers are updated.
- * 
+ *
  * @param   None
  * @retval  None
  */
@@ -110,7 +110,7 @@ void Application::Run()
 /**
  * @brief   Callback function for all events happening in the application.
  *          It dispatches and propagates the event through all layers until it is handled.
- * 
+ *
  * @param   e The event to be dispatched.
  */
 void Application::OnEvent(Event& e)
@@ -140,7 +140,7 @@ void Application::OnEvent(Event& e)
 
 /**
  * @brief   Push a new layer at the back of the layer stack.
- * 
+ *
  * @param   layer A pointer to the layer
  * @retval  None
  */
@@ -156,7 +156,7 @@ void Application::PushLayer(Layer* layer)
 
 /**
  * @brief   Push a new layer at the front of the layer stack.
- * 
+ *
  * @param   layer A pointer to the layer
  * @retval  None
  */
@@ -170,10 +170,15 @@ void Application::PushOverlay(Layer* layer)
     layer->OnAttach();
 }
 
+void Application::Close()
+{
+    m_running = false;
+}
+
 /**
  * @brief   Handle the window close event.
  *          This event happens whenever the main application window closes.
- * 
+ *
  * @param   e The event
  * @retval  Always return true
  */
@@ -185,10 +190,10 @@ bool Application::OnWindowClose(WindowCloseEvent& e)
 
 /**
  * @brief   Handle the window resize event.
- * 
- * @param   e 
- * @retval  true 
- * @retval  false 
+ *
+ * @param   e
+ * @retval  true
+ * @retval  false
  */
 bool Application::OnWindowResize(WindowResizeEvent& e)
 {

@@ -8,7 +8,7 @@
 
 class Sandbox2D : public Brigerad::Layer
 {
-    public:
+public:
     Sandbox2D();
     virtual ~Sandbox2D() = default;
 
@@ -19,11 +19,12 @@ class Sandbox2D : public Brigerad::Layer
     virtual void OnImGuiRender() override;
     void OnEvent(Brigerad::Event& e) override;
 
-    private:
+private:
     Brigerad::OrthographicCameraController m_camera;
     glm::vec4 m_color = { 1.0f, 0.0f, 0.0f, 1.0f };
     Brigerad::Ref<Brigerad::Texture2D> m_texture;
     Brigerad::Ref<Brigerad::Texture2D> m_spriteSheet;
+    Brigerad::Ref<Brigerad::Framebuffer> m_fb;
 
     Brigerad::Ref<Brigerad::SubTexture2D> m_stairTex;
     Brigerad::Ref<Brigerad::SubTexture2D> m_treeTex;

@@ -14,7 +14,7 @@
 
 class ExampleLayer : public Brigerad::Layer
 {
-    public:
+public:
     ExampleLayer() : Layer("Example"), m_camera(1280.0f / 720.0f)
     {
         float vertices[3 * 7] = {
@@ -115,12 +115,12 @@ class ExampleLayer : public Brigerad::Layer
         m_text->SetScale(15.f);
 
         m_texture =
-          Brigerad::Texture2D::Create("assets/textures/checkboard.png");
+            Brigerad::Texture2D::Create("assets/textures/checkboard.png");
         m_rald = Brigerad::Texture2D::Create("assets/textures/Rald.png");
 
         std::dynamic_pointer_cast<Brigerad::OpenGLShader>(m_text->GetShader())->Bind();
         std::dynamic_pointer_cast<Brigerad::OpenGLShader>(m_text->GetShader())
-          ->UploadUniformInt("u_Texture", 0);
+            ->UploadUniformInt("u_Texture", 0);
     }
 
     void OnUpdate(Brigerad::Timestep ts) override
@@ -176,9 +176,12 @@ class ExampleLayer : public Brigerad::Layer
         ImGui::End();
     }
 
-    void OnEvent(Brigerad::Event& event) override { m_camera.OnEvent(event); }
+    void OnEvent(Brigerad::Event& event) override
+    {
+        m_camera.OnEvent(event);
+    }
 
-    private:
+private:
     Brigerad::ShaderLibrary m_shaderLibrary;
     Brigerad::Ref<Shape> m_square;
     Brigerad::Ref<Shape> m_text;
@@ -192,7 +195,7 @@ class ExampleLayer : public Brigerad::Layer
 
 class Sandbox : public Brigerad::Application
 {
-    public:
+public:
     Sandbox()
     {
         // PushLayer(new ExampleLayer());
@@ -202,4 +205,7 @@ class Sandbox : public Brigerad::Application
     ~Sandbox() override = default;
 };
 
-Brigerad::Application* Brigerad::CreateApplication() { return new Sandbox(); }
+Brigerad::Application* Brigerad::CreateApplication()
+{
+    return new Sandbox();
+}

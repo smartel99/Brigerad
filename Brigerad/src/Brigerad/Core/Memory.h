@@ -14,8 +14,8 @@ namespace Memory
 // disabled exceptions.
 //-----------------------------------------------------------------------------
 
-
-
+void* MemAlloc(size_t size);
+void MemFree(void* ptr);
 
 #define BR_ALLOC(_SIZE) Brigerad::Memory::MemAlloc(_SIZE)
 #define BR_FREE(_PTR) Brigerad::Memory::MemFree(_PTR)
@@ -31,8 +31,6 @@ template<typename T> void BR_DELETE(T* p)
     }
 }
 
-void* MemAlloc(size_t size);
-void MemFree(void* ptr);
 }
 }
 

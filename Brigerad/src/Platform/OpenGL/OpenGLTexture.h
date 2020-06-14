@@ -6,13 +6,24 @@ namespace Brigerad
 {
 class OpenGLTexture2D : public Texture2D
 {
-    public:
+public:
     OpenGLTexture2D(uint32_t width, uint32_t height);
     OpenGLTexture2D(const std::string& path);
     virtual ~OpenGLTexture2D() override;
 
-    virtual uint32_t GetWidth() const override { return m_width; }
-    virtual uint32_t GetHeight() const override { return m_height; }
+    virtual uint32_t GetWidth() const override
+    {
+        return m_width;
+    }
+    virtual uint32_t GetHeight() const override
+    {
+        return m_height;
+    }
+
+    virtual uint32_t GetRenderID() const override
+    {
+        return m_rendererID;
+    }
 
     virtual void SetData(void* data, uint32_t size) override;
     virtual void Bind(uint32_t slot = 0) const override;
@@ -22,10 +33,10 @@ class OpenGLTexture2D : public Texture2D
         return m_rendererID == ((OpenGLTexture2D&)other).m_rendererID;
     }
 
-    private:
-    std::string m_path    = "";
-    uint32_t m_width      = 0;
-    uint32_t m_height     = 0;
+private:
+    std::string m_path = "";
+    uint32_t m_width = 0;
+    uint32_t m_height = 0;
     uint32_t m_rendererID = 0;
     GLenum m_internalFormat, m_dataFormat;
 };

@@ -119,10 +119,10 @@ project "Brigerad"
         {
             "%{prj.name}/src/Platform/Windows/**.h",
             "%{prj.name}/src/Platform/Windows/**.cpp",
-            "%{prj.name}/src/UI/**.h",
-            "%{prj.name}/src/UI/**.cpp",
-            "%{prj.name}/src/Core/File.h",
-            "%{prj.name}/src/Core/File.cpp"
+            "%{prj.name}/src/Brigerad/UI/**.h",
+            "%{prj.name}/src/Brigerad/UI/**.cpp",
+            "%{prj.name}/src/Brigerad/Core/File.h",
+            "%{prj.name}/src/Brigerad/Core/File.cpp"
         }
 
     filter "configurations:Debug"

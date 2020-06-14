@@ -102,6 +102,7 @@ OBJECTS := \
 	$(OBJDIR)/Layer.o \
 	$(OBJDIR)/LayerStack.o \
 	$(OBJDIR)/Log.o \
+	$(OBJDIR)/Memory.o \
 	$(OBJDIR)/ImGuiBuild.o \
 	$(OBJDIR)/ImGuiLayer.o \
 	$(OBJDIR)/Buffer.o \
@@ -194,6 +195,9 @@ $(OBJDIR)/LayerStack.o: src/Brigerad/Core/LayerStack.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Log.o: src/Brigerad/Core/Log.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/Memory.o: src/Brigerad/Core/Memory.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/ImGuiBuild.o: src/Brigerad/ImGui/ImGuiBuild.cpp

@@ -22,9 +22,6 @@
     <Filter Include="src\Brigerad\Renderer">
       <UniqueIdentifier>{22F6EE96-8E62-AA91-5756-42EFC381CCF9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Brigerad\UI">
-      <UniqueIdentifier>{A9581F77-15E4-8C3B-1EF5-0F308AFFE83B}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Platform">
       <UniqueIdentifier>{21CA02E5-0D2D-9289-B6B2-CA3FA2F45D0C}</UniqueIdentifier>
     </Filter>
@@ -87,6 +84,9 @@
     <ClInclude Include="src\Brigerad\Core\Log.h">
       <Filter>src\Brigerad\Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\Brigerad\Core\Memory.h">
+      <Filter>src\Brigerad\Core</Filter>
+    </ClInclude>
     <ClInclude Include="src\Brigerad\Core\MouseButtonCodes.h">
       <Filter>src\Brigerad\Core</Filter>
     </ClInclude>
@@ -94,6 +94,9 @@
       <Filter>src\Brigerad\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Brigerad\Core\Timestep.h">
+      <Filter>src\Brigerad\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Brigerad\Core\Types.h">
       <Filter>src\Brigerad\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Brigerad\Core\Window.h">
@@ -118,6 +121,9 @@
       <Filter>src\Brigerad\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="src\Brigerad\Renderer\Buffer.h">
+      <Filter>src\Brigerad\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Brigerad\Renderer\FrameBuffer.h">
       <Filter>src\Brigerad\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Brigerad\Renderer\GraphicsContext.h">
@@ -157,6 +163,9 @@
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLFrameBuffer.h">
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h">
@@ -1410,11 +1419,6 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\Brigerad\Core\Types.h" />
-    <ClInclude Include="src\Brigerad\Core\Memory.h" />
-    <ClInclude Include="src\Brigerad\Core\File.h" />
-    <ClInclude Include="src\Brigerad\Renderer\FrameBuffer.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLFrameBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Brigerad\Core\Application.cpp">
@@ -1429,6 +1433,9 @@
     <ClCompile Include="src\Brigerad\Core\Log.cpp">
       <Filter>src\Brigerad\Core</Filter>
     </ClCompile>
+    <ClCompile Include="src\Brigerad\Core\Memory.cpp">
+      <Filter>src\Brigerad\Core</Filter>
+    </ClCompile>
     <ClCompile Include="src\Brigerad\ImGui\ImGuiBuild.cpp">
       <Filter>src\Brigerad\ImGui</Filter>
     </ClCompile>
@@ -1436,6 +1443,9 @@
       <Filter>src\Brigerad\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="src\Brigerad\Renderer\Buffer.cpp">
+      <Filter>src\Brigerad\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Brigerad\Renderer\FrameBuffer.cpp">
       <Filter>src\Brigerad\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Brigerad\Renderer\GraphicsContext.cpp">
@@ -1477,6 +1487,9 @@
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp">
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLFrameBuffer.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp">
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
@@ -1501,8 +1514,5 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="src\Brigerad\Core\Memory.cpp" />
-    <ClCompile Include="src\Brigerad\Renderer\FrameBuffer.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLFrameBuffer.cpp" />
   </ItemGroup>
 </Project>

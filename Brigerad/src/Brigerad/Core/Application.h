@@ -21,7 +21,7 @@ namespace Brigerad
 class BRIGERAD_API Application
 {
 public:
-    Application();
+    Application(const std::string& name = "Brigerad Engine");
     virtual ~Application();
 
     void Run();

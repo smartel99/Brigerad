@@ -93,7 +93,7 @@ public:
 private:
         Brigerad::OrthographicCameraController m_camera;
         Brigerad::Ref<Brigerad::Texture2D> m_texture;
-}    
+};
 ```
 
 Now that the layer is created, you need to bind it to the application. There are two ways of accomplishing this:

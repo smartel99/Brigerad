@@ -1,6 +1,6 @@
 workspace "Brigerad"
     architecture "x64"
-    startproject "Sandbox"
+    startproject "BrigeradEditor"
 
     configurations
     {
@@ -23,11 +23,13 @@ IncludeDir["Glad"] = "Brigerad/vendor/Glad/include"
 IncludeDir["ImGui"] = "Brigerad/vendor/ImGui"
 IncludeDir["glm"] = "Brigerad/vendor/glm"
 IncludeDir["stb_image"] = "Brigerad/vendor/stb_image"
+IncludeDir["freetype"] = "Brigerad/vendor/freetype"
 
 group "Dependencies"
     include "Brigerad/vendor/GLFW"
     include "Brigerad/vendor/Glad"
     include "Brigerad/vendor/ImGui"
+    include "Brigerad/vendor/freetype"
 
 group ""
 
@@ -63,6 +65,7 @@ project "Brigerad"
         "%{IncludeDir.ImGui}",
         "%{IncludeDir.glm}",
         "%{IncludeDir.stb_image}",
+        "%{IncludeDir.freetype}/include"
 
     }
 
@@ -86,6 +89,7 @@ project "Brigerad"
             "GLFW",
             "Glad",
             "ImGui",
+            "freetype",
             "opengl32.lib"
         }
 
@@ -93,18 +97,15 @@ project "Brigerad"
         {
             "%{prj.name}/src/Platform/Linux/**.h",
             "%{prj.name}/src/Platform/Linux/**.cpp",
-            "%{prj.name}/src/Brigerad/UI/**.h",
-            "%{prj.name}/src/Brigerad/UI/**.cpp",
-            "%{prj.name}/src/Brigerad/Core/File.*"
         }
 
     filter "system:linux"
         systemversion "latest"
 
-	    defines
-	    {
-	        "BR_PLATFORM_LINUX",
-	        "GLFW_INCLUDE_NONE"
+        defines
+        {
+            "BR_PLATFORM_LINUX",
+            "GLFW_INCLUDE_NONE"
         }
 
         links
@@ -122,16 +123,13 @@ project "Brigerad"
             "GLFW",
             "Glad",
             "ImGui",
+            "freetype"
         }
 
         excludes
         {
             "%{prj.name}/src/Platform/Windows/**.h",
             "%{prj.name}/src/Platform/Windows/**.cpp",
-            "%{prj.name}/src/Brigerad/UI/**.h",
-            "%{prj.name}/src/Brigerad/UI/**.cpp",
-            "%{prj.name}/src/Brigerad/Core/File.h",
-            "%{prj.name}/src/Brigerad/Core/File.cpp"
         }
 
     filter "configurations:Debug"
@@ -198,11 +196,11 @@ project "Sandbox"
                 "opengl32.lib"
             }
     
-	    filter "system:linux"
-	        systemversion "latest"
+        filter "system:linux"
+            systemversion "latest"
 
-	        defines
-	        {
+            defines
+            {
                 "BR_PLATFORM_LINUX",
             }
 
@@ -289,11 +287,11 @@ project "BrigeradEditor"
             "opengl32.lib"
         }
     
-	filter "system:linux"
-	    systemversion "latest"
+    filter "system:linux"
+        systemversion "latest"
 
-	    defines
-	    {
+        defines
+        {
             "BR_PLATFORM_LINUX",
         }
 

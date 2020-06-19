@@ -16,22 +16,11 @@ void EditorLayer::OnAttach()
 {
     BR_PROFILE_FUNCTION();
 
-    m_texture = Texture2D::Create("assets/textures/checkboard.png");
-    m_spriteSheet =
-        Texture2D::Create("assets/game/textures/RPGpack_sheet_2X.png");
-
-    m_stairTex = SubTexture2D::CreateFromCoords(m_spriteSheet,
-                                                { 8.0f, 6.0f },
-                                                { 128.0f, 128.0f });
-
-    m_treeTex = SubTexture2D::CreateFromCoords(m_spriteSheet,
-                                               { 2.0f, 1.0f },
-                                               { 128.0f, 128.0f },
-                                               { 1, 2 });
-
     FramebufferSpecification spec;
     spec.Width = Application::Get().GetWindow().GetWidth();
     spec.Height = Application::Get().GetWindow().GetHeight();
+
+    m_texture = Texture2D::Create("assets/textures/checkboard.png");
 
     m_fb = Framebuffer::Create(spec);
 }
@@ -55,19 +44,53 @@ void EditorLayer::OnUpdate(Timestep ts)
         RenderCommand::SetClearColor({ 0.2f, 0.2f, 0.2f, 1.0f });
         RenderCommand::Clear();
     }
+    {
+        BR_PROFILE_SCOPE("Rendering");
+        Brigerad::Renderer2D::BeginScene(m_camera.GetCamera());
 
-    Renderer2D::BeginScene(m_camera.GetCamera());
-    Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.0f },
-                         { 1.0f, 1.0f },
-                         m_stairTex,
-                         { 1.0f, 1.0f },
-                         { 1.0f, 1.0f, 1.0f, 1.0f });
-    Renderer2D::DrawQuad({ 1.0f, 0.0f, -0.0f },
-                         { 1.0f, 2.0f },
-                         m_treeTex,
-                         { 1.0f, 1.0f },
-                         { 1.0f, 1.0f, 1.0f, 1.0f });
-    Renderer2D::EndScene();
+        static float rot = 0;
+        rot += ts * 20;
+        Brigerad::Renderer2D::DrawQuad({ -1.0f, 0.0f },
+                                       { 0.8f, 0.8f },
+                                       { 0.8f, 0.2f, 0.3f, 1.0f });
+
+        Brigerad::Renderer2D::DrawRotatedQuad({ -1.5f, -0.5f },
+                                              { 0.8f, 0.8f },
+                                              { 0.8f, 0.2f, 0.3f, 1.0f },
+                                              glm::radians(15.0f));
+        Brigerad::Renderer2D::DrawQuad({ 0.5f, -0.5f },
+                                       { 0.5f, 0.75f },
+                                       { 0.2f, 0.3f, 0.8f, 1.0f });
+        Brigerad::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.1f },
+                                       { 20.0f, 20.0f },
+                                       m_texture,
+                                       { 100.0f, 100.0f },
+                                       { 0.5f, 0.5f, 0.5f, 1.0f });
+        Brigerad::Renderer2D::DrawRotatedQuad({ 0.0f, 0.0f },
+                                              { 1.0f, 1.0f },
+                                              m_texture,
+                                              { 1.0f, 1.0f },
+                                              { 0.5f, 0.5f, 0.5f, 1.0f },
+                                              glm::radians(rot));
+
+        Brigerad::Renderer2D::EndScene();
+        {
+            BR_PROFILE_SCOPE("Grid");
+            Brigerad::Renderer2D::BeginScene(m_camera.GetCamera());
+
+            for (float y = -10.0f; y <= 10.0f; y += 0.5f)
+            {
+                BR_PROFILE_SCOPE("Rows");
+                for (float x = -10.0f; x <= 10.0f; x += 0.5f)
+                {
+                    glm::vec4 color = { (y + 10.0f) / 20.0f, 0.0f, (x + 10.0f) / 20.0f, 0.75f };
+                    Brigerad::Renderer2D::DrawQuad({ x, y }, { 0.45f, 0.45f }, color);
+                }
+            }
+
+            Brigerad::Renderer2D::EndScene();
+        }
+    }
 
     m_fb->Unbind();
 }
@@ -135,8 +158,8 @@ void EditorLayer::OnImGuiRender()
     }
 
 
-    ImGui::Begin("Sandbox Settings");
 
+    ImGui::Begin("Editor Settings");
     UpdateFPS();
     auto stats = Renderer2D::GetStats();
     ImGui::Text("Renderer2D Stats:");
@@ -144,10 +167,21 @@ void EditorLayer::OnImGuiRender()
     ImGui::Text("Quads: %d", stats.quadCount);
     ImGui::Text("Vertices: %d", stats.GetTotalVertexCount());
     ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
+    ImGui::End();
 
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
+    ImGui::Begin("Viewport");
+    ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
+    if (m_viewportSize != *((glm::vec2*) & viewportPanelSize))
+    {
+        m_viewportSize = { viewportPanelSize.x, viewportPanelSize.y };
+        m_fb->Resize((uint32_t)m_viewportSize.x, (uint32_t)m_viewportSize.y);
+
+        m_camera.OnResize(m_viewportSize.x, m_viewportSize.y);
+    }
     uint32_t textureId = m_fb->GetColorAttachmentRenderID();
-    ImGui::Image((void*)textureId, ImVec2(1280.0f, 720.f), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f));
-
+    ImGui::Image((void*)textureId, ImVec2(m_viewportSize.x, m_viewportSize.y), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f));
+    ImGui::PopStyleVar();
     ImGui::End();
 
     ImGui::End();

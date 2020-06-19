@@ -3,12 +3,18 @@
 
 #include "Brigerad/Renderer/Texture.h"
 
+#include "ft2build.h"
+#include FT_FREETYPE_H
+
 
 struct UITextData
 {
     glm::vec4 Color = { 1.0f, 1.0f, 1.0f, 1.0f };  // Defaults to white.
     Brigerad::UI::TextAlignment Alignment = Brigerad::UI::TextAlignment::Left;  // Defaults to left-aligned.
     float FontSize = 14.0f;  // Defaults to 14x14 pixels.
+
+    FT_Library FontLib;
+    FT_Face CurrentFont;
 };
 static UITextData s_uiTextData;
 
@@ -20,30 +26,46 @@ namespace Brigerad
 {
 namespace UI
 {
-    class TextObject
+class TextObject
+{
+public:
+    TextObject(const char* text) : m_text(text)
     {
-        public:
-        TextObject(const char* text) : m_text(text)
-        {
-            m_texture = AssembleTextIntoTexture(m_text);
-        }
+        m_texture = AssembleTextIntoTexture(m_text);
+    }
 
-        private:
-        const char* m_text;
-        Ref<Texture2D> m_texture;
-    };
+private:
+    const char* m_text;
+    Ref<Texture2D> m_texture;
+};
+
+void InitFont()
+{
+    if (FT_Init_FreeType(&s_uiTextData.FontLib))
+    {
+        BR_ERROR("Could not init FreeType Library!");
+    }
+
+    if (FT_New_Face(s_uiTextData.FontLib, "assets/fonts/arial.ttf", 0, &s_uiTextData.CurrentFont))
+    {
+        BR_ERROR("Could not load font!");
+    }
+}
 
 }  // namespace UI
 }  // namespace Brigerad
 
 Brigerad::Ref<Brigerad::Texture2D> AssembleTextIntoTexture(const char* text)
 {
-    uint32_t width  = strlen(text) * s_uiTextData.FontSize;
+    uint32_t width = strlen(text) * s_uiTextData.FontSize;
     uint32_t height = FindNumberOfLines(text) * s_uiTextData.FontSize;
 
     Brigerad::Ref<Brigerad::Texture2D> texture =
-      Brigerad::Texture2D::Create(width, height);
+        Brigerad::Texture2D::Create(width, height);
 }
 
 
-uint32_t FindNumberOfLines(const char* text) { size_t len = strlen(text); }
+uint32_t FindNumberOfLines(const char* text)
+{
+    size_t len = strlen(text);
+}

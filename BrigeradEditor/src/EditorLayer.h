@@ -21,10 +21,8 @@ private:
     OrthographicCameraController m_camera;
     glm::vec4 m_color = { 1.0f, 0.0f, 0.0f, 1.0f };
     Ref<Texture2D> m_texture;
-    Ref<Texture2D> m_spriteSheet;
     Ref<Framebuffer> m_fb;
 
-    Ref<SubTexture2D> m_stairTex;
-    Ref<SubTexture2D> m_treeTex;
+    glm::vec2 m_viewportSize;
 };
 }

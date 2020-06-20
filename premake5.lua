@@ -193,6 +193,7 @@ project "Sandbox"
                 "GLFW",
                 "Glad",
                 "ImGui",
+                "freetype",
                 "opengl32.lib"
             }
     
@@ -220,6 +221,7 @@ project "Sandbox"
                 "GLFW",
                 "Glad",
                 "ImGui",
+                "freetype",
             }
 
             postbuildcommands{"cp -r assets ../bin/" .. outputdir .. "/%{prj.name}"}
@@ -284,6 +286,7 @@ project "BrigeradEditor"
             "GLFW",
             "Glad",
             "ImGui",
+            "freetype",
             "opengl32.lib"
         }
     
@@ -311,6 +314,7 @@ project "BrigeradEditor"
             "GLFW",
             "Glad",
             "ImGui",
+            "freetype",
         }
 
         postbuildcommands{"cp -r assets ../bin/" .. outputdir .. "/%{prj.name}"}

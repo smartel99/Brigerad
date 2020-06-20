@@ -78,15 +78,17 @@ void EditorLayer::OnUpdate(Timestep ts)
             BR_PROFILE_SCOPE("Grid");
             Brigerad::Renderer2D::BeginScene(m_camera.GetCamera());
 
-            for (float y = -10.0f; y <= 10.0f; y += 0.5f)
+            for (float y = -5.0f; y <= 5.0f; y += 0.5f)
             {
                 BR_PROFILE_SCOPE("Rows");
-                for (float x = -10.0f; x <= 10.0f; x += 0.5f)
+                for (float x = -5.0f; x <= 5.0f; x += 0.5f)
                 {
                     glm::vec4 color = { (y + 10.0f) / 20.0f, 0.0f, (x + 10.0f) / 20.0f, 0.75f };
                     Brigerad::Renderer2D::DrawQuad({ x, y }, { 0.45f, 0.45f }, color);
                 }
             }
+
+            UI::TextUnformatted(glm::vec3(1.0f, 1.0f, 1.0f), "OwO");
 
             Brigerad::Renderer2D::EndScene();
         }
@@ -167,6 +169,13 @@ void EditorLayer::OnImGuiRender()
     ImGui::Text("Quads: %d", stats.quadCount);
     ImGui::Text("Vertices: %d", stats.GetTotalVertexCount());
     ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
+    ImGui::Separator();
+
+    if (ImGui::Button("Reload Shader"))
+    {
+        Renderer2D::Shutdown();
+        Renderer2D::Init();
+    }
     ImGui::End();
 
     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
@@ -180,7 +189,7 @@ void EditorLayer::OnImGuiRender()
         m_camera.OnResize(m_viewportSize.x, m_viewportSize.y);
     }
     uint32_t textureId = m_fb->GetColorAttachmentRenderID();
-    ImGui::Image((void*)textureId, ImVec2(m_viewportSize.x, m_viewportSize.y), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f));
+    ImGui::Image((void*)textureId, ImVec2(m_viewportSize.x, m_viewportSize.y), ImVec2(0.0f, 0.0f), ImVec2(1.0f, 1.0f));
     ImGui::PopStyleVar();
     ImGui::End();
 

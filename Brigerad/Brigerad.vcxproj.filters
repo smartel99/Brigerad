@@ -72,9 +72,6 @@
     <ClInclude Include="src\Brigerad\Core\EntryPoint.h">
       <Filter>src\Brigerad\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Brigerad\Core\File.h">
-      <Filter>src\Brigerad\Core</Filter>
-    </ClInclude>
     <ClInclude Include="src\Brigerad\Core\Input.h">
       <Filter>src\Brigerad\Core</Filter>
     </ClInclude>

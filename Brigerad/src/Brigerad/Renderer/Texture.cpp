@@ -13,7 +13,7 @@
 
 namespace Brigerad
 {
-Ref<Texture2D> Texture2D::Create(uint32_t width, uint32_t height)
+Ref<Texture2D> Texture2D::Create(uint32_t width, uint32_t height, uint8_t channels)
 {
     switch (Renderer::GetAPI())
     {
@@ -21,7 +21,7 @@ Ref<Texture2D> Texture2D::Create(uint32_t width, uint32_t height)
             BR_CORE_ASSERT(false, "RendererAPI::None is currently not supported!");
             return nullptr;
         case RendererAPI::API::OpenGL:
-            return std::make_shared<OpenGLTexture2D>(width, height);
+            return std::make_shared<OpenGLTexture2D>(width, height, channels);
         default:
             BR_CORE_ASSERT(false, "Invalid RendererAPI!");
             return nullptr;

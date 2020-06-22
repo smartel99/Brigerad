@@ -24,6 +24,8 @@ void OpenGLRendererAPI::Init()
     // Enable depth testing, which tells OpenGL to check if the pixel to be
     // drawn is in front or behind the others.
     glEnable(GL_DEPTH_TEST);
+
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);  // Disable byte-alignment restriction.
 }
 
 void OpenGLRendererAPI::SetClearColor(const glm::vec4& color)

@@ -10,6 +10,7 @@
 
 #include "RenderCommand.h"
 #include "Renderer2D.h"
+#include "Brigerad/UI/Text.h"
 #include "Platform/OpenGL/OpenGLShader.h"
 
 namespace Brigerad
@@ -21,6 +22,7 @@ void Renderer::Init()
     BR_PROFILE_FUNCTION();
     RenderCommand::Init();
     Renderer2D::Init();
+    UI::InitFont();
 }
 
 void Renderer::OnWindowResize(uint32_t width, uint32_t height)
@@ -34,9 +36,14 @@ void Renderer::BeginScene(OrthographicCamera& camera)
     m_sceneData->FrameCount++;
 }
 
-void Renderer::EndScene() {}
+void Renderer::EndScene()
+{
+}
 
-long long Renderer::GetFrameCount() { return m_sceneData->FrameCount; }
+long long Renderer::GetFrameCount()
+{
+    return m_sceneData->FrameCount;
+}
 
 void Renderer::Submit(const Ref<Shader>& shader,
                       const Ref<VertexArray>& vertexArray,
@@ -44,9 +51,9 @@ void Renderer::Submit(const Ref<Shader>& shader,
 {
     shader->Bind();
     std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4(
-      "u_vp", m_sceneData->ViewProjectionMatrix);
+        "u_vp", m_sceneData->ViewProjectionMatrix);
     std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4(
-      "u_transform", transform);
+        "u_transform", transform);
 
     vertexArray->Bind();
     RenderCommand::DrawIndexed(vertexArray);

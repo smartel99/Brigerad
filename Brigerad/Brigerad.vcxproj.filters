@@ -165,6 +165,15 @@
     <ClInclude Include="src\Brigerad\Renderer\VertexArray.h">
       <Filter>src\Brigerad\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Brigerad\UI\Text.h">
+      <Filter>src\Brigerad\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Brigerad\UI\UI.h">
+      <Filter>src\Brigerad\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Brigerad\UI\UICore.h">
+      <Filter>src\Brigerad\UI</Filter>
+    </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h">
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
@@ -1486,6 +1495,9 @@
     </ClCompile>
     <ClCompile Include="src\Brigerad\Renderer\VertexArray.cpp">
       <Filter>src\Brigerad\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Brigerad\UI\Text.cpp">
+      <Filter>src\Brigerad\UI</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
       <Filter>src\Platform\OpenGL</Filter>

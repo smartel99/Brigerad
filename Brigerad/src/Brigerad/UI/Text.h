@@ -22,18 +22,20 @@ namespace Brigerad
 namespace UI
 {
 /**
- * @addtogroup Text
- * @brief All text widgets.
- * @{
- */
+    * @addtogroup Text
+    * @brief All text widgets.
+    * @{
+    */
+
+void InitFont();
 
 /**
- * @brief Temporarily changes the color used by all Text call widgets.
- *        This new color will be used for all calls to text widgets
- *        until a call to PopTextColor is made.
- *
- * @param color The new color to use.
- */
+    * @brief Temporarily changes the color used by all Text call widgets.
+    *        This new color will be used for all calls to text widgets
+    *        until a call to PopTextColor is made.
+    *
+    * @param color The new color to use.
+    */
 void PushTextColor(const glm::vec4& color);
 /**
  * @brief Reset the color used by Text widgets back to default.
@@ -157,7 +159,8 @@ void TextV(const glm::vec3& pos, const char* fmt, va_list args) BR_FMTLIST(2);
  * @param fmt The string to format
  * @param ... The arguments to format into the string.
  */
-void TextColored(const glm::vec2& pos, const glm::vec4 color, const char* fmt, ...) BR_FMTARGS(3);
+void TextColored(const glm::vec2& pos, const glm::vec4 color, const char* fmt, ...)
+BR_FMTARGS(3);
 /**
  * @brief Simple formatted text, *but with colors*
  *        Shortcut for:
@@ -175,13 +178,14 @@ void TextColored(const glm::vec2& pos, const glm::vec4 color, const char* fmt, .
  * @param fmt The string to format
  * @param ... The arguments to format into the string.
  */
-void TextColored(const glm::vec3& pos, const glm::vec4 color, const char* fmt, ...) BR_FMTARGS(3);
+void TextColored(const glm::vec3& pos, const glm::vec4 color, const char* fmt, ...)
+BR_FMTARGS(3);
 
 
 /**
  * @}
  */
-}    // namespace UI
+}  // namespace UI
 
 /**
  * @}

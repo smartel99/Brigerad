@@ -29,7 +29,7 @@ Application* Application::s_instance = nullptr;
  * @brief   Construct a new Application:: Application object
  *          This creates a new window and binds the event function to it.
  */
-Application::Application()
+Application::Application(const std::string& name)
 {
     BR_PROFILE_FUNCTION();
 
@@ -38,7 +38,7 @@ Application::Application()
     s_instance = this;
 
     // Create the window for the application.
-    m_window = Scope<Window>(Window::Create());
+    m_window = Scope<Window>(Window::Create(WindowProps(name)));
     // Bind the Application's events to the window's.
     m_window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 

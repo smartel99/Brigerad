@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "Brigerad.h"
 #include "Shape.h"
@@ -24,7 +24,6 @@ private:
     glm::vec4 m_color = { 1.0f, 0.0f, 0.0f, 1.0f };
     Brigerad::Ref<Brigerad::Texture2D> m_texture;
     Brigerad::Ref<Brigerad::Texture2D> m_spriteSheet;
-    Brigerad::Ref<Brigerad::Framebuffer> m_fb;
 
     Brigerad::Ref<Brigerad::SubTexture2D> m_stairTex;
     Brigerad::Ref<Brigerad::SubTexture2D> m_treeTex;

@@ -14,11 +14,11 @@ namespace Brigerad
  */
 struct QuadVertex
 {
-    glm::vec3 position;      // Screen coordinates of the quad.
-    glm::vec4 color;         // Color of the quad.
-    glm::vec2 texCoord;      // Coordinates to sample the texture from.
-    glm::vec2 tilingFactor;  // Scaling applied to the sampled texture.
-    float texIndex;          // Index of the texture to use.
+    glm::vec3 position;        // Screen coordinates of the quad.
+    glm::vec4 color;           // Color of the quad.
+    glm::vec2 texCoord;        // Coordinates to sample the texture from.
+    glm::vec2 tilingFactor;    // Scaling applied to the sampled texture.
+    float     texIndex;        // Index of the texture to use.
 };
 
 /**
@@ -28,17 +28,17 @@ struct QuadVertex
 struct Renderer2DData
 {
     // Maximum amount of quads a single draw call can handle.
-    static const uint32_t maxQuads    = 100000;        // Max 10k quads.
-    static const uint32_t maxVertices = maxQuads * 4;  // 4 vertices per quad.
-    static const uint32_t maxIndices  = maxQuads * 6;  // 6 indices per quad.
-    static const uint32_t maxTextureSlots = 32;  // Max number of textures per draw call.
+    static const uint32_t maxQuads        = 100000;          // Max 10k quads.
+    static const uint32_t maxVertices     = maxQuads * 4;    // 4 vertices per quad.
+    static const uint32_t maxIndices      = maxQuads * 6;    // 6 indices per quad.
+    static const uint32_t maxTextureSlots = 32;    // Max number of textures per draw call.
 
-    Ref<VertexArray> vertexArray;
+    Ref<VertexArray>  vertexArray;
     Ref<VertexBuffer> vertexBuffer;
-    Ref<Shader> textureShader;    // Shader used at runtime.
-    Ref<Texture2D> whiteTexture;  // Default empty texture for flat color quads.
+    Ref<Shader>       textureShader;    // Shader used at runtime.
+    Ref<Texture2D>    whiteTexture;     // Default empty texture for flat color quads.
 
-    long long frameCount = 0;  // Frames rendered since the start of the application.
+    long long frameCount = 0;    // Frames rendered since the start of the application.
 
     // Number of quads queued to be drawn in this frame.
     uint32_t quadIndexCount = 0;
@@ -50,7 +50,7 @@ struct Renderer2DData
     // CPU-sided representation of the texture memory in the GPU.
     std::array<Ref<Texture2D>, maxTextureSlots> textureSlots;
     // Current index of the last texture in the texture buffer.
-    uint32_t textureSlotIndex = 1;  // 0 = white texture.
+    uint32_t textureSlotIndex = 1;    // 0 = white texture.
 
     glm::vec4 quadVertexPosition[4];
 
@@ -76,11 +76,11 @@ void Renderer2D::Init()
     s_data.vertexBuffer = VertexBuffer::Create(s_data.maxVertices * sizeof(QuadVertex));
 
     // Set up the layout of the shader.
-    s_data.vertexBuffer->SetLayout({ { ShaderDataType::Float3, "a_position" },
-                                     { ShaderDataType::Float4, "a_color" },
-                                     { ShaderDataType::Float2, "a_TexCoord" },
-                                     { ShaderDataType::Float2, "a_TilingFactor" },
-                                     { ShaderDataType::Float, "a_TexIndex" } });
+    s_data.vertexBuffer->SetLayout({{ShaderDataType::Float3, "a_position"},
+                                    {ShaderDataType::Float4, "a_color"},
+                                    {ShaderDataType::Float2, "a_TexCoord"},
+                                    {ShaderDataType::Float2, "a_TilingFactor"},
+                                    {ShaderDataType::Float, "a_TexIndex"}});
     s_data.vertexArray->AddVertexBuffer(s_data.vertexBuffer);
 
     // Heap allocate a buffer for all quads that can be rendered in a single draw call.
@@ -137,17 +137,20 @@ void Renderer2D::Init()
     // Set the first texture slot to be the 1x1 white texture.
     s_data.textureSlots[0] = s_data.whiteTexture;
 
-    s_data.quadVertexPosition[0] = { -0.5f, -0.5f, 0.0f, 1.0f };
-    s_data.quadVertexPosition[1] = { 0.5f, -0.5f, 0.0f, 1.0f };
-    s_data.quadVertexPosition[2] = { 0.5f, 0.5f, 0.0f, 1.0f };
-    s_data.quadVertexPosition[3] = { -0.5f, 0.5f, 0.0f, 1.0f };
+    s_data.quadVertexPosition[0] = {-0.5f, -0.5f, 0.0f, 1.0f};
+    s_data.quadVertexPosition[1] = {0.5f, -0.5f, 0.0f, 1.0f};
+    s_data.quadVertexPosition[2] = {0.5f, 0.5f, 0.0f, 1.0f};
+    s_data.quadVertexPosition[3] = {-0.5f, 0.5f, 0.0f, 1.0f};
 }
 
 /**
  * @brief   Gracefully shutdown the 2D renderer.
  *          Currently, nothing in particular needs to be done in that method.
  */
-void Renderer2D::Shutdown() { BR_PROFILE_FUNCTION(); }
+void Renderer2D::Shutdown()
+{
+    BR_PROFILE_FUNCTION();
+}
 
 /**
  * @brief Set everything up in the 2D renderer to begin accepting new draw
@@ -186,7 +189,8 @@ void Renderer2D::EndScene()
     BR_PROFILE_FUNCTION();
 
     // Get how many quads are in the queue.
-    uint32_t dataSize = (uint8_t*)s_data.quadVertexBufferPtr - (uint8_t*)s_data.quadVertexBufferBase;
+    uint32_t dataSize =
+      (uint8_t*)s_data.quadVertexBufferPtr - (uint8_t*)s_data.quadVertexBufferBase;
     // Upload the queued quads data into the vertex buffer.
     s_data.vertexBuffer->SetData(s_data.quadVertexBufferBase, dataSize);
 
@@ -234,7 +238,10 @@ void Renderer2D::FlushAndReset()
  * @return  long long The number of frames rendered since the beginning of the
  *          application.
  */
-long long Renderer2D::GetFrameCount() { return s_data.frameCount; }
+long long Renderer2D::GetFrameCount()
+{
+    return s_data.frameCount;
+}
 
 /* ------------------------------------------------------------------------- */
 /* Primitives -------------------------------------------------------------- */
@@ -265,29 +272,27 @@ void Renderer2D::DrawQuad(const glm::vec3& pos, const glm::vec2& size, const glm
 {
     BR_PROFILE_FUNCTION();
 
-    constexpr size_t quadVertexCount    = 4;
-    constexpr glm::vec2 textureCoords[] = {
-        { 0.0f, 0.0f }, { 1.0f, 0.0f }, { 1.0f, 1.0f }, { 0.0f, 1.0f }
-    };
+    constexpr size_t    quadVertexCount = 4;
+    constexpr glm::vec2 textureCoords[] = {{0.0f, 0.0f}, {1.0f, 0.0f}, {1.0f, 1.0f}, {0.0f, 1.0f}};
 
     // If the quad queue is full:
     if (s_data.quadIndexCount >= Renderer2DData::maxIndices)
-    {  // Render the queue and start a new one.
+    {    // Render the queue and start a new one.
         FlushAndReset();
     }
 
-    const float texIndex = 0.0f;  // White Texture.
+    const float texIndex = 0.0f;    // White Texture.
 
-    glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) *
-                          glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
+    glm::mat4 transform =
+      glm::translate(glm::mat4(1.0f), pos) * glm::scale(glm::mat4(1.0f), {size.x, size.y, 1.0f});
 
     for (int i = 0; i < quadVertexCount; i++)
     {
         // Setup the vertex of the quad.
-        s_data.quadVertexBufferPtr->position = transform * s_data.quadVertexPosition[i];
+        s_data.quadVertexBufferPtr->position     = transform * s_data.quadVertexPosition[i];
         s_data.quadVertexBufferPtr->color        = color;
         s_data.quadVertexBufferPtr->texCoord     = textureCoords[i];
-        s_data.quadVertexBufferPtr->tilingFactor = { 1.0f, 1.0f };
+        s_data.quadVertexBufferPtr->tilingFactor = {1.0f, 1.0f};
         s_data.quadVertexBufferPtr->texIndex     = texIndex;
         s_data.quadVertexBufferPtr++;
     }
@@ -296,7 +301,7 @@ void Renderer2D::DrawQuad(const glm::vec3& pos, const glm::vec2& size, const glm
     s_data.quadIndexCount += 6;
 
     s_data.stats.quadCount++;
-}  // namespace Brigerad
+}    // namespace Brigerad
 
 /**
  * @brief Queue a textured quad in a 2D space.
@@ -307,13 +312,13 @@ void Renderer2D::DrawQuad(const glm::vec3& pos, const glm::vec2& size, const glm
  * @param textScale The scaling factor of the texture, (X, Y)
  * @param tint A tint to apply to the texture, (R, G, B, A)
  */
-void Renderer2D::DrawQuad(const glm::vec2& pos,
-                          const glm::vec2& size,
+void Renderer2D::DrawQuad(const glm::vec2&      pos,
+                          const glm::vec2&      size,
                           const Ref<Texture2D>& texture,
-                          const glm::vec2& textScale,
-                          const glm::vec4& tint)
+                          const glm::vec2&      textScale,
+                          const glm::vec4&      tint)
 {
-    DrawQuad({ pos.x, pos.y, 0.0f }, size, texture, textScale, tint);
+    DrawQuad({pos.x, pos.y, 0.0f}, size, texture, textScale, tint);
 }
 
 /**
@@ -325,18 +330,16 @@ void Renderer2D::DrawQuad(const glm::vec2& pos,
  * @param textScale The scaling factor of the texture, (X, Y)
  * @param tint A tint to apply to the texture, (R, G, B, A)
  */
-void Renderer2D::DrawQuad(const glm::vec3& pos,
-                          const glm::vec2& size,
+void Renderer2D::DrawQuad(const glm::vec3&      pos,
+                          const glm::vec2&      size,
                           const Ref<Texture2D>& texture,
-                          const glm::vec2& textScale,
-                          const glm::vec4& tint)
+                          const glm::vec2&      textScale,
+                          const glm::vec4&      tint)
 {
     BR_PROFILE_FUNCTION();
 
-    constexpr size_t quadVertexCount    = 4;
-    constexpr glm::vec2 textureCoords[] = {
-        { 0.0f, 0.0f }, { 1.0f, 0.0f }, { 1.0f, 1.0f }, { 0.0f, 1.0f }
-    };
+    constexpr size_t    quadVertexCount = 4;
+    constexpr glm::vec2 textureCoords[] = {{0.0f, 0.0f}, {1.0f, 0.0f}, {1.0f, 1.0f}, {0.0f, 1.0f}};
 
     // If the quad queue is full:
     if (s_data.quadIndexCount >= Renderer2DData::maxIndices)
@@ -361,18 +364,18 @@ void Renderer2D::DrawQuad(const glm::vec3& pos,
     if (textureIndex == 0.0f)
     {
         // Add in to the queue.
-        textureIndex = (float)s_data.textureSlotIndex;
+        textureIndex                                 = (float)s_data.textureSlotIndex;
         s_data.textureSlots[s_data.textureSlotIndex] = texture;
         s_data.textureSlotIndex++;
     }
 
-    glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) *
-                          glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
+    glm::mat4 transform =
+      glm::translate(glm::mat4(1.0f), pos) * glm::scale(glm::mat4(1.0f), {size.x, size.y, 1.0f});
 
     for (int i = 0; i < quadVertexCount; i++)
     {
         // Setup the vertex of the quad.
-        s_data.quadVertexBufferPtr->position = transform * s_data.quadVertexPosition[i];
+        s_data.quadVertexBufferPtr->position     = transform * s_data.quadVertexPosition[i];
         s_data.quadVertexBufferPtr->color        = tint;
         s_data.quadVertexBufferPtr->texCoord     = textureCoords[i];
         s_data.quadVertexBufferPtr->tilingFactor = textScale;
@@ -386,20 +389,20 @@ void Renderer2D::DrawQuad(const glm::vec3& pos,
     s_data.stats.quadCount++;
 }
 
-void Renderer2D::DrawQuad(const glm::vec2& pos,
-                          const glm::vec2& size,
+void Renderer2D::DrawQuad(const glm::vec2&         pos,
+                          const glm::vec2&         size,
                           const Ref<SubTexture2D>& texture,
-                          const glm::vec2& textScale,
-                          const glm::vec4& tint)
+                          const glm::vec2&         textScale,
+                          const glm::vec4&         tint)
 {
-    DrawQuad({ pos.x, pos.y }, size, texture, textScale, tint);
+    DrawQuad({pos.x, pos.y}, size, texture, textScale, tint);
 }
 
-void Renderer2D::DrawQuad(const glm::vec3& pos,
-                          const glm::vec2& size,
+void Renderer2D::DrawQuad(const glm::vec3&         pos,
+                          const glm::vec2&         size,
                           const Ref<SubTexture2D>& texture,
-                          const glm::vec2& textScale,
-                          const glm::vec4& tint)
+                          const glm::vec2&         textScale,
+                          const glm::vec4&         tint)
 {
     BR_PROFILE_FUNCTION();
 
@@ -429,18 +432,18 @@ void Renderer2D::DrawQuad(const glm::vec3& pos,
     if (textureIndex == 0.0f)
     {
         // Add in to the queue.
-        textureIndex = (float)s_data.textureSlotIndex;
+        textureIndex                                 = (float)s_data.textureSlotIndex;
         s_data.textureSlots[s_data.textureSlotIndex] = texture->GetTexture();
         s_data.textureSlotIndex++;
     }
 
-    glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) *
-                          glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
+    glm::mat4 transform =
+      glm::translate(glm::mat4(1.0f), pos) * glm::scale(glm::mat4(1.0f), {size.x, size.y, 1.0f});
 
     for (int i = 0; i < quadVertexCount; i++)
     {
         // Setup the vertex of the quad.
-        s_data.quadVertexBufferPtr->position = transform * s_data.quadVertexPosition[i];
+        s_data.quadVertexBufferPtr->position     = transform * s_data.quadVertexPosition[i];
         s_data.quadVertexBufferPtr->color        = tint;
         s_data.quadVertexBufferPtr->texCoord     = textureCoords[i];
         s_data.quadVertexBufferPtr->tilingFactor = textScale;
@@ -467,7 +470,7 @@ void Renderer2D::DrawQuad(const glm::vec3& pos,
 void Renderer2D::DrawRotatedQuad(const glm::vec2& pos,
                                  const glm::vec2& size,
                                  const glm::vec4& color,
-                                 float rotation)
+                                 float            rotation)
 {
     DrawRotatedQuad(glm::vec3(pos.x, pos.y, 0.0f), size, color, rotation);
 }
@@ -483,14 +486,12 @@ void Renderer2D::DrawRotatedQuad(const glm::vec2& pos,
 void Renderer2D::DrawRotatedQuad(const glm::vec3& pos,
                                  const glm::vec2& size,
                                  const glm::vec4& color,
-                                 float rotation)
+                                 float            rotation)
 {
     BR_PROFILE_FUNCTION();
 
-    constexpr size_t quadVertexCount    = 4;
-    constexpr glm::vec2 textureCoords[] = {
-        { 0.0f, 0.0f }, { 1.0f, 0.0f }, { 1.0f, 1.0f }, { 0.0f, 1.0f }
-    };
+    constexpr size_t    quadVertexCount = 4;
+    constexpr glm::vec2 textureCoords[] = {{0.0f, 0.0f}, {1.0f, 0.0f}, {1.0f, 1.0f}, {0.0f, 1.0f}};
 
     // If the quad queue is full:
     if (s_data.quadIndexCount >= Renderer2DData::maxIndices)
@@ -499,19 +500,19 @@ void Renderer2D::DrawRotatedQuad(const glm::vec3& pos,
         FlushAndReset();
     }
 
-    const float texIndex = 0.0f;  // White Texture.
+    const float texIndex = 0.0f;    // White Texture.
 
     glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) *
-                          glm::rotate(glm::mat4(1.0f), rotation, { 0, 0, 1 }) *
-                          glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
+                          glm::rotate(glm::mat4(1.0f), rotation, {0, 0, 1}) *
+                          glm::scale(glm::mat4(1.0f), {size.x, size.y, 1.0f});
 
     for (int i = 0; i < quadVertexCount; i++)
     {
         // Setup the vertex of the quad.
-        s_data.quadVertexBufferPtr->position = transform * s_data.quadVertexPosition[i];
+        s_data.quadVertexBufferPtr->position     = transform * s_data.quadVertexPosition[i];
         s_data.quadVertexBufferPtr->color        = color;
         s_data.quadVertexBufferPtr->texCoord     = textureCoords[i];
-        s_data.quadVertexBufferPtr->tilingFactor = { 1.0f, 1.0f };
+        s_data.quadVertexBufferPtr->tilingFactor = {1.0f, 1.0f};
         s_data.quadVertexBufferPtr->texIndex     = texIndex;
         s_data.quadVertexBufferPtr++;
     }
@@ -532,14 +533,14 @@ void Renderer2D::DrawRotatedQuad(const glm::vec3& pos,
  * @param tint A tint to apply to the texture, (R, G, B, A)
  * @param rotation The rotation to apply to the quad, in degrees
  */
-void Renderer2D::DrawRotatedQuad(const glm::vec2& pos,
-                                 const glm::vec2& size,
+void Renderer2D::DrawRotatedQuad(const glm::vec2&      pos,
+                                 const glm::vec2&      size,
                                  const Ref<Texture2D>& texture,
-                                 const glm::vec2& textScale,
-                                 const glm::vec4& tint,
-                                 float rotation)
+                                 const glm::vec2&      textScale,
+                                 const glm::vec4&      tint,
+                                 float                 rotation)
 {
-    DrawRotatedQuad({ pos.x, pos.y, 0.0f }, size, texture, textScale, tint, rotation);
+    DrawRotatedQuad({pos.x, pos.y, 0.0f}, size, texture, textScale, tint, rotation);
 }
 
 /**
@@ -552,19 +553,17 @@ void Renderer2D::DrawRotatedQuad(const glm::vec2& pos,
  * @param tint A tint to apply to the texture, (R, G, B, A)
  * @param rotation The rotation to apply to the quad, in degrees
  */
-void Renderer2D::DrawRotatedQuad(const glm::vec3& pos,
-                                 const glm::vec2& size,
+void Renderer2D::DrawRotatedQuad(const glm::vec3&      pos,
+                                 const glm::vec2&      size,
                                  const Ref<Texture2D>& texture,
-                                 const glm::vec2& textScale,
-                                 const glm::vec4& tint,
-                                 float rotation)
+                                 const glm::vec2&      textScale,
+                                 const glm::vec4&      tint,
+                                 float                 rotation)
 {
     BR_PROFILE_FUNCTION();
 
-    constexpr size_t quadVertexCount    = 4;
-    constexpr glm::vec2 textureCoords[] = {
-        { 0.0f, 0.0f }, { 1.0f, 0.0f }, { 1.0f, 1.0f }, { 0.0f, 1.0f }
-    };
+    constexpr size_t    quadVertexCount = 4;
+    constexpr glm::vec2 textureCoords[] = {{0.0f, 0.0f}, {1.0f, 0.0f}, {1.0f, 1.0f}, {0.0f, 1.0f}};
 
     // If the quad queue is full:
     if (s_data.quadIndexCount >= Renderer2DData::maxIndices)
@@ -588,20 +587,20 @@ void Renderer2D::DrawRotatedQuad(const glm::vec3& pos,
     if (textureIndex == 0.0f)
     {
         // Add it to the queue.
-        textureIndex = (float)s_data.textureSlotIndex;
+        textureIndex                                 = (float)s_data.textureSlotIndex;
         s_data.textureSlots[s_data.textureSlotIndex] = texture;
         s_data.textureSlotIndex++;
     }
 
     glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) *
-                          glm::rotate(glm::mat4(1.0f), rotation, { 0, 0, 1 }) *
-                          glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
+                          glm::rotate(glm::mat4(1.0f), rotation, {0, 0, 1}) *
+                          glm::scale(glm::mat4(1.0f), {size.x, size.y, 1.0f});
 
 
     for (int i = 0; i < quadVertexCount; i++)
     {
         // Setup the vertex of the quad.
-        s_data.quadVertexBufferPtr->position = transform * s_data.quadVertexPosition[i];
+        s_data.quadVertexBufferPtr->position     = transform * s_data.quadVertexPosition[i];
         s_data.quadVertexBufferPtr->color        = tint;
         s_data.quadVertexBufferPtr->texCoord     = textureCoords[i];
         s_data.quadVertexBufferPtr->tilingFactor = textScale;
@@ -615,22 +614,22 @@ void Renderer2D::DrawRotatedQuad(const glm::vec3& pos,
     s_data.stats.quadCount++;
 }
 
-void Renderer2D::DrawRotatedQuad(const glm::vec2& pos,
-                                 const glm::vec2& size,
+void Renderer2D::DrawRotatedQuad(const glm::vec2&         pos,
+                                 const glm::vec2&         size,
                                  const Ref<SubTexture2D>& texture,
-                                 const glm::vec2& textScale,
-                                 const glm::vec4& tint,
-                                 float rotation)
+                                 const glm::vec2&         textScale,
+                                 const glm::vec4&         tint,
+                                 float                    rotation)
 {
-    DrawRotatedQuad({ pos.x, pos.y, 0.0f }, size, texture, textScale, tint, rotation);
+    DrawRotatedQuad({pos.x, pos.y, 0.0f}, size, texture, textScale, tint, rotation);
 }
 
-void Renderer2D::DrawRotatedQuad(const glm::vec3& pos,
-                                 const glm::vec2& size,
+void Renderer2D::DrawRotatedQuad(const glm::vec3&         pos,
+                                 const glm::vec2&         size,
                                  const Ref<SubTexture2D>& texture,
-                                 const glm::vec2& textScale,
-                                 const glm::vec4& tint,
-                                 float rotation)
+                                 const glm::vec2&         textScale,
+                                 const glm::vec4&         tint,
+                                 float                    rotation)
 {
 
     BR_PROFILE_FUNCTION();
@@ -660,20 +659,20 @@ void Renderer2D::DrawRotatedQuad(const glm::vec3& pos,
     if (textureIndex == 0.0f)
     {
         // Add it to the queue.
-        textureIndex = (float)s_data.textureSlotIndex;
+        textureIndex                                 = (float)s_data.textureSlotIndex;
         s_data.textureSlots[s_data.textureSlotIndex] = texture->GetTexture();
         s_data.textureSlotIndex++;
     }
 
     glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) *
-                          glm::rotate(glm::mat4(1.0f), rotation, { 0, 0, 1 }) *
-                          glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
+                          glm::rotate(glm::mat4(1.0f), rotation, {0, 0, 1}) *
+                          glm::scale(glm::mat4(1.0f), {size.x, size.y, 1.0f});
 
 
     for (int i = 0; i < quadVertexCount; i++)
     {
         // Setup the vertex of the quad.
-        s_data.quadVertexBufferPtr->position = transform * s_data.quadVertexPosition[i];
+        s_data.quadVertexBufferPtr->position     = transform * s_data.quadVertexPosition[i];
         s_data.quadVertexBufferPtr->color        = tint;
         s_data.quadVertexBufferPtr->texCoord     = textureCoords[i];
         s_data.quadVertexBufferPtr->tilingFactor = textScale;
@@ -688,8 +687,14 @@ void Renderer2D::DrawRotatedQuad(const glm::vec3& pos,
 }
 
 
-Renderer2D::Statistics Renderer2D::GetStats() { return s_data.stats; }
+Renderer2D::Statistics Renderer2D::GetStats()
+{
+    return s_data.stats;
+}
 
-void Renderer2D::ResetStats() { memset(&s_data.stats, 0, sizeof(Statistics)); }
+void Renderer2D::ResetStats()
+{
+    memset(&s_data.stats, 0, sizeof(Statistics));
+}
 
-}  // namespace Brigerad
+}    // namespace Brigerad

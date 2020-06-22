@@ -34,12 +34,12 @@ struct Renderer2DData
     static const uint32_t maxIndices = maxQuads * 6;  // 6 indices per quad.
     static const uint32_t maxTextureSlots = 32;  // Max number of textures per draw call.
 
-    Ref<VertexArray> vertexArray;
+    Ref<VertexArray>  vertexArray;
     Ref<VertexBuffer> vertexBuffer;
-    Ref<Shader> textureShader;    // Shader used at runtime.
-    Ref<Texture2D> whiteTexture;  // Default empty texture for flat color quads.
+    Ref<Shader>       textureShader;    // Shader used at runtime.
+    Ref<Texture2D>    whiteTexture;     // Default empty texture for flat color quads.
 
-    long long frameCount = 0;  // Frames rendered since the start of the application.
+    long long frameCount = 0;    // Frames rendered since the start of the application.
 
     // Number of quads queued to be drawn in this frame.
     uint32_t quadIndexCount = 0;
@@ -51,7 +51,7 @@ struct Renderer2DData
     // CPU-sided representation of the texture memory in the GPU.
     std::array<Ref<Texture2D>, maxTextureSlots> textureSlots;
     // Current index of the last texture in the texture buffer.
-    uint32_t textureSlotIndex = 1;  // 0 = white texture.
+    uint32_t textureSlotIndex = 1;    // 0 = white texture.
 
     glm::vec4 quadVertexPosition[4];
 
@@ -141,10 +141,10 @@ void Renderer2D::Init()
     // Set the first texture slot to be the 1x1 white texture.
     s_data.textureSlots[0] = s_data.whiteTexture;
 
-    s_data.quadVertexPosition[0] = { -0.5f, -0.5f, 0.0f, 1.0f };
-    s_data.quadVertexPosition[1] = { 0.5f, -0.5f, 0.0f, 1.0f };
-    s_data.quadVertexPosition[2] = { 0.5f, 0.5f, 0.0f, 1.0f };
-    s_data.quadVertexPosition[3] = { -0.5f, 0.5f, 0.0f, 1.0f };
+    s_data.quadVertexPosition[0] = {-0.5f, -0.5f, 0.0f, 1.0f};
+    s_data.quadVertexPosition[1] = {0.5f, -0.5f, 0.0f, 1.0f};
+    s_data.quadVertexPosition[2] = {0.5f, 0.5f, 0.0f, 1.0f};
+    s_data.quadVertexPosition[3] = {-0.5f, 0.5f, 0.0f, 1.0f};
 }
 
 /**
@@ -346,11 +346,11 @@ void Renderer2D::DrawQuad(const glm::vec3& pos, const glm::vec2& size, const glm
 
     // If the quad queue is full:
     if (s_data.quadIndexCount >= Renderer2DData::maxIndices)
-    {  // Render the queue and start a new one.
+    {    // Render the queue and start a new one.
         FlushAndReset();
     }
 
-    const float texIndex = 0.0f;  // White Texture.
+    const float texIndex = 0.0f;    // White Texture.
 
     glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) *
         glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
@@ -382,13 +382,13 @@ void Renderer2D::DrawQuad(const glm::vec3& pos, const glm::vec2& size, const glm
  * @param textScale The scaling factor of the texture, (X, Y)
  * @param tint A tint to apply to the texture, (R, G, B, A)
  */
-void Renderer2D::DrawQuad(const glm::vec2& pos,
-                          const glm::vec2& size,
+void Renderer2D::DrawQuad(const glm::vec2&      pos,
+                          const glm::vec2&      size,
                           const Ref<Texture2D>& texture,
-                          const glm::vec2& textScale,
-                          const glm::vec4& tint)
+                          const glm::vec2&      textScale,
+                          const glm::vec4&      tint)
 {
-    DrawQuad({ pos.x, pos.y, 0.0f }, size, texture, textScale, tint);
+    DrawQuad({pos.x, pos.y, 0.0f}, size, texture, textScale, tint);
 }
 
 /**
@@ -400,11 +400,11 @@ void Renderer2D::DrawQuad(const glm::vec2& pos,
  * @param textScale The scaling factor of the texture, (X, Y)
  * @param tint A tint to apply to the texture, (R, G, B, A)
  */
-void Renderer2D::DrawQuad(const glm::vec3& pos,
-                          const glm::vec2& size,
+void Renderer2D::DrawQuad(const glm::vec3&      pos,
+                          const glm::vec2&      size,
                           const Ref<Texture2D>& texture,
-                          const glm::vec2& textScale,
-                          const glm::vec4& tint)
+                          const glm::vec2&      textScale,
+                          const glm::vec4&      tint)
 {
     BR_PROFILE_FUNCTION();
 
@@ -436,7 +436,7 @@ void Renderer2D::DrawQuad(const glm::vec3& pos,
     if (textureIndex == 0.0f)
     {
         // Add in to the queue.
-        textureIndex = (float)s_data.textureSlotIndex;
+        textureIndex                                 = (float)s_data.textureSlotIndex;
         s_data.textureSlots[s_data.textureSlotIndex] = texture;
         s_data.textureSlotIndex++;
     }
@@ -462,20 +462,20 @@ void Renderer2D::DrawQuad(const glm::vec3& pos,
     s_data.stats.quadCount++;
 }
 
-void Renderer2D::DrawQuad(const glm::vec2& pos,
-                          const glm::vec2& size,
+void Renderer2D::DrawQuad(const glm::vec2&         pos,
+                          const glm::vec2&         size,
                           const Ref<SubTexture2D>& texture,
-                          const glm::vec2& textScale,
-                          const glm::vec4& tint)
+                          const glm::vec2&         textScale,
+                          const glm::vec4&         tint)
 {
-    DrawQuad({ pos.x, pos.y }, size, texture, textScale, tint);
+    DrawQuad({pos.x, pos.y}, size, texture, textScale, tint);
 }
 
-void Renderer2D::DrawQuad(const glm::vec3& pos,
-                          const glm::vec2& size,
+void Renderer2D::DrawQuad(const glm::vec3&         pos,
+                          const glm::vec2&         size,
                           const Ref<SubTexture2D>& texture,
-                          const glm::vec2& textScale,
-                          const glm::vec4& tint)
+                          const glm::vec2&         textScale,
+                          const glm::vec4&         tint)
 {
     BR_PROFILE_FUNCTION();
 
@@ -505,7 +505,7 @@ void Renderer2D::DrawQuad(const glm::vec3& pos,
     if (textureIndex == 0.0f)
     {
         // Add in to the queue.
-        textureIndex = (float)s_data.textureSlotIndex;
+        textureIndex                                 = (float)s_data.textureSlotIndex;
         s_data.textureSlots[s_data.textureSlotIndex] = texture->GetTexture();
         s_data.textureSlotIndex++;
     }
@@ -544,7 +544,7 @@ void Renderer2D::DrawQuad(const glm::vec3& pos,
 void Renderer2D::DrawRotatedQuad(const glm::vec2& pos,
                                  const glm::vec2& size,
                                  const glm::vec4& color,
-                                 float rotation)
+                                 float            rotation)
 {
     DrawRotatedQuad(glm::vec3(pos.x, pos.y, 0.0f), size, color, rotation);
 }
@@ -560,7 +560,7 @@ void Renderer2D::DrawRotatedQuad(const glm::vec2& pos,
 void Renderer2D::DrawRotatedQuad(const glm::vec3& pos,
                                  const glm::vec2& size,
                                  const glm::vec4& color,
-                                 float rotation)
+                                 float            rotation)
 {
     BR_PROFILE_FUNCTION();
 
@@ -576,7 +576,7 @@ void Renderer2D::DrawRotatedQuad(const glm::vec3& pos,
         FlushAndReset();
     }
 
-    const float texIndex = 0.0f;  // White Texture.
+    const float texIndex = 0.0f;    // White Texture.
 
     glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) *
         glm::rotate(glm::mat4(1.0f), rotation, { 0, 0, 1 }) *
@@ -610,14 +610,14 @@ void Renderer2D::DrawRotatedQuad(const glm::vec3& pos,
  * @param tint A tint to apply to the texture, (R, G, B, A)
  * @param rotation The rotation to apply to the quad, in degrees
  */
-void Renderer2D::DrawRotatedQuad(const glm::vec2& pos,
-                                 const glm::vec2& size,
+void Renderer2D::DrawRotatedQuad(const glm::vec2&      pos,
+                                 const glm::vec2&      size,
                                  const Ref<Texture2D>& texture,
-                                 const glm::vec2& textScale,
-                                 const glm::vec4& tint,
-                                 float rotation)
+                                 const glm::vec2&      textScale,
+                                 const glm::vec4&      tint,
+                                 float                 rotation)
 {
-    DrawRotatedQuad({ pos.x, pos.y, 0.0f }, size, texture, textScale, tint, rotation);
+    DrawRotatedQuad({pos.x, pos.y, 0.0f}, size, texture, textScale, tint, rotation);
 }
 
 /**
@@ -630,12 +630,12 @@ void Renderer2D::DrawRotatedQuad(const glm::vec2& pos,
  * @param tint A tint to apply to the texture, (R, G, B, A)
  * @param rotation The rotation to apply to the quad, in degrees
  */
-void Renderer2D::DrawRotatedQuad(const glm::vec3& pos,
-                                 const glm::vec2& size,
+void Renderer2D::DrawRotatedQuad(const glm::vec3&      pos,
+                                 const glm::vec2&      size,
                                  const Ref<Texture2D>& texture,
-                                 const glm::vec2& textScale,
-                                 const glm::vec4& tint,
-                                 float rotation)
+                                 const glm::vec2&      textScale,
+                                 const glm::vec4&      tint,
+                                 float                 rotation)
 {
     BR_PROFILE_FUNCTION();
 
@@ -666,7 +666,7 @@ void Renderer2D::DrawRotatedQuad(const glm::vec3& pos,
     if (textureIndex == 0.0f)
     {
         // Add it to the queue.
-        textureIndex = (float)s_data.textureSlotIndex;
+        textureIndex                                 = (float)s_data.textureSlotIndex;
         s_data.textureSlots[s_data.textureSlotIndex] = texture;
         s_data.textureSlotIndex++;
     }
@@ -694,22 +694,22 @@ void Renderer2D::DrawRotatedQuad(const glm::vec3& pos,
     s_data.stats.quadCount++;
 }
 
-void Renderer2D::DrawRotatedQuad(const glm::vec2& pos,
-                                 const glm::vec2& size,
+void Renderer2D::DrawRotatedQuad(const glm::vec2&         pos,
+                                 const glm::vec2&         size,
                                  const Ref<SubTexture2D>& texture,
-                                 const glm::vec2& textScale,
-                                 const glm::vec4& tint,
-                                 float rotation)
+                                 const glm::vec2&         textScale,
+                                 const glm::vec4&         tint,
+                                 float                    rotation)
 {
-    DrawRotatedQuad({ pos.x, pos.y, 0.0f }, size, texture, textScale, tint, rotation);
+    DrawRotatedQuad({pos.x, pos.y, 0.0f}, size, texture, textScale, tint, rotation);
 }
 
-void Renderer2D::DrawRotatedQuad(const glm::vec3& pos,
-                                 const glm::vec2& size,
+void Renderer2D::DrawRotatedQuad(const glm::vec3&         pos,
+                                 const glm::vec2&         size,
                                  const Ref<SubTexture2D>& texture,
-                                 const glm::vec2& textScale,
-                                 const glm::vec4& tint,
-                                 float rotation)
+                                 const glm::vec2&         textScale,
+                                 const glm::vec4&         tint,
+                                 float                    rotation)
 {
 
     BR_PROFILE_FUNCTION();
@@ -739,7 +739,7 @@ void Renderer2D::DrawRotatedQuad(const glm::vec3& pos,
     if (textureIndex == 0.0f)
     {
         // Add it to the queue.
-        textureIndex = (float)s_data.textureSlotIndex;
+        textureIndex                                 = (float)s_data.textureSlotIndex;
         s_data.textureSlots[s_data.textureSlotIndex] = texture->GetTexture();
         s_data.textureSlotIndex++;
     }

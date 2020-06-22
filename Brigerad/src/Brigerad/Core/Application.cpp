@@ -34,8 +34,8 @@ Application::Application(const std::string& name)
     BR_PROFILE_FUNCTION();
 
     // Don't allow multiple instances of Application.
-    BR_CORE_ASSERT(!s_instance, "Application already exists!")
-        s_instance = this;
+    BR_CORE_ASSERT(!s_instance, "Application already exists!");
+    s_instance = this;
 
     // Create the window for the application.
     m_window = Scope<Window>(Window::Create(WindowProps(name)));
@@ -72,10 +72,10 @@ void Application::Run()
     {
         BR_PROFILE_SCOPE("RunLoop");
 
-        // Get the time ellapsed since the last frame.
-        float time = float(GetTime());
+        // Get the time elapsed since the last frame.
+        float    time     = float(GetTime());
         Timestep timestep = time - m_lastFrameTime;
-        m_lastFrameTime = time;
+        m_lastFrameTime   = time;
 
         // If the window is not minimized:
         // (If the window is minimized, we don't want to waste time rendering stuff!)
@@ -119,7 +119,7 @@ void Application::OnEvent(Event& e)
 
     // Creates a dispatch context with the event.
     EventDispatcher dispatcher(e);
-    // Dispatch it to the proper handling function in the Apllication, if the type matches.
+    // Dispatch it to the proper handling function in the Application, if the type matches.
     dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
     dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(OnWindowResize));
     dispatcher.Dispatch<KeyPressedEvent>(BIND_EVENT_FN(OnKeyPressed));
@@ -226,4 +226,4 @@ bool Application::OnKeyPressed(KeyPressedEvent& e)
     }
 }
 
-} // namespace Brigerad
+}    // namespace Brigerad

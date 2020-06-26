@@ -88,7 +88,7 @@ void EditorLayer::OnUpdate(Timestep ts)
                 }
             }
 
-            UI::TextUnformatted(glm::vec3(1.0f, 1.0f, 1.0f), "OwO");
+            UI::TextUnformatted(glm::vec3(1.0f, 1.0f, 1.0f), "This is a normal Arial sentence.");
 
             Brigerad::Renderer2D::EndScene();
         }

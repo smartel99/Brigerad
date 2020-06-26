@@ -5,9 +5,11 @@
 #include "Brigerad/Renderer/Renderer2D.h"
 
 #include "arial.h"
+#include "arialbd.h"
+#include "arialbi.h"
+#include "ariali.h"
 
 #include "ft2build.h"
-#include "glad/glad.h"
 #include FT_FREETYPE_H
 #include FT_BITMAP_H
 
@@ -28,8 +30,9 @@ struct UITextData
     float FontSize = 14.0f;  // Defaults to 14x14 pixels.
 
     FT_Library FontLib = {};
-    FT_Face CurrentFont = {};
-    std::map<char, Character> Characters;
+    std::map<const char*, std::map<char, Character>> LoadedFonts = { {"arial", {}}, {"arialbd", {}}, {"arialbi", {}}, {"ariali", {}} };
+    std::map<char, Character>* CurrentFont = &LoadedFonts["arial"];
+    const char* CurrentFontName = "arial";
 };
 static UITextData s_uiTextData;
 
@@ -39,37 +42,97 @@ namespace Brigerad
 {
 namespace UI
 {
+static void LoadFont(const char* fontname, const FT_Face& font);
 
 void InitFont()
 {
+    static const std::map<const char*, std::pair<size_t, const uint32_t*>> arialFonts = {
+        {"arial", {arialDataSize, arialData} },
+        {"arialbd", {arialBbDataSize, arialBbData}},
+        {"arialbi", {arialBiDataSize, arialBiData}},
+        {"ariali", {arialBiDataSize, arialIData}}
+    };
+
+    FT_Face currentFont = {};
+
     if (FT_Init_FreeType(&s_uiTextData.FontLib))
     {
         BR_ERROR("Could not init FreeType Library!");
     }
 
-    if (FT_New_Memory_Face(s_uiTextData.FontLib, (uint8_t*)arialData, arialDataSize, 0, &s_uiTextData.CurrentFont))
+    for (const auto& [fontName, font] : arialFonts)
     {
-        BR_ERROR("Could not load font!");
+        if (FT_New_Memory_Face(s_uiTextData.FontLib, (uint8_t*)font.second, font.first, 0, &currentFont))
+        {
+            BR_ERROR("Could not load font!");
+        }
+
+        FT_Set_Pixel_Sizes(currentFont, 0, 14);
+
+        LoadFont(fontName, currentFont);
+
+        FT_Done_Face(currentFont);
     }
 
-    FT_Set_Pixel_Sizes(s_uiTextData.CurrentFont, 0, 128);
-
-    if (FT_Load_Char(s_uiTextData.CurrentFont, 'X', FT_LOAD_RENDER))
+    auto res = FT_New_Face(s_uiTextData.FontLib, "assets/fonts/Baloo2-Bold.ttf", 0, &currentFont);
+    if (res != 0)
     {
-        BR_ERROR("Failed to load glyph!");
+        BR_ERROR("Could not load font: {0:x}", res);
     }
 
+    FT_Set_Pixel_Sizes(currentFont, 0, 128);
+    LoadFont("Baloo2-Bold", currentFont);
+
+    s_uiTextData.CurrentFont = &s_uiTextData.LoadedFonts["Baloo2-Bold"];
+
+    // Clear up resources since we're done.
+//     FT_Done_FreeType(s_uiTextData.FontLib);
+}
+
+
+void TextUnformatted(const glm::vec2& pos, const std::string& text)
+{
+    TextUnformatted(glm::vec3(pos.x, pos.y, 0.0f), text);
+}
+
+void TextUnformatted(const glm::vec3& pos, const std::string& text)
+{
+    BR_PROFILE_FUNCTION();
+    static const float scale = 14.f / 128.0f;
+    float x = pos.x;
+    float y = pos.y;
+
+    for (const auto& c : text)
+    {
+        Character character = s_uiTextData.CurrentFont->at(c);
+
+        glm::vec2 cPos = { x + (character.Bearing.x * scale),
+                           y - ((character.Size.y - character.Bearing.y) * scale) };
+
+        glm::vec2 size = { character.Size.x * scale,
+                          character.Size.y * scale };
+
+        Renderer2D::DrawChar(cPos, size, character.Texture, s_uiTextData.Color);
+
+        // Bit shift by 6 to get value in pixels (2^6 = 64).
+        x += (character.Advance >> 6) * scale;
+    }
+}
+
+void LoadFont(const char* fontName, const FT_Face& font)
+{
+    std::map<char, Character> loadedFontData;
 
     for (uint8_t c = 0; c < 128; c++)
     {
-        // Load character glyph.
-        if (FT_Load_Char(s_uiTextData.CurrentFont, c, FT_LOAD_COLOR | FT_LOAD_RENDER))
+        FT_UInt err = FT_Load_Char(font, c, FT_LOAD_COLOR | FT_LOAD_RENDER);
+        if (err != 0)
         {
-            BR_ERROR("Unable to load glyph of character {0}", c);
+            BR_CORE_ERROR("Unable to get index of character {0}: {1:x}!", (char)c, err);
             continue;
         }
 
-        const FT_Bitmap& data = s_uiTextData.CurrentFont->glyph->bitmap;
+        const FT_Bitmap& data = font->glyph->bitmap;
 
         Ref<Texture2D> texture = Texture2D::Create(data.width, data.rows, 4);
         size_t size = (size_t)data.width * (size_t)data.rows;
@@ -86,46 +149,13 @@ void InitFont()
         // Now store character for later use.
         Character character = {
             texture,
-            glm::ivec2(data.width, data.rows),
-            glm::ivec2(s_uiTextData.CurrentFont->glyph->bitmap_left, s_uiTextData.CurrentFont->glyph->bitmap_top),
-            (uint32_t)s_uiTextData.CurrentFont->glyph->advance.x };
-        s_uiTextData.Characters.insert(std::pair<char, Character>(c, character));
+            glm::ivec2(font->glyph->bitmap.width, font->glyph->bitmap.rows),
+            glm::ivec2(font->glyph->bitmap_left, font->glyph->bitmap_top),
+            (uint32_t)font->glyph->advance.x };
+        loadedFontData.insert(std::pair<char, Character>(c, character));
     }
 
-
-    // Clear up resources since we're done.
-//     FT_Done_Face(s_uiTextData.CurrentFont);
-//     FT_Done_FreeType(s_uiTextData.FontLib);
-}
-
-
-void TextUnformatted(const glm::vec2& pos, const std::string& text)
-{
-    TextUnformatted(glm::vec3(pos.x, pos.y, 0.0f), text);
-}
-
-void TextUnformatted(const glm::vec3& pos, const std::string& text)
-{
-    BR_PROFILE_FUNCTION();
-    static float scale = s_uiTextData.FontSize / 128;
-    float x = pos.x;
-    float y = pos.y;
-
-    for (const auto& c : text)
-    {
-        Character character = s_uiTextData.Characters[c];
-
-        glm::vec2 cPos = { x + character.Bearing.x * scale,
-                           y - (character.Size.y - character.Bearing.y) * scale };
-
-        glm::vec2 size = { character.Size.x * scale,
-                          character.Size.y * scale };
-
-        Renderer2D::DrawChar(cPos, size, character.Texture);
-
-        // Bit shift by 6 to get value in pixels (2^6 = 64).
-        x += (character.Advance >> 6) * scale;
-    }
+    s_uiTextData.LoadedFonts[fontName] = loadedFontData;
 }
 
 }  // namespace UI

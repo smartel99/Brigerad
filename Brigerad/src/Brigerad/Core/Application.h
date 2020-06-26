@@ -50,10 +50,10 @@ private:
 
 private:
     Scope<Window> m_window;
-    ImGuiLayer* m_imguiLayer;
+    ImGuiLayer*   m_imguiLayer;
 
-    bool m_running = true;
-    bool m_minimized = false;
+    bool       m_running   = true;
+    bool       m_minimized = false;
     LayerStack m_layerStack;
 
     float m_lastFrameTime = 0.0f;
@@ -64,4 +64,4 @@ private:
 
 // To be defined in client.
 Application* CreateApplication();
-} // namespace Brigerad
+}    // namespace Brigerad

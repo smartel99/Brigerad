@@ -190,4 +190,4 @@ BR_FMTARGS(3);
 /**
  * @}
  */
-}  // namespace Brigerad
+}    // namespace Brigerad

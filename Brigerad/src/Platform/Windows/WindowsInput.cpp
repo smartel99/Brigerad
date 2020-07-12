@@ -1,12 +1,12 @@
 /**
- * @file   E:\dev\Brigerad\Brigerad\src\Platform\Windows\WindowsInput.cpp
+ * @file   E:\dev\Brigerad\Brigerad\src\Platform\Windows\Input.cpp
  * @author Samuel Martel
  * @date   2020/03/01
  *
- * @brief  Source for the WindowsInput module.
+ * @brief  Source for the Input module.
  */
 #include "brpch.h"
-#include "WindowsInput.h"
+#include "Brigerad/Core/Input.h"
 #include "Brigerad/Core/Application.h"
 
 #if defined(BR_PLATFORM_WINDOWS)
@@ -14,46 +14,45 @@
 
 namespace Brigerad
 {
-Input *Input::s_instance = new WindowsInput();
 
-bool WindowsInput::IsKeyPressedImpl(KeyCode keycode)
+bool Input::IsKeyPressed(KeyCode keycode)
 {
-    auto window = static_cast<GLFWwindow *>(Application::Get().GetWindow().GetNativeWindow());
-    auto state = glfwGetKey(window, int(keycode));
+    auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
+    auto state  = glfwGetKey(window, int(keycode));
 
     return (state == GLFW_PRESS || state == GLFW_REPEAT);
 }
 
-bool WindowsInput::IsMouseButtonPressedImpl(MouseCode button)
+bool Input::IsMouseButtonPressed(MouseCode button)
 {
-    auto window = static_cast<GLFWwindow *>(Application::Get().GetWindow().GetNativeWindow());
-    auto state = glfwGetMouseButton(window, int(button));
+    auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
+    auto state  = glfwGetMouseButton(window, int(button));
 
     return state == GLFW_PRESS;
 }
 
-std::pair<float, float> WindowsInput::GetMousePosImpl()
+std::pair<float, float> Input::GetMousePos()
 {
-    auto window = static_cast<GLFWwindow *>(Application::Get().GetWindow().GetNativeWindow());
+    auto   window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
     double xPos, yPos;
     glfwGetCursorPos(window, &xPos, &yPos);
 
     return {(float)xPos, (float)yPos};
 }
 
-float WindowsInput::GetMouseXImpl()
+float Input::GetMouseX()
 {
-    auto [x, y] = GetMousePosImpl();
+    auto [x, y] = GetMousePos();
 
     return x;
 }
 
-float WindowsInput::GetMouseYImpl()
+float Input::GetMouseY()
 {
-    auto [x, y] = GetMousePosImpl();
+    auto [x, y] = GetMousePos();
 
     return y;
 }
 
-} // namespace Brigerad
+}    // namespace Brigerad
 #endif

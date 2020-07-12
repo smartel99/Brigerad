@@ -52,6 +52,7 @@ void RenderTexture()
         case 1: texColor *= texture(u_Textures[1], v_TexCoord * v_TilingFactor); break;
         case 2: texColor *= texture(u_Textures[2], v_TexCoord * v_TilingFactor); break;
         case 3: texColor *= texture(u_Textures[3], v_TexCoord * v_TilingFactor); break;
+        case 4: texColor *= texture(u_Textures[4], v_TexCoord * v_TilingFactor); break;
         case 5: texColor *= texture(u_Textures[5], v_TexCoord * v_TilingFactor); break;
         case 6: texColor *= texture(u_Textures[6], v_TexCoord * v_TilingFactor); break;
         case 7: texColor *= texture(u_Textures[7], v_TexCoord * v_TilingFactor); break;
@@ -93,6 +94,7 @@ void RenderText()
         case 1: texColor *=  vec4(1.0, 1.0, 1.0, texture(u_Textures[1], v_TexCoord ).r); break;
         case 2: texColor *=  vec4(1.0, 1.0, 1.0, texture(u_Textures[2], v_TexCoord ).r); break;
         case 3: texColor *=  vec4(1.0, 1.0, 1.0, texture(u_Textures[3], v_TexCoord ).r); break;
+        case 4: texColor *=  vec4(1.0, 1.0, 1.0, texture(u_Textures[4], v_TexCoord ).r); break;
         case 5: texColor *=  vec4(1.0, 1.0, 1.0, texture(u_Textures[5], v_TexCoord ).r); break;
         case 6: texColor *=  vec4(1.0, 1.0, 1.0, texture(u_Textures[6], v_TexCoord ).r); break;
         case 7: texColor *=  vec4(1.0, 1.0, 1.0, texture(u_Textures[7], v_TexCoord ).r); break;

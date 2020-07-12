@@ -7,57 +7,53 @@
  * @brief  Source for the LinuxInput module.
  */
 #include "brpch.h"
-#include "LinuxInput.h"
+#include "Brigerad/Core/input.h"
 #include "Brigerad/Core/Application.h"
-#if defined(BR_PLATFORM_LINUX)
 
-    #include <GLFW/glfw3.h>
+#if defined(BR_PLATFORM_LINUX)
+#include <GLFW/glfw3.h>
 
 namespace Brigerad
 {
-Input* Input::s_instance = new LinuxInput();
 
-bool LinuxInput::IsKeyPressedImpl(KeyCode keycode)
+bool Input::IsKeyPressed(KeyCode keycode)
 {
-    auto window =
-      static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
-    auto state = glfwGetKey(window, (int)keycode);
+    auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
+    auto state  = glfwGetKey(window, int(keycode));
 
     return (state == GLFW_PRESS || state == GLFW_REPEAT);
 }
 
-bool LinuxInput::IsMouseButtonPressedImpl(MouseCode button)
+bool Input::IsMouseButtonPressed(MouseCode button)
 {
-    auto window =
-      static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
-    auto state = glfwGetMouseButton(window, (int)button);
+    auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
+    auto state  = glfwGetMouseButton(window, int(button));
 
     return state == GLFW_PRESS;
 }
 
-std::pair<float, float> LinuxInput::GetMousePosImpl()
+std::pair<float, float> Input::GetMousePos()
 {
-    auto window =
-      static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
+    auto   window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
     double xPos, yPos;
     glfwGetCursorPos(window, &xPos, &yPos);
 
-    return { (float)xPos, (float)yPos };
+    return {(float)xPos, (float)yPos};
 }
 
-float LinuxInput::GetMouseXImpl()
+float Input::GetMouseX()
 {
-    auto [x, y] = GetMousePosImpl();
+    auto [x, y] = GetMousePos();
 
     return x;
 }
 
-float LinuxInput::GetMouseYImpl()
+float Input::GetMouseY()
 {
-    auto [x, y] = GetMousePosImpl();
+    auto [x, y] = GetMousePos();
 
     return y;
 }
 
-}  // namespace Brigerad
+}    // namespace Brigerad
 #endif

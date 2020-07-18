@@ -34,7 +34,10 @@ void EditorLayer::OnUpdate(Timestep ts)
 {
     BR_PROFILE_FUNCTION();
     // Update.
-    m_camera.OnUpdate(ts);
+    if (m_viewportFocused)
+    {
+        m_camera.OnUpdate(ts);
+    }
 
     // Render.
     Renderer2D::ResetStats();
@@ -82,10 +85,13 @@ void EditorLayer::OnUpdate(Timestep ts)
                 }
             }
 
-            UI::TextUnformatted(glm::vec3(0.0f, 0.0f, 1.0f), "This is a normal Arial sentence.");
-            UI::TextUnformatted(glm::vec3(0.0f, 16.0f, 1.0f), "abcdefghijklmnopqrstuvwxyz");
-            UI::TextUnformatted(glm::vec3(0.0f, 32.0f, 1.0f), "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
-            UI::TextUnformatted(glm::vec3(0.0f, 48.0f, 1.0f), "!@#$%?&*()-=_+/\\|'\"<>;:{}[]");
+            //             UI::TextUnformatted(glm::vec3(0.0f, 0.0f, 1.0f), "This is a normal Arial
+            //             sentence."); UI::TextUnformatted(glm::vec3(0.0f, 16.0f, 1.0f),
+            //             "abcdefghijklmnopqrstuvwxyz");
+            //             UI::TextUnformatted(glm::vec3(0.0f, 32.0f, 1.0f),
+            //             "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+            //             UI::TextUnformatted(glm::vec3(0.0f, 48.0f, 1.0f),
+            //             "!@#$%?&*()-=_+/\\|'\"<>;:{}[]");
 
             Brigerad::Renderer2D::EndScene();
         }
@@ -131,7 +137,7 @@ void EditorLayer::OnImGuiRender()
     // otherwise any change of dock space/settings would lead to windows being stuck in limbo and
     // never being visible.
     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
-    ImGui::Begin("DockSpace Demo", &dockspaceOpen, window_flags);
+    ImGui::Begin("Brigerad DockSpace", &dockspaceOpen, window_flags);
     ImGui::PopStyleVar();
 
     if (opt_fullscreen)
@@ -141,7 +147,7 @@ void EditorLayer::OnImGuiRender()
     ImGuiIO& io = ImGui::GetIO();
     if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable)
     {
-        ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
+        ImGuiID dockspace_id = ImGui::GetID("Brigerad DockSpace ID");
         ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
     }
 
@@ -158,8 +164,6 @@ void EditorLayer::OnImGuiRender()
 
         ImGui::EndMenuBar();
     }
-
-
 
     ImGui::Begin("Editor Settings");
     UpdateFPS();
@@ -180,6 +184,10 @@ void EditorLayer::OnImGuiRender()
 
     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
     ImGui::Begin("Viewport");
+    m_viewportFocused = ImGui::IsWindowFocused();
+    m_viewportHovered = ImGui::IsWindowHovered();
+    Application::Get().GetImGuiLayer()->SetBlockEvents(!m_viewportFocused || !m_viewportHovered);
+
     ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
     if (m_viewportSize != *((glm::vec2*)&viewportPanelSize))
     {

@@ -13,16 +13,19 @@ public:
     virtual void OnAttach() override;
     virtual void OnDetach() override;
 
-    void OnUpdate(Timestep ts) override;
+    void         OnUpdate(Timestep ts) override;
     virtual void OnImGuiRender() override;
-    void OnEvent(Event& e) override;
+    void         OnEvent(Event& e) override;
 
 private:
     OrthographicCameraController m_camera;
-    glm::vec4 m_color = { 1.0f, 0.0f, 0.0f, 1.0f };
-    Ref<Texture2D> m_texture;
-    Ref<Framebuffer> m_fb;
+    glm::vec4                    m_color = {1.0f, 0.0f, 0.0f, 1.0f};
+    Ref<Texture2D>               m_texture;
+    Ref<Framebuffer>             m_fb;
 
     glm::vec2 m_viewportSize;
+
+    bool m_viewportFocused = false;
+    bool m_viewportHovered = false;
 };
-}
+}    // namespace Brigerad

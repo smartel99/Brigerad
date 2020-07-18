@@ -33,15 +33,11 @@ public:
 
     void Close();
 
-    inline Window& GetWindow()
-    {
-        return *m_window;
-    }
+    inline Window& GetWindow() { return *m_window; }
 
-    inline static Application& Get()
-    {
-        return *s_instance;
-    }
+    inline static Application& Get() { return *s_instance; }
+
+    inline ImGuiLayer* GetImGuiLayer() { return m_imguiLayer; }
 
 private:
     bool OnWindowClose(WindowCloseEvent& e);

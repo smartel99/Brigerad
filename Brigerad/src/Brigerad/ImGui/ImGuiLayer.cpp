@@ -35,15 +35,20 @@ void ImGuiLayer::OnAttach()
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO();
     (void)io;
-    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;  // Enable keyboard control.
-                                                           //     io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;    // Enable Gamepad control.
-    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;  // Enable docking.
     io.ConfigFlags |=
-        ImGuiConfigFlags_ViewportsEnable;  // Enable multi-viewport / platform window.
-                                           //     io.ConfigFlags |= ImGuiConfigFlags_ViewportsNoTaskBarIcons;
-                                           //     io.ConfigFlags |= ImGuiConfigFlags_ViewportsNoMerge;
+      ImGuiConfigFlags_NavEnableKeyboard;                // Enable keyboard control.
+                                                         //     io.ConfigFlags |=
+                                                         //     ImGuiConfigFlags_NavEnableGamepad;
+                                                         //     // Enable Gamepad control.
+    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;    // Enable docking.
+    io.ConfigFlags |=
+      ImGuiConfigFlags_ViewportsEnable;    // Enable multi-viewport / platform window.
+                                           //     io.ConfigFlags |=
+                                           //     ImGuiConfigFlags_ViewportsNoTaskBarIcons;
+                                           //     io.ConfigFlags |=
+                                           //     ImGuiConfigFlags_ViewportsNoMerge;
                                            //
-      // Setup dear Imgui style.
+                                           // Setup dear Imgui style.
     ImGui::StyleColorsDark();
 
     // When view ports are enabled we tweak WindowRounding/WindowBg
@@ -51,12 +56,12 @@ void ImGuiLayer::OnAttach()
     ImGuiStyle& style = ImGui::GetStyle();
     if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
     {
-        style.WindowRounding = 0.0f;
+        style.WindowRounding              = 0.0f;
         style.Colors[ImGuiCol_WindowBg].w = 1.0f;
     }
 
-    Application& app = Application::Get();
-    GLFWwindow* window = static_cast<GLFWwindow*>(app.GetWindow().GetNativeWindow());
+    Application& app    = Application::Get();
+    GLFWwindow*  window = static_cast<GLFWwindow*>(app.GetWindow().GetNativeWindow());
 
     // Setup Platform/Renderer bindings.
     ImGui_ImplGlfw_InitForOpenGL(window, true);
@@ -70,6 +75,16 @@ void ImGuiLayer::OnDetach()
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
+}
+
+void ImGuiLayer::OnEvent(Event& event)
+{
+    if (m_blockImGuiEvents)
+    {
+        ImGuiIO& io = ImGui::GetIO();
+        event.m_handled |= event.IsInCategory(EventCategoryMouse) & io.WantCaptureMouse;
+        event.m_handled |= event.IsInCategory(EventCategoryKeyboard) & io.WantCaptureKeyboard;
+    }
 }
 
 void ImGuiLayer::OnImGuiRender()
@@ -91,8 +106,8 @@ void ImGuiLayer::OnImGuiRender()
         return;
     }
 
-    auto& window = Application::Get().GetWindow();
-    bool isVSync = window.IsVSync();
+    auto& window  = Application::Get().GetWindow();
+    bool  isVSync = window.IsVSync();
     if (ImGui::Begin("Settings", &m_open))
     {
         if (ImGui::Checkbox("vsync", &isVSync))
@@ -105,9 +120,8 @@ void ImGuiLayer::OnImGuiRender()
         {
             if (m_isProfiling == false)
             {
-                m_profilingStartTime = m_profilingDuration > 0 ?
-                    m_time :
-                    std::numeric_limits<double>::max();
+                m_profilingStartTime =
+                  m_profilingDuration > 0 ? m_time : std::numeric_limits<double>::max();
                 BR_PROFILE_BEGIN_SESSION("Profiling Session", "BrigeradProfiling-Session.json");
                 m_isProfiling = true;
             }
@@ -139,12 +153,11 @@ void ImGuiLayer::End()
 {
     BR_PROFILE_FUNCTION();
 
-    ImGuiIO& io = ImGui::GetIO();
+    ImGuiIO&     io  = ImGui::GetIO();
     Application& app = Application::Get();
-    io.DisplaySize =
-        ImVec2(float(app.GetWindow().GetWidth()), float(app.GetWindow().GetHeight()));
+    io.DisplaySize = ImVec2(float(app.GetWindow().GetWidth()), float(app.GetWindow().GetHeight()));
 
-      // Rendering.
+    // Rendering.
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
@@ -157,4 +170,4 @@ void ImGuiLayer::End()
     }
 }
 
-}  // namespace Brigerad
+}    // namespace Brigerad

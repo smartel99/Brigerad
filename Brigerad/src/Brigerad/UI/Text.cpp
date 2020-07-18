@@ -116,7 +116,8 @@ void TextUnformatted(const glm::vec3& pos, const std::string& text)
 
         if (cPos.x <= x)
         {
-            BR_WARN("Char '{0}' has smaller X than previous char! ({1} vs {2})", c, cPos.x, x);
+            //             BR_WARN("Char '{0}' has smaller X than previous char! ({1} vs {2})", c,
+            //             cPos.x, x);
         }
 
         glm::vec2 size = {character.Size.x * scale, character.Size.y * scale};

@@ -80,7 +80,6 @@ public:
 
     inline bool Handled() { return m_handled; }
 
-protected:
     bool m_handled = false;
 };
 

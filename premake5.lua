@@ -105,7 +105,8 @@ project "Brigerad"
         defines
         {
             "BR_PLATFORM_LINUX",
-            "GLFW_INCLUDE_NONE"
+            "GLFW_INCLUDE_NONE",
+            "IGNORE_FREETYPE"
         }
 
         links
@@ -130,6 +131,7 @@ project "Brigerad"
         {
             "%{prj.name}/src/Platform/Windows/**.h",
             "%{prj.name}/src/Platform/Windows/**.cpp",
+            "%{prj.name}/src/Brigerad/UI/Text.cpp"
         }
 
     filter "configurations:Debug"
@@ -202,7 +204,7 @@ project "Sandbox"
 
             defines
             {
-                "BR_PLATFORM_LINUX",
+                "BR_PLATFORM_LINUX"
             }
 
             links

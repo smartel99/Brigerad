@@ -26,8 +26,9 @@ public:
     inline void SetBlockEvents(bool state) { m_blockImGuiEvents = state; }
 
 private:
-    double m_time = 0.0;
-    bool   m_open = false;
+    double m_time             = 0.0;
+    bool   m_open             = false;
+    bool   m_showMetricWindow = false;
 
     bool   m_isProfiling        = false;
     double m_profilingStartTime = 0.0;

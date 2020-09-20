@@ -106,6 +106,11 @@ void ImGuiLayer::OnImGuiRender()
         return;
     }
 
+    if (m_showMetricWindow)
+    {
+        ImGui::ShowMetricsWindow(&m_showMetricWindow);
+    }
+
     auto& window  = Application::Get().GetWindow();
     bool  isVSync = window.IsVSync();
     if (ImGui::Begin("Settings", &m_open))
@@ -114,6 +119,11 @@ void ImGuiLayer::OnImGuiRender()
         {
             window.SetVSync(isVSync);
             BR_INFO("Set VSync to {0}", isVSync);
+        }
+
+        if (ImGui::Button("Open metric window"))
+        {
+            m_showMetricWindow = true;
         }
 
         if (ImGui::Button(m_isProfiling == false ? "Start Profiling" : "Stop  Profiling"))

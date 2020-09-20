@@ -31,13 +31,23 @@ public:
     void PushLayer(Layer* layer);
     void PushOverlay(Layer* layer);
 
+    void PopLayer(Layer* layer);
+
     void Close();
 
     inline Window& GetWindow() { return *m_window; }
 
-    inline static Application& Get() { return *s_instance; }
-
     inline ImGuiLayer* GetImGuiLayer() { return m_imguiLayer; }
+
+    inline void QueuePostFrameTask(const std::function<void()>& fn)
+    {
+        if (fn)
+        {
+            m_postFrameTasks.push_back(fn);
+        }
+    }
+
+    inline static Application& Get() { return *s_instance; }
 
 private:
     bool OnWindowClose(WindowCloseEvent& e);
@@ -53,6 +63,8 @@ private:
     LayerStack m_layerStack;
 
     float m_lastFrameTime = 0.0f;
+
+    std::vector<std::function<void()>> m_postFrameTasks;
 
 private:
     static Application* s_instance;

@@ -49,7 +49,8 @@ Application::Application(const std::string& name)
     m_imguiLayer = new ImGuiLayer();
 
     // Add the ImGui layer to the layer stack as an overlay (on top of everything).
-    PushOverlay(m_imguiLayer);
+    m_layerStack.PushOverlay(m_imguiLayer);
+    m_imguiLayer->OnAttach();
 }
 
 /**
@@ -104,6 +105,13 @@ void Application::Run()
 
         // Do the per-frame window updating tasks.
         m_window->OnUpdate();
+
+        // Execute the post-frame task queue.
+        for (const auto& task : m_postFrameTasks)
+        {
+            task();
+        }
+        m_postFrameTasks.clear();
     }
 }
 
@@ -138,6 +146,8 @@ void Application::OnEvent(Event& e)
     }
 }
 
+
+
 /**
  * @brief   Push a new layer at the back of the layer stack.
  *
@@ -148,10 +158,14 @@ void Application::PushLayer(Layer* layer)
 {
     BR_PROFILE_FUNCTION();
 
-    // Push the new layer to the stack.
-    m_layerStack.PushLayer(layer);
-    // Initialize the layer.
-    layer->OnAttach();
+    std::function<void()> task = [=]() {
+        // Push the new layer to the stack.
+        m_layerStack.PushLayer(layer);
+        // Initialize the layer.
+        layer->OnAttach();
+    };
+
+    m_postFrameTasks.push_back(task);
 }
 
 /**
@@ -164,10 +178,29 @@ void Application::PushOverlay(Layer* layer)
 {
     BR_PROFILE_FUNCTION();
 
-    // Push the new layer to the stack.
-    m_layerStack.PushOverlay(layer);
-    // Initalize the layer.
-    layer->OnAttach();
+    std::function<void()> task = [=]() {
+        // Push the new layer to the stack.
+        m_layerStack.PushOverlay(layer);
+        // Initialize the layer.
+        layer->OnAttach();
+    };
+
+    m_postFrameTasks.push_back(task);
+}
+
+void Application::PopLayer(Layer* layer)
+{
+    BR_PROFILE_FUNCTION();
+    BR_CORE_ASSERT(layer != nullptr, "Layer is NULL in Application::PopLayer");
+
+    std::function<void()> task = [=]() {
+        // Pop the layer from the stack.
+        m_layerStack.PopLayer(layer);
+        // De-initialize the layer.
+        layer->OnDetach();
+    };
+
+    m_postFrameTasks.push_back(task);
 }
 
 void Application::Close()

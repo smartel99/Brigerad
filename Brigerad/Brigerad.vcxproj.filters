@@ -22,8 +22,8 @@
     <Filter Include="src\Brigerad\Renderer">
       <UniqueIdentifier>{22F6EE96-8E62-AA91-5756-42EFC381CCF9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Brigerad\UI">
-      <UniqueIdentifier>{A9581F77-15E4-8C3B-1EF5-0F308AFFE83B}</UniqueIdentifier>
+    <Filter Include="src\Brigerad\Utils">
+      <UniqueIdentifier>{5C657647-4849-379D-B1A9-31F09DAC211F}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Platform">
       <UniqueIdentifier>{21CA02E5-0D2D-9289-B6B2-CA3FA2F45D0C}</UniqueIdentifier>
@@ -54,6 +54,30 @@
     </Filter>
     <Filter Include="vendor\glm\glm\gtx">
       <UniqueIdentifier>{B3A6A76B-9F8A-68C1-08EB-6214F4ED5243}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vendor\serial">
+      <UniqueIdentifier>{C24DA021-2E0E-1C58-F748-65D563C86034}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vendor\serial\examples">
+      <UniqueIdentifier>{B0359FCB-9C2F-C81D-859C-5E2E71352E8A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vendor\serial\include">
+      <UniqueIdentifier>{35177870-A183-336B-6A77-CBC8D6A255D3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vendor\serial\include\serial">
+      <UniqueIdentifier>{04ABCF42-F065-BFEE-991D-383985B7097F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vendor\serial\include\serial\impl">
+      <UniqueIdentifier>{851F354B-F18D-8ACA-3A77-45CAA6248066}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vendor\serial\src">
+      <UniqueIdentifier>{D91CD170-4533-CF06-8EAA-5A28FAFF9F8E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vendor\serial\src\impl">
+      <UniqueIdentifier>{7AFE9FE9-66F8-C83B-4F65-5F4C3BFE2EA8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vendor\serial\src\impl\list_ports">
+      <UniqueIdentifier>{9C5F1EF3-08CE-7372-51B7-2E72BD64690E}</UniqueIdentifier>
     </Filter>
     <Filter Include="vendor\stb_image">
       <UniqueIdentifier>{0DA0BA59-F998-D9AB-22CB-BE300E23B9B7}</UniqueIdentifier>
@@ -162,14 +186,8 @@
     <ClInclude Include="src\Brigerad\Renderer\VertexArray.h">
       <Filter>src\Brigerad\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\Brigerad\UI\Text.h">
-      <Filter>src\Brigerad\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Brigerad\UI\UI.h">
-      <Filter>src\Brigerad\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Brigerad\UI\UICore.h">
-      <Filter>src\Brigerad\UI</Filter>
+    <ClInclude Include="src\Brigerad\Utils\Serial.h">
+      <Filter>src\Brigerad\Utils</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h">
       <Filter>src\Platform\OpenGL</Filter>
@@ -1425,6 +1443,18 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp">
       <Filter>vendor\glm\glm</Filter>
     </ClInclude>
+    <ClInclude Include="vendor\serial\include\serial\impl\unix.h">
+      <Filter>vendor\serial\include\serial\impl</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\serial\include\serial\impl\win.h">
+      <Filter>vendor\serial\include\serial\impl</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\serial\include\serial\serial.h">
+      <Filter>vendor\serial\include\serial</Filter>
+    </ClInclude>
+    <ClInclude Include="vendor\serial\include\serial\v8stdint.h">
+      <Filter>vendor\serial\include\serial</Filter>
+    </ClInclude>
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
@@ -1490,9 +1520,6 @@
     <ClCompile Include="src\Brigerad\Renderer\VertexArray.cpp">
       <Filter>src\Brigerad\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="src\Brigerad\UI\Text.cpp">
-      <Filter>src\Brigerad\UI</Filter>
-    </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
@@ -1522,6 +1549,27 @@
     </ClCompile>
     <ClCompile Include="src\brpch.cpp">
       <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\serial\examples\serial_example.cc">
+      <Filter>vendor\serial\examples</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\serial\src\impl\list_ports\list_ports_linux.cc">
+      <Filter>vendor\serial\src\impl\list_ports</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\serial\src\impl\list_ports\list_ports_osx.cc">
+      <Filter>vendor\serial\src\impl\list_ports</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\serial\src\impl\list_ports\list_ports_win.cc">
+      <Filter>vendor\serial\src\impl\list_ports</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\serial\src\impl\unix.cc">
+      <Filter>vendor\serial\src\impl</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\serial\src\impl\win.cc">
+      <Filter>vendor\serial\src\impl</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\serial\src\serial.cc">
+      <Filter>vendor\serial\src</Filter>
     </ClCompile>
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>

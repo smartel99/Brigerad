@@ -469,7 +469,7 @@ void Renderer2D::DrawQuad(const glm::vec2&         pos,
                           const glm::vec2&         textScale,
                           const glm::vec4&         tint)
 {
-    DrawQuad({pos.x, pos.y}, size, texture, textScale, tint);
+    DrawQuad({pos.x, pos.y, 0.0f}, size, texture, textScale, tint);
 }
 
 void Renderer2D::DrawQuad(const glm::vec3&         pos,

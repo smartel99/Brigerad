@@ -23,13 +23,12 @@ IncludeDir["Glad"] = "Brigerad/vendor/Glad/include"
 IncludeDir["ImGui"] = "Brigerad/vendor/ImGui"
 IncludeDir["glm"] = "Brigerad/vendor/glm"
 IncludeDir["stb_image"] = "Brigerad/vendor/stb_image"
-IncludeDir["freetype"] = "Brigerad/vendor/freetype"
+IncludeDir["serial"] = "Brigerad/vendor/serial"
 
 group "Dependencies"
     include "Brigerad/vendor/GLFW"
     include "Brigerad/vendor/Glad"
     include "Brigerad/vendor/ImGui"
-    include "Brigerad/vendor/freetype"
 
 group ""
 
@@ -54,6 +53,8 @@ project "Brigerad"
         "%{prj.name}/vendor/stb_image/**.h",
         "%{prj.name}/vendor/glm/**.hpp",
         "%{prj.name}/vendor/glm/**.inl",
+        "%{prj.name}/vendor/serial/**.h",
+        "%{prj.name}/vendor/serial/**.cc",
     }
 
     includedirs
@@ -65,7 +66,7 @@ project "Brigerad"
         "%{IncludeDir.ImGui}",
         "%{IncludeDir.glm}",
         "%{IncludeDir.stb_image}",
-        "%{IncludeDir.freetype}/include"
+        "%{IncludeDir.serial}/include"
 
     }
 
@@ -89,7 +90,6 @@ project "Brigerad"
             "GLFW",
             "Glad",
             "ImGui",
-            "freetype",
             "opengl32.lib"
         }
 
@@ -105,8 +105,7 @@ project "Brigerad"
         defines
         {
             "BR_PLATFORM_LINUX",
-            "GLFW_INCLUDE_NONE",
-            "IGNORE_FREETYPE"
+            "GLFW_INCLUDE_NONE"
         }
 
         links
@@ -123,15 +122,13 @@ project "Brigerad"
             "pthread",
             "GLFW",
             "Glad",
-            "ImGui",
-            "freetype"
+            "ImGui"
         }
 
         excludes
         {
             "%{prj.name}/src/Platform/Windows/**.h",
-            "%{prj.name}/src/Platform/Windows/**.cpp",
-            "%{prj.name}/src/Brigerad/UI/Text.cpp"
+            "%{prj.name}/src/Platform/Windows/**.cpp"
         }
 
     filter "configurations:Debug"
@@ -195,7 +192,6 @@ project "Sandbox"
                 "GLFW",
                 "Glad",
                 "ImGui",
-                "freetype",
                 "opengl32.lib"
             }
     
@@ -223,7 +219,6 @@ project "Sandbox"
                 "GLFW",
                 "Glad",
                 "ImGui",
-                "freetype",
             }
 
             postbuildcommands{"cp -r assets ../bin/" .. outputdir .. "/%{prj.name}"}
@@ -288,7 +283,6 @@ project "BrigeradEditor"
             "GLFW",
             "Glad",
             "ImGui",
-            "freetype",
             "opengl32.lib"
         }
     
@@ -316,7 +310,6 @@ project "BrigeradEditor"
             "GLFW",
             "Glad",
             "ImGui",
-            "freetype",
         }
 
         postbuildcommands{"cp -r assets ../bin/" .. outputdir .. "/%{prj.name}"}

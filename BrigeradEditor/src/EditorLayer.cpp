@@ -4,6 +4,8 @@
 
 #include <glm/gtc/type_ptr.hpp>
 
+#include "Brigerad/Utils/Serial.h"
+
 namespace Brigerad
 {
 static void UpdateFPS();

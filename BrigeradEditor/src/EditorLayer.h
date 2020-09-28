@@ -22,6 +22,9 @@ private:
     glm::vec4                    m_color = {1.0f, 0.0f, 0.0f, 1.0f};
     Ref<Texture2D>               m_texture;
     Ref<Framebuffer>             m_fb;
+    Entity                       m_squareEntity;
+
+    Ref<Scene> m_scene;
 
     glm::vec2 m_viewportSize;
 

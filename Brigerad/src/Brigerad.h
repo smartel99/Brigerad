@@ -13,6 +13,10 @@
 #include "Brigerad/Core/KeyCodes.h"
 #include "Brigerad/Core/MouseButtonCodes.h"
 
+#include "Brigerad/Scene/Scene.h"
+#include "Brigerad/Scene/Entity.h"
+#include "Brigerad/Scene/Components.h"
+
 #include "Brigerad/Renderer/Renderer.h"
 #include "Brigerad/Renderer/RenderCommand.h"
 #include "Brigerad/Renderer/Shader.h"
@@ -25,5 +29,3 @@
 #include "Brigerad/Renderer/OrthographicCamera.h"
 #include "Brigerad/Renderer/OrthographicCameraController.h"
 #include "Brigerad/Renderer/FrameBuffer.h"
-
-#include "Brigerad/UI/UI.h"

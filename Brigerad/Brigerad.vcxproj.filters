@@ -22,6 +22,9 @@
     <Filter Include="src\Brigerad\Renderer">
       <UniqueIdentifier>{22F6EE96-8E62-AA91-5756-42EFC381CCF9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Brigerad\Scene">
+      <UniqueIdentifier>{19D14847-05B5-099D-6E15-04F05A18F41E}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Brigerad\Utils">
       <UniqueIdentifier>{5C657647-4849-379D-B1A9-31F09DAC211F}</UniqueIdentifier>
     </Filter>
@@ -185,6 +188,9 @@
     </ClInclude>
     <ClInclude Include="src\Brigerad\Renderer\VertexArray.h">
       <Filter>src\Brigerad\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Brigerad\Scene\Scene.h">
+      <Filter>src\Brigerad\Scene</Filter>
     </ClInclude>
     <ClInclude Include="src\Brigerad\Utils\Serial.h">
       <Filter>src\Brigerad\Utils</Filter>
@@ -1458,6 +1464,8 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
+    <ClInclude Include="src\Brigerad\Scene\Components.h" />
+    <ClInclude Include="src\Brigerad\Scene\Entity.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Brigerad\Core\Application.cpp">
@@ -1520,6 +1528,9 @@
     <ClCompile Include="src\Brigerad\Renderer\VertexArray.cpp">
       <Filter>src\Brigerad\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Brigerad\Scene\Scene.cpp">
+      <Filter>src\Brigerad\Scene</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
@@ -1574,5 +1585,6 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
+    <ClCompile Include="src\Brigerad\Scene\Entity.cpp" />
   </ItemGroup>
 </Project>

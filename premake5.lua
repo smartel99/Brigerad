@@ -24,6 +24,7 @@ IncludeDir["ImGui"] = "Brigerad/vendor/ImGui"
 IncludeDir["glm"] = "Brigerad/vendor/glm"
 IncludeDir["stb_image"] = "Brigerad/vendor/stb_image"
 IncludeDir["serial"] = "Brigerad/vendor/serial"
+IncludeDir["entt"] = "Brigerad/vendor/entt/include"
 
 group "Dependencies"
     include "Brigerad/vendor/GLFW"
@@ -66,8 +67,8 @@ project "Brigerad"
         "%{IncludeDir.ImGui}",
         "%{IncludeDir.glm}",
         "%{IncludeDir.stb_image}",
-        "%{IncludeDir.serial}/include"
-
+        "%{IncludeDir.serial}/include",
+        "%{IncludeDir.entt}"
     }
 
     defines
@@ -153,94 +154,96 @@ project "Brigerad"
 
 
 project "Sandbox"
-        location "Sandbox"
-        kind "ConsoleApp"
+    location "Sandbox"
+    kind "ConsoleApp"
 
-        language "C++"
-        cppdialect "C++17"
-        staticruntime "On"
+    language "C++"
+    cppdialect "C++17"
+    staticruntime "On"
 
-        targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-        objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+    targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+    objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
         
-        files
+    files
+    {
+        "%{prj.name}/src/**.h",
+        "%{prj.name}/src/**.cpp",
+    }
+    
+    includedirs
+    {
+        "Brigerad/vendor/spdlog/include",
+        "Brigerad/vendor",
+        "Brigerad/src",
+        "%{IncludeDir.glm}",
+        "%{IncludeDir.serial}/include",
+        "%{IncludeDir.entt}"
+    }
+
+    filter "system:windows"
+        systemversion "latest"
+    
+        defines
         {
-            "%{prj.name}/src/**.h",
-            "%{prj.name}/src/**.cpp",
+            "BR_PLATFORM_WINDOWS",
+        }
+
+        links
+        {
+            "Brigerad",
+            "GLFW",
+            "Glad",
+            "ImGui",
+            "opengl32.lib"
         }
     
-        includedirs
+    filter "system:linux"
+        systemversion "latest"
+
+        defines
         {
-            "Brigerad/vendor/spdlog/include",
-            "Brigerad/vendor",
-            "Brigerad/src",
-            "%{IncludeDir.glm}",
+            "BR_PLATFORM_LINUX"
         }
 
-        filter "system:windows"
-            systemversion "latest"
-    
-            defines
-            {
-                "BR_PLATFORM_WINDOWS",
-            }
+        links
+        {
+            "Brigerad",
+            "GL",
+            "m",
+            "dl",
+            "Xinerama",
+            "Xrandr",
+            "Xi",
+            "Xcursor",
+            "X11",
+            "Xxf86vm",
+            "pthread",
+            "GLFW",
+            "Glad",
+            "ImGui",
+        }
 
-            links
-            {
-                "Brigerad",
-                "GLFW",
-                "Glad",
-                "ImGui",
-                "opengl32.lib"
-            }
-    
-        filter "system:linux"
-            systemversion "latest"
-
-            defines
-            {
-                "BR_PLATFORM_LINUX"
-            }
-
-            links
-            {
-                "Brigerad",
-                "GL",
-                "m",
-                "dl",
-                "Xinerama",
-                "Xrandr",
-                "Xi",
-                "Xcursor",
-                "X11",
-                "Xxf86vm",
-                "pthread",
-                "GLFW",
-                "Glad",
-                "ImGui",
-            }
-
-            postbuildcommands{"cp -r assets ../bin/" .. outputdir .. "/%{prj.name}"}
+        postbuildcommands{"cp -r assets ../bin/" .. outputdir .. "/%{prj.name}"}
             
-            filter "configurations:Debug"
-            defines 
-            {
-                "BR_DEBUG",
-                "BR_PROFILE"
-            }
-            runtime "Debug"
-            symbols "On"
+        filter "configurations:Debug"
+        defines 
+        {
+            "BR_DEBUG",
+            "BR_PROFILE"
+        }
+        runtime "Debug"
+        symbols "On"
             
-        filter "configurations:Release"
-            defines "BR_RELEASE"
-            runtime "Release"
-            optimize "On"
+    filter "configurations:Release"
+        defines "BR_RELEASE"
+        runtime "Release"
+        optimize "On"
             
-        filter "configurations:Dist"
-            defines "BR_DIST"
-            runtime "Release"
-            optimize "On"
+    filter "configurations:Dist"
+        defines "BR_DIST"
+        runtime "Release"
+        optimize "On"
     
 
 project "BrigeradEditor"
@@ -267,6 +270,8 @@ project "BrigeradEditor"
         "Brigerad/vendor",
         "Brigerad/src",
         "%{IncludeDir.glm}",
+        "%{IncludeDir.serial}/include",
+        "%{IncludeDir.entt}"
     }
 
     filter "system:windows"

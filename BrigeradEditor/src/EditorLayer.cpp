@@ -25,6 +25,10 @@ void EditorLayer::OnAttach()
     m_texture = Texture2D::Create("assets/textures/checkboard.png");
 
     m_fb = Framebuffer::Create(spec);
+
+    m_scene        = CreateRef<Scene>();
+    m_squareEntity = m_scene->CreateEntity("Square");
+    m_squareEntity.AddComponent<SpriteRendererComponent>(glm::vec4 {1.0f, 0.0f, 0.0f, 1.0f});
 }
 
 void EditorLayer::OnDetach()
@@ -41,63 +45,19 @@ void EditorLayer::OnUpdate(Timestep ts)
         m_camera.OnUpdate(ts);
     }
 
+
     // Render.
     Renderer2D::ResetStats();
-    {
-        BR_PROFILE_SCOPE("Renderer Prep");
-        m_fb->Bind();
-        RenderCommand::SetClearColor({0.2f, 0.2f, 0.2f, 1.0f});
-        RenderCommand::Clear();
-    }
-    {
-        BR_PROFILE_SCOPE("Rendering");
-        Brigerad::Renderer2D::BeginScene(m_camera.GetCamera());
+    m_fb->Bind();
+    RenderCommand::SetClearColor({0.2f, 0.2f, 0.2f, 1.0f});
+    RenderCommand::Clear();
 
-        static float rot = 0;
-        rot += ts * 20;
-        Brigerad::Renderer2D::DrawQuad({-1.0f, 0.0f}, {0.8f, 0.8f}, {0.8f, 0.2f, 0.3f, 1.0f});
+    Brigerad::Renderer2D::BeginScene(m_camera.GetCamera());
 
-        Brigerad::Renderer2D::DrawRotatedQuad(
-          {-1.5f, -0.5f}, {0.8f, 0.8f}, {0.8f, 0.2f, 0.3f, 1.0f}, glm::radians(15.0f));
-        Brigerad::Renderer2D::DrawQuad({0.5f, -0.5f}, {0.5f, 0.75f}, {0.2f, 0.3f, 0.8f, 1.0f});
-        Brigerad::Renderer2D::DrawQuad({0.0f, 0.0f, -0.1f},
-                                       {20.0f, 20.0f},
-                                       m_texture,
-                                       {100.0f, 100.0f},
-                                       {0.5f, 0.5f, 0.5f, 1.0f});
-        Brigerad::Renderer2D::DrawRotatedQuad({0.0f, 0.0f},
-                                              {1.0f, 1.0f},
-                                              m_texture,
-                                              {1.0f, 1.0f},
-                                              {0.5f, 0.5f, 0.5f, 1.0f},
-                                              glm::radians(rot));
+    // Update scene.
+    m_scene->OnUpdate(ts);
 
-        Brigerad::Renderer2D::EndScene();
-        {
-            BR_PROFILE_SCOPE("Grid");
-            Brigerad::Renderer2D::BeginScene(m_camera.GetCamera());
-
-            for (float y = -5.0f; y <= 5.0f; y += 0.5f)
-            {
-                BR_PROFILE_SCOPE("Rows");
-                for (float x = -5.0f; x <= 5.0f; x += 0.5f)
-                {
-                    glm::vec4 color = {(y + 10.0f) / 20.0f, 0.0f, (x + 10.0f) / 20.0f, 0.75f};
-                    Brigerad::Renderer2D::DrawQuad({x, y}, {0.45f, 0.45f}, color);
-                }
-            }
-
-            //             UI::TextUnformatted(glm::vec3(0.0f, 0.0f, 1.0f), "This is a normal Arial
-            //             sentence."); UI::TextUnformatted(glm::vec3(0.0f, 16.0f, 1.0f),
-            //             "abcdefghijklmnopqrstuvwxyz");
-            //             UI::TextUnformatted(glm::vec3(0.0f, 32.0f, 1.0f),
-            //             "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
-            //             UI::TextUnformatted(glm::vec3(0.0f, 48.0f, 1.0f),
-            //             "!@#$%?&*()-=_+/\\|'\"<>;:{}[]");
-
-            Brigerad::Renderer2D::EndScene();
-        }
-    }
+    Brigerad::Renderer2D::EndScene();
 
     m_fb->Unbind();
 }
@@ -182,6 +142,13 @@ void EditorLayer::OnImGuiRender()
         Renderer2D::Shutdown();
         Renderer2D::Init();
     }
+
+    ImGui::Separator();
+
+    ImGui::Text("%s", m_squareEntity.GetComponent<TagComponent>().tag.c_str());
+    auto& col = m_squareEntity.GetComponent<SpriteRendererComponent>().color;
+    ImGui::ColorEdit4("Square Color", glm::value_ptr(col));
+
     ImGui::End();
 
     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
@@ -199,6 +166,7 @@ void EditorLayer::OnImGuiRender()
         m_camera.OnResize(m_viewportSize.x, m_viewportSize.y);
     }
     uint32_t textureId = m_fb->GetColorAttachmentRenderID();
+    // ImGui takes in a void* for its images.
     ImGui::Image((void*)textureId,
                  ImVec2(m_viewportSize.x, m_viewportSize.y),
                  ImVec2(0.0f, 0.0f),

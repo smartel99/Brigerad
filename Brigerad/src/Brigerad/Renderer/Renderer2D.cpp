@@ -253,74 +253,6 @@ long long Renderer2D::GetFrameCount()
 
 // ----- DRAW QUAD -----
 
-void Renderer2D::DrawChar(const glm::vec2&      pos,
-                          const glm::vec2&      size,
-                          const Ref<Texture2D>& texture,
-                          const glm::vec4&      tint)
-{
-    DrawChar(glm::vec3(pos.x, pos.y, 0.0f), size, texture, tint);
-}
-
-void Renderer2D::DrawChar(const glm::vec3&      pos,
-                          const glm::vec2&      size,
-                          const Ref<Texture2D>& texture,
-                          const glm::vec4&      tint)
-{
-    BR_PROFILE_FUNCTION();
-
-    constexpr size_t    quadVertexCount = 4;
-    constexpr glm::vec2 textureCoords[] = {{0.0f, 0.0f}, {1.0f, 0.0f}, {1.0f, 1.0f}, {0.0f, 1.0f}};
-
-    // If the quad queue is full:
-    if (s_data.quadIndexCount >= Renderer2DData::maxIndices ||
-        s_data.textureSlotIndex >= s_data.maxTextureSlots)
-    {
-        // Render the queue and start a new one.
-        FlushAndReset();
-    }
-
-    float textureIndex = 0.0f;
-
-    // Look up in the texture queue for the texture.
-    for (uint32_t i = 1; i < s_data.textureSlotIndex; i++)
-    {
-        if (*s_data.textureSlots[i].get() == *texture.get())
-        {
-            textureIndex = (float)i;
-            break;
-        }
-    }
-
-    // If the texture is not already in the queue:
-    if (textureIndex == 0.0f)
-    {
-        // Add in to the queue.
-        textureIndex                                 = (float)s_data.textureSlotIndex;
-        s_data.textureSlots[s_data.textureSlotIndex] = texture;
-        s_data.textureSlotIndex++;
-    }
-
-    glm::mat4 transform =
-      glm::translate(glm::mat4(1.0f), pos) * glm::scale(glm::mat4(1.0f), {size.x, size.y, 1.0f});
-
-    for (int i = 0; i < quadVertexCount; i++)
-    {
-        // Setup the vertex of the quad.
-        s_data.quadVertexBufferPtr->position     = transform * s_data.quadVertexPosition[i];
-        s_data.quadVertexBufferPtr->color        = tint;
-        s_data.quadVertexBufferPtr->texCoord     = textureCoords[i];
-        s_data.quadVertexBufferPtr->tilingFactor = glm::vec2(1.0f);
-        s_data.quadVertexBufferPtr->texIndex     = textureIndex;
-        s_data.quadVertexBufferPtr->isText       = 1;
-        s_data.quadVertexBufferPtr++;
-    }
-
-    // A quad has 6 indices, increment the indices count by that many.
-    s_data.quadIndexCount += 6;
-
-    s_data.stats.quadCount++;
-}
-
 /**
  * @brief Queue a flat-colored quad in a 2D space.
  *
@@ -343,37 +275,10 @@ void Renderer2D::DrawQuad(const glm::vec2& pos, const glm::vec2& size, const glm
 void Renderer2D::DrawQuad(const glm::vec3& pos, const glm::vec2& size, const glm::vec4& color)
 {
     BR_PROFILE_FUNCTION();
-
-    constexpr size_t    quadVertexCount = 4;
-    constexpr glm::vec2 textureCoords[] = {{0.0f, 0.0f}, {1.0f, 0.0f}, {1.0f, 1.0f}, {0.0f, 1.0f}};
-
-    // If the quad queue is full:
-    if (s_data.quadIndexCount >= Renderer2DData::maxIndices)
-    {    // Render the queue and start a new one.
-        FlushAndReset();
-    }
-
-    const float texIndex = 0.0f;    // White Texture.
-
     glm::mat4 transform =
       glm::translate(glm::mat4(1.0f), pos) * glm::scale(glm::mat4(1.0f), {size.x, size.y, 1.0f});
 
-    for (int i = 0; i < quadVertexCount; i++)
-    {
-        // Setup the vertex of the quad.
-        s_data.quadVertexBufferPtr->position     = transform * s_data.quadVertexPosition[i];
-        s_data.quadVertexBufferPtr->color        = color;
-        s_data.quadVertexBufferPtr->texCoord     = textureCoords[i];
-        s_data.quadVertexBufferPtr->tilingFactor = {1.0f, 1.0f};
-        s_data.quadVertexBufferPtr->texIndex     = texIndex;
-        s_data.quadVertexBufferPtr->isText       = 0;
-        s_data.quadVertexBufferPtr++;
-    }
-
-    // A quad has 6 indices, increment by that many for the next quad.
-    s_data.quadIndexCount += 6;
-
-    s_data.stats.quadCount++;
+    DrawQuad(transform, color);
 }
 
 /**
@@ -410,57 +315,10 @@ void Renderer2D::DrawQuad(const glm::vec3&      pos,
                           const glm::vec4&      tint)
 {
     BR_PROFILE_FUNCTION();
-
-    constexpr size_t    quadVertexCount = 4;
-    constexpr glm::vec2 textureCoords[] = {{0.0f, 0.0f}, {1.0f, 0.0f}, {1.0f, 1.0f}, {0.0f, 1.0f}};
-
-    // If the quad queue is full:
-    if (s_data.quadIndexCount >= Renderer2DData::maxIndices)
-    {
-        // Render the queue and start a new one.
-        FlushAndReset();
-    }
-
-    float textureIndex = 0.0f;
-
-    // Look up in the texture queue for the texture.
-    for (uint32_t i = 1; i < s_data.textureSlotIndex; i++)
-    {
-        if (*s_data.textureSlots[i].get() == *texture.get())
-        {
-            textureIndex = (float)i;
-            break;
-        }
-    }
-
-    // If the texture is not already in the queue:
-    if (textureIndex == 0.0f)
-    {
-        // Add in to the queue.
-        textureIndex                                 = (float)s_data.textureSlotIndex;
-        s_data.textureSlots[s_data.textureSlotIndex] = texture;
-        s_data.textureSlotIndex++;
-    }
-
     glm::mat4 transform =
       glm::translate(glm::mat4(1.0f), pos) * glm::scale(glm::mat4(1.0f), {size.x, size.y, 1.0f});
 
-    for (int i = 0; i < quadVertexCount; i++)
-    {
-        // Setup the vertex of the quad.
-        s_data.quadVertexBufferPtr->position     = transform * s_data.quadVertexPosition[i];
-        s_data.quadVertexBufferPtr->color        = tint;
-        s_data.quadVertexBufferPtr->texCoord     = textureCoords[i];
-        s_data.quadVertexBufferPtr->tilingFactor = textScale;
-        s_data.quadVertexBufferPtr->texIndex     = textureIndex;
-        s_data.quadVertexBufferPtr->isText       = 0;
-        s_data.quadVertexBufferPtr++;
-    }
-
-    // A quad has 6 indices, increment the indices count by that many.
-    s_data.quadIndexCount += 6;
-
-    s_data.stats.quadCount++;
+    DrawQuad(transform, texture, textScale, tint);
 }
 
 void Renderer2D::DrawQuad(const glm::vec2&         pos,
@@ -526,7 +384,96 @@ void Renderer2D::DrawQuad(const glm::vec3&         pos,
         s_data.quadVertexBufferPtr++;
     }
 
-    // A quad has 6 indices, increment the indicies count by that many.
+    // A quad has 6 indices, increment the indices count by that many.
+    s_data.quadIndexCount += 6;
+
+    s_data.stats.quadCount++;
+}
+
+void Renderer2D::DrawQuad(const glm::mat4& transform, const glm::vec4& color)
+{
+    BR_PROFILE_FUNCTION();
+
+    constexpr size_t    quadVertexCount = 4;
+    constexpr glm::vec2 textureCoords[] = {{0.0f, 0.0f}, {1.0f, 0.0f}, {1.0f, 1.0f}, {0.0f, 1.0f}};
+
+    // If the quad queue is full:
+    if (s_data.quadIndexCount >= Renderer2DData::maxIndices)
+    {    // Render the queue and start a new one.
+        FlushAndReset();
+    }
+
+    const float texIndex = 0.0f;    // White Texture.
+
+    for (int i = 0; i < quadVertexCount; i++)
+    {
+        // Setup the vertex of the quad.
+        s_data.quadVertexBufferPtr->position     = transform * s_data.quadVertexPosition[i];
+        s_data.quadVertexBufferPtr->color        = color;
+        s_data.quadVertexBufferPtr->texCoord     = textureCoords[i];
+        s_data.quadVertexBufferPtr->tilingFactor = {1.0f, 1.0f};
+        s_data.quadVertexBufferPtr->texIndex     = texIndex;
+        s_data.quadVertexBufferPtr->isText       = 0;
+        s_data.quadVertexBufferPtr++;
+    }
+
+    // A quad has 6 indices, increment by that many for the next quad.
+    s_data.quadIndexCount += 6;
+
+    s_data.stats.quadCount++;
+}
+
+void Renderer2D::DrawQuad(const glm::mat4&      transform,
+                          const Ref<Texture2D>& texture,
+                          const glm::vec2&      textScale,
+                          const glm::vec4&      tint)
+{
+    BR_PROFILE_FUNCTION();
+
+    constexpr size_t    quadVertexCount = 4;
+    constexpr glm::vec2 textureCoords[] = {{0.0f, 0.0f}, {1.0f, 0.0f}, {1.0f, 1.0f}, {0.0f, 1.0f}};
+
+    // If the quad queue is full:
+    if (s_data.quadIndexCount >= Renderer2DData::maxIndices)
+    {
+        // Render the queue and start a new one.
+        FlushAndReset();
+    }
+
+    float textureIndex = 0.0f;
+
+    // Look up in the texture queue for the texture.
+    for (uint32_t i = 1; i < s_data.textureSlotIndex; i++)
+    {
+        if (*s_data.textureSlots[i].get() == *texture.get())
+        {
+            textureIndex = (float)i;
+            break;
+        }
+    }
+
+    // If the texture is not already in the queue:
+    if (textureIndex == 0.0f)
+    {
+        // Add in to the queue.
+        textureIndex                                 = (float)s_data.textureSlotIndex;
+        s_data.textureSlots[s_data.textureSlotIndex] = texture;
+        s_data.textureSlotIndex++;
+    }
+
+    for (int i = 0; i < quadVertexCount; i++)
+    {
+        // Setup the vertex of the quad.
+        s_data.quadVertexBufferPtr->position     = transform * s_data.quadVertexPosition[i];
+        s_data.quadVertexBufferPtr->color        = tint;
+        s_data.quadVertexBufferPtr->texCoord     = textureCoords[i];
+        s_data.quadVertexBufferPtr->tilingFactor = textScale;
+        s_data.quadVertexBufferPtr->texIndex     = textureIndex;
+        s_data.quadVertexBufferPtr->isText       = 0;
+        s_data.quadVertexBufferPtr++;
+    }
+
+    // A quad has 6 indices, increment the indices count by that many.
     s_data.quadIndexCount += 6;
 
     s_data.stats.quadCount++;

@@ -79,7 +79,7 @@ void Scene::OnUpdate(Timestep ts)
 
     for (auto entity : group)
     {
-        auto& [transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);
+        const auto& [transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);
 
         Renderer2D::DrawQuad(transform, sprite.color);
     }

@@ -7,7 +7,7 @@
  * @brief  Source for the LinuxInput module.
  */
 #include "brpch.h"
-#include "Brigerad/Core/input.h"
+#include "Brigerad/Core/Input.h"
 #include "Brigerad/Core/Application.h"
 
 #if defined(BR_PLATFORM_LINUX)

@@ -1,8 +1,8 @@
 /**
- * @file    Components
+ * @file    Camera
  * @author  Samuel Martel
  * @p       https://github.com/smartel99
- * @date    9/28/2020 1:39:48 PM
+ * @date    9/28/2020 4:17:35 PM
  *
  * @brief
  ******************************************************************************
@@ -27,9 +27,6 @@
 // [SECTION] Includes
 /*********************************************************************************************************************/
 #include "glm/glm.hpp"
-#include "Brigerad/Renderer/Camera.h"
-
-#include <string>
 
 /*********************************************************************************************************************/
 // [SECTION] Defines
@@ -39,48 +36,17 @@
 /*********************************************************************************************************************/
 // [SECTION] Class Declarations
 /*********************************************************************************************************************/
-
 namespace Brigerad
 {
-struct TagComponent
+class Camera
 {
-    std::string tag;
+public:
+    Camera(const glm::mat4& projection) : m_projection(projection) {}
+    ~Camera() = default;
 
-    TagComponent()                    = default;
-    TagComponent(const TagComponent&) = default;
-    TagComponent(const std::string& t) : tag(t) {}
+    const glm::mat4& GetProjection() const { return m_projection; }
+
+private:
+    glm::mat4 m_projection;
 };
-
-struct TransformComponent
-{
-    glm::mat4 transform {1.0f};
-
-    TransformComponent()                          = default;
-    TransformComponent(const TransformComponent&) = default;
-    TransformComponent(const glm::mat4& tr) : transform(tr) {}
-
-    operator glm::mat4&() { return transform; }
-    operator const glm::mat4&() const { return transform; }
-};
-
-struct SpriteRendererComponent
-{
-    glm::vec4 color {1.0f, 1.0f, 1.0f, 1.0f};
-
-    SpriteRendererComponent()                               = default;
-    SpriteRendererComponent(const SpriteRendererComponent&) = default;
-    SpriteRendererComponent(const glm::vec4& col) : color(col) {}
-};
-
-struct CameraComponent
-{
-    Brigerad::Camera camera;
-    bool             primary = true;    // TODO: Think about moving this to scene instead.
-
-    CameraComponent()                       = default;
-    CameraComponent(const CameraComponent&) = default;
-    CameraComponent(const glm::mat4& proj) : camera(proj) {}
-};
-
-
 }    // namespace Brigerad

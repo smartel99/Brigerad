@@ -79,10 +79,10 @@ public:
         return m_scene->m_registry.has<T>(m_entityHandle);
     }
 
-    operator bool() const { return (int)m_entityHandle != 0; }
+    operator bool() const { return m_entityHandle != entt::null; }
 
 private:
-    entt::entity m_entityHandle {0};
-    Scene*       m_scene = nullptr;
+    entt::entity m_entityHandle = entt::null;
+    Scene*       m_scene        = nullptr;
 };
 }    // namespace Brigerad

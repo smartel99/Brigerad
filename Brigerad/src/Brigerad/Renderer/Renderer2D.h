@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Brigerad/Renderer/OrthographicCamera.h"
+#include "Brigerad/Renderer/Camera.h"
 #include "Brigerad/Renderer/Texture.h"
 #include "Brigerad/Renderer/SubTexture2D.h"
 
@@ -14,6 +15,7 @@ public:
     static void Shutdown();
 
     static void BeginScene(const OrthographicCamera& camera);
+    static void BeginScene(const Camera& camera, const glm::mat4& transform);
     static void EndScene();
     static void Flush();
 

@@ -1466,6 +1466,7 @@
     </ClInclude>
     <ClInclude Include="src\Brigerad\Scene\Components.h" />
     <ClInclude Include="src\Brigerad\Scene\Entity.h" />
+    <ClInclude Include="src\Brigerad\Renderer\Camera.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Brigerad\Core\Application.cpp">

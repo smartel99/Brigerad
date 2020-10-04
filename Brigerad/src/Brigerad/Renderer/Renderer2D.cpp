@@ -53,7 +53,7 @@ struct Renderer2DData
     // Current index of the last texture in the texture buffer.
     uint32_t textureSlotIndex = 1;    // 0 = white texture.
 
-    glm::vec4 quadVertexPosition[4];
+    glm::vec4 quadVertexPosition[4] = {glm::vec4 {0.0f}};
 
     Renderer2D::Statistics stats;
 };
@@ -182,6 +182,29 @@ void Renderer2D::BeginScene(const OrthographicCamera& camera)
     // Increment the frame rendered count.
     s_data.frameCount++;
 }
+
+void Renderer2D::BeginScene(const Camera& camera, const glm::mat4& transform)
+{
+    BR_PROFILE_FUNCTION();
+
+    glm::mat4 viewProj = camera.GetProjection() * glm::inverse(transform);
+
+    // Upload the view-projection matrix of the camera into the vertex shader.
+    s_data.textureShader->Bind();
+    s_data.textureShader->SetMat4("u_ViewProjection", viewProj);
+
+    // Reset the quad buffer.
+    s_data.quadIndexCount      = 0;
+    s_data.quadVertexBufferPtr = s_data.quadVertexBufferBase;
+
+    // Reset the texture buffer.
+    // We set it to 1 instead of 0 because slot 0 is reserved to the 1x1 white texture.
+    s_data.textureSlotIndex = 1;
+
+    // Increment the frame rendered count.
+    s_data.frameCount++;
+}
+
 
 /**
  * @brief   End a scene.

@@ -52,10 +52,6 @@ namespace Brigerad
 /*********************************************************************************************************************/
 Scene::Scene()
 {
-
-
-    entt::entity entity = m_registry.create();
-    m_registry.emplace<TransformComponent>(entity, glm::mat4(1.0f));
 }
 
 Scene::~Scene()
@@ -75,13 +71,38 @@ Entity Scene::CreateEntity(const std::string& name)
 
 void Scene::OnUpdate(Timestep ts)
 {
-    auto group = m_registry.group<TransformComponent>(entt::get<SpriteRendererComponent>);
-
-    for (auto entity : group)
+    // Render 2D.
+    Camera*    mainCamera      = nullptr;
+    glm::mat4* cameraTransform = nullptr;
     {
-        auto& [transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);
+        auto group = m_registry.view<TransformComponent, CameraComponent>();
+        for (auto entity : group)
+        {
+            auto& [transform, camera] = group.get<TransformComponent, CameraComponent>(entity);
 
-        Renderer2D::DrawQuad(transform, sprite.color);
+            if (camera.primary)
+            {
+                mainCamera      = &camera.camera;
+                cameraTransform = &transform.transform;
+            }
+        }
+    }
+
+    if (mainCamera)
+    {
+        Renderer2D::BeginScene(mainCamera->GetProjection(), *cameraTransform);
+
+        auto group = m_registry.group<TransformComponent>(entt::get<SpriteRendererComponent>);
+
+        for (auto entity : group)
+        {
+            auto& [transform, sprite] =
+              group.get<TransformComponent, SpriteRendererComponent>(entity);
+
+            Renderer2D::DrawQuad(transform, sprite.color);
+        }
+
+        Renderer2D::EndScene();
     }
 }
 

@@ -19,15 +19,15 @@
 #define BRIGERAD_API __declspec(dllexport)
 #else
 #define BRIGERAD_API __declspec(dllimport)
-#endif  // BR_BUILD_DLL
+#endif    // BR_BUILD_DLL
 #else
 #define BRIGERAD_API
-#endif  // BR_DYNAMIC_LINK
+#endif    // BR_DYNAMIC_LINK
 #elif defined(BR_PLATFORM_LINUX)
 #define BRIGERAD_API
 #else
 #error Brigerad only support Windows and Linux
-#endif  // BR_PLATFROM_WINDOWS
+#endif    // BR_PLATFROM_WINDOWS
 
 // This should check the compiler used, not the OS.
 #if defined(BR_PLATFORM_WINDOWS)
@@ -41,41 +41,41 @@
 
 // Define the function signature macro for the compiler being used.
 #if defined(_MSC_VER)
-    // Visual Studio
+// Visual Studio
 #define FUNCSIG __FUNCSIG__
 #elif defined(__GNUC__)
-    // GCC
+// GCC
 #define FUNCSIG __PRETTY_FUNCTION__
 #elif defined(__clang__)
-    // clang
+// clang
 #define FUNCSIG __PRETTY_FUNCTION__
 #elif defined(__MINGW32__)
-    // MinGW 32/MinGW-w64 32 bits
+// MinGW 32/MinGW-w64 32 bits
 #define FUNCSIG __PRETTY_FUNCTION__
 #elif defined(__MINGW64__)
-    // MinGW-w64 64 bits
+// MinGW-w64 64 bits
 #define FUNCSIG __PRETTY_FUNCTION__
 #else
 #error Unsupported Compiler
 #endif
 
 #ifdef BR_ENABLE_ASSERTS
-#define BR_ASSERT(x, ...)                                   \
-        {                                                       \
-            if (!(x))                                           \
-            {                                                   \
-                BR_ERROR("Assertion Failed: {0}", __VA_ARGS__); \
-                DEBUG_BREAK();                                  \
-            }                                                   \
-        }
-#define BR_CORE_ASSERT(x, ...)                                   \
-        {                                                            \
-            if (!(x))                                                \
-            {                                                        \
-                BR_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); \
-                DEBUG_BREAK();                                       \
-            }                                                        \
-        }
+#define BR_ASSERT(x, ...)                                                                          \
+    {                                                                                              \
+        if (!(x))                                                                                  \
+        {                                                                                          \
+            BR_ERROR("Assertion Failed: {0}", __VA_ARGS__);                                        \
+            DEBUG_BREAK();                                                                         \
+        }                                                                                          \
+    }
+#define BR_CORE_ASSERT(x, ...)                                                                     \
+    {                                                                                              \
+        if (!(x))                                                                                  \
+        {                                                                                          \
+            BR_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__);                                   \
+            DEBUG_BREAK();                                                                         \
+        }                                                                                          \
+    }
 #else
 #define BR_ASSERT(x, ...)
 #define BR_CORE_ASSERT(x, ...)
@@ -83,23 +83,26 @@
 
 #define BIT(x) (1 << (x))
 
-#define BR_BIND_EVENT_FN(fn) std::bind(&fn, this, std::placeholders::_1)
+#define BR_BIND_EVENT_FN(fn)                                                                       \
+    [this](auto&&... args) -> decltype(auto) {                                                     \
+        return this->fn(std::forward<decltype(args)>(args)...);                                    \
+    }
 
 namespace Brigerad
 {
-template <typename T>
+template<typename T>
 using Scope = std::unique_ptr<T>;
-template <typename T, typename... Args>
+template<typename T, typename... Args>
 constexpr Scope<T> CreateScope(Args&&... args)
 {
     return std::make_unique<T>(std::forward<Args>(args)...);
 }
 
-template <typename T>
+template<typename T>
 using Ref = std::shared_ptr<T>;
-template <typename T, typename... Args>
+template<typename T, typename... Args>
 constexpr Ref<T> CreateRef(Args&&... args)
 {
     return std::make_shared<T>(std::forward<Args>(args)...);
 }
-}  // namespace Brigerad
+}    // namespace Brigerad

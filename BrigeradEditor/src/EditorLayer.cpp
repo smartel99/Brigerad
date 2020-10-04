@@ -26,9 +26,15 @@ void EditorLayer::OnAttach()
 
     m_fb = Framebuffer::Create(spec);
 
-    m_scene        = CreateRef<Scene>();
-    m_squareEntity = m_scene->CreateEntity("Square");
-    m_squareEntity.AddComponent<SpriteRendererComponent>(glm::vec4 {1.0f, 0.0f, 0.0f, 1.0f});
+    m_scene     = CreateRef<Scene>();
+    auto square = m_scene->CreateEntity("Square");
+    square.AddComponent<SpriteRendererComponent>(glm::vec4 {1.0f, 0.0f, 0.0f, 1.0f});
+
+    m_squareEntity = square;
+
+    m_cameraEntity = m_scene->CreateEntity("Camera");
+    m_cameraEntity.AddComponent<CameraComponent>(
+      glm::ortho(-16.0f, 16.0f, -9.0f, 9.0f, -1.0f, 1.0f));
 }
 
 void EditorLayer::OnDetach()
@@ -39,6 +45,17 @@ void EditorLayer::OnDetach()
 void EditorLayer::OnUpdate(Timestep ts)
 {
     BR_PROFILE_FUNCTION();
+
+    // Resize.
+    FramebufferSpecification spec = m_fb->GetSpecification();
+    if (m_viewportSize.x > 0.0f &&
+        m_viewportSize.y > 0.0f &&    // zero sized framebuffer is invalid.
+        (spec.Width != m_viewportSize.x || spec.Height != m_viewportSize.y))
+    {
+        m_fb->Resize((uint32_t)m_viewportSize.x, (uint32_t)m_viewportSize.y);
+        m_camera.OnResize(m_viewportSize.x, m_viewportSize.y);
+    }
+
     // Update.
     if (m_viewportFocused)
     {
@@ -52,12 +69,8 @@ void EditorLayer::OnUpdate(Timestep ts)
     RenderCommand::SetClearColor({0.2f, 0.2f, 0.2f, 1.0f});
     RenderCommand::Clear();
 
-    Brigerad::Renderer2D::BeginScene(m_camera.GetCamera());
-
     // Update scene.
     m_scene->OnUpdate(ts);
-
-    Brigerad::Renderer2D::EndScene();
 
     m_fb->Unbind();
 }

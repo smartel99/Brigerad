@@ -27,10 +27,8 @@ void EditorLayer::OnAttach()
     m_fb = Framebuffer::Create(spec);
 
     m_scene     = CreateRef<Scene>();
-    auto square = m_scene->CreateEntity("Square");
-    square.AddComponent<SpriteRendererComponent>(glm::vec4 {1.0f, 0.0f, 0.0f, 1.0f});
-
-    m_squareEntity = square;
+    m_squareEntity = m_scene->CreateEntity("Square");
+    m_squareEntity.AddComponent<SpriteRendererComponent>(glm::vec4 {1.0f, 0.0f, 0.0f, 1.0f});
 
     m_cameraEntity = m_scene->CreateEntity("Camera");
     m_cameraEntity.AddComponent<CameraComponent>(

@@ -8,7 +8,7 @@
 
 namespace Brigerad
 {
-static void UpdateFPS();
+static void UpdateFps();
 
 EditorLayer::EditorLayer() : Layer("Brigerad Editor"), m_camera(1280.0f / 720.0f)
 {
@@ -19,20 +19,19 @@ void EditorLayer::OnAttach()
     BR_PROFILE_FUNCTION();
 
     FramebufferSpecification spec;
-    spec.Width  = Application::Get().GetWindow().GetWidth();
-    spec.Height = Application::Get().GetWindow().GetHeight();
+    spec.width  = Application::Get().GetWindow().GetWidth();
+    spec.height = Application::Get().GetWindow().GetHeight();
 
     m_texture = Texture2D::Create("assets/textures/checkboard.png");
 
     m_fb = Framebuffer::Create(spec);
 
-    m_scene     = CreateRef<Scene>();
+    m_scene        = CreateRef<Scene>();
     m_squareEntity = m_scene->CreateEntity("Square");
     m_squareEntity.AddComponent<SpriteRendererComponent>(glm::vec4 {1.0f, 0.0f, 0.0f, 1.0f});
 
     m_cameraEntity = m_scene->CreateEntity("Camera");
-    m_cameraEntity.AddComponent<CameraComponent>(
-      glm::ortho(-16.0f, 16.0f, -9.0f, 9.0f, -1.0f, 1.0f));
+    m_cameraEntity.AddComponent<CameraComponent>();
 }
 
 void EditorLayer::OnDetach()
@@ -48,10 +47,12 @@ void EditorLayer::OnUpdate(Timestep ts)
     FramebufferSpecification spec = m_fb->GetSpecification();
     if (m_viewportSize.x > 0.0f &&
         m_viewportSize.y > 0.0f &&    // zero sized framebuffer is invalid.
-        (spec.Width != m_viewportSize.x || spec.Height != m_viewportSize.y))
+        (spec.width != m_viewportSize.x || spec.height != m_viewportSize.y))
     {
         m_fb->Resize((uint32_t)m_viewportSize.x, (uint32_t)m_viewportSize.y);
         m_camera.OnResize(m_viewportSize.x, m_viewportSize.y);
+
+        m_scene->OnViewportResize((uint32_t)m_viewportSize.x, (uint32_t)m_viewportSize.y);
     }
 
     // Update.
@@ -139,7 +140,7 @@ void EditorLayer::OnImGuiRender()
     }
 
     ImGui::Begin("Editor Settings");
-    UpdateFPS();
+    UpdateFps();
     auto stats = Renderer2D::GetStats();
     ImGui::Text("Renderer2D Stats:");
     ImGui::Text("Draw Calls: %d", stats.drawCalls);
@@ -160,6 +161,19 @@ void EditorLayer::OnImGuiRender()
     auto& col = m_squareEntity.GetComponent<SpriteRendererComponent>().color;
     ImGui::ColorEdit4("Square Color", glm::value_ptr(col));
 
+    ImGui::DragFloat3(
+      "Camera Transform",
+      glm::value_ptr(m_cameraEntity.GetComponent<TransformComponent>().transform[3]));
+
+    {
+        auto& camera    = m_cameraEntity.GetComponent<CameraComponent>().camera;
+        float orthoSize = camera.GetOrthographicSize();
+        if (ImGui::DragFloat("Camera Ortho Size", &orthoSize))
+        {
+            camera.SetOrthographicSize(orthoSize);
+        }
+    }
+
     ImGui::End();
 
     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
@@ -172,9 +186,6 @@ void EditorLayer::OnImGuiRender()
     if (m_viewportSize != *((glm::vec2*)&viewportPanelSize))
     {
         m_viewportSize = {viewportPanelSize.x, viewportPanelSize.y};
-        m_fb->Resize((uint32_t)m_viewportSize.x, (uint32_t)m_viewportSize.y);
-
-        m_camera.OnResize(m_viewportSize.x, m_viewportSize.y);
     }
     uint32_t textureId = m_fb->GetColorAttachmentRenderID();
     // ImGui takes in a void* for its images.
@@ -194,7 +205,7 @@ void EditorLayer::OnEvent(Event& e)
 }
 
 
-void UpdateFPS()
+void UpdateFps()
 {
     static double lastUpdateTime = 0;
     static double dTimeAvg       = 0;

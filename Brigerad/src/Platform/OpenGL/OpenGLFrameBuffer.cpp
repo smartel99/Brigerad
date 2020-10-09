@@ -49,8 +49,8 @@ void OpenGLFramebuffer::Invalidate()
     glTexImage2D(GL_TEXTURE_2D,
                  0,
                  GL_RGBA8,
-                 m_spec.Width,
-                 m_spec.Height,
+                 m_spec.width,
+                 m_spec.height,
                  0,
                  GL_RGBA,
                  GL_UNSIGNED_BYTE,
@@ -63,7 +63,7 @@ void OpenGLFramebuffer::Invalidate()
 
     glCreateTextures(GL_TEXTURE_2D, 1, &m_depthAttachment);
     glBindTexture(GL_TEXTURE_2D, m_depthAttachment);
-    glTexStorage2D(GL_TEXTURE_2D, 1, GL_DEPTH24_STENCIL8, m_spec.Width, m_spec.Height);
+    glTexStorage2D(GL_TEXTURE_2D, 1, GL_DEPTH24_STENCIL8, m_spec.width, m_spec.height);
 
     glFramebufferTexture2D(
       GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_TEXTURE_2D, m_depthAttachment, 0);
@@ -78,7 +78,7 @@ void OpenGLFramebuffer::Invalidate()
 void OpenGLFramebuffer::Bind()
 {
     glBindFramebuffer(GL_FRAMEBUFFER, m_rendererID);
-    glViewport(0, 0, m_spec.Width, m_spec.Height);
+    glViewport(0, 0, m_spec.width, m_spec.height);
 }
 
 
@@ -95,8 +95,8 @@ void OpenGLFramebuffer::Resize(uint32_t width, uint32_t height)
         BR_CORE_WARN("Invalid values for new frame buffer size! ({0}, {1})", width, height);
         return;
     }
-    m_spec.Width  = width;
-    m_spec.Height = height;
+    m_spec.width  = width;
+    m_spec.height = height;
     Invalidate();
 }
 

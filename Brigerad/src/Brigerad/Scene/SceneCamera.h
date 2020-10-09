@@ -1,8 +1,8 @@
 /**
- * @file    Components.h
+ * @file    SceneCamera
  * @author  Samuel Martel
  * @p       https://github.com/smartel99
- * @date    9/28/2020 1:39:48 PM
+ * @date    10/9/2020 11:55:51 AM
  *
  * @brief
  ******************************************************************************
@@ -26,62 +26,42 @@
 /*********************************************************************************************************************/
 // [SECTION] Includes
 /*********************************************************************************************************************/
-#include "glm/glm.hpp"
-
-#include "Brigerad/Scene/SceneCamera.h"
-
-#include <string>
+#include "Brigerad/Renderer/Camera.h"
 
 /*********************************************************************************************************************/
 // [SECTION] Defines
 /*********************************************************************************************************************/
 
-
+namespace Brigerad
+{
 /*********************************************************************************************************************/
 // [SECTION] Class Declarations
 /*********************************************************************************************************************/
-
-namespace Brigerad
+class SceneCamera : public Camera
 {
-struct TagComponent
-{
-    std::string tag;
+public:
+    SceneCamera();
+    virtual ~SceneCamera() = default;
 
-    TagComponent()                    = default;
-    TagComponent(const TagComponent&) = default;
-    TagComponent(const std::string& t) : tag(t) {}
+    void SetOrthographic(float size, float nearClip, float farClip);
+    void SetViewportSize(uint32_t w, uint32_t h);
+
+    float GetOrthographicSize() const { return m_orthographicSize; }
+    void  SetOrthographicSize(float size)
+    {
+        m_orthographicSize = size;
+        RecalculateProjection();
+    }
+
+private:
+    void RecalculateProjection();
+
+private:
+    float m_orthographicSize = 10.0f;
+    float m_orthographicNear = -1.0f;
+    float m_orthographicFar  = 1.0f;
+
+    float m_aspectRatio = 0;
 };
-
-struct TransformComponent
-{
-    glm::mat4 transform {1.0f};
-
-    TransformComponent()                          = default;
-    TransformComponent(const TransformComponent&) = default;
-    TransformComponent(const glm::mat4& tr) : transform(tr) {}
-
-    operator glm::mat4&() { return transform; }
-    operator const glm::mat4&() const { return transform; }
-};
-
-struct SpriteRendererComponent
-{
-    glm::vec4 color {1.0f, 1.0f, 1.0f, 1.0f};
-
-    SpriteRendererComponent()                               = default;
-    SpriteRendererComponent(const SpriteRendererComponent&) = default;
-    SpriteRendererComponent(const glm::vec4& col) : color(col) {}
-};
-
-struct CameraComponent
-{
-    SceneCamera camera;
-    bool        primary          = true;    // TODO: Think about moving this to scene instead.
-    bool        fixedAspectRatio = false;
-
-    CameraComponent()                       = default;
-    CameraComponent(const CameraComponent&) = default;
-};
-
 
 }    // namespace Brigerad

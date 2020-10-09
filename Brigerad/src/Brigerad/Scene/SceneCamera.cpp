@@ -1,8 +1,8 @@
 /**
- * @file    Scene
+ * @file    SceneCamera.cpp
  * @author  Samuel Martel
  * @p       https://github.com/smartel99
- * @date    9/25/2020 3:10:36 PM
+ * @date    10/9/2020 12:22:29 PM
  *
  * @brief
  ******************************************************************************
@@ -26,14 +26,9 @@
 // [SECTION] Includes
 /*********************************************************************************************************************/
 #include "brpch.h"
-#include "Scene.h"
+#include "SceneCamera.h"
 
-#include "Components.h"
-#include "Entity.h"
-#include "Brigerad/Renderer/Renderer2D.h"
-
-
-#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
 
 namespace Brigerad
 {
@@ -50,78 +45,34 @@ namespace Brigerad
 /*********************************************************************************************************************/
 // [SECTION] Public Method Definitions
 /*********************************************************************************************************************/
-Scene::Scene()
+SceneCamera::SceneCamera()
 {
+    RecalculateProjection();
 }
 
-Scene::~Scene()
+void SceneCamera::SetOrthographic(float size, float nearClip, float farClip)
 {
+    m_orthographicSize = size;
+    m_orthographicNear = nearClip;
+    m_orthographicFar  = farClip;
+    RecalculateProjection();
 }
 
-Entity Scene::CreateEntity(const std::string& name)
+void SceneCamera::SetViewportSize(uint32_t w, uint32_t h)
 {
-    Entity entity = {m_registry.create(), this};
-    entity.AddComponent<TransformComponent>();
-    auto& tag = entity.AddComponent<TagComponent>();
-
-    tag.tag = name.empty() ? "<Unknown>" : name;
-
-    return entity;
+    m_aspectRatio = (float)w / (float)h;
+    RecalculateProjection();
 }
 
-void Scene::OnUpdate(Timestep ts)
+void SceneCamera::RecalculateProjection()
 {
-    // Render 2D.
-    Camera*    mainCamera      = nullptr;
-    glm::mat4* cameraTransform = nullptr;
-    {
-        auto view = m_registry.view<TransformComponent, CameraComponent>();
-        for (auto entity : view)
-        {
-            auto& [transform, camera] = view.get<TransformComponent, CameraComponent>(entity);
+    float orthoLeft   = -m_orthographicSize * m_aspectRatio * 0.5f;
+    float orthoRight  = m_orthographicSize * m_aspectRatio * 0.5f;
+    float orthoBottom = -m_orthographicSize * 0.5f;
+    float orthoTop    = m_orthographicSize * 0.5f;
 
-            if (camera.primary)
-            {
-                mainCamera      = &camera.camera;
-                cameraTransform = &transform.transform;
-            }
-        }
-    }
-
-    if (mainCamera)
-    {
-        Renderer2D::BeginScene(mainCamera->GetProjection(), *cameraTransform);
-
-        auto group = m_registry.group<TransformComponent>(entt::get<SpriteRendererComponent>);
-
-        for (auto entity : group)
-        {
-            auto& [transform, sprite] =
-              group.get<TransformComponent, SpriteRendererComponent>(entity);
-
-            Renderer2D::DrawQuad(transform, sprite.color);
-        }
-
-        Renderer2D::EndScene();
-    }
-}
-
-void Scene::OnViewportResize(uint32_t w, uint32_t h)
-{
-    m_viewportWidth  = w;
-    m_viewportHeight = h;
-
-    // Resize our non-FixedAspectRatio cameras.
-    auto view = m_registry.view<CameraComponent>();
-    for (auto entity : view)
-    {
-        auto& camera = view.get<CameraComponent>(entity);
-
-        if (!camera.fixedAspectRatio)
-        {
-            camera.camera.SetViewportSize(w, h);
-        }
-    }
+    m_projection = glm::ortho(
+      orthoLeft, orthoRight, orthoBottom, orthoTop, m_orthographicNear, m_orthographicFar);
 }
 
 /*********************************************************************************************************************/
@@ -132,4 +83,5 @@ void Scene::OnViewportResize(uint32_t w, uint32_t h)
 /*********************************************************************************************************************/
 // [SECTION] Private Function Declarations
 /*********************************************************************************************************************/
+
 }    // namespace Brigerad

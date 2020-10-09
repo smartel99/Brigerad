@@ -6,11 +6,11 @@ namespace Brigerad
 {
 struct FramebufferSpecification
 {
-    uint32_t Width, Height;
+    uint32_t width = 0, height = 0;
     //     FramebufferFormat Format;
-    uint32_t Samples = 1;
+    uint32_t samples = 1;
 
-    bool SwapChainTarget = false;
+    bool swapChainTarget = false;
 };
 
 

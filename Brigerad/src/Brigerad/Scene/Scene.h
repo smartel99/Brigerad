@@ -54,9 +54,12 @@ public:
     entt::registry& Reg() { return m_registry; }
 
     void OnUpdate(Timestep ts);
+    void OnViewportResize(uint32_t w, uint32_t h);
 
 private:
     entt::registry m_registry;
+    uint32_t       m_viewportWidth  = 0;
+    uint32_t       m_viewportHeight = 0;
 
     friend class Entity;
 };

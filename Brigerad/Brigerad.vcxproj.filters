@@ -1467,6 +1467,7 @@
     <ClInclude Include="src\Brigerad\Scene\Components.h" />
     <ClInclude Include="src\Brigerad\Scene\Entity.h" />
     <ClInclude Include="src\Brigerad\Renderer\Camera.h" />
+    <ClInclude Include="src\Brigerad\Scene\SceneCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Brigerad\Core\Application.cpp">
@@ -1587,5 +1588,6 @@
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
     <ClCompile Include="src\Brigerad\Scene\Entity.cpp" />
+    <ClCompile Include="src\Brigerad\Scene\SceneCamera.cpp" />
   </ItemGroup>
 </Project>

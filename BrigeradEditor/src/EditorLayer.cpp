@@ -6,11 +6,13 @@
 
 #include "Brigerad/Utils/Serial.h"
 
+#include <cmath>
+
 namespace Brigerad
 {
 static void UpdateFps();
 
-EditorLayer::EditorLayer() : Layer("Brigerad Editor"), m_camera(1280.0f / 720.0f)
+EditorLayer::EditorLayer() : Layer("Brigerad Editor")
 {
 }
 
@@ -30,8 +32,72 @@ void EditorLayer::OnAttach()
     m_squareEntity = m_scene->CreateEntity("Square");
     m_squareEntity.AddComponent<SpriteRendererComponent>(glm::vec4 {1.0f, 0.0f, 0.0f, 1.0f});
 
+    class SquareMover : public ScriptableEntity
+    {
+        virtual void OnUpdate(Timestep ts) override
+        {
+            const float  speed = 6.283f;
+            static float time  = 0.0f;
+
+            time += ts;
+            auto& transform = GetComponent<TransformComponent>().transform;
+            transform[3][0] = speed * std::sin(time);
+            transform[3][1] = speed * std::cos(time);
+        }
+    };
+    m_squareEntity.AddComponent<NativeScriptComponent>().Bind<SquareMover>();
+
+
     m_cameraEntity = m_scene->CreateEntity("Camera");
     m_cameraEntity.AddComponent<CameraComponent>();
+
+    m_cameraEntity2                                         = m_scene->CreateEntity("Camera 2");
+    m_cameraEntity2.AddComponent<CameraComponent>().primary = false;
+
+
+    class CameraController : public ScriptableEntity
+    {
+    public:
+        virtual void OnCreate() override
+        {
+            auto& transform = GetComponent<TransformComponent>().transform;
+            transform[3][0] = rand() % 10 - 5.0f;
+            transform[3][1] = rand() % 10 - 5.0f;
+        }
+
+        virtual void OnUpdate(Timestep ts) override
+        {
+            if (GetComponent<CameraComponent>().primary == false)
+            {
+                return;
+            }
+
+            auto&       transform = GetComponent<TransformComponent>().transform;
+            const float speed     = 5.0f;
+
+            if (Input::IsKeyPressed(KeyCode::A))
+            {
+                transform[3][0] -= speed * ts;
+            }
+            if (Input::IsKeyPressed(KeyCode::D))
+            {
+                transform[3][0] += speed * ts;
+            }
+            if (Input::IsKeyPressed(KeyCode::W))
+            {
+                transform[3][1] += speed * ts;
+            }
+            if (Input::IsKeyPressed(KeyCode::S))
+            {
+                transform[3][1] -= speed * ts;
+            }
+        }
+    };
+
+    m_cameraEntity.AddComponent<NativeScriptComponent>().Bind<CameraController>();
+    m_cameraEntity2.AddComponent<NativeScriptComponent>().Bind<CameraController>();
+
+    m_sceneHierarchyPanel = SceneHierarchyPanel(m_scene);
 }
 
 void EditorLayer::OnDetach()
@@ -50,17 +116,9 @@ void EditorLayer::OnUpdate(Timestep ts)
         (spec.width != m_viewportSize.x || spec.height != m_viewportSize.y))
     {
         m_fb->Resize((uint32_t)m_viewportSize.x, (uint32_t)m_viewportSize.y);
-        m_camera.OnResize(m_viewportSize.x, m_viewportSize.y);
 
         m_scene->OnViewportResize((uint32_t)m_viewportSize.x, (uint32_t)m_viewportSize.y);
     }
-
-    // Update.
-    if (m_viewportFocused)
-    {
-        m_camera.OnUpdate(ts);
-    }
-
 
     // Render.
     Renderer2D::ResetStats();
@@ -161,17 +219,25 @@ void EditorLayer::OnImGuiRender()
     auto& col = m_squareEntity.GetComponent<SpriteRendererComponent>().color;
     ImGui::ColorEdit4("Square Color", glm::value_ptr(col));
 
-    ImGui::DragFloat3(
-      "Camera Transform",
-      glm::value_ptr(m_cameraEntity.GetComponent<TransformComponent>().transform[3]));
+    auto& activeCamera =
+      m_cameraEntity.GetComponent<CameraComponent>().primary ? m_cameraEntity : m_cameraEntity2;
+
+    ImGui::DragFloat3("Camera Transform",
+                      glm::value_ptr(activeCamera.GetComponent<TransformComponent>().transform[3]));
 
     {
-        auto& camera    = m_cameraEntity.GetComponent<CameraComponent>().camera;
+        auto& camera    = activeCamera.GetComponent<CameraComponent>().camera;
         float orthoSize = camera.GetOrthographicSize();
         if (ImGui::DragFloat("Camera Ortho Size", &orthoSize))
         {
             camera.SetOrthographicSize(orthoSize);
         }
+    }
+
+    if (ImGui::Checkbox("Use camera 2", &m_cameraEntity2.GetComponent<CameraComponent>().primary))
+    {
+        m_cameraEntity.GetComponent<CameraComponent>().primary =
+          !m_cameraEntity2.GetComponent<CameraComponent>().primary;
     }
 
     ImGui::End();
@@ -189,19 +255,20 @@ void EditorLayer::OnImGuiRender()
     }
     uint32_t textureId = m_fb->GetColorAttachmentRenderID();
     // ImGui takes in a void* for its images.
-    ImGui::Image((void*)textureId,
+    ImGui::Image((void*)(uint64_t)textureId,
                  ImVec2(m_viewportSize.x, m_viewportSize.y),
                  ImVec2(0.0f, 0.0f),
                  ImVec2(1.0f, 1.0f));
     ImGui::PopStyleVar();
     ImGui::End();
 
+    m_sceneHierarchyPanel.OnImGuiRender();
+
     ImGui::End();
 }
 
 void EditorLayer::OnEvent(Event& e)
 {
-    m_camera.OnEvent(e);
 }
 
 

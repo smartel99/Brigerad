@@ -1468,6 +1468,7 @@
     <ClInclude Include="src\Brigerad\Scene\Entity.h" />
     <ClInclude Include="src\Brigerad\Renderer\Camera.h" />
     <ClInclude Include="src\Brigerad\Scene\SceneCamera.h" />
+    <ClInclude Include="src\Brigerad\Scene\ScriptableEntity.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Brigerad\Core\Application.cpp">

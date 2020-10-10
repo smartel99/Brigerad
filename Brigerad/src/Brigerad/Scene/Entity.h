@@ -80,6 +80,13 @@ public:
     }
 
     operator bool() const { return m_entityHandle != entt::null; }
+    operator uint32_t() const { return (uint32_t)m_entityHandle; }
+
+    bool operator==(const Entity& other) const
+    {
+        return (m_entityHandle == other.m_entityHandle) && (m_scene == other.m_scene);
+    }
+    bool operator!=(const Entity& other) const { return !(*this == other); }
 
 private:
     entt::entity m_entityHandle = entt::null;

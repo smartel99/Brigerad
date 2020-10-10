@@ -1,8 +1,8 @@
 /**
- * @file    Scene
+ * @file    SceneHierarchyPanel.cpp
  * @author  Samuel Martel
  * @p       https://github.com/smartel99
- * @date    9/25/2020 3:10:36 PM
+ * @date    10/10/2020 5:08:05 PM
  *
  * @brief
  ******************************************************************************
@@ -25,15 +25,11 @@
 /*********************************************************************************************************************/
 // [SECTION] Includes
 /*********************************************************************************************************************/
-#include "brpch.h"
-#include "Scene.h"
+#include "SceneHierarchyPanel.h"
 
-#include "Components.h"
-#include "Entity.h"
-#include "Brigerad/Renderer/Renderer2D.h"
+#include "Brigerad/Scene/Components.h"
 
-
-#include "glm/glm.hpp"
+#include "ImGui/imgui.h"
 
 namespace Brigerad
 {
@@ -50,93 +46,44 @@ namespace Brigerad
 /*********************************************************************************************************************/
 // [SECTION] Public Method Definitions
 /*********************************************************************************************************************/
-Scene::Scene()
+SceneHierarchyPanel::SceneHierarchyPanel(const Ref<Scene>& scene)
 {
+    SetContext(scene);
 }
 
-Scene::~Scene()
+void SceneHierarchyPanel::SetContext(const Ref<Scene>& context)
 {
+    m_context = context;
 }
 
-Entity Scene::CreateEntity(const std::string& name)
+void SceneHierarchyPanel::OnImGuiRender()
 {
-    Entity entity = {m_registry.create(), this};
-    entity.AddComponent<TransformComponent>();
-    auto& tag = entity.AddComponent<TagComponent>();
+    ImGui::Begin("Scene Hierarchy");
 
-    tag.tag = name.empty() ? "<Unknown>" : name;
+    m_context->m_registry.each([&](auto entityID) {
+        Entity entity {entityID, m_context.get()};
+        DrawEntityNode(entity);
+    });
 
-    return entity;
+    ImGui::End();
 }
 
-void Scene::OnUpdate(Timestep ts)
+void SceneHierarchyPanel::DrawEntityNode(Entity entity)
 {
-    // Update Scripts.
+    auto& tag = entity.GetComponent<TagComponent>().tag;
+
+    ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow |
+                               ((m_selectionContext == entity) ? ImGuiTreeNodeFlags_Selected : 0);
+    bool opened = ImGui::TreeNodeEx((void*)(uint64_t)(uint32_t)entity, flags, tag.c_str());
+
+    if (ImGui::IsItemClicked())
     {
-        m_registry.view<NativeScriptComponent>().each([=](auto entity, NativeScriptComponent& nsc) {
-            // TODO: Move to Scene::OnScenePlay
-            if (!nsc.instance)
-            {
-                nsc.instance           = nsc.instantiateScript();
-                nsc.instance->m_entity = Entity {entity, this};
-                nsc.instance->OnCreate();
-            }
-
-            nsc.instance->OnUpdate(ts);
-        });
+        m_selectionContext = entity;
     }
 
-
-    // Render 2D.
-    Camera*    mainCamera      = nullptr;
-    glm::mat4* cameraTransform = nullptr;
+    if (opened)
     {
-        auto view = m_registry.view<TransformComponent, CameraComponent>();
-        for (auto entity : view)
-        {
-            auto [transform, camera] = view.get<TransformComponent, CameraComponent>(entity);
-
-            if (camera.primary)
-            {
-                mainCamera      = &camera.camera;
-                cameraTransform = &transform.transform;
-            }
-        }
-    }
-
-    if (mainCamera)
-    {
-        Renderer2D::BeginScene(mainCamera->GetProjection(), *cameraTransform);
-
-        auto group = m_registry.group<TransformComponent>(entt::get<SpriteRendererComponent>);
-
-        for (auto entity : group)
-        {
-            auto [transform, sprite] =
-              group.get<TransformComponent, SpriteRendererComponent>(entity);
-
-            Renderer2D::DrawQuad(transform, sprite.color);
-        }
-
-        Renderer2D::EndScene();
-    }
-}
-
-void Scene::OnViewportResize(uint32_t w, uint32_t h)
-{
-    m_viewportWidth  = w;
-    m_viewportHeight = h;
-
-    // Resize our non-FixedAspectRatio cameras.
-    auto view = m_registry.view<CameraComponent>();
-    for (auto entity : view)
-    {
-        auto& camera = view.get<CameraComponent>(entity);
-
-        if (!camera.fixedAspectRatio)
-        {
-            camera.camera.SetViewportSize(w, h);
-        }
+        ImGui::TreePop();
     }
 }
 
@@ -148,4 +95,5 @@ void Scene::OnViewportResize(uint32_t w, uint32_t h)
 /*********************************************************************************************************************/
 // [SECTION] Private Function Declarations
 /*********************************************************************************************************************/
+
 }    // namespace Brigerad

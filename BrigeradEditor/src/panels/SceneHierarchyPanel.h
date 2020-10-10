@@ -1,8 +1,8 @@
 /**
- * @file    Scene
+ * @file    SceneHierarchyPanel.h
  * @author  Samuel Martel
  * @p       https://github.com/smartel99
- * @date    9/25/2020 3:09:52 PM
+ * @date    10/10/2020 5:06:59 PM
  *
  * @brief
  ******************************************************************************
@@ -26,10 +26,12 @@
 /*********************************************************************************************************************/
 // [SECTION] Includes
 /*********************************************************************************************************************/
-#include "entt.hpp"
+#include "Brigerad/Core/Core.h"
+#include "Brigerad/Scene/Scene.h"
+#include "Brigerad/Scene/Entity.h"
 
-#include "Brigerad/Core/Timestep.h"
-
+namespace Brigerad
+{
 /*********************************************************************************************************************/
 // [SECTION] Defines
 /*********************************************************************************************************************/
@@ -38,30 +40,22 @@
 /*********************************************************************************************************************/
 // [SECTION] Class Declarations
 /*********************************************************************************************************************/
-namespace Brigerad
-{
-
-class Entity;
-
-class Scene
+class SceneHierarchyPanel
 {
 public:
-    Scene();
-    ~Scene();
+    SceneHierarchyPanel() = default;
+    SceneHierarchyPanel(const Ref<Scene>& scene);
 
-    Entity CreateEntity(const std::string& name = std::string());
+    void SetContext(const Ref<Scene>& context);
+    // void SetSelected(Entity& entity);
 
-    entt::registry& Reg() { return m_registry; }
-
-    void OnUpdate(Timestep ts);
-    void OnViewportResize(uint32_t w, uint32_t h);
+    void OnImGuiRender();
 
 private:
-    entt::registry m_registry;
-    uint32_t       m_viewportWidth  = 0;
-    uint32_t       m_viewportHeight = 0;
+    void DrawEntityNode(Entity entity);
 
-    friend class Entity;
-    friend class SceneHierarchyPanel;
+private:
+    Ref<Scene> m_context;
+    Entity     m_selectionContext;
 };
 }    // namespace Brigerad

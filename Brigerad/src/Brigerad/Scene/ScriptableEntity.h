@@ -1,8 +1,8 @@
 /**
- * @file    Components.h
+ * @file    ScriptableEntity.h
  * @author  Samuel Martel
  * @p       https://github.com/smartel99
- * @date    9/28/2020 1:39:48 PM
+ * @date    10/10/2020 2:31:47 PM
  *
  * @brief
  ******************************************************************************
@@ -26,13 +26,11 @@
 /*********************************************************************************************************************/
 // [SECTION] Includes
 /*********************************************************************************************************************/
-#include "glm/glm.hpp"
+#include "Entity.h"
 
-#include "Brigerad/Scene/SceneCamera.h"
-#include "Brigerad/Scene/ScriptableEntity.h"
 
-#include <string>
-
+namespace Brigerad
+{
 /*********************************************************************************************************************/
 // [SECTION] Defines
 /*********************************************************************************************************************/
@@ -41,69 +39,25 @@
 /*********************************************************************************************************************/
 // [SECTION] Class Declarations
 /*********************************************************************************************************************/
-
-namespace Brigerad
+class ScriptableEntity
 {
-
-struct TagComponent
-{
-    std::string tag;
-
-    TagComponent()                    = default;
-    TagComponent(const TagComponent&) = default;
-    TagComponent(const std::string& t) : tag(t) {}
-};
-
-struct TransformComponent
-{
-    glm::mat4 transform {1.0f};
-
-    TransformComponent()                          = default;
-    TransformComponent(const TransformComponent&) = default;
-    TransformComponent(const glm::mat4& tr) : transform(tr) {}
-
-    operator glm::mat4&() { return transform; }
-    operator const glm::mat4&() const { return transform; }
-};
-
-struct SpriteRendererComponent
-{
-    glm::vec4 color {1.0f, 1.0f, 1.0f, 1.0f};
-
-    SpriteRendererComponent()                               = default;
-    SpriteRendererComponent(const SpriteRendererComponent&) = default;
-    SpriteRendererComponent(const glm::vec4& col) : color(col) {}
-};
-
-struct CameraComponent
-{
-    SceneCamera camera;
-    bool        primary          = true;    // TODO: Think about moving this to scene instead.
-    bool        fixedAspectRatio = false;
-
-    CameraComponent()                       = default;
-    CameraComponent(const CameraComponent&) = default;
-};
-
-struct NativeScriptComponent
-{
-    ScriptableEntity* instance = nullptr;
-
-    ScriptableEntity* (*instantiateScript)()      = nullptr;
-    void (*destroyScript)(NativeScriptComponent*) = nullptr;
+public:
+    ScriptableEntity()          = default;
+    virtual ~ScriptableEntity() = default;
 
     template<typename T>
-    void Bind()
+    T& GetComponent()
     {
-        instantiateScript = []() {
-            return static_cast<ScriptableEntity*>(new T());
-        };
-
-        destroyScript = [](NativeScriptComponent* nsc) {
-            delete nsc->instance;
-        };
+        return m_entity.GetComponent<T>();
     }
+
+protected:
+    virtual void OnCreate() {}
+    virtual void OnUpdate(Timestep ts) {}
+    virtual void OnDestroy() {}
+
+private:
+    Entity m_entity;
+    friend class Scene;
 };
-
-
 }    // namespace Brigerad

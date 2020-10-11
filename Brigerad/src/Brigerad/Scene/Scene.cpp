@@ -108,14 +108,23 @@ void Scene::OnUpdate(Timestep ts)
     {
         Renderer2D::BeginScene(mainCamera->GetProjection(), *cameraTransform);
 
-        auto group = m_registry.group<TransformComponent>(entt::get<SpriteRendererComponent>);
+        auto group = m_registry.group<TransformComponent>(entt::get<ColorRendererComponent>);
 
         for (auto entity : group)
         {
             auto [transform, sprite] =
-              group.get<TransformComponent, SpriteRendererComponent>(entity);
+              group.get<TransformComponent, ColorRendererComponent>(entity);
 
             Renderer2D::DrawQuad(transform, sprite.color);
+        }
+        auto view = m_registry.view<TransformComponent, TextureRendererComponent>();
+
+        for (auto entity : view)
+        {
+            auto [transform, sprite] =
+              view.get<TransformComponent, TextureRendererComponent>(entity);
+
+            Renderer2D::DrawQuad(transform, sprite.texture);
         }
 
         Renderer2D::EndScene();

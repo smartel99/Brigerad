@@ -30,7 +30,7 @@ void EditorLayer::OnAttach()
 
     m_scene        = CreateRef<Scene>();
     m_squareEntity = m_scene->CreateEntity("Square");
-    m_squareEntity.AddComponent<SpriteRendererComponent>(glm::vec4 {1.0f, 0.0f, 0.0f, 1.0f});
+    m_squareEntity.AddComponent<ColorRendererComponent>(glm::vec4 {1.0f, 0.0f, 0.0f, 1.0f});
 
     class SquareMover : public ScriptableEntity
     {
@@ -45,7 +45,10 @@ void EditorLayer::OnAttach()
             transform[3][1] = speed * std::cos(time);
         }
     };
-    m_squareEntity.AddComponent<NativeScriptComponent>().Bind<SquareMover>();
+    // m_squareEntity.AddComponent<NativeScriptComponent>().Bind<SquareMover>();
+
+    m_textureEntity = m_scene->CreateEntity("Textured Square");
+    m_textureEntity.AddComponent<TextureRendererComponent>("assets/textures/checkboard.png");
 
 
     m_cameraEntity = m_scene->CreateEntity("Camera");
@@ -216,7 +219,7 @@ void EditorLayer::OnImGuiRender()
     ImGui::Separator();
 
     ImGui::Text("%s", m_squareEntity.GetComponent<TagComponent>().tag.c_str());
-    auto& col = m_squareEntity.GetComponent<SpriteRendererComponent>().color;
+    auto& col = m_squareEntity.GetComponent<ColorRendererComponent>().color;
     ImGui::ColorEdit4("Square Color", glm::value_ptr(col));
 
     auto& activeCamera =

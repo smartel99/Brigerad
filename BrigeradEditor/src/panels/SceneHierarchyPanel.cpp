@@ -29,6 +29,11 @@
 
 #include "Brigerad/Scene/Components.h"
 
+#include "glm/gtc/type_ptr.hpp"
+#include "glm/gtc/matrix_transform.hpp"
+#include "glm/gtx/matrix_decompose.hpp"
+#include "glm/gtx/quaternion.hpp"
+#include "glm/gtx/transform.hpp"
 #include "ImGui/imgui.h"
 
 namespace Brigerad
@@ -65,6 +70,18 @@ void SceneHierarchyPanel::OnImGuiRender()
         DrawEntityNode(entity);
     });
 
+    if (ImGui::IsMouseDown(0) && ImGui::IsWindowHovered())
+    {
+        m_selectionContext = {};
+    }
+    ImGui::End();
+
+    ImGui::Begin("Properties");
+    if (m_selectionContext)
+    {
+        DrawComponents(m_selectionContext);
+    }
+
     ImGui::End();
 }
 
@@ -87,6 +104,112 @@ void SceneHierarchyPanel::DrawEntityNode(Entity entity)
     }
 }
 
+void SceneHierarchyPanel::DrawComponents(Entity entity) const
+{
+    if (entity.HasComponent<TagComponent>())
+    {
+        auto& tag = entity.GetComponent<TagComponent>().tag;
+
+        char buffer[256] = {0};
+        strcpy_s(buffer, sizeof(buffer), tag.c_str());
+
+        ImGui::Text("Tag");
+        ImGui::SameLine();
+        if (ImGui::InputText("", buffer, sizeof(buffer)))
+        {
+            tag = std::string(buffer);
+        }
+    }
+
+    if (entity.HasComponent<TransformComponent>())
+    {
+        if (ImGui::TreeNodeEx((void*)typeid(TransformComponent).hash_code(),
+                              ImGuiTreeNodeFlags_DefaultOpen,
+                              "Transform"))
+        {
+            auto& transform = entity.GetComponent<TransformComponent>().transform;
+
+            // bool rebuildTransform = false;
+
+            ImGui::Text("Position");
+            ImGui::SameLine();
+            if (ImGui::DragFloat3("##pos", glm::value_ptr(transform[3]), 0.1f))
+            {
+                // rebuildTransform = true;
+            }
+
+            //// TODO: Figure this out
+            // ImGui::Text("Scaling");
+            // ImGui::SameLine();
+            // glm::vec3 scale = {transform[0][0], transform[1][1], transform[2][2]};
+            // if (ImGui::DragFloat3("##scaling", glm::value_ptr(scale), 0.1f))
+            //{
+            //    rebuildTransform = true;
+            //}
+
+            // ImGui::Text("Rotation");
+            // ImGui::SameLine();
+            // if (ImGui::DragFloat("##rotation", &rot[3], 0.1f))
+            //{
+            //    rebuildTransform = true;
+            //}
+            // if (rebuildTransform)
+            //{
+            //    transform = glm::scale(transform, scale);
+            //}
+
+            ImGui::TreePop();
+        }
+    }
+
+    if (entity.HasComponent<ColorRendererComponent>())
+    {
+        if (ImGui::TreeNodeEx((void*)typeid(ColorRendererComponent).hash_code(),
+                              ImGuiTreeNodeFlags_DefaultOpen,
+                              "Sprite Renderer"))
+        {
+            auto& col = entity.GetComponent<ColorRendererComponent>().color;
+            ImGui::Text("Color");
+            ImGui::SameLine();
+            ImGui::ColorEdit4("##color", glm::value_ptr(col));
+            ImGui::TreePop();
+        }
+    }
+
+    if (entity.HasComponent<TextureRendererComponent>())
+    {
+        if (ImGui::TreeNodeEx((void*)typeid(TextureRendererComponent).hash_code(),
+                              ImGuiTreeNodeFlags_DefaultOpen,
+                              "Texture Renderer"))
+        {
+            auto& texturePath = entity.GetComponent<TextureRendererComponent>().path;
+            ImGui::Text("Path: %s", texturePath.c_str());
+
+            ImGui::TreePop();
+        }
+    }
+
+    if (entity.HasComponent<CameraComponent>())
+    {
+        if (ImGui::TreeNodeEx(
+              (void*)typeid(CameraComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "Camera"))
+        {
+            auto& camera = entity.GetComponent<CameraComponent>();
+            ImGui::Checkbox("Primary", &camera.primary);
+            ImGui::Checkbox("Fixed Aspect Ratio", &camera.fixedAspectRatio);
+
+            float size = camera.camera.GetOrthographicSize();
+            ImGui::Text("Size");
+            ImGui::SameLine();
+            if (ImGui::DragFloat("##cameraSize", &size, 0.1f))
+            {
+                camera.camera.SetOrthographicSize(size);
+            }
+            ImGui::TreePop();
+        }
+    }
+}
+
 /*********************************************************************************************************************/
 // [SECTION] Private Method Definitions
 /*********************************************************************************************************************/
@@ -95,5 +218,4 @@ void SceneHierarchyPanel::DrawEntityNode(Entity entity)
 /*********************************************************************************************************************/
 // [SECTION] Private Function Declarations
 /*********************************************************************************************************************/
-
 }    // namespace Brigerad

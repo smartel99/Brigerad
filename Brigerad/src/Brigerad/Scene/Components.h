@@ -30,8 +30,10 @@
 
 #include "Brigerad/Scene/SceneCamera.h"
 #include "Brigerad/Scene/ScriptableEntity.h"
+#include "Brigerad/Renderer/Texture.h"
 
 #include <string>
+
 
 /*********************************************************************************************************************/
 // [SECTION] Defines
@@ -62,17 +64,27 @@ struct TransformComponent
     TransformComponent(const TransformComponent&) = default;
     TransformComponent(const glm::mat4& tr) : transform(tr) {}
 
-    operator glm::mat4&() { return transform; }
-    operator const glm::mat4&() const { return transform; }
+    operator glm::mat4 &() { return transform; }
+    operator const glm::mat4 &() const { return transform; }
 };
 
-struct SpriteRendererComponent
+struct ColorRendererComponent
 {
     glm::vec4 color {1.0f, 1.0f, 1.0f, 1.0f};
 
-    SpriteRendererComponent()                               = default;
-    SpriteRendererComponent(const SpriteRendererComponent&) = default;
-    SpriteRendererComponent(const glm::vec4& col) : color(col) {}
+    ColorRendererComponent()                              = default;
+    ColorRendererComponent(const ColorRendererComponent&) = default;
+    ColorRendererComponent(const glm::vec4& col) : color(col) {}
+};
+
+struct TextureRendererComponent
+{
+    Ref<Texture2D> texture = nullptr;
+    std::string    path    = "";
+
+    TextureRendererComponent()                                = default;
+    TextureRendererComponent(const TextureRendererComponent&) = default;
+    TextureRendererComponent(const std::string& p) : texture(Texture2D::Create(p)), path(p) {}
 };
 
 struct CameraComponent

@@ -25,6 +25,7 @@ private:
 
     Ref<Scene> m_scene;
     Entity     m_squareEntity;
+    Entity     m_textureEntity;
     Entity     m_cameraEntity;
     Entity     m_cameraEntity2;
 

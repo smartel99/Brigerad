@@ -25,11 +25,14 @@ IncludeDir["glm"] = "Brigerad/vendor/glm"
 IncludeDir["stb_image"] = "Brigerad/vendor/stb_image"
 IncludeDir["serial"] = "Brigerad/vendor/serial"
 IncludeDir["entt"] = "Brigerad/vendor/entt/include"
+IncludeDir["lua"] = "Brigerad/vendor/lua"
+IncludeDir["sol"] = "Brigerad/vendor/sol"
 
 group "Dependencies"
     include "Brigerad/vendor/GLFW"
     include "Brigerad/vendor/Glad"
     include "Brigerad/vendor/ImGui"
+    include "Brigerad/vendor/lua"
 
 group ""
 
@@ -68,7 +71,9 @@ project "Brigerad"
         "%{IncludeDir.glm}",
         "%{IncludeDir.stb_image}",
         "%{IncludeDir.serial}/include",
-        "%{IncludeDir.entt}"
+        "%{IncludeDir.entt}",
+        "%{IncludeDir.lua}/src",
+        "%{IncludeDir.sol}/include"
     }
 
     defines
@@ -91,6 +96,7 @@ project "Brigerad"
             "GLFW",
             "Glad",
             "ImGui",
+            "lua",
             "opengl32.lib"
         }
 
@@ -123,6 +129,7 @@ project "Brigerad"
             "pthread",
             "GLFW",
             "Glad",
+            "lua",
             "ImGui"
         }
 
@@ -195,6 +202,7 @@ project "Sandbox"
             "GLFW",
             "Glad",
             "ImGui",
+            "lua",
             "opengl32.lib"
         }
     
@@ -221,6 +229,7 @@ project "Sandbox"
             "pthread",
             "GLFW",
             "Glad",
+            "lua",
             "ImGui",
         }
 
@@ -288,6 +297,7 @@ project "BrigeradEditor"
             "GLFW",
             "Glad",
             "ImGui",
+            "lua",
             "opengl32.lib"
         }
     
@@ -314,6 +324,7 @@ project "BrigeradEditor"
             "pthread",
             "GLFW",
             "Glad",
+            "lua",
             "ImGui",
         }
 

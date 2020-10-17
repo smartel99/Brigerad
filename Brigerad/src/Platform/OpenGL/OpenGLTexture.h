@@ -11,19 +11,14 @@ public:
     OpenGLTexture2D(const std::string& path);
     virtual ~OpenGLTexture2D() override;
 
-    virtual uint32_t GetWidth() const override
-    {
-        return m_width;
-    }
-    virtual uint32_t GetHeight() const override
-    {
-        return m_height;
-    }
+    virtual uint32_t GetWidth() const override { return m_width; }
+    virtual uint32_t GetHeight() const override { return m_height; }
 
-    virtual uint32_t GetRenderID() const override
-    {
-        return m_rendererID;
-    }
+    virtual uint32_t GetRenderID() const override { return m_rendererID; }
+
+
+    virtual uint32_t           GetFormat() const override { return m_dataFormat; }
+    virtual const std::string& GetFilePath() const override { return m_path; }
 
     virtual void SetData(void* data, uint32_t size) override;
     virtual void Bind(uint32_t slot = 0) const override;
@@ -34,10 +29,10 @@ public:
     }
 
 private:
-    std::string m_path = "";
-    uint32_t m_width = 0;
-    uint32_t m_height = 0;
-    uint32_t m_rendererID = 0;
-    GLenum m_internalFormat, m_dataFormat;
+    std::string m_path       = "";
+    uint32_t    m_width      = 0;
+    uint32_t    m_height     = 0;
+    uint32_t    m_rendererID = 0;
+    GLenum      m_internalFormat, m_dataFormat;
 };
-}  // namespace Brigerad
+}    // namespace Brigerad

@@ -85,6 +85,19 @@ void Scene::OnUpdate(Timestep ts)
             nsc.instance->OnUpdate(ts);
         });
     }
+    {
+        m_registry.view<LuaScriptComponent>().each([=](auto entity, LuaScriptComponent& sc) {
+            // TODO: Move to Scene::OnScenePlay
+            if (!sc.instance)
+            {
+                sc.instance           = sc.InstantiateScript();
+                sc.instance->m_entity = Entity {entity, this};
+                sc.instance->OnCreate();
+            }
+
+            sc.instance->OnUpdate(ts);
+        });
+    }
 
 
     // Render 2D.

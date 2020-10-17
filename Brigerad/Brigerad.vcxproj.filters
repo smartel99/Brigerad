@@ -25,6 +25,9 @@
     <Filter Include="src\Brigerad\Scene">
       <UniqueIdentifier>{19D14847-05B5-099D-6E15-04F05A18F41E}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Brigerad\Script">
+      <UniqueIdentifier>{C0016A30-2C63-473E-B5D0-8DF021317EFD}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Brigerad\Utils">
       <UniqueIdentifier>{5C657647-4849-379D-B1A9-31F09DAC211F}</UniqueIdentifier>
     </Filter>
@@ -153,6 +156,9 @@
     <ClInclude Include="src\Brigerad\Renderer\Buffer.h">
       <Filter>src\Brigerad\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Brigerad\Renderer\Camera.h">
+      <Filter>src\Brigerad\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Brigerad\Renderer\FrameBuffer.h">
       <Filter>src\Brigerad\Renderer</Filter>
     </ClInclude>
@@ -189,8 +195,23 @@
     <ClInclude Include="src\Brigerad\Renderer\VertexArray.h">
       <Filter>src\Brigerad\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Brigerad\Scene\Components.h">
+      <Filter>src\Brigerad\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Brigerad\Scene\Entity.h">
+      <Filter>src\Brigerad\Scene</Filter>
+    </ClInclude>
     <ClInclude Include="src\Brigerad\Scene\Scene.h">
       <Filter>src\Brigerad\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Brigerad\Scene\SceneCamera.h">
+      <Filter>src\Brigerad\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Brigerad\Scene\ScriptableEntity.h">
+      <Filter>src\Brigerad\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Brigerad\Script\ScriptEngine.h">
+      <Filter>src\Brigerad\Script</Filter>
     </ClInclude>
     <ClInclude Include="src\Brigerad\Utils\Serial.h">
       <Filter>src\Brigerad\Utils</Filter>
@@ -1464,11 +1485,7 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\Brigerad\Scene\Components.h" />
-    <ClInclude Include="src\Brigerad\Scene\Entity.h" />
-    <ClInclude Include="src\Brigerad\Renderer\Camera.h" />
-    <ClInclude Include="src\Brigerad\Scene\SceneCamera.h" />
-    <ClInclude Include="src\Brigerad\Scene\ScriptableEntity.h" />
+    <ClInclude Include="src\Brigerad\Script\ScriptEngineRegistry.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Brigerad\Core\Application.cpp">
@@ -1531,8 +1548,17 @@
     <ClCompile Include="src\Brigerad\Renderer\VertexArray.cpp">
       <Filter>src\Brigerad\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Brigerad\Scene\Entity.cpp">
+      <Filter>src\Brigerad\Scene</Filter>
+    </ClCompile>
     <ClCompile Include="src\Brigerad\Scene\Scene.cpp">
       <Filter>src\Brigerad\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Brigerad\Scene\SceneCamera.cpp">
+      <Filter>src\Brigerad\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Brigerad\Script\ScriptEngine.cpp">
+      <Filter>src\Brigerad\Script</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
       <Filter>src\Platform\OpenGL</Filter>
@@ -1588,7 +1614,6 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="src\Brigerad\Scene\Entity.cpp" />
-    <ClCompile Include="src\Brigerad\Scene\SceneCamera.cpp" />
+    <ClCompile Include="src\Brigerad\Script\ScriptEngineRegistry.cpp" />
   </ItemGroup>
 </Project>

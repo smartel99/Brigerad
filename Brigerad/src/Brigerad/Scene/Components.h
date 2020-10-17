@@ -28,9 +28,9 @@
 /*********************************************************************************************************************/
 #include "glm/glm.hpp"
 
+#include "Brigerad/Renderer/Texture.h"
 #include "Brigerad/Scene/SceneCamera.h"
 #include "Brigerad/Scene/ScriptableEntity.h"
-#include "Brigerad/Renderer/Texture.h"
 
 #include <string>
 
@@ -64,8 +64,8 @@ struct TransformComponent
     TransformComponent(const TransformComponent&) = default;
     TransformComponent(const glm::mat4& tr) : transform(tr) {}
 
-    operator glm::mat4 &() { return transform; }
-    operator const glm::mat4 &() const { return transform; }
+    operator glm::mat4&() { return transform; }
+    operator const glm::mat4&() const { return transform; }
 };
 
 struct ColorRendererComponent
@@ -115,6 +115,17 @@ struct NativeScriptComponent
             delete nsc->instance;
         };
     }
+};
+
+struct LuaScriptComponent
+{
+    LuaScriptEntity* instance = nullptr;
+    std::string      path     = "";
+
+    LuaScriptComponent(const std::string p) : path(p) {}
+    ~LuaScriptComponent() { delete instance; }
+
+    LuaScriptEntity* InstantiateScript() { return new LuaScriptEntity(path); }
 };
 
 

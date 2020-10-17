@@ -87,7 +87,7 @@ void SceneHierarchyPanel::OnImGuiRender()
 
 void SceneHierarchyPanel::DrawEntityNode(Entity entity)
 {
-    auto& tag = entity.GetComponent<TagComponent>().tag;
+    auto& tag = entity.GetComponentRef<TagComponent>().tag;
 
     ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow |
                                ((m_selectionContext == entity) ? ImGuiTreeNodeFlags_Selected : 0);
@@ -108,7 +108,7 @@ void SceneHierarchyPanel::DrawComponents(Entity entity) const
 {
     if (entity.HasComponent<TagComponent>())
     {
-        auto& tag = entity.GetComponent<TagComponent>().tag;
+        auto& tag = entity.GetComponentRef<TagComponent>().tag;
 
         char buffer[256] = {0};
         strcpy_s(buffer, sizeof(buffer), tag.c_str());
@@ -127,7 +127,7 @@ void SceneHierarchyPanel::DrawComponents(Entity entity) const
                               ImGuiTreeNodeFlags_DefaultOpen,
                               "Transform"))
         {
-            auto& transform = entity.GetComponent<TransformComponent>().transform;
+            auto& transform = entity.GetComponentRef<TransformComponent>().transform;
 
             // bool rebuildTransform = false;
 
@@ -168,7 +168,7 @@ void SceneHierarchyPanel::DrawComponents(Entity entity) const
                               ImGuiTreeNodeFlags_DefaultOpen,
                               "Sprite Renderer"))
         {
-            auto& col = entity.GetComponent<ColorRendererComponent>().color;
+            auto& col = entity.GetComponentRef<ColorRendererComponent>().color;
             ImGui::Text("Color");
             ImGui::SameLine();
             ImGui::ColorEdit4("##color", glm::value_ptr(col));
@@ -182,7 +182,7 @@ void SceneHierarchyPanel::DrawComponents(Entity entity) const
                               ImGuiTreeNodeFlags_DefaultOpen,
                               "Texture Renderer"))
         {
-            auto& texturePath = entity.GetComponent<TextureRendererComponent>().path;
+            auto& texturePath = entity.GetComponentRef<TextureRendererComponent>().path;
             ImGui::Text("Path: %s", texturePath.c_str());
 
             ImGui::TreePop();
@@ -194,7 +194,7 @@ void SceneHierarchyPanel::DrawComponents(Entity entity) const
         if (ImGui::TreeNodeEx(
               (void*)typeid(CameraComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "Camera"))
         {
-            auto& camera = entity.GetComponent<CameraComponent>();
+            auto& camera = entity.GetComponentRef<CameraComponent>();
             ImGui::Checkbox("Primary", &camera.primary);
             ImGui::Checkbox("Fixed Aspect Ratio", &camera.fixedAspectRatio);
 

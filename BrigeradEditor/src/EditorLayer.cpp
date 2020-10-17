@@ -40,7 +40,7 @@ void EditorLayer::OnAttach()
             static float time  = 0.0f;
 
             time += ts;
-            auto& transform = GetComponent<TransformComponent>().transform;
+            auto& transform = GetComponentRef<TransformComponent>().transform;
             transform[3][0] = speed * std::sin(time);
             transform[3][1] = speed * std::cos(time);
         }
@@ -49,6 +49,7 @@ void EditorLayer::OnAttach()
 
     m_textureEntity = m_scene->CreateEntity("Textured Square");
     m_textureEntity.AddComponent<TextureRendererComponent>("assets/textures/checkboard.png");
+    m_textureEntity.AddComponent<LuaScriptComponent>("assets/scripts/test.lua");
 
 
     m_cameraEntity = m_scene->CreateEntity("Camera");
@@ -63,19 +64,19 @@ void EditorLayer::OnAttach()
     public:
         virtual void OnCreate() override
         {
-            auto& transform = GetComponent<TransformComponent>().transform;
+            auto& transform = GetComponentRef<TransformComponent>().transform;
             transform[3][0] = rand() % 10 - 5.0f;
             transform[3][1] = rand() % 10 - 5.0f;
         }
 
         virtual void OnUpdate(Timestep ts) override
         {
-            if (GetComponent<CameraComponent>().primary == false)
+            if (GetComponentRef<CameraComponent>().primary == false)
             {
                 return;
             }
 
-            auto&       transform = GetComponent<TransformComponent>().transform;
+            auto&       transform = GetComponentRef<TransformComponent>().transform;
             const float speed     = 5.0f;
 
             if (Input::IsKeyPressed(KeyCode::A))
@@ -218,18 +219,19 @@ void EditorLayer::OnImGuiRender()
 
     ImGui::Separator();
 
-    ImGui::Text("%s", m_squareEntity.GetComponent<TagComponent>().tag.c_str());
-    auto& col = m_squareEntity.GetComponent<ColorRendererComponent>().color;
+    ImGui::Text("%s", m_squareEntity.GetComponentRef<TagComponent>().tag.c_str());
+    auto& col = m_squareEntity.GetComponentRef<ColorRendererComponent>().color;
     ImGui::ColorEdit4("Square Color", glm::value_ptr(col));
 
     auto& activeCamera =
-      m_cameraEntity.GetComponent<CameraComponent>().primary ? m_cameraEntity : m_cameraEntity2;
+      m_cameraEntity.GetComponentRef<CameraComponent>().primary ? m_cameraEntity : m_cameraEntity2;
 
-    ImGui::DragFloat3("Camera Transform",
-                      glm::value_ptr(activeCamera.GetComponent<TransformComponent>().transform[3]));
+    ImGui::DragFloat3(
+      "Camera Transform",
+      glm::value_ptr(activeCamera.GetComponentRef<TransformComponent>().transform[3]));
 
     {
-        auto& camera    = activeCamera.GetComponent<CameraComponent>().camera;
+        auto& camera    = activeCamera.GetComponentRef<CameraComponent>().camera;
         float orthoSize = camera.GetOrthographicSize();
         if (ImGui::DragFloat("Camera Ortho Size", &orthoSize))
         {
@@ -237,10 +239,11 @@ void EditorLayer::OnImGuiRender()
         }
     }
 
-    if (ImGui::Checkbox("Use camera 2", &m_cameraEntity2.GetComponent<CameraComponent>().primary))
+    if (ImGui::Checkbox("Use camera 2",
+                        &m_cameraEntity2.GetComponentRef<CameraComponent>().primary))
     {
-        m_cameraEntity.GetComponent<CameraComponent>().primary =
-          !m_cameraEntity2.GetComponent<CameraComponent>().primary;
+        m_cameraEntity.GetComponentRef<CameraComponent>().primary =
+          !m_cameraEntity2.GetComponentRef<CameraComponent>().primary;
     }
 
     ImGui::End();

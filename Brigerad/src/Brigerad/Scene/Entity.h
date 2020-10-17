@@ -58,7 +58,15 @@ public:
     }
 
     template<typename T>
-    T& GetComponent()
+    T& GetComponentRef()
+    {
+        BR_CORE_ASSERT(HasComponent<T>(), "Entity does not have this component!");
+
+        return m_scene->m_registry.get<T>(m_entityHandle);
+    }
+
+    template<typename T>
+    const T& GetComponent() const
     {
         BR_CORE_ASSERT(HasComponent<T>(), "Entity does not have this component!");
 

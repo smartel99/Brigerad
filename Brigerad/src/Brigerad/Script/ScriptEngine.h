@@ -27,12 +27,50 @@
 // [SECTION] Includes
 /*********************************************************************************************************************/
 
+#include "Brigerad/Core/Timestep.h"
+#include "Brigerad/Scene/Entity.h"
 
 #include <string>
 
 namespace Brigerad
 {
-class LuaScriptEntity;
+
+class LuaScriptEntity
+{
+public:
+    LuaScriptEntity(const std::string& path, const std::string& name);
+
+    virtual ~LuaScriptEntity() = default;
+
+    const std::string& GetPath() const { return m_path; }
+    const std::string& GetName() const { return m_name; }
+    void               Reload();
+
+    template<typename T>
+    T& GetComponentRef()
+    {
+        return m_entity.GetComponentRef<T>();
+    }
+
+    template<typename T>
+    const T& GetComponent() const
+    {
+        return m_entity.GetComponent<T>();
+    }
+
+protected:
+    void OnCreate();
+    void OnUpdate(Timestep ts);
+    void OnDestroy();
+
+private:
+    Entity      m_entity;
+    std::string m_path = "";
+    std::string m_name = "";
+    friend class Scene;
+};    // namespace Brigerad
+
+
 /*********************************************************************************************************************/
 // [SECTION] Defines
 /*********************************************************************************************************************/

@@ -7,10 +7,10 @@ project "Lua"
 
     files{
         "src/**.h",
-        "%src/**.cpp",
+        "src/**.c",
     }
 
-        filter "system:windows"
+    filter "system:windows"
         systemversion "latest"
         cppdialect "C++17"
         staticruntime "On"

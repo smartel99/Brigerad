@@ -49,7 +49,7 @@ void EditorLayer::OnAttach()
 
     m_textureEntity = m_scene->CreateEntity("Textured Square");
     m_textureEntity.AddComponent<TextureRendererComponent>("assets/textures/checkboard.png");
-    m_textureEntity.AddComponent<LuaScriptComponent>("assets/scripts/test.lua");
+    m_textureEntity.AddComponent<LuaScriptComponent>("assets/scripts/test.lua", "Player");
 
 
     m_cameraEntity = m_scene->CreateEntity("Camera");

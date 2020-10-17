@@ -301,6 +301,8 @@ project "BrigeradEditor"
             "opengl32.lib"
         }
     
+        postbuildcommands("xcopy assets ..\\bin\\" .. outputdir .. "\\%{prj.name}\\assets /K /I /Y /S")
+
     filter "system:linux"
         systemversion "latest"
 

@@ -70,38 +70,4 @@ private:
     friend class Scene;
 };
 
-class LuaScriptEntity
-{
-public:
-    LuaScriptEntity(const std::string& path) : m_path(path)
-    {
-        ScriptEngine::LoadEntityScript(path);
-    }
-
-    virtual ~LuaScriptEntity() = default;
-
-    const std::string& GetPath() const { return m_path; }
-
-    template<typename T>
-    T& GetComponentRef()
-    {
-        return m_entity.GetComponentRef<T>();
-    }
-
-    template<typename T>
-    const T& GetComponent() const
-    {
-        return m_entity.GetComponent<T>();
-    }
-
-protected:
-    void OnCreate() { ScriptEngine::OnCreate(this); }
-    void OnUpdate(Timestep ts) { ScriptEngine::OnUpdate(this, ts); }
-    void OnDestroy() { ScriptEngine::OnDestroyed(this); }
-
-private:
-    Entity      m_entity;
-    std::string m_path = "";
-    friend class Scene;
-};
 }    // namespace Brigerad

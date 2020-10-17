@@ -35,7 +35,6 @@
 #include "setjmp.h"
 
 #include "ScriptEngineRegistry.h"
-#include "Brigerad/Scene/Components.h"
 
 #include "Brigerad/Scene/ScriptableEntity.h"
 
@@ -116,18 +115,15 @@ void ScriptEngine::Shutdown()
     s_data.LuaState = nullptr;
 }
 
-#define LUA_CALL(Namespace, Function, ...)                                                         \
-    do                                                                                             \
+#define LUA_CALL(name, func, ...)                                                                  \
+    if (setjmp(s_luaPanicJump) == 0)                                                               \
     {                                                                                              \
-        if (setjmp(s_luaPanicJump) == 0)                                                           \
-        {                                                                                          \
-            lua[Namespace][Function](__VA_ARGS__);                                                 \
-        }                                                                                          \
-        else                                                                                       \
-        {                                                                                          \
-            OnInternalLuaError();                                                                  \
-        }                                                                                          \
-    } while (0)
+        lua[name][func](##__VA_ARGS__);                                                            \
+    }                                                                                              \
+    else                                                                                           \
+    {                                                                                              \
+        OnInternalLuaError();                                                                      \
+    }
 
 void ScriptEngine::ExecuteScript(const std::string& file)
 {
@@ -163,23 +159,51 @@ void ScriptEngine::LoadEntityScript(const std::string& file)
 void ScriptEngine::OnCreate(LuaScriptEntity* entity)
 {
     auto& lua = *s_data.LuaState;
-    LUA_CALL(entity->GetPath(), "OnCreate");
+    LUA_CALL(entity->GetName(), "OnCreate");
 }
 
 void ScriptEngine::OnDestroyed(const LuaScriptEntity* entity)
 {
     auto& lua = *s_data.LuaState;
-    LUA_CALL(entity->GetPath(), "OnDestroyed");
+    LUA_CALL(entity->GetName(), "OnDestroyed");
 }
 
 void ScriptEngine::OnUpdate(const LuaScriptEntity* entity, float ts)
 {
     auto& lua = *s_data.LuaState;
-    LUA_CALL(entity->GetPath(), "OnUpdate", ts);
+    LUA_CALL(entity->GetName(), "OnUpdate", ts);
 }
 
+
+
+LuaScriptEntity::LuaScriptEntity(const std::string& path, const std::string& name)
+: m_path(path), m_name(name)
+{
+    ScriptEngine::LoadEntityScript(path);
+}
+
+void LuaScriptEntity::Reload()
+{
+    ScriptEngine::LoadEntityScript(m_path);
+}
+
+void LuaScriptEntity::OnCreate()
+{
+    ScriptEngine::OnCreate(this);
+}
+
+void LuaScriptEntity::OnUpdate(Timestep ts)
+{
+    ScriptEngine::OnUpdate(this, ts);
+}
 
 /*********************************************************************************************************************/
 // [SECTION] Private Function Declarations
 /*********************************************************************************************************************/
+
+void LuaScriptEntity::OnDestroy()
+{
+    ScriptEngine::OnDestroyed(this);
+}
+
 }    // namespace Brigerad

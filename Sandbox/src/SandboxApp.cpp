@@ -15,7 +15,7 @@
 class ExampleLayer : public Brigerad::Layer
 {
 public:
-    ExampleLayer() : Layer("Example"), m_camera(1280.0f / 720.0f)
+    ExampleLayer() : Layer("Example")
     {
         float vertices[3 * 7] = {
           // 0
@@ -125,18 +125,15 @@ public:
     void OnUpdate(Brigerad::Timestep ts) override
     {
         // Update.
-        m_camera.OnUpdate(ts);
 
         // Render.
         //         BR_TRACE("Delta time: {0}s [{1}ms]", ts.GetSeconds(), ts.GetMilliseconds());
         Brigerad::RenderCommand::SetClearColor({0.2f, 0.2f, 0.2f, 1.0f});
         Brigerad::RenderCommand::Clear();
 
-        m_camera.OnUpdate(ts);
         m_square->OnUpdate(ts);
         m_tri->OnUpdate(ts);
 
-        Brigerad::Renderer::BeginScene(m_camera.GetCamera());
 
         glm::vec3 origin = m_square->GetPosition();
 
@@ -162,8 +159,6 @@ public:
         m_text->Submit();
 
         //         m_tri->Submit();
-
-        Brigerad::Renderer::EndScene();
     }
 
     virtual void OnImGuiRender() override
@@ -173,7 +168,7 @@ public:
         ImGui::End();
     }
 
-    void OnEvent(Brigerad::Event& event) override { m_camera.OnEvent(event); }
+    void OnEvent(Brigerad::Event& event) override {}
 
 private:
     Brigerad::ShaderLibrary m_shaderLibrary;

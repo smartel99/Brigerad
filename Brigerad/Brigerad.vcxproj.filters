@@ -213,6 +213,9 @@
     <ClInclude Include="src\Brigerad\Script\ScriptEngine.h">
       <Filter>src\Brigerad\Script</Filter>
     </ClInclude>
+    <ClInclude Include="src\Brigerad\Script\ScriptEngineRegistry.h">
+      <Filter>src\Brigerad\Script</Filter>
+    </ClInclude>
     <ClInclude Include="src\Brigerad\Utils\Serial.h">
       <Filter>src\Brigerad\Utils</Filter>
     </ClInclude>
@@ -1485,7 +1488,6 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\Brigerad\Script\ScriptEngineRegistry.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Brigerad\Core\Application.cpp">
@@ -1560,6 +1562,9 @@
     <ClCompile Include="src\Brigerad\Script\ScriptEngine.cpp">
       <Filter>src\Brigerad\Script</Filter>
     </ClCompile>
+    <ClCompile Include="src\Brigerad\Script\ScriptEngineRegistry.cpp">
+      <Filter>src\Brigerad\Script</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
@@ -1614,6 +1619,5 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="src\Brigerad\Script\ScriptEngineRegistry.cpp" />
   </ItemGroup>
 </Project>

@@ -121,11 +121,17 @@ struct LuaScriptComponent
 {
     LuaScriptEntity* instance = nullptr;
     std::string      path     = "";
+    std::string      name     = "";
 
-    LuaScriptComponent(const std::string p) : path(p) {}
+    LuaScriptComponent(const std::string& p, const std::string& n) : path(p), name(n) {}
     ~LuaScriptComponent() { delete instance; }
 
-    LuaScriptEntity* InstantiateScript() { return new LuaScriptEntity(path); }
+    LuaScriptEntity* InstantiateScript() { return new LuaScriptEntity(path, name); }
+    void             ReloadScript()
+    {
+        delete instance;
+        instance = nullptr;
+    }
 };
 
 

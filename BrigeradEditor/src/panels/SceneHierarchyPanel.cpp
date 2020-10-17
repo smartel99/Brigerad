@@ -208,6 +208,24 @@ void SceneHierarchyPanel::DrawComponents(Entity entity) const
             ImGui::TreePop();
         }
     }
+
+    if (entity.HasComponent<LuaScriptComponent>())
+    {
+        if (ImGui::TreeNodeEx((void*)typeid(LuaScriptComponent).hash_code(),
+                              ImGuiTreeNodeFlags_DefaultOpen,
+                              "Lua Script"))
+        {
+            auto& script = entity.GetComponentRef<LuaScriptComponent>();
+            ImGui::Text("Script Path: %s", script.path.c_str());
+
+            if (ImGui::Button("Reload Script"))
+            {
+                script.ReloadScript();
+            }
+
+            ImGui::TreePop();
+        }
+    }
 }
 
 /*********************************************************************************************************************/

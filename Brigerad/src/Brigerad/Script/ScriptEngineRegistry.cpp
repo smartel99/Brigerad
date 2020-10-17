@@ -33,8 +33,9 @@
 #include <sol/sol.hpp>
 
 #include "Brigerad/Renderer/Texture.h"
-#include "Brigerad/Renderer/Renderer.h"
 #include "Brigerad/Renderer/Renderer2D.h"
+
+#include <string>
 
 
 namespace Brigerad
@@ -75,33 +76,29 @@ void ScriptEngineRegistry::RegisterAllTypes()
 /*********************************************************************************************************************/
 void RegisterTexture2D()
 {
+    // https://github.com/ThePhD/sol2/issues/1008
     auto lua = Scripting::GetState();
 
-    auto texture2D = lua->new_usertype<Texture2D>(
-      "Texture2D",
-      "Create",
-      [](Texture2D&, const std::string& path) { Texture2D::Create(path); },
-      "GetWidth",
-      [](Texture2D& self) -> uint32_t { return self.GetWidth(); },
-      "GetHeight",
-      [](Texture2D& self) -> uint32_t { return self.GetHeight(); },
-      "GetFormat",
-      [](Texture2D& self) -> uint32_t { return self.GetFormat(); },
-      "GetFilePath",
-      [](Texture2D& self) -> std::string { return self.GetFilePath(); });
+    auto texture2D      = lua->new_usertype<Texture2D>("Texture2D", sol::no_constructor);
+    texture2D["Create"] = sol::overload(
+      static_cast<Ref<Texture2D> (*)(const std::string&)>(&Texture2D::Create),
+      static_cast<Ref<Texture2D> (*)(uint32_t, uint32_t, uint8_t)>(&Texture2D::Create));
+    // texture2D["Create"] = static_cast<Ref<Texture2D> (*)(const
+    // std::string&)>(&Texture2D::Create);
+    texture2D["GetWidth"]    = &Texture2D::GetWidth;
+    texture2D["GetHeight"]   = &Texture2D::GetHeight;
+    texture2D["GetFormat"]   = &Texture2D::GetFormat;
+    texture2D["GetFilePath"] = &Texture2D::GetFilePath;
 }
 
 void RegisterRenderer()
 {
     auto lua = Scripting::GetState();
 
-    // auto renderer = lua->new_usertype<Renderer>("Renderer", sol::no_constructor);
-    // renderer["DrawQuad"] =
-    //  static_cast<void (*)(const glm::vec2&, const glm::vec2&, const glm::vec4&)>(
-    //    &Renderer2D::DrawQuad);
-    // renderer["DrawQuadasdf"] =
-    //  static_cast<void (*)(const glm::vec3&, const glm::vec2&, const glm::vec4&)>(
-    //    &Renderer2D::DrawQuad);
+    auto renderer = lua->new_usertype<Renderer2D>("Renderer2D", sol::no_constructor);
+    renderer["DrawQuad"] =
+      static_cast<void (*)(const glm::vec2&, const glm::vec2&, const glm::vec4&)>(
+        &Renderer2D::DrawQuad);
 }
 
 }    // namespace Brigerad

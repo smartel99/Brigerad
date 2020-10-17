@@ -15,6 +15,8 @@
 #include "Brigerad/Core/Time.h"
 #include "KeyCodes.h"
 
+#include "Brigerad/Script/ScriptEngine.h"
+
 namespace Brigerad
 {
 #define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
@@ -45,6 +47,9 @@ Application::Application(const std::string& name)
     // Initialize the rendering pipeline.
     Renderer::Init();
 
+    // Initialize the Lua scripting engine.
+    ScriptEngine::Init();
+
     // Initialize all ImGui related things.
     m_imguiLayer = new ImGuiLayer();
 
@@ -56,7 +61,11 @@ Application::Application(const std::string& name)
 /**
  * @brief   Destroy the Application:: Application object
  */
-Application::~Application() = default;
+Application::~Application()
+{
+    // Gracefully shut down the scripting engine.
+    ScriptEngine::Shutdown();
+}
 
 /**
  * @brief   The main run loop of the application, where all layers are updated.

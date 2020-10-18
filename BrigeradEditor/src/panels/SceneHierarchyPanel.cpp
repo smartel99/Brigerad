@@ -127,36 +127,32 @@ void SceneHierarchyPanel::DrawComponents(Entity entity) const
                               ImGuiTreeNodeFlags_DefaultOpen,
                               "Transform"))
         {
-            auto& transform = entity.GetComponentRef<TransformComponent>().transform;
+            auto& transform = entity.GetComponentRef<TransformComponent>();
 
             // bool rebuildTransform = false;
 
             ImGui::Text("Position");
             ImGui::SameLine();
-            if (ImGui::DragFloat3("##pos", glm::value_ptr(transform[3]), 0.1f))
+            if (ImGui::DragFloat3("##pos", glm::value_ptr(transform.position), 0.1f))
             {
-                // rebuildTransform = true;
+                transform.RecalculateTransform();
             }
 
-            //// TODO: Figure this out
-            // ImGui::Text("Scaling");
-            // ImGui::SameLine();
-            // glm::vec3 scale = {transform[0][0], transform[1][1], transform[2][2]};
-            // if (ImGui::DragFloat3("##scaling", glm::value_ptr(scale), 0.1f))
-            //{
-            //    rebuildTransform = true;
-            //}
+            // TODO: Figure this out
+            ImGui::Text("Scaling");
+            ImGui::SameLine();
+            if (ImGui::DragFloat3("##scaling", glm::value_ptr(transform.scale), 0.1f))
+            {
+                transform.RecalculateTransform();
+            }
 
-            // ImGui::Text("Rotation");
-            // ImGui::SameLine();
-            // if (ImGui::DragFloat("##rotation", &rot[3], 0.1f))
-            //{
-            //    rebuildTransform = true;
-            //}
-            // if (rebuildTransform)
-            //{
-            //    transform = glm::scale(transform, scale);
-            //}
+            ImGui::Text("Rotation");
+            ImGui::SameLine();
+            if (ImGui::DragFloat3(
+                  "##rotation", glm::value_ptr(transform.rotation), 0.1f, -360.0f, 360.0f))
+            {
+                transform.RecalculateTransform();
+            }
 
             ImGui::TreePop();
         }

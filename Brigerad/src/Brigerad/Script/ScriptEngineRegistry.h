@@ -41,5 +41,16 @@ class ScriptEngineRegistry
 {
 public:
     static void RegisterAllTypes();
+
+private:
+    static void RegisterEntity();
+    static void RegisterComponents();
+    static void RegisterVec2();
+    static void RegisterVec3();
+    static void RegisterVec4();
+    static void RegisterMat4();
+    static void RegisterTexture2D();
+    static void RegisterSubTexture2D();
+    static void RegisterDrawQuad();
 };
 }    // namespace Brigerad

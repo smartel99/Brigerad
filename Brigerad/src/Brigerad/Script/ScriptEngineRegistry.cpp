@@ -26,25 +26,11 @@
 // [SECTION] Includes
 /*********************************************************************************************************************/
 #include "brpch.h"
+
 #include "ScriptEngineRegistry.h"
-
-
-#define SOL_ALL_SAFETIES_ON 1
-#include <sol/sol.hpp>
-
-#include "Brigerad/Renderer/Texture.h"
-#include "Brigerad/Renderer/Renderer2D.h"
-
-#include <string>
-
 
 namespace Brigerad
 {
-namespace Scripting
-{
-extern sol::state* GetState();
-
-}
 /*********************************************************************************************************************/
 // [SECTION] Private Macro Definitions
 /*********************************************************************************************************************/
@@ -54,16 +40,21 @@ extern sol::state* GetState();
 /*********************************************************************************************************************/
 // [SECTION] Private Function Declarations
 /*********************************************************************************************************************/
-static void RegisterTexture2D();
-static void RegisterRenderer();
 
 /*********************************************************************************************************************/
 // [SECTION] Public Method Definitions
 /*********************************************************************************************************************/
 void ScriptEngineRegistry::RegisterAllTypes()
 {
+    RegisterEntity();
+    RegisterComponents();
+    RegisterVec2();
+    RegisterVec3();
+    RegisterVec4();
+    RegisterMat4();
     RegisterTexture2D();
-    RegisterRenderer();
+    RegisterSubTexture2D();
+    RegisterDrawQuad();
 }
 
 /*********************************************************************************************************************/
@@ -74,31 +65,7 @@ void ScriptEngineRegistry::RegisterAllTypes()
 /*********************************************************************************************************************/
 // [SECTION] Private Function Declarations
 /*********************************************************************************************************************/
-void RegisterTexture2D()
-{
-    // https://github.com/ThePhD/sol2/issues/1008
-    auto lua = Scripting::GetState();
 
-    auto texture2D      = lua->new_usertype<Texture2D>("Texture2D", sol::no_constructor);
-    texture2D["Create"] = sol::overload(
-      static_cast<Ref<Texture2D> (*)(const std::string&)>(&Texture2D::Create),
-      static_cast<Ref<Texture2D> (*)(uint32_t, uint32_t, uint8_t)>(&Texture2D::Create));
-    // texture2D["Create"] = static_cast<Ref<Texture2D> (*)(const
-    // std::string&)>(&Texture2D::Create);
-    texture2D["GetWidth"]    = &Texture2D::GetWidth;
-    texture2D["GetHeight"]   = &Texture2D::GetHeight;
-    texture2D["GetFormat"]   = &Texture2D::GetFormat;
-    texture2D["GetFilePath"] = &Texture2D::GetFilePath;
-}
 
-void RegisterRenderer()
-{
-    auto lua = Scripting::GetState();
-
-    auto renderer = lua->new_usertype<Renderer2D>("Renderer2D", sol::no_constructor);
-    renderer["DrawQuad"] =
-      static_cast<void (*)(const glm::vec2&, const glm::vec2&, const glm::vec4&)>(
-        &Renderer2D::DrawQuad);
-}
 
 }    // namespace Brigerad

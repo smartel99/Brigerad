@@ -359,58 +359,10 @@ void Renderer2D::DrawQuad(const glm::vec3&         pos,
                           const glm::vec2&         textScale,
                           const glm::vec4&         tint)
 {
-    BR_PROFILE_FUNCTION();
-
-    constexpr size_t quadVertexCount = 4;
-    const glm::vec2* textureCoords   = texture->GetTexCoords();
-
-    // If the quad queue is full:
-    if (s_data.quadIndexCount >= Renderer2DData::maxIndices)
-    {
-        // Render the queue and start a new one.
-        FlushAndReset();
-    }
-
-    float textureIndex = 0.0f;
-
-    // Look up in the texture queue for the texture.
-    for (uint32_t i = 1; i < s_data.textureSlotIndex; i++)
-    {
-        if (*s_data.textureSlots[i].get() == *texture->GetTexture().get())
-        {
-            textureIndex = (float)i;
-            break;
-        }
-    }
-
-    // If the texture is not already in the queue:
-    if (textureIndex == 0.0f)
-    {
-        // Add in to the queue.
-        textureIndex                                 = (float)s_data.textureSlotIndex;
-        s_data.textureSlots[s_data.textureSlotIndex] = texture->GetTexture();
-        s_data.textureSlotIndex++;
-    }
-
     glm::mat4 transform =
       glm::translate(glm::mat4(1.0f), pos) * glm::scale(glm::mat4(1.0f), {size.x, size.y, 1.0f});
 
-    for (int i = 0; i < quadVertexCount; i++)
-    {
-        // Setup the vertex of the quad.
-        s_data.quadVertexBufferPtr->position     = transform * s_data.quadVertexPosition[i];
-        s_data.quadVertexBufferPtr->color        = tint;
-        s_data.quadVertexBufferPtr->texCoord     = textureCoords[i];
-        s_data.quadVertexBufferPtr->tilingFactor = textScale;
-        s_data.quadVertexBufferPtr->texIndex     = textureIndex;
-        s_data.quadVertexBufferPtr->isText       = 0;
-        s_data.quadVertexBufferPtr++;
-    }
-
-    // A quad has 6 indices, increment the indices count by that many.
-    s_data.quadIndexCount += 6;
-
-    s_data.stats.quadCount++;
+    DrawQuad(transform, texture, textScale, tint);
 }
 
 void Renderer2D::DrawQuad(const glm::mat4& transform, const glm::vec4& color)
@@ -481,6 +433,61 @@ void Renderer2D::DrawQuad(const glm::mat4&      transform,
         // Add in to the queue.
         textureIndex                                 = (float)s_data.textureSlotIndex;
         s_data.textureSlots[s_data.textureSlotIndex] = texture;
+        s_data.textureSlotIndex++;
+    }
+
+    for (int i = 0; i < quadVertexCount; i++)
+    {
+        // Setup the vertex of the quad.
+        s_data.quadVertexBufferPtr->position     = transform * s_data.quadVertexPosition[i];
+        s_data.quadVertexBufferPtr->color        = tint;
+        s_data.quadVertexBufferPtr->texCoord     = textureCoords[i];
+        s_data.quadVertexBufferPtr->tilingFactor = textScale;
+        s_data.quadVertexBufferPtr->texIndex     = textureIndex;
+        s_data.quadVertexBufferPtr->isText       = 0;
+        s_data.quadVertexBufferPtr++;
+    }
+
+    // A quad has 6 indices, increment the indices count by that many.
+    s_data.quadIndexCount += 6;
+
+    s_data.stats.quadCount++;
+}
+
+void Renderer2D::DrawQuad(const glm::mat4&         transform,
+                          const Ref<SubTexture2D>& texture,
+                          const glm::vec2&         textScale,
+                          const glm::vec4&         tint)
+{
+
+    constexpr size_t quadVertexCount = 4;
+    const glm::vec2* textureCoords   = texture->GetTexCoords();
+
+    // If the quad queue is full:
+    if (s_data.quadIndexCount >= Renderer2DData::maxIndices)
+    {
+        // Render the queue and start a new one.
+        FlushAndReset();
+    }
+
+    float textureIndex = 0.0f;
+
+    // Look up in the texture queue for the texture.
+    for (uint32_t i = 1; i < s_data.textureSlotIndex; i++)
+    {
+        if (*s_data.textureSlots[i].get() == *texture->GetTexture().get())
+        {
+            textureIndex = (float)i;
+            break;
+        }
+    }
+
+    // If the texture is not already in the queue:
+    if (textureIndex == 0.0f)
+    {
+        // Add in to the queue.
+        textureIndex                                 = (float)s_data.textureSlotIndex;
+        s_data.textureSlots[s_data.textureSlotIndex] = texture->GetTexture();
         s_data.textureSlotIndex++;
     }
 

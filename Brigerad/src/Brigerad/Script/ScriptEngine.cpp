@@ -29,6 +29,8 @@
 #include "ScriptEngine.h"
 
 #define SOL_ALL_SAFETIES_ON 1
+#define SOL_SAFE_USERTYPE   1
+#define SOL_CHECK_ARGUMENTS 1
 #include "sol/sol.hpp"
 
 #include "lstate.h"
@@ -37,6 +39,7 @@
 #include "ScriptEngineRegistry.h"
 
 #include "Brigerad/Scene/ScriptableEntity.h"
+#include "Brigerad/Scene/Components.h"
 
 namespace Brigerad
 {
@@ -174,12 +177,27 @@ void ScriptEngine::OnUpdate(const LuaScriptEntity* entity, float ts)
     LUA_CALL(entity->GetName(), "OnUpdate", ts);
 }
 
+void ScriptEngine::OnRender(const LuaScriptEntity* entity)
+{
+    auto& lua = *s_data.LuaState;
+    LUA_CALL(entity->GetName(), "OnRender");
+}
+
 
 
 LuaScriptEntity::LuaScriptEntity(const std::string& path, const std::string& name)
 : m_path(path), m_name(name)
 {
     ScriptEngine::LoadEntityScript(path);
+    auto& lua = *s_data.LuaState;
+
+    auto self               = lua.new_usertype<LuaScriptEntity>("this", sol::no_constructor);
+    self["GetTagComponent"] = [this]() -> TagComponent& {
+        return this->GetComponentRef<TagComponent>();
+    };
+    self["GetTransformComponent"] = [this]() -> TransformComponent& {
+        return this->GetComponentRef<TransformComponent>();
+    };
 }
 
 void LuaScriptEntity::Reload()
@@ -197,13 +215,18 @@ void LuaScriptEntity::OnUpdate(Timestep ts)
     ScriptEngine::OnUpdate(this, ts);
 }
 
-/*********************************************************************************************************************/
-// [SECTION] Private Function Declarations
-/*********************************************************************************************************************/
+void LuaScriptEntity::OnRender()
+{
+    ScriptEngine::OnRender(this);
+}
 
 void LuaScriptEntity::OnDestroy()
 {
     ScriptEngine::OnDestroyed(this);
 }
+/*********************************************************************************************************************/
+// [SECTION] Private Function Declarations
+/*********************************************************************************************************************/
+
 
 }    // namespace Brigerad

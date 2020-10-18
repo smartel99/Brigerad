@@ -40,9 +40,9 @@ void EditorLayer::OnAttach()
             static float time  = 0.0f;
 
             time += ts;
-            auto& transform = GetComponentRef<TransformComponent>().transform;
-            transform[3][0] = speed * std::sin(time);
-            transform[3][1] = speed * std::cos(time);
+            auto& position = GetComponentRef<TransformComponent>().position;
+            position.x     = speed * std::sin(time);
+            position.y     = speed * std::cos(time);
         }
     };
     // m_squareEntity.AddComponent<NativeScriptComponent>().Bind<SquareMover>();
@@ -64,9 +64,9 @@ void EditorLayer::OnAttach()
     public:
         virtual void OnCreate() override
         {
-            auto& transform = GetComponentRef<TransformComponent>().transform;
-            transform[3][0] = rand() % 10 - 5.0f;
-            transform[3][1] = rand() % 10 - 5.0f;
+            auto& position = GetComponentRef<TransformComponent>().position;
+            position.x     = rand() % 10 - 5.0f;
+            position.y     = rand() % 10 - 5.0f;
         }
 
         virtual void OnUpdate(Timestep ts) override
@@ -76,24 +76,24 @@ void EditorLayer::OnAttach()
                 return;
             }
 
-            auto&       transform = GetComponentRef<TransformComponent>().transform;
-            const float speed     = 5.0f;
+            auto&       position = GetComponentRef<TransformComponent>().position;
+            const float speed    = 5.0f;
 
             if (Input::IsKeyPressed(KeyCode::A))
             {
-                transform[3][0] -= speed * ts;
+                position.x -= speed * ts;
             }
             if (Input::IsKeyPressed(KeyCode::D))
             {
-                transform[3][0] += speed * ts;
+                position.x += speed * ts;
             }
             if (Input::IsKeyPressed(KeyCode::W))
             {
-                transform[3][1] += speed * ts;
+                position.y += speed * ts;
             }
             if (Input::IsKeyPressed(KeyCode::S))
             {
-                transform[3][1] -= speed * ts;
+                position.y -= speed * ts;
             }
         }
     };
@@ -226,9 +226,8 @@ void EditorLayer::OnImGuiRender()
     auto& activeCamera =
       m_cameraEntity.GetComponentRef<CameraComponent>().primary ? m_cameraEntity : m_cameraEntity2;
 
-    ImGui::DragFloat3(
-      "Camera Transform",
-      glm::value_ptr(activeCamera.GetComponentRef<TransformComponent>().transform[3]));
+    ImGui::DragFloat3("Camera Transform",
+                      glm::value_ptr(activeCamera.GetComponentRef<TransformComponent>().position));
 
     {
         auto& camera    = activeCamera.GetComponentRef<CameraComponent>().camera;

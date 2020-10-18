@@ -1,8 +1,8 @@
 /**
- * @file    SceneCamera.cpp
+ * @file    ScriptEngineRegistryTextures
  * @author  Samuel Martel
  * @p       https://github.com/smartel99
- * @date    10/9/2020 12:22:29 PM
+ * @date    10/18/2020 3:52:07 PM
  *
  * @brief
  ******************************************************************************
@@ -26,12 +26,22 @@
 // [SECTION] Includes
 /*********************************************************************************************************************/
 #include "brpch.h"
-#include "SceneCamera.h"
+#include "ScriptEngineRegistry.h"
 
-#include "glm/gtc/matrix_transform.hpp"
+#define SOL_ALL_SAFETIES_ON 1
+#include <sol/sol.hpp>
+
+#include "Brigerad/Renderer/Texture.h"
+#include "Brigerad/Renderer/SubTexture2D.h"
+
+#include <string>
 
 namespace Brigerad
 {
+namespace Scripting
+{
+extern sol::state* GetState();
+}
 /*********************************************************************************************************************/
 // [SECTION] Private Macro Definitions
 /*********************************************************************************************************************/
@@ -45,43 +55,36 @@ namespace Brigerad
 /*********************************************************************************************************************/
 // [SECTION] Public Method Definitions
 /*********************************************************************************************************************/
-SceneCamera::SceneCamera()
-{
-    RecalculateProjection();
-}
-
-void SceneCamera::SetOrthographic(float size, float nearClip, float farClip)
-{
-    m_orthographicSize = size;
-    m_orthographicNear = nearClip;
-    m_orthographicFar  = farClip;
-    RecalculateProjection();
-}
-
-void SceneCamera::SetViewportSize(uint32_t w, uint32_t h)
-{
-    m_aspectRatio = (float)w / (float)h;
-    RecalculateProjection();
-}
-
-void SceneCamera::RecalculateProjection()
-{
-    float orthoLeft   = -m_orthographicSize * m_aspectRatio * 0.5f;
-    float orthoRight  = m_orthographicSize * m_aspectRatio * 0.5f;
-    float orthoBottom = m_orthographicSize * 0.5f;
-    float orthoTop    = -m_orthographicSize * 0.5f;
-
-    m_projection = glm::ortho(
-      orthoLeft, orthoRight, orthoBottom, orthoTop, m_orthographicNear, m_orthographicFar);
-}
 
 /*********************************************************************************************************************/
 // [SECTION] Private Method Definitions
 /*********************************************************************************************************************/
+void ScriptEngineRegistry::RegisterTexture2D()
+{
+    auto lua = Scripting::GetState();
+
+    auto texture2D      = lua->new_usertype<Texture2D>("Texture2D", sol::no_constructor);
+    texture2D["Create"] = sol::overload(
+      static_cast<Ref<Texture2D> (*)(const std::string&)>(&Texture2D::Create),
+      static_cast<Ref<Texture2D> (*)(uint32_t, uint32_t, uint8_t)>(&Texture2D::Create));
+    texture2D["GetWidth"]    = &Texture2D::GetWidth;
+    texture2D["GetHeight"]   = &Texture2D::GetHeight;
+    texture2D["GetFormat"]   = &Texture2D::GetFormat;
+    texture2D["GetFilePath"] = &Texture2D::GetFilePath;
+}
+
+void ScriptEngineRegistry::RegisterSubTexture2D()
+{
+    auto lua = Scripting::GetState();
+
+    auto subTexture2D = lua->new_usertype<SubTexture2D>("SubTexture2D", sol::no_constructor);
+    subTexture2D["CreateFromCoords"] = &SubTexture2D::CreateFromCoords;
+    subTexture2D["GetTexture"]       = &SubTexture2D::GetTexture;
+    subTexture2D["GetTexCoords"]     = &SubTexture2D::GetTexCoords;
+}
 
 
 /*********************************************************************************************************************/
 // [SECTION] Private Function Declarations
 /*********************************************************************************************************************/
-
 }    // namespace Brigerad

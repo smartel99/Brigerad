@@ -55,6 +55,10 @@ public:
                          const Ref<Texture2D>& texture,
                          const glm::vec2&      textScale = glm::vec2(1.0f),
                          const glm::vec4&      tint      = glm::vec4(1.0f));
+    static void DrawQuad(const glm::mat4&         transform,
+                         const Ref<SubTexture2D>& texture,
+                         const glm::vec2&         textScale = glm::vec2(1.0f),
+                         const glm::vec4&         tint      = glm::vec4(1.0f));
 
     // ----- DRAW ROTATED QUAD -----
     static void DrawRotatedQuad(const glm::vec2& pos,

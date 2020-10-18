@@ -1,8 +1,8 @@
 /**
- * @file    SceneCamera.cpp
+ * @file    ScriptEngineRegistryECS
  * @author  Samuel Martel
  * @p       https://github.com/smartel99
- * @date    10/9/2020 12:22:29 PM
+ * @date    10/18/2020 3:57:30 PM
  *
  * @brief
  ******************************************************************************
@@ -26,12 +26,26 @@
 // [SECTION] Includes
 /*********************************************************************************************************************/
 #include "brpch.h"
-#include "SceneCamera.h"
 
-#include "glm/gtc/matrix_transform.hpp"
+#include "ScriptEngineRegistry.h"
+
+#define SOL_ALL_SAFETIES_ON 1
+#define SOL_SAFE_USERTYPE   1
+#define SOL_CHECK_ARGUMENTS 1
+#include <sol/sol.hpp>
+
+#include "Brigerad/Scene/Entity.h"
+#include "Brigerad/Scene/Components.h"
+
+#include <string>
+
 
 namespace Brigerad
 {
+namespace Scripting
+{
+extern sol::state* GetState();
+}
 /*********************************************************************************************************************/
 // [SECTION] Private Macro Definitions
 /*********************************************************************************************************************/
@@ -40,48 +54,47 @@ namespace Brigerad
 /*********************************************************************************************************************/
 // [SECTION] Private Function Declarations
 /*********************************************************************************************************************/
-
+inline static void RegisterTagComponent();
+inline static void RegisterTransformComponent();
 
 /*********************************************************************************************************************/
 // [SECTION] Public Method Definitions
 /*********************************************************************************************************************/
-SceneCamera::SceneCamera()
-{
-    RecalculateProjection();
-}
 
-void SceneCamera::SetOrthographic(float size, float nearClip, float farClip)
-{
-    m_orthographicSize = size;
-    m_orthographicNear = nearClip;
-    m_orthographicFar  = farClip;
-    RecalculateProjection();
-}
-
-void SceneCamera::SetViewportSize(uint32_t w, uint32_t h)
-{
-    m_aspectRatio = (float)w / (float)h;
-    RecalculateProjection();
-}
-
-void SceneCamera::RecalculateProjection()
-{
-    float orthoLeft   = -m_orthographicSize * m_aspectRatio * 0.5f;
-    float orthoRight  = m_orthographicSize * m_aspectRatio * 0.5f;
-    float orthoBottom = m_orthographicSize * 0.5f;
-    float orthoTop    = -m_orthographicSize * 0.5f;
-
-    m_projection = glm::ortho(
-      orthoLeft, orthoRight, orthoBottom, orthoTop, m_orthographicNear, m_orthographicFar);
-}
 
 /*********************************************************************************************************************/
 // [SECTION] Private Method Definitions
 /*********************************************************************************************************************/
+void Brigerad::ScriptEngineRegistry::RegisterEntity()
+{
+    auto lua = Scripting::GetState();
+}
 
+void Brigerad::ScriptEngineRegistry::RegisterComponents()
+{
+    RegisterTagComponent();
+    RegisterTransformComponent();
+}
+
+void RegisterTagComponent()
+{
+    auto lua = Scripting::GetState();
+
+    auto tagComponent   = lua->new_usertype<TagComponent>("TagComponent", sol::no_constructor);
+    tagComponent["tag"] = &TagComponent::tag;
+}
+
+void RegisterTransformComponent()
+{
+    auto lua = Scripting::GetState();
+
+    auto transComponent =
+      lua->new_usertype<TransformComponent>("TransformComponent", sol::no_constructor);
+    transComponent["GetPosition"] = &TransformComponent::GetPosition;
+    transComponent["SetPosition"] = &TransformComponent::SetPosition;
+}
 
 /*********************************************************************************************************************/
 // [SECTION] Private Function Declarations
 /*********************************************************************************************************************/
-
 }    // namespace Brigerad

@@ -140,6 +140,9 @@ void Scene::OnUpdate(Timestep ts)
             Renderer2D::DrawQuad(transform, sprite.texture);
         }
 
+        m_registry.view<LuaScriptComponent>().each(
+          [=](auto entity, LuaScriptComponent& sc) { sc.instance->OnRender(); });
+
         Renderer2D::EndScene();
     }
 }

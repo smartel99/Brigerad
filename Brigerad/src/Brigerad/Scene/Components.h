@@ -26,13 +26,17 @@
 /*********************************************************************************************************************/
 // [SECTION] Includes
 /*********************************************************************************************************************/
-#include "glm/glm.hpp"
 
+#include "Brigerad/Core/Log.h"
 #include "Brigerad/Renderer/Texture.h"
 #include "Brigerad/Scene/SceneCamera.h"
 #include "Brigerad/Scene/ScriptableEntity.h"
 
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
+
 #include <string>
+#include <ostream>
 
 
 /*********************************************************************************************************************/
@@ -51,21 +55,45 @@ struct TagComponent
 {
     std::string tag;
 
+    std::string to_string() { return tag; }
     TagComponent()                    = default;
     TagComponent(const TagComponent&) = default;
     TagComponent(const std::string& t) : tag(t) {}
 };
 
+
 struct TransformComponent
 {
-    glm::mat4 transform {1.0f};
+    glm::vec3 position  = glm::vec3 {0.0f, 0.0f, 0.0f};
+    glm::vec3 rotation  = glm::vec3 {0.0f, 0.0f, 0.0f};
+    glm::vec3 scale     = glm::vec3 {1.0f, 1.0f, 1.0f};
+    glm::mat4 transform = glm::mat4 {1.0f};
 
     TransformComponent()                          = default;
     TransformComponent(const TransformComponent&) = default;
-    TransformComponent(const glm::mat4& tr) : transform(tr) {}
+    TransformComponent(const glm::vec3& pos, const glm::vec3& rot, const glm::vec3& sc)
+    : position(pos), rotation(rot), scale(sc)
+    {
+    }
 
-    operator glm::mat4&() { return transform; }
+    void RecalculateTransform()
+    {
+        transform = glm::translate(glm::mat4(1.0f), position) *
+                    glm::rotate(glm::mat4(1.0f), glm::radians(rotation.x), {1, 0, 0}) *
+                    glm::rotate(glm::mat4(1.0f), glm::radians(rotation.y), {0, 1, 0}) *
+                    glm::rotate(glm::mat4(1.0f), glm::radians(rotation.z), {0, 0, 1}) *
+                    glm::scale(glm::mat4(1.0f), scale);
+    }
+
+    const glm::vec3& GetPosition() const { return position; }
+    void             SetPosition(const glm::vec3& newPos)
+    {
+        position = newPos;
+        RecalculateTransform();
+    }
+
     operator const glm::mat4&() const { return transform; }
+    operator glm::mat4&() { return transform; }
 };
 
 struct ColorRendererComponent

@@ -1619,5 +1619,9 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
+    <ClCompile Include="src\Brigerad\Script\ScriptEngineRegistryGLM.cpp" />
+    <ClCompile Include="src\Brigerad\Script\ScriptEngineRegistryTextures.cpp" />
+    <ClCompile Include="src\Brigerad\Script\ScriptEngineRegistryRenderer.cpp" />
+    <ClCompile Include="src\Brigerad\Script\ScriptEngineRegistryECS.cpp" />
   </ItemGroup>
 </Project>

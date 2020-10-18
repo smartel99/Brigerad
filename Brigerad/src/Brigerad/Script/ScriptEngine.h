@@ -61,6 +61,7 @@ public:
 protected:
     void OnCreate();
     void OnUpdate(Timestep ts);
+    void OnRender();
     void OnDestroy();
 
 private:
@@ -92,5 +93,6 @@ public:
     static void OnCreate(LuaScriptEntity* entity);
     static void OnDestroyed(const LuaScriptEntity* entity);
     static void OnUpdate(const LuaScriptEntity* entity, float ts);
+    static void OnRender(const LuaScriptEntity* entity);
 };
 }    // namespace Brigerad

@@ -47,7 +47,7 @@ namespace Brigerad
 /*********************************************************************************************************************/
 SceneCamera::SceneCamera()
 {
-    RecalculateProjection();
+    RecalculateOrthographicProjection();
 }
 
 void SceneCamera::SetOrthographic(float size, float nearClip, float farClip)
@@ -55,16 +55,29 @@ void SceneCamera::SetOrthographic(float size, float nearClip, float farClip)
     m_orthographicSize = size;
     m_orthographicNear = nearClip;
     m_orthographicFar  = farClip;
-    RecalculateProjection();
+    RecalculateOrthographicProjection();
 }
 
 void SceneCamera::SetViewportSize(uint32_t w, uint32_t h)
 {
     m_aspectRatio = (float)w / (float)h;
-    RecalculateProjection();
+    RecalculateOrthographicProjection();
 }
 
-void SceneCamera::RecalculateProjection()
+void SceneCamera::SetProjectionType(ProjectionType type)
+{
+    m_projectionType = type;
+    if (m_projectionType == ProjectionType::Ortographic)
+    {
+        RecalculateOrthographicProjection();
+    }
+    else
+    {
+        RecalculatePerspectiveProjection();
+    }
+}
+
+void SceneCamera::RecalculateOrthographicProjection()
 {
     float orthoLeft   = -m_orthographicSize * m_aspectRatio * 0.5f;
     float orthoRight  = m_orthographicSize * m_aspectRatio * 0.5f;
@@ -73,6 +86,12 @@ void SceneCamera::RecalculateProjection()
 
     m_projection = glm::ortho(
       orthoLeft, orthoRight, orthoBottom, orthoTop, m_orthographicNear, m_orthographicFar);
+}
+
+void SceneCamera::RecalculatePerspectiveProjection()
+{
+    m_projection = glm::perspective(
+      glm::radians(m_perspectiveFov), m_aspectRatio, m_perspectiveNear, m_perspectiveFar);
 }
 
 /*********************************************************************************************************************/

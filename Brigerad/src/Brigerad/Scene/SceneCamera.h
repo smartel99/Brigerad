@@ -40,26 +40,55 @@ namespace Brigerad
 class SceneCamera : public Camera
 {
 public:
+    enum class ProjectionType
+    {
+        Perspective = 0,
+        Ortographic = 1
+    };
+
+public:
     SceneCamera();
     virtual ~SceneCamera() = default;
 
     void SetOrthographic(float size, float nearClip, float farClip);
     void SetViewportSize(uint32_t w, uint32_t h);
 
+    ProjectionType GetProjectionType() const { return m_projectionType; }
+    void           SetProjectionType(ProjectionType type);
+
     float GetOrthographicSize() const { return m_orthographicSize; }
     void  SetOrthographicSize(float size)
     {
         m_orthographicSize = size;
-        RecalculateProjection();
+        RecalculateOrthographicProjection();
     }
 
-private:
-    void RecalculateProjection();
+    float GetOrtographicNearClip() const { return m_orthographicNear; }
+    void  SetOrtographicNearClip(float clip) { m_orthographicNear = clip; }
+    float GetOrtographicFarClip() const { return m_orthographicFar; }
+    void  SetOrtographicFarClip(float clip) { m_orthographicFar = clip; }
+
+    float GetPerspectiveNearClip() const { return m_perspectiveNear; }
+    void  SetPerspectiveNearClip(float clip) { m_perspectiveNear = clip; }
+    float GetPerspectiveFarClip() const { return m_perspectiveFar; }
+    void  SetPerspectiveFarClip(float clip) { m_perspectiveFar = clip; }
+
+    float GetPerspectiveFov() const { return m_perspectiveFov; }
+    void  SetPerspectiveFov(float fov) { m_perspectiveFov = fov; }
+
+    void RecalculateOrthographicProjection();
+    void RecalculatePerspectiveProjection();
 
 private:
+    ProjectionType m_projectionType = ProjectionType::Ortographic;
+
     float m_orthographicSize = 10.0f;
     float m_orthographicNear = -1.0f;
     float m_orthographicFar  = 1.0f;
+
+    float m_perspectiveFov  = 45.0f;
+    float m_perspectiveNear = 0.0001f;
+    float m_perspectiveFar  = 1000.0f;
 
     float m_aspectRatio = 0;
 };

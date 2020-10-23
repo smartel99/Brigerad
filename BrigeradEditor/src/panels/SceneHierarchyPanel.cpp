@@ -36,6 +36,8 @@
 #include "glm/gtx/transform.hpp"
 #include "ImGui/imgui.h"
 
+#include <fstream>
+
 namespace Brigerad
 {
 /*********************************************************************************************************************/
@@ -113,12 +115,14 @@ void SceneHierarchyPanel::DrawComponents(Entity entity) const
         char buffer[256] = {0};
         strcpy_s(buffer, sizeof(buffer), tag.c_str());
 
-        ImGui::Text("Tag");
-        ImGui::SameLine();
+        ImGui::Columns(2);
+        ImGui::TextUnformatted("Tag");
+        ImGui::NextColumn();
         if (ImGui::InputText("", buffer, sizeof(buffer)))
         {
             tag = std::string(buffer);
         }
+        ImGui::Columns();
     }
 
     if (entity.HasComponent<TransformComponent>())
@@ -129,31 +133,32 @@ void SceneHierarchyPanel::DrawComponents(Entity entity) const
         {
             auto& transform = entity.GetComponentRef<TransformComponent>();
 
-            // bool rebuildTransform = false;
-
-            ImGui::Text("Position");
-            ImGui::SameLine();
+            ImGui::Columns(2);
+            ImGui::TextUnformatted("Position");
+            ImGui::NextColumn();
             if (ImGui::DragFloat3("##pos", glm::value_ptr(transform.position), 0.1f))
             {
                 transform.RecalculateTransform();
             }
 
-            // TODO: Figure this out
-            ImGui::Text("Scaling");
-            ImGui::SameLine();
+            ImGui::NextColumn();
+            ImGui::TextUnformatted("Scaling");
+            ImGui::NextColumn();
             if (ImGui::DragFloat3("##scaling", glm::value_ptr(transform.scale), 0.1f))
             {
                 transform.RecalculateTransform();
             }
 
-            ImGui::Text("Rotation");
-            ImGui::SameLine();
+            ImGui::NextColumn();
+            ImGui::TextUnformatted("Rotation");
+            ImGui::NextColumn();
             if (ImGui::DragFloat3(
                   "##rotation", glm::value_ptr(transform.rotation), 0.1f, -360.0f, 360.0f))
             {
                 transform.RecalculateTransform();
             }
 
+            ImGui::Columns();
             ImGui::TreePop();
         }
     }
@@ -165,9 +170,12 @@ void SceneHierarchyPanel::DrawComponents(Entity entity) const
                               "Sprite Renderer"))
         {
             auto& col = entity.GetComponentRef<ColorRendererComponent>().color;
-            ImGui::Text("Color");
-            ImGui::SameLine();
+            ImGui::Columns(2);
+            ImGui::TextUnformatted("Color");
+            ImGui::NextColumn();
             ImGui::ColorEdit4("##color", glm::value_ptr(col));
+            ImGui::Columns();
+
             ImGui::TreePop();
         }
     }
@@ -191,16 +199,109 @@ void SceneHierarchyPanel::DrawComponents(Entity entity) const
               (void*)typeid(CameraComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "Camera"))
         {
             auto& camera = entity.GetComponentRef<CameraComponent>();
-            ImGui::Checkbox("Primary", &camera.primary);
-            ImGui::Checkbox("Fixed Aspect Ratio", &camera.fixedAspectRatio);
 
-            float size = camera.camera.GetOrthographicSize();
-            ImGui::Text("Size");
-            ImGui::SameLine();
-            if (ImGui::DragFloat("##cameraSize", &size, 0.1f))
+            const char* projTypeStrings[] = {"Perspective", "Orthographic"};
+            const char* currentProjType =
+              projTypeStrings[(size_t)camera.camera.GetProjectionType()];
+
+            ImGui::Columns(2);
+            ImGui::TextUnformatted("Projection");
+            ImGui::NextColumn();
+            if (ImGui::BeginCombo("##Projection", currentProjType))
             {
-                camera.camera.SetOrthographicSize(size);
+                for (int i = 0; i < 2; i++)
+                {
+                    bool isSelected = (currentProjType == projTypeStrings[i]);
+                    if (ImGui::Selectable(projTypeStrings[i], isSelected))
+                    {
+                        camera.camera.SetProjectionType((SceneCamera::ProjectionType)i);
+                    }
+
+                    if (isSelected)
+                    {
+                        ImGui::SetItemDefaultFocus();
+                    }
+                }
+                ImGui::EndCombo();
             }
+
+            if (camera.camera.GetProjectionType() == SceneCamera::ProjectionType::Perspective)
+            {
+                ImGui::NextColumn();
+                ImGui::TextUnformatted("FoV");
+                ImGui::NextColumn();
+                float fov = camera.camera.GetPerspectiveFov();
+                if (ImGui::DragFloat("##Size", &fov, 0.01f, 0.00001f, 10000000.0f))
+                {
+                    camera.camera.SetPerspectiveFov(fov);
+                    camera.camera.RecalculatePerspectiveProjection();
+                }
+
+                ImGui::NextColumn();
+                ImGui::TextUnformatted("Near Clip");
+                ImGui::NextColumn();
+                float nearClip = camera.camera.GetPerspectiveNearClip();
+                if (ImGui::DragFloat("##Near", &nearClip, 0.01f, 0.00001f, 10000000.0f))
+                {
+                    camera.camera.SetPerspectiveNearClip(nearClip);
+                    camera.camera.RecalculatePerspectiveProjection();
+                }
+
+                ImGui::NextColumn();
+                ImGui::TextUnformatted("Far Clip");
+                ImGui::NextColumn();
+                float farClip = camera.camera.GetPerspectiveFarClip();
+                if (ImGui::DragFloat("##Far", &farClip, 0.01f, 0.00001f, 10000000.0f))
+                {
+                    camera.camera.SetPerspectiveFarClip(farClip);
+                    camera.camera.RecalculatePerspectiveProjection();
+                }
+            }
+
+            else if (camera.camera.GetProjectionType() == SceneCamera::ProjectionType::Ortographic)
+            {
+                ImGui::NextColumn();
+                ImGui::TextUnformatted("Size");
+                ImGui::NextColumn();
+                float size = camera.camera.GetOrthographicSize();
+                if (ImGui::DragFloat("##Size", &size, 0.01f, 0.00001f, 10000000.0f))
+                {
+                    camera.camera.SetOrthographicSize(size);
+                    camera.camera.RecalculateOrthographicProjection();
+                }
+
+                ImGui::NextColumn();
+                ImGui::TextUnformatted("Near Clip");
+                ImGui::NextColumn();
+                float nearClip = camera.camera.GetOrtographicNearClip();
+                if (ImGui::DragFloat("##Near", &nearClip, 0.01f, -1000.0f, 1000.0f))
+                {
+                    camera.camera.SetOrtographicNearClip(nearClip);
+                    camera.camera.RecalculateOrthographicProjection();
+                }
+
+                ImGui::NextColumn();
+                ImGui::TextUnformatted("Far Clip");
+                ImGui::NextColumn();
+                float farClip = camera.camera.GetOrtographicFarClip();
+                if (ImGui::DragFloat("##Far", &farClip, 0.01f, -1000.0f, 1000.0f))
+                {
+                    camera.camera.SetOrtographicFarClip(farClip);
+                    camera.camera.RecalculateOrthographicProjection();
+                }
+            }
+
+            ImGui::NextColumn();
+            ImGui::TextUnformatted("Primary");
+            ImGui::NextColumn();
+            ImGui::Checkbox("##primary", &camera.primary);
+
+            ImGui::NextColumn();
+            ImGui::TextUnformatted("Fixed Aspect Ratio");
+            ImGui::NextColumn();
+            ImGui::Checkbox("##fixedAR", &camera.fixedAspectRatio);
+
+            ImGui::Columns(1);
             ImGui::TreePop();
         }
     }
@@ -217,6 +318,42 @@ void SceneHierarchyPanel::DrawComponents(Entity entity) const
             if (ImGui::Button("Reload Script"))
             {
                 script.ReloadScript();
+            }
+
+            static bool                     isViewerOpen = false;
+            static std::vector<std::string> fileContent;
+
+            if (ImGui::Button("Open Script"))
+            {
+                isViewerOpen = true;
+
+                // Load the file's content into a buffer to display.
+                std::ifstream file(script.path);
+                if (file.is_open())
+                {
+                    std::string line = "";
+                    while (std::getline(file, line))
+                    {
+                        fileContent.push_back(line);
+                    }
+                }
+
+                else
+                {
+                    BR_CORE_ERROR("Unable to open \"{}\"", script.path.c_str());
+                }
+            }
+
+            if (isViewerOpen)
+            {
+                ImGui::Begin(script.path.c_str(), &isViewerOpen);
+
+                for (const auto& line : fileContent)
+                {
+                    ImGui::TextUnformatted(line.c_str());
+                }
+
+                ImGui::End();
             }
 
             ImGui::TreePop();

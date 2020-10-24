@@ -21,8 +21,7 @@
 namespace Brigerad
 {
 ImGuiLayer::ImGuiLayer() : Layer("ImGuiLayer")
-{
-}
+{}
 
 ImGuiLayer::~ImGuiLayer() = default;
 
@@ -36,19 +35,22 @@ void ImGuiLayer::OnAttach()
     ImGuiIO& io = ImGui::GetIO();
     (void)io;
     io.ConfigFlags |=
-      ImGuiConfigFlags_NavEnableKeyboard;                // Enable keyboard control.
-                                                         //     io.ConfigFlags |=
-                                                         //     ImGuiConfigFlags_NavEnableGamepad;
-                                                         //     // Enable Gamepad control.
+        ImGuiConfigFlags_NavEnableKeyboard;                // Enable keyboard control.
+                                                           //     io.ConfigFlags |=
+                                                           //     ImGuiConfigFlags_NavEnableGamepad;
+                                                           //     // Enable Gamepad control.
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;    // Enable docking.
     io.ConfigFlags |=
-      ImGuiConfigFlags_ViewportsEnable;    // Enable multi-viewport / platform window.
-                                           //     io.ConfigFlags |=
-                                           //     ImGuiConfigFlags_ViewportsNoTaskBarIcons;
-                                           //     io.ConfigFlags |=
-                                           //     ImGuiConfigFlags_ViewportsNoMerge;
-                                           //
-                                           // Setup dear Imgui style.
+        ImGuiConfigFlags_ViewportsEnable;    // Enable multi-viewport / platform window.
+                                             //     io.ConfigFlags |=
+                                             //     ImGuiConfigFlags_ViewportsNoTaskBarIcons;
+                                             //     io.ConfigFlags |=
+                                             //     ImGuiConfigFlags_ViewportsNoMerge;
+
+    io.Fonts->AddFontFromFileTTF("assets/fonts/OpenSans-Bold.ttf", 16.0f);
+    io.FontDefault = io.Fonts->AddFontFromFileTTF("assets/fonts/OpenSans-Regular.ttf", 16.0f);
+
+    // Setup dear Imgui style.
     ImGui::StyleColorsDark();
 
     // When view ports are enabled we tweak WindowRounding/WindowBg
@@ -56,12 +58,12 @@ void ImGuiLayer::OnAttach()
     ImGuiStyle& style = ImGui::GetStyle();
     if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
     {
-        style.WindowRounding              = 0.0f;
+        style.WindowRounding = 0.0f;
         style.Colors[ImGuiCol_WindowBg].w = 1.0f;
     }
 
-    Application& app    = Application::Get();
-    GLFWwindow*  window = static_cast<GLFWwindow*>(app.GetWindow().GetNativeWindow());
+    Application& app = Application::Get();
+    GLFWwindow* window = static_cast<GLFWwindow*>(app.GetWindow().GetNativeWindow());
 
     // Setup Platform/Renderer bindings.
     ImGui_ImplGlfw_InitForOpenGL(window, true);
@@ -111,7 +113,7 @@ void ImGuiLayer::OnImGuiRender()
         ImGui::ShowMetricsWindow(&m_showMetricWindow);
     }
 
-    auto& window  = Application::Get().GetWindow();
+    auto& window = Application::Get().GetWindow();
     bool  isVSync = window.IsVSync();
     if (ImGui::Begin("Settings", &m_open))
     {
@@ -131,7 +133,7 @@ void ImGuiLayer::OnImGuiRender()
             if (m_isProfiling == false)
             {
                 m_profilingStartTime =
-                  m_profilingDuration > 0 ? m_time : std::numeric_limits<double>::max();
+                    m_profilingDuration > 0 ? m_time : std::numeric_limits<double>::max();
                 BR_PROFILE_BEGIN_SESSION("Profiling Session", "BrigeradProfiling-Session.json");
                 m_isProfiling = true;
             }
@@ -163,7 +165,7 @@ void ImGuiLayer::End()
 {
     BR_PROFILE_FUNCTION();
 
-    ImGuiIO&     io  = ImGui::GetIO();
+    ImGuiIO& io = ImGui::GetIO();
     Application& app = Application::Get();
     io.DisplaySize = ImVec2(float(app.GetWindow().GetWidth()), float(app.GetWindow().GetHeight()));
 

@@ -54,7 +54,9 @@ public:
     {
         BR_CORE_ASSERT(!HasComponent<T>(), "Entity already has this component!");
 
-        return m_scene->m_registry.emplace<T>(m_entityHandle, std::forward<Args>(args)...);
+        T& component = m_scene->m_registry.emplace<T>(m_entityHandle, std::forward<Args>(args)...);
+        m_scene->OnComponentAdded<T>(*this, component);
+        return component;
     }
 
     template<typename T>
@@ -95,6 +97,8 @@ public:
         return (m_entityHandle == other.m_entityHandle) && (m_scene == other.m_scene);
     }
     bool operator!=(const Entity& other) const { return !(*this == other); }
+
+    operator entt::entity() const { return m_entityHandle; }
 
 private:
     entt::entity m_entityHandle = entt::null;

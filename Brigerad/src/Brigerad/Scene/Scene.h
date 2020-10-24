@@ -50,11 +50,16 @@ public:
     ~Scene();
 
     Entity CreateEntity(const std::string& name = std::string());
+    void   DestroyEntity(Entity entity);
 
     entt::registry& Reg() { return m_registry; }
 
     void OnUpdate(Timestep ts);
     void OnViewportResize(uint32_t w, uint32_t h);
+
+private:
+    template<typename T>
+    void OnComponentAdded(Entity entity, T& component);
 
 private:
     entt::registry m_registry;

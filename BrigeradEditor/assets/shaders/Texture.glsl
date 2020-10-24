@@ -125,7 +125,6 @@ void RenderText()
         
     }
     color = texColor;
-    //color = vec4(1.0, 0.0,0.0,1.0);
 }
 
 void main()

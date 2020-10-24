@@ -51,6 +51,8 @@ public:
     virtual ~SceneCamera() = default;
 
     void SetOrthographic(float size, float nearClip, float farClip);
+    void SetPerspective(float vFov, float nearClip, float farClip);
+
     void SetViewportSize(uint32_t w, uint32_t h);
 
     ProjectionType GetProjectionType() const { return m_projectionType; }
@@ -60,24 +62,43 @@ public:
     void  SetOrthographicSize(float size)
     {
         m_orthographicSize = size;
-        RecalculateOrthographicProjection();
+        RecalculateProjection();
     }
 
     float GetOrtographicNearClip() const { return m_orthographicNear; }
-    void  SetOrtographicNearClip(float clip) { m_orthographicNear = clip; }
+    void  SetOrtographicNearClip(float clip)
+    {
+        m_orthographicNear = clip;
+        RecalculateProjection();
+    }
     float GetOrtographicFarClip() const { return m_orthographicFar; }
-    void  SetOrtographicFarClip(float clip) { m_orthographicFar = clip; }
+    void  SetOrtographicFarClip(float clip)
+    {
+        m_orthographicFar = clip;
+        RecalculateProjection();
+    }
 
     float GetPerspectiveNearClip() const { return m_perspectiveNear; }
-    void  SetPerspectiveNearClip(float clip) { m_perspectiveNear = clip; }
+    void  SetPerspectiveNearClip(float clip)
+    {
+        m_perspectiveNear = clip;
+        RecalculateProjection();
+    }
     float GetPerspectiveFarClip() const { return m_perspectiveFar; }
-    void  SetPerspectiveFarClip(float clip) { m_perspectiveFar = clip; }
+    void  SetPerspectiveFarClip(float clip)
+    {
+        m_perspectiveFar = clip;
+        RecalculateProjection();
+    }
 
     float GetPerspectiveFov() const { return m_perspectiveFov; }
-    void  SetPerspectiveFov(float fov) { m_perspectiveFov = fov; }
+    void  SetPerspectiveFov(float fov)
+    {
+        m_perspectiveFov = fov;
+        RecalculateProjection();
+    }
 
-    void RecalculateOrthographicProjection();
-    void RecalculatePerspectiveProjection();
+    void RecalculateProjection();
 
 private:
     ProjectionType m_projectionType = ProjectionType::Ortographic;
@@ -86,8 +107,8 @@ private:
     float m_orthographicNear = -1.0f;
     float m_orthographicFar  = 1.0f;
 
-    float m_perspectiveFov  = 45.0f;
-    float m_perspectiveNear = 0.0001f;
+    float m_perspectiveFov  = glm::radians(45.0f);
+    float m_perspectiveNear = 0.01f;
     float m_perspectiveFar  = 1000.0f;
 
     float m_aspectRatio = 0;

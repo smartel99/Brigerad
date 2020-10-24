@@ -47,52 +47,58 @@ namespace Brigerad
 /*********************************************************************************************************************/
 SceneCamera::SceneCamera()
 {
-    RecalculateOrthographicProjection();
+    RecalculateProjection();
 }
 
 void SceneCamera::SetOrthographic(float size, float nearClip, float farClip)
 {
+    m_projectionType   = ProjectionType::Ortographic;
     m_orthographicSize = size;
     m_orthographicNear = nearClip;
     m_orthographicFar  = farClip;
-    RecalculateOrthographicProjection();
+    RecalculateProjection();
+}
+
+void SceneCamera::SetPerspective(float vFov, float nearClip, float farClip)
+{
+    m_projectionType  = ProjectionType::Perspective;
+    m_perspectiveFov  = vFov;
+    m_perspectiveNear = nearClip;
+    m_perspectiveFar  = farClip;
+    RecalculateProjection();
 }
 
 void SceneCamera::SetViewportSize(uint32_t w, uint32_t h)
 {
     m_aspectRatio = (float)w / (float)h;
-    RecalculateOrthographicProjection();
+    RecalculateProjection();
 }
 
 void SceneCamera::SetProjectionType(ProjectionType type)
 {
     m_projectionType = type;
-    if (m_projectionType == ProjectionType::Ortographic)
+    RecalculateProjection();
+}
+
+void SceneCamera::RecalculateProjection()
+{
+    if (m_projectionType == ProjectionType::Perspective)
     {
-        RecalculateOrthographicProjection();
+        m_projection =
+          glm::perspective(m_perspectiveFov, m_aspectRatio, m_perspectiveNear, m_perspectiveFar);
     }
     else
     {
-        RecalculatePerspectiveProjection();
+        float orthoLeft   = -m_orthographicSize * m_aspectRatio * 0.5f;
+        float orthoRight  = m_orthographicSize * m_aspectRatio * 0.5f;
+        float orthoBottom = m_orthographicSize * 0.5f;
+        float orthoTop    = -m_orthographicSize * 0.5f;
+
+        m_projection = glm::ortho(
+          orthoLeft, orthoRight, orthoBottom, orthoTop, m_orthographicNear, m_orthographicFar);
     }
 }
 
-void SceneCamera::RecalculateOrthographicProjection()
-{
-    float orthoLeft   = -m_orthographicSize * m_aspectRatio * 0.5f;
-    float orthoRight  = m_orthographicSize * m_aspectRatio * 0.5f;
-    float orthoBottom = m_orthographicSize * 0.5f;
-    float orthoTop    = -m_orthographicSize * 0.5f;
-
-    m_projection = glm::ortho(
-      orthoLeft, orthoRight, orthoBottom, orthoTop, m_orthographicNear, m_orthographicFar);
-}
-
-void SceneCamera::RecalculatePerspectiveProjection()
-{
-    m_projection = glm::perspective(
-      glm::radians(m_perspectiveFov), m_aspectRatio, m_perspectiveNear, m_perspectiveFar);
-}
 
 /*********************************************************************************************************************/
 // [SECTION] Private Method Definitions

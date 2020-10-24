@@ -8,6 +8,7 @@
 [submodule "Brigerad/vendor/ImGui"]
 	path = Brigerad/vendor/ImGui
 	url = https://github.com/TheCherno/imgui
+	branch = master
 [submodule "Brigerad/vendor/glm"]
 	path = Brigerad/vendor/glm
 	url = https://github.com/g-truc/glm

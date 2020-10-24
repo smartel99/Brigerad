@@ -198,6 +198,9 @@ LuaScriptEntity::LuaScriptEntity(const std::string& path, const std::string& nam
     self["GetTransformComponent"] = [this]() -> TransformComponent& {
         return this->GetComponentRef<TransformComponent>();
     };
+    self["GetColorRendererComponent"] = [this]() -> ColorRendererComponent& {
+        return this->GetComponentRef<ColorRendererComponent>();
+    };
 }
 
 void LuaScriptEntity::Reload()

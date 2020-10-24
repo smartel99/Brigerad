@@ -64,10 +64,9 @@ struct TagComponent
 
 struct TransformComponent
 {
-    glm::vec3 position  = glm::vec3 {0.0f, 0.0f, 0.0f};
-    glm::vec3 rotation  = glm::vec3 {0.0f, 0.0f, 0.0f};
-    glm::vec3 scale     = glm::vec3 {1.0f, 1.0f, 1.0f};
-    glm::mat4 transform = glm::mat4 {1.0f};
+    glm::vec3 position = glm::vec3 {0.0f, 0.0f, 0.0f};
+    glm::vec3 rotation = glm::vec3 {0.0f, 0.0f, 0.0f};
+    glm::vec3 scale    = glm::vec3 {1.0f, 1.0f, 1.0f};
 
     TransformComponent()                          = default;
     TransformComponent(const TransformComponent&) = default;
@@ -76,24 +75,25 @@ struct TransformComponent
     {
     }
 
-    void RecalculateTransform()
+    glm::mat4 GetTransform() const
     {
-        transform = glm::translate(glm::mat4(1.0f), position) *
-                    glm::rotate(glm::mat4(1.0f), glm::radians(rotation.x), {1, 0, 0}) *
-                    glm::rotate(glm::mat4(1.0f), glm::radians(rotation.y), {0, 1, 0}) *
-                    glm::rotate(glm::mat4(1.0f), glm::radians(rotation.z), {0, 0, 1}) *
-                    glm::scale(glm::mat4(1.0f), scale);
+        return glm::translate(glm::mat4(1.0f), position) *
+               glm::rotate(glm::mat4(1.0f), glm::radians(rotation.x), {1, 0, 0}) *
+               glm::rotate(glm::mat4(1.0f), glm::radians(rotation.y), {0, 1, 0}) *
+               glm::rotate(glm::mat4(1.0f), glm::radians(rotation.z), {0, 0, 1}) *
+               glm::scale(glm::mat4(1.0f), scale);
     }
 
     const glm::vec3& GetPosition() const { return position; }
-    void             SetPosition(const glm::vec3& newPos)
-    {
-        position = newPos;
-        RecalculateTransform();
-    }
+    void             SetPosition(const glm::vec3& newPos) { position = newPos; }
 
-    operator const glm::mat4&() const { return transform; }
-    operator glm::mat4&() { return transform; }
+    const glm::vec3& GetRotation() const { return rotation; }
+    void             SetRotation(const glm::vec3& newRot) { rotation = newRot; }
+
+    const glm::vec3& GetScale() const { return scale; }
+    void             SetScale(const glm::vec3& newScale) { scale = newScale; }
+
+    operator glm::mat4() const { return GetTransform(); }
 };
 
 struct ColorRendererComponent
@@ -149,10 +149,10 @@ struct LuaScriptComponent
 {
     LuaScriptEntity* instance = nullptr;
     std::string      path     = "";
-    std::string      name     = "";
+    std::string      name     = "LuaScriptComponent";
 
     LuaScriptComponent(const std::string& p, const std::string& n) : path(p), name(n) {}
-    ~LuaScriptComponent() { delete instance; }
+    ~LuaScriptComponent() = default;    //{ delete instance; }
 
     LuaScriptEntity* InstantiateScript() { return new LuaScriptEntity(path, name); }
     void             ReloadScript()

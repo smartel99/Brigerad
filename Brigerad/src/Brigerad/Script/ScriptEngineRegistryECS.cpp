@@ -56,6 +56,7 @@ extern sol::state* GetState();
 /*********************************************************************************************************************/
 inline static void RegisterTagComponent();
 inline static void RegisterTransformComponent();
+inline static void RegisterColorRendererComponent();
 
 /*********************************************************************************************************************/
 // [SECTION] Public Method Definitions
@@ -74,6 +75,7 @@ void Brigerad::ScriptEngineRegistry::RegisterComponents()
 {
     RegisterTagComponent();
     RegisterTransformComponent();
+    RegisterColorRendererComponent();
 }
 
 void RegisterTagComponent()
@@ -92,6 +94,19 @@ void RegisterTransformComponent()
       lua->new_usertype<TransformComponent>("TransformComponent", sol::no_constructor);
     transComponent["GetPosition"] = &TransformComponent::GetPosition;
     transComponent["SetPosition"] = &TransformComponent::SetPosition;
+    transComponent["GetRotation"] = &TransformComponent::GetRotation;
+    transComponent["SetRotation"] = &TransformComponent::SetRotation;
+    transComponent["GetScale"]    = &TransformComponent::GetScale;
+    transComponent["SetScale"]    = &TransformComponent::SetScale;
+}
+
+void RegisterColorRendererComponent()
+{
+    auto lua = Scripting::GetState();
+
+    auto colorComponent =
+      lua->new_usertype<ColorRendererComponent>("ColorRendererComponent", sol::no_constructor);
+    colorComponent["color"] = &ColorRendererComponent::color;
 }
 
 /*********************************************************************************************************************/

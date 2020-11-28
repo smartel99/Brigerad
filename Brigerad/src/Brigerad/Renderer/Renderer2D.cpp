@@ -4,6 +4,7 @@
 #include "Brigerad/Renderer/VertexArray.h"
 #include "Brigerad/Renderer/Shader.h"
 #include "Brigerad/Renderer/RenderCommand.h"
+#include "Brigerad/Renderer/FontAtlas.h"
 
 #include "glm/gtc/matrix_transform.hpp"
 
@@ -38,6 +39,7 @@ struct Renderer2DData
     Ref<VertexBuffer> vertexBuffer;
     Ref<Shader>       textureShader;    // Shader used at runtime.
     Ref<Texture2D>    whiteTexture;     // Default empty texture for flat color quads.
+    Ref<FontAtlas>    font;             // Texture used for text.
 
     long long frameCount = 0;    // Frames rendered since the start of the application.
 
@@ -51,7 +53,8 @@ struct Renderer2DData
     // CPU-sided representation of the texture memory in the GPU.
     std::array<Ref<Texture2D>, maxTextureSlots> textureSlots;
     // Current index of the last texture in the texture buffer.
-    uint32_t textureSlotIndex = 1;    // 0 = white texture.
+    uint32_t textureSlotIndex = 2;    // 0 = white texture.
+                                      // 1 = Font map.
 
     glm::vec4 quadVertexPosition[4] = {glm::vec4 {0.0f}};
 
@@ -130,7 +133,7 @@ void Renderer2D::Init()
     // Setup the texture uniform in the fragment shader.
     // This array contains all of the possible texture slots that the shader
     // can use.
-    int32_t samplers[s_data.maxTextureSlots];
+    int32_t samplers[s_data.maxTextureSlots] = {0};
     for (int32_t i = 0; i < s_data.maxTextureSlots; i++)
     {
         samplers[i] = i;
@@ -144,6 +147,10 @@ void Renderer2D::Init()
     s_data.quadVertexPosition[1] = {0.5f, -0.5f, 0.0f, 1.0f};
     s_data.quadVertexPosition[2] = {0.5f, 0.5f, 0.0f, 1.0f};
     s_data.quadVertexPosition[3] = {-0.5f, 0.5f, 0.0f, 1.0f};
+
+    // Load default font.
+    s_data.font            = FontAtlas::Create("c:/windows/fonts/times.ttf");
+    s_data.textureSlots[1] = s_data.font->GetFontMap();
 }
 
 /**
@@ -176,8 +183,9 @@ void Renderer2D::BeginScene(const OrthographicCamera& camera)
     s_data.quadVertexBufferPtr = s_data.quadVertexBufferBase;
 
     // Reset the texture buffer.
-    // We set it to 1 instead of 0 because slot 0 is reserved to the 1x1 white texture.
-    s_data.textureSlotIndex = 1;
+    // We set it to 2 instead of 0 because slot 0 is reserved to the 1x1 white texture
+    // and slot 1 is reserved to the font map texture.
+    s_data.textureSlotIndex = 2;
 
     // Increment the frame rendered count.
     s_data.frameCount++;
@@ -198,8 +206,9 @@ void Renderer2D::BeginScene(const Camera& camera, const glm::mat4& transform)
     s_data.quadVertexBufferPtr = s_data.quadVertexBufferBase;
 
     // Reset the texture buffer.
-    // We set it to 1 instead of 0 because slot 0 is reserved to the 1x1 white texture.
-    s_data.textureSlotIndex = 1;
+    // We set it to 2 instead of 0 because slot 0 is reserved to the 1x1 white texture
+    // and slot 1 is reserved to the font map texture.
+    s_data.textureSlotIndex = 2;
 
     // Increment the frame rendered count.
     s_data.frameCount++;
@@ -253,8 +262,9 @@ void Renderer2D::FlushAndReset()
     s_data.quadVertexBufferPtr = s_data.quadVertexBufferBase;
 
     // Reset the texture buffer.
-    // We set it to 1 instead of 0 because slot 0 is reserved to the 1x1 white texture.
-    s_data.textureSlotIndex = 1;
+    // We set it to 2 instead of 0 because slot 0 is reserved to the 1x1 white texture
+    // and slot 1 is reserved to the font map texture.
+    s_data.textureSlotIndex = 2;
 }
 
 
@@ -275,6 +285,19 @@ long long Renderer2D::GetFrameCount()
 /* ------------------------------------------------------------------------- */
 
 // ----- DRAW QUAD -----
+
+void Renderer2D::DrawString(const glm::vec2& pos, const std::string& text)
+{
+    glm::vec2 currentPos = pos;
+    // for (const auto& c : text)
+    //{
+    // const auto& glyph = s_data.font->GetCharacterTexture(c);
+    // DrawQuad(currentPos, {10.0f, 10.0f}, glyph.GetTexture());
+    // currentPos.x += glyph.GetAdvance();
+    DrawQuad({0, 0}, {340, 10}, s_data.font->GetFontMap());
+    //}
+    DrawQuad({0, -10.0f}, {1, 1}, s_data.font->GetCharacterTexture('m').m_texture);
+}
 
 /**
  * @brief Queue a flat-colored quad in a 2D space.

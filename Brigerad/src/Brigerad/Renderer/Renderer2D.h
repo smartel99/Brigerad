@@ -25,6 +25,7 @@ public:
     /* Primitives -------------------------------------------------------------- */
     /* ------------------------------------------------------------------------- */
 
+    static void DrawString(const glm::vec2& pos, const std::string& text);
 
     // ----- DRAW QUAD -----
     static void DrawQuad(const glm::vec2& pos, const glm::vec2& size, const glm::vec4& color);

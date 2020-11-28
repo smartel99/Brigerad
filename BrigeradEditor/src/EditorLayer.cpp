@@ -1,6 +1,7 @@
 ﻿#include "EditorLayer.h"
 
 #include "ImGui/imgui.h"
+#include "ImGui/imgui_internal.h"
 
 #include <glm/gtc/type_ptr.hpp>
 
@@ -10,17 +11,19 @@
 
 namespace Brigerad
 {
+
 static void UpdateFps();
 
 EditorLayer::EditorLayer() : Layer("Brigerad Editor")
-{}
+{
+}
 
 void EditorLayer::OnAttach()
 {
     BR_PROFILE_FUNCTION();
 
     FramebufferSpecification spec;
-    spec.width = Application::Get().GetWindow().GetWidth();
+    spec.width  = Application::Get().GetWindow().GetWidth();
     spec.height = Application::Get().GetWindow().GetHeight();
 
     m_texture = Texture2D::Create("assets/textures/checkboard.png");
@@ -28,33 +31,33 @@ void EditorLayer::OnAttach()
     m_fb = Framebuffer::Create(spec);
 
     m_scene = CreateRef<Scene>();
-    m_squareEntity = m_scene->CreateEntity("Square");
-    m_squareEntity.AddComponent<ColorRendererComponent>(glm::vec4{ 1.0f, 0.0f, 0.0f, 1.0f });
+    // m_squareEntity = m_scene->CreateEntity("Square");
+    // m_squareEntity.AddComponent<ColorRendererComponent>(glm::vec4 {1.0f, 0.0f, 0.0f, 1.0f});
 
     class SquareMover : public ScriptableEntity
     {
         virtual void OnUpdate(Timestep ts) override
         {
             const float  speed = 6.283f;
-            static float time = 0.0f;
+            static float time  = 0.0f;
 
             time += ts;
             auto& position = GetComponentRef<TransformComponent>().position;
-            position.x = speed * std::sin(time);
-            position.y = speed * std::cos(time);
+            position.x     = speed * std::sin(time);
+            position.y     = speed * std::cos(time);
         }
     };
     // m_squareEntity.AddComponent<NativeScriptComponent>().Bind<SquareMover>();
 
-    m_textureEntity = m_scene->CreateEntity("Textured Square");
-    m_textureEntity.AddComponent<TextureRendererComponent>("assets/textures/checkboard.png");
-    m_textureEntity.AddComponent<LuaScriptComponent>("assets/scripts/test.lua", "Player");
+    // m_textureEntity = m_scene->CreateEntity("Textured Square");
+    // m_textureEntity.AddComponent<TextureRendererComponent>("assets/textures/checkboard.png");
+    // m_textureEntity.AddComponent<LuaScriptComponent>("assets/scripts/test.lua", "Player");
 
 
     m_cameraEntity = m_scene->CreateEntity("Camera");
     m_cameraEntity.AddComponent<CameraComponent>();
 
-    m_cameraEntity2 = m_scene->CreateEntity("Camera 2");
+    m_cameraEntity2                                         = m_scene->CreateEntity("Camera 2");
     m_cameraEntity2.AddComponent<CameraComponent>().primary = false;
 
 
@@ -63,9 +66,9 @@ void EditorLayer::OnAttach()
     public:
         virtual void OnCreate() override
         {
-            auto& position = GetComponentRef<TransformComponent>().position;
-            position.x = rand() % 10 - 5.0f;
-            position.y = rand() % 10 - 5.0f;
+            // auto& position = GetComponentRef<TransformComponent>().position;
+            // position.x     = rand() % 10 - 5.0f;
+            // position.y     = rand() % 10 - 5.0f;
         }
 
         virtual void OnUpdate(Timestep ts) override
@@ -75,8 +78,8 @@ void EditorLayer::OnAttach()
                 return;
             }
 
-            auto& position = GetComponentRef<TransformComponent>().position;
-            const float speed = 5.0f;
+            auto&       position = GetComponentRef<TransformComponent>().position;
+            const float speed    = 15.0f;
 
             if (Input::IsKeyPressed(KeyCode::A))
             {
@@ -126,7 +129,7 @@ void EditorLayer::OnUpdate(Timestep ts)
     // Render.
     Renderer2D::ResetStats();
     m_fb->Bind();
-    RenderCommand::SetClearColor({ 0.2f, 0.2f, 0.2f, 1.0f });
+    RenderCommand::SetClearColor({0.2f, 0.2f, 0.2f, 1.0f});
     RenderCommand::Clear();
 
     // Update scene.
@@ -139,10 +142,10 @@ void EditorLayer::OnImGuiRender()
 {
     BR_PROFILE_FUNCTION();
 
-    static bool               dockspaceOpen = true;
+    static bool               dockspaceOpen             = true;
     static bool               opt_fullscreen_persistant = true;
-    bool                      opt_fullscreen = opt_fullscreen_persistant;
-    static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_None;
+    bool                      opt_fullscreen            = opt_fullscreen_persistant;
+    static ImGuiDockNodeFlags dockspace_flags           = ImGuiDockNodeFlags_None;
 
     // We are using the ImGuiWindowFlags_NoDocking flag to make the parent window not dockable into,
     // because it would be confusing to have two docking targets within each others.
@@ -156,7 +159,7 @@ void EditorLayer::OnImGuiRender()
         ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
         ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
         window_flags |= ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse |
-            ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove;
+                        ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove;
         window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus;
     }
 
@@ -219,17 +222,19 @@ void EditorLayer::OnImGuiRender()
     Application::Get().GetImGuiLayer()->SetBlockEvents(!m_viewportFocused || !m_viewportHovered);
 
     ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
-    if (m_viewportSize != *((glm::vec2*) & viewportPanelSize))
+    if (m_viewportSize != *((glm::vec2*)&viewportPanelSize))
     {
-        m_viewportSize = { viewportPanelSize.x, viewportPanelSize.y };
+        m_viewportSize = {viewportPanelSize.x, viewportPanelSize.y};
     }
     uint32_t textureId = m_fb->GetColorAttachmentRenderID();
     // ImGui takes in a void* for its images.
     ImGui::Image((void*)(uint64_t)textureId,
-        ImVec2(m_viewportSize.x, m_viewportSize.y),
-        ImVec2(0.0f, 0.0f),
-        ImVec2(1.0f, 1.0f));
+                 ImVec2(m_viewportSize.x, m_viewportSize.y),
+                 ImVec2(0.0f, 0.0f),
+                 ImVec2(1.0f, 1.0f));
     ImGui::PopStyleVar();
+
+
     ImGui::End();
 
     m_sceneHierarchyPanel.OnImGuiRender();
@@ -238,15 +243,16 @@ void EditorLayer::OnImGuiRender()
 }
 
 void EditorLayer::OnEvent(Event& e)
-{}
+{
+}
 
 
 void UpdateFps()
 {
     static double lastUpdateTime = 0;
-    static double dTimeAvg = 0;
-    static int    samples = 0;
-    static double fps = 0;
+    static double dTimeAvg       = 0;
+    static int    samples        = 0;
+    static double fps            = 0;
 
     dTimeAvg += ImGui::GetIO().DeltaTime;
     samples++;
@@ -254,9 +260,9 @@ void UpdateFps()
     if (ImGui::GetTime() >= lastUpdateTime + 0.5)
     {
         lastUpdateTime = ImGui::GetTime();
-        fps = dTimeAvg / samples;
-        dTimeAvg = 0;
-        samples = 0;
+        fps            = dTimeAvg / samples;
+        dTimeAvg       = 0;
+        samples        = 0;
     }
 
     ImGui::Text("FPS: %0.2f (%0.3fms)", 1 / fps, fps * 1000);

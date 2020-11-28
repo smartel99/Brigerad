@@ -1488,6 +1488,9 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
+    <ClInclude Include="src\Brigerad\Renderer\FontAtlas.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLFontAtlas.h" />
+    <ClInclude Include="vendor\stb_image\stb_image_write.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Brigerad\Core\Application.cpp">
@@ -1623,5 +1626,7 @@
     <ClCompile Include="src\Brigerad\Script\ScriptEngineRegistryTextures.cpp" />
     <ClCompile Include="src\Brigerad\Script\ScriptEngineRegistryRenderer.cpp" />
     <ClCompile Include="src\Brigerad\Script\ScriptEngineRegistryECS.cpp" />
+    <ClCompile Include="src\Brigerad\Renderer\FontAtlas.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLFontAtlas.cpp" />
   </ItemGroup>
 </Project>

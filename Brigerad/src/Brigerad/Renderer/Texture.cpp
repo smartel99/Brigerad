@@ -43,5 +43,4 @@ Ref<Texture2D> Texture2D::Create(const std::string& path)
     }
 }
 
-
-}  // namespace Brigerad
+}    // namespace Brigerad

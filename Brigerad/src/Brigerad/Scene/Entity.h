@@ -84,7 +84,7 @@ public:
     }
 
     template<typename T>
-    bool HasComponent()
+    bool HasComponent() const
     {
         return m_scene->m_registry.has<T>(m_entityHandle);
     }

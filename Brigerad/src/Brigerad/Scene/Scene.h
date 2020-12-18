@@ -29,6 +29,8 @@
 #include "entt.hpp"
 
 #include "Brigerad/Core/Timestep.h"
+#include "Brigerad/Events/Event.h"
+
 
 /*********************************************************************************************************************/
 // [SECTION] Defines
@@ -50,16 +52,21 @@ public:
     ~Scene();
 
     Entity CreateEntity(const std::string& name = std::string());
+    Entity CreateChildEntity(const std::string& name, Entity parent);
     void   DestroyEntity(Entity entity);
 
     entt::registry& Reg() { return m_registry; }
 
     void OnUpdate(Timestep ts);
+    void OnImguiRender();
     void OnViewportResize(uint32_t w, uint32_t h);
+    void OnEvent(Event& e);
 
 private:
     template<typename T>
     void OnComponentAdded(Entity entity, T& component);
+
+    void HandleImGuiEntity(Entity entity);
 
 private:
     entt::registry m_registry;

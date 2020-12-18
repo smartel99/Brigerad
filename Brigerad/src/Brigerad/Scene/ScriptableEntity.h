@@ -64,6 +64,7 @@ protected:
     virtual void OnCreate() {}
     virtual void OnUpdate(Timestep ts) {}
     virtual void OnDestroy() {}
+    virtual void OnEvent(Event& e) {}
 
 private:
     Entity m_entity;

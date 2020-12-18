@@ -35,6 +35,9 @@ enum class EventType
     MouseButtonReleased,
     MouseMoved,
     MouseScrolled,
+    // ImGui Events.
+    ImGuiButtonPressed,
+    ImGuiButtonReleased,
 };
 
 enum EventCategory
@@ -45,6 +48,7 @@ enum EventCategory
     EventCategoryKeyboard    = BIT(2),
     EventCategoryMouse       = BIT(3),
     EventCategoryMouseButton = BIT(4),
+    EventCategoryImGui       = BIT(5),
 };
 
 #define EVENT_CLASS_TYPE(type)                                                                     \

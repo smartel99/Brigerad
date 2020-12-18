@@ -280,7 +280,8 @@ project "BrigeradEditor"
         "Brigerad/src",
         "%{IncludeDir.glm}",
         "%{IncludeDir.serial}/include",
-        "%{IncludeDir.entt}"
+        "%{IncludeDir.entt}",
+        "%{IncludeDir.ImGui}"
     }
 
     filter "system:windows"

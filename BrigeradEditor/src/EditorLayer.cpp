@@ -8,6 +8,7 @@
 #include "Brigerad/Utils/Serial.h"
 
 #include <cmath>
+#include "Brigerad/Events/ImGuiEvents.h"
 
 namespace Brigerad
 {
@@ -31,8 +32,29 @@ void EditorLayer::OnAttach()
     m_fb = Framebuffer::Create(spec);
 
     m_scene = CreateRef<Scene>();
-    // m_squareEntity = m_scene->CreateEntity("Square");
-    // m_squareEntity.AddComponent<ColorRendererComponent>(glm::vec4 {1.0f, 0.0f, 0.0f, 1.0f});
+
+    m_imguiWindowEntity = m_scene->CreateEntity("ImGui Window");
+    auto& window        = m_imguiWindowEntity.AddComponent<ImGuiWindowComponent>("Test Window uwu");
+
+    Entity text = m_scene->CreateChildEntity("ImGui Text", m_imguiWindowEntity);
+    text.AddComponent<ImGuiTextComponent>("Test");
+    window.AddChildEntity(text);
+
+    Entity text2 = m_scene->CreateChildEntity("ImGui Text2", m_imguiWindowEntity);
+    text2.AddComponent<ImGuiTextComponent>("Test2");
+    window.AddChildEntity(text2);
+
+    Entity button = m_scene->CreateChildEntity("Button", m_imguiWindowEntity);
+    button.AddComponent<ImGuiButtonComponent>("Press here");
+    window.AddChildEntity(button);
+
+    Entity button2 = m_scene->CreateChildEntity("Button2", m_imguiWindowEntity);
+    button2.AddComponent<ImGuiButtonComponent>("Press here too");
+    window.AddChildEntity(button2);
+
+
+    m_squareEntity = m_scene->CreateEntity("Square");
+    m_squareEntity.AddComponent<ColorRendererComponent>(glm::vec4 {1.0f, 0.0f, 0.0f, 1.0f});
 
     class SquareMover : public ScriptableEntity
     {
@@ -41,17 +63,36 @@ void EditorLayer::OnAttach()
             const float  speed = 6.283f;
             static float time  = 0.0f;
 
-            time += ts;
-            auto& position = GetComponentRef<TransformComponent>().position;
-            position.x     = speed * std::sin(time);
-            position.y     = speed * std::cos(time);
+            if (m_active)
+            {
+                time += ts;
+                auto& position = GetComponentRef<TransformComponent>().position;
+                position.x     = speed * std::sin(time);
+                position.y     = speed * std::cos(time);
+            }
         }
-    };
-    // m_squareEntity.AddComponent<NativeScriptComponent>().Bind<SquareMover>();
 
-    // m_textureEntity = m_scene->CreateEntity("Textured Square");
-    // m_textureEntity.AddComponent<TextureRendererComponent>("assets/textures/checkboard.png");
-    // m_textureEntity.AddComponent<LuaScriptComponent>("assets/scripts/test.lua", "Player");
+        virtual void OnEvent(Event& e) override
+        {
+            if (e.GetEventType() == EventType::ImGuiButtonPressed)
+            {
+                auto& listener = GetComponentRef<ImGuiButtonComponent::Listener>();
+                if (listener.IsButton((*(ImGuiButtonPressedEvent*)&e).GetButton()))
+                {
+                    m_active = !m_active;
+                }
+            }
+        }
+
+    private:
+        bool m_active = false;
+    };
+    m_squareEntity.AddComponent<NativeScriptComponent>().Bind<SquareMover>();
+    m_squareEntity.AddComponent<ImGuiButtonComponent::Listener>(button);
+
+    m_textureEntity = m_scene->CreateEntity("Textured Square");
+    m_textureEntity.AddComponent<TextureRendererComponent>("assets/textures/checkboard.png");
+    m_textureEntity.AddComponent<LuaScriptComponent>("assets/scripts/test.lua", "Player");
 
 
     m_cameraEntity = m_scene->CreateEntity("Camera");
@@ -102,6 +143,10 @@ void EditorLayer::OnAttach()
 
     m_cameraEntity.AddComponent<NativeScriptComponent>().Bind<CameraController>();
     m_cameraEntity2.AddComponent<NativeScriptComponent>().Bind<CameraController>();
+
+    // auto& trans      = m_textEntity.GetComponentRef<TransformComponent>();
+    // trans.position.x = -2.70f;
+    // trans.position.y = 0.90f;
 
     m_sceneHierarchyPanel = SceneHierarchyPanel(m_scene);
 }
@@ -240,10 +285,17 @@ void EditorLayer::OnImGuiRender()
     m_sceneHierarchyPanel.OnImGuiRender();
 
     ImGui::End();
+
+    ImGui::Begin("Viewport");
+
+    m_scene->OnImguiRender();
+
+    ImGui::End();
 }
 
 void EditorLayer::OnEvent(Event& e)
 {
+    m_scene->OnEvent(e);
 }
 
 

@@ -286,17 +286,32 @@ long long Renderer2D::GetFrameCount()
 
 // ----- DRAW QUAD -----
 
-void Renderer2D::DrawString(const glm::vec2& pos, const std::string& text)
+void Renderer2D::DrawString(const glm::vec2& pos, const std::string& text, float scale)
 {
-    glm::vec2 currentPos = pos;
-    // for (const auto& c : text)
-    //{
-    // const auto& glyph = s_data.font->GetCharacterTexture(c);
-    // DrawQuad(currentPos, {10.0f, 10.0f}, glyph.GetTexture());
-    // currentPos.x += glyph.GetAdvance();
-    DrawQuad({0, 0}, {340, 10}, s_data.font->GetFontMap());
-    //}
-    DrawQuad({0, -10.0f}, {1, 1}, s_data.font->GetCharacterTexture('m').m_texture);
+    DrawString({pos.x, pos.y, 0.0f}, text, scale);
+}
+
+void Renderer2D::DrawString(const glm::vec3& pos, const std::string& text, float scale)
+{
+    glm::vec3 currentPos = pos;
+    BR_TRACE("{}, {}", pos.x, pos.y);
+    for (const auto& c : text)
+    {
+        const auto& glyph    = s_data.font->GetCharacterTexture(c);
+        glm::vec3   glyphPos = {currentPos.x + (glyph.m_offset.x * scale),
+                              currentPos.y - (glyph.m_offset.y * scale),
+                              currentPos.z};
+        DrawQuad(glyphPos, {glyph.m_size.x * scale, glyph.m_size.y * scale}, glyph.m_texture);
+        currentPos.x += glyph.m_advance * scale;
+        // BR_TRACE("{}: pos: {}, {}, offset: {}, {}, size: {}, {}",
+        //         c,
+        //         glyphPos.x,
+        //         glyphPos.y,
+        //         (glyph.m_offset.x * scale),
+        //         (glyph.m_offset.y * scale),
+        //         glyph.m_size.x * scale,
+        //         glyph.m_size.y * scale);
+    }
 }
 
 /**

@@ -50,14 +50,17 @@ public:
               const glm::vec2&  size,
               const glm::vec2&  offset,
               float             advance)
-    : m_texture(texture), m_size(size), m_offset(offset), m_advance(advance)
+    : m_texture(texture), m_size(size), m_textureOffset(offset), m_advance(advance)
     {
     }
 
-    Ref<SubTexture2D> m_texture = nullptr;
-    glm::vec2         m_size    = {0.0f, 0.0f};
-    glm::vec2         m_offset  = {0.0f, 0.0f};
-    float             m_advance = 0.0f;
+    Ref<SubTexture2D> m_texture       = nullptr;
+    glm::vec2         m_size          = {0.0f, 0.0f};
+    glm::vec2         m_textureOffset = {0.0f, 0.0f};
+    glm::vec2         m_offset        = {0.0f, 0.0f};
+    float             m_lead          = 0.0f;
+    float             m_advance       = 0.0f;
+    char              m_char          = '\0';
 };
 
 class FontAtlas

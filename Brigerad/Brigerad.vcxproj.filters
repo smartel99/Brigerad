@@ -159,6 +159,9 @@
     <ClInclude Include="src\Brigerad\Renderer\Camera.h">
       <Filter>src\Brigerad\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\Brigerad\Renderer\FontAtlas.h">
+      <Filter>src\Brigerad\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Brigerad\Renderer\FrameBuffer.h">
       <Filter>src\Brigerad\Renderer</Filter>
     </ClInclude>
@@ -223,6 +226,9 @@
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLFontAtlas.h">
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLFrameBuffer.h">
@@ -1488,9 +1494,10 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\Brigerad\Renderer\FontAtlas.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGLFontAtlas.h" />
-    <ClInclude Include="vendor\stb_image\stb_image_write.h" />
+    <ClInclude Include="vendor\stb_image\stb_image_write.h">
+      <Filter>vendor\stb_image</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Brigerad\Events\ImGuiEvents.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Brigerad\Core\Application.cpp">
@@ -1515,6 +1522,9 @@
       <Filter>src\Brigerad\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="src\Brigerad\Renderer\Buffer.cpp">
+      <Filter>src\Brigerad\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Brigerad\Renderer\FontAtlas.cpp">
       <Filter>src\Brigerad\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Brigerad\Renderer\FrameBuffer.cpp">
@@ -1568,10 +1578,25 @@
     <ClCompile Include="src\Brigerad\Script\ScriptEngineRegistry.cpp">
       <Filter>src\Brigerad\Script</Filter>
     </ClCompile>
+    <ClCompile Include="src\Brigerad\Script\ScriptEngineRegistryECS.cpp">
+      <Filter>src\Brigerad\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Brigerad\Script\ScriptEngineRegistryGLM.cpp">
+      <Filter>src\Brigerad\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Brigerad\Script\ScriptEngineRegistryRenderer.cpp">
+      <Filter>src\Brigerad\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Brigerad\Script\ScriptEngineRegistryTextures.cpp">
+      <Filter>src\Brigerad\Script</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLFontAtlas.cpp">
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLFrameBuffer.cpp">
@@ -1622,11 +1647,5 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="src\Brigerad\Script\ScriptEngineRegistryGLM.cpp" />
-    <ClCompile Include="src\Brigerad\Script\ScriptEngineRegistryTextures.cpp" />
-    <ClCompile Include="src\Brigerad\Script\ScriptEngineRegistryRenderer.cpp" />
-    <ClCompile Include="src\Brigerad\Script\ScriptEngineRegistryECS.cpp" />
-    <ClCompile Include="src\Brigerad\Renderer\FontAtlas.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLFontAtlas.cpp" />
   </ItemGroup>
 </Project>

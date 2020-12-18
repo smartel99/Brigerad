@@ -31,11 +31,21 @@
 #include "Components.h"
 #include "Entity.h"
 #include "Brigerad/Renderer/Renderer2D.h"
+#include "Brigerad/Events/ImGuiEvents.h"
+#include "Brigerad/Core/Application.h"
 
 #include "imgui.h"
 #include "imgui_internal.h"
 
 #include "glm/glm.hpp"
+
+#include "examples/imgui_impl_glfw.h"
+#include "examples/imgui_impl_opengl3.h"
+
+
+// TEMP
+#include <GLFW/glfw3.h>
+#include <glad/glad.h>
 
 namespace Brigerad
 {
@@ -67,6 +77,29 @@ Entity Scene::CreateEntity(const std::string& name)
     auto& tag = entity.AddComponent<TagComponent>();
 
     tag.tag = name.empty() ? "<Unknown>" : name;
+
+    return entity;
+}
+
+Entity Scene::CreateChildEntity(const std::string& name, Entity parent)
+{
+    Entity entity = {m_registry.create(), this};
+    entity.AddComponent<TransformComponent>();
+    auto& tag = entity.AddComponent<TagComponent>();
+
+    tag.tag = name.empty() ? "<Unknown>" : name;
+
+    entity.AddComponent<ChildEntityComponent>(parent);
+
+    // Add child to the parent.
+    if (parent.HasComponent<ParentEntityComponent>() == false)
+    {
+        parent.AddComponent<ParentEntityComponent>();
+    }
+
+    auto& parentComponent = parent.GetComponentRef<ParentEntityComponent>().childs;
+
+    parentComponent.emplace_back(entity);
 
     return entity;
 }
@@ -150,11 +183,28 @@ void Scene::OnUpdate(Timestep ts)
         m_registry.view<LuaScriptComponent>().each(
           [=](auto entity, LuaScriptComponent& sc) { sc.instance->OnRender(); });
 
+        auto textEntities = m_registry.view<TransformComponent, TextComponent>();
 
-        Renderer2D::DrawString({0, 0}, "Hello world!");
+        for (auto entity : textEntities)
+        {
+            auto [transform, text] = textEntities.get<TransformComponent, TextComponent>(entity);
+
+            Renderer2D::DrawString(transform.position, text.text, text.scale);
+        }
 
         Renderer2D::EndScene();
     }
+}
+
+void Scene::OnImguiRender()
+{
+    m_registry.each([&](auto entityID) {
+        Entity entity {entityID, this};
+        if (!entity.HasComponent<ChildEntityComponent>())
+        {
+            HandleImGuiEntity(entity);
+        }
+    });
 }
 
 void Scene::OnViewportResize(uint32_t w, uint32_t h)
@@ -175,6 +225,80 @@ void Scene::OnViewportResize(uint32_t w, uint32_t h)
     }
 }
 
+void Scene::OnEvent(Event& e)
+{
+    m_registry.each([&](auto entityID) {
+        Entity entity {entityID, this};
+        if (entity.HasComponent<NativeScriptComponent>())
+        {
+            entity.GetComponent<NativeScriptComponent>().instance->OnEvent(e);
+        }
+    });
+}
+
+void Scene::HandleImGuiEntity(Entity entity)
+{
+    if (entity.HasComponent<ImGuiWindowComponent>())
+    {
+        auto& window = entity.GetComponentRef<ImGuiWindowComponent>();
+        if (window.isOpen)
+        {
+            ImGui::Begin(window.name.c_str(), &window.isOpen, window.flags);
+            for (const auto& child : window.childs)
+            {
+                HandleImGuiEntity(child);
+            }
+            ImGui::End();
+        }
+    }
+
+    if (entity.HasComponent<ImGuiTextComponent>())
+    {
+        auto& text = entity.GetComponentRef<ImGuiTextComponent>();
+        ImGui::Text("%s", text.text.c_str());
+    }
+
+    if (entity.HasComponent<ImGuiButtonComponent>())
+    {
+        auto& button = entity.GetComponentRef<ImGuiButtonComponent>();
+        ImGui::PushID(button.GetImGuiID());
+
+        // Update state of button from last frame.
+        if (button.state == ImGuiButtonComponent::ButtonState::Released)
+        {
+            button.state = ImGuiButtonComponent::ButtonState::Inactive;
+        }
+        else if (button.state == ImGuiButtonComponent::ButtonState::Pressed)
+        {
+            button.state = ImGuiButtonComponent::ButtonState::Held;
+        }
+
+        // Only returns true when button is released.
+        if (ImGui::Button(button.name.c_str()))
+        {
+            button.state = ImGuiButtonComponent::ButtonState::Released;
+            ImGuiButtonReleasedEvent e(entity);
+            Application::Get().OnEvent(e);
+        }
+        // If the button if clicked on:
+        else if (ImGui::IsMouseDown(0) && ImGui::IsItemHovered())
+        {
+            if (button.state != ImGuiButtonComponent::ButtonState::Held)
+            {
+                button.state = ImGuiButtonComponent::ButtonState::Pressed;
+                ImGuiButtonPressedEvent e(entity);
+                Application::Get().OnEvent(e);
+            }
+        }
+        else
+        {
+            button.state = ImGuiButtonComponent::ButtonState::Inactive;
+        }
+
+        ImGui::PopID();
+    }
+}
+
 
 template<typename T>
 void Scene::OnComponentAdded(Entity entity, T& component)
@@ -184,6 +308,16 @@ void Scene::OnComponentAdded(Entity entity, T& component)
 
 template<>
 void Scene::OnComponentAdded<TagComponent>(Entity, TagComponent& component)
+{
+}
+
+template<>
+void Scene::OnComponentAdded<ChildEntityComponent>(Entity entity, ChildEntityComponent& component)
+{
+}
+
+template<>
+void Scene::OnComponentAdded<ParentEntityComponent>(Entity entity, ParentEntityComponent& component)
 {
 }
 
@@ -209,12 +343,38 @@ void Scene::OnComponentAdded<TextureRendererComponent>(Entity, TextureRendererCo
 }
 
 template<>
+void Scene::OnComponentAdded<TextComponent>(Entity, TextComponent& component)
+{
+}
+
+template<>
 void Scene::OnComponentAdded<NativeScriptComponent>(Entity, NativeScriptComponent& component)
 {
 }
 
 template<>
 void Scene::OnComponentAdded<LuaScriptComponent>(Entity, LuaScriptComponent& component)
+{
+}
+
+template<>
+void Scene::OnComponentAdded<ImGuiWindowComponent>(Entity, ImGuiWindowComponent& component)
+{
+}
+
+template<>
+void Scene::OnComponentAdded<ImGuiTextComponent>(Entity, ImGuiTextComponent& component)
+{
+}
+
+template<>
+void Scene::OnComponentAdded<ImGuiButtonComponent>(Entity, ImGuiButtonComponent& component)
+{
+}
+
+template<>
+void Scene::OnComponentAdded<ImGuiButtonComponent::Listener>(
+  Entity, ImGuiButtonComponent::Listener& component)
 {
 }
 

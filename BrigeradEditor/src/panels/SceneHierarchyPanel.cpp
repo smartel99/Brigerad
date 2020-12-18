@@ -44,7 +44,25 @@ namespace Brigerad
 /*********************************************************************************************************************/
 // [SECTION] Private Macro Definitions
 /*********************************************************************************************************************/
-
+#define IMGUI_WINDOW_FLAGS_OPTION(window, label, flag)                                             \
+    do                                                                                             \
+    {                                                                                              \
+        ImGui::TextUnformatted(label);                                                             \
+        ImGui::NextColumn();                                                                       \
+        bool isTrue = window.flags & flag;                                                         \
+        if (ImGui::Checkbox("##" label, &isTrue))                                                  \
+        {                                                                                          \
+            if (isTrue)                                                                            \
+            {                                                                                      \
+                window.flags |= flag;                                                              \
+            }                                                                                      \
+            else                                                                                   \
+            {                                                                                      \
+                window.flags ^= flag;                                                              \
+            }                                                                                      \
+        }                                                                                          \
+        ImGui::NextColumn();                                                                       \
+    } while (0)
 
 /*********************************************************************************************************************/
 // [SECTION] Private Function Declarations
@@ -65,10 +83,9 @@ static void DrawComponent(const std::string& label, Entity entity, UIFunction fu
 
         ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2 {4, 4});
 
-        bool open = ImGui::TreeNodeEx(
-          (void*)typeid(LuaScriptComponent).hash_code(), treeNodeFlags, label.c_str());
-        ImGui::SameLine(ImGui::GetWindowWidth() - 25.0f);
-        if (ImGui::Button("+", ImVec2 {20, 20}))
+        bool open = ImGui::TreeNodeEx((void*)typeid(T).hash_code(), treeNodeFlags, label.c_str());
+        ImGui::SameLine(ImGui::GetWindowWidth() - (ImGui::GetTextLineHeight() * 2));
+        if (ImGui::SmallButton("+"))
         {
             ImGui::OpenPopup("ComponentSettings");
         }
@@ -117,7 +134,12 @@ void SceneHierarchyPanel::OnImGuiRender()
 
     m_context->m_registry.each([&](auto entityID) {
         Entity entity {entityID, m_context.get()};
-        DrawEntityNode(entity);
+        // If entity is not a child entity:
+        if (!entity.HasComponent<ChildEntityComponent>())
+        {
+            // Render it.
+            DrawEntityNode(entity);
+        }
     });
 
     if (ImGui::IsMouseDown(0) && ImGui::IsWindowHovered())
@@ -175,6 +197,24 @@ void SceneHierarchyPanel::OnImGuiRender()
                 ImGui::CloseCurrentPopup();
             }
 
+            if (ImGui::MenuItem("Text Component",
+                                nullptr,
+                                nullptr,
+                                !m_selectionContext.HasComponent<TextComponent>()))
+            {
+                m_selectionContext.AddComponent<TextComponent>();
+                ImGui::CloseCurrentPopup();
+            }
+
+            if (ImGui::MenuItem("ImGui Window",
+                                nullptr,
+                                nullptr,
+                                !m_selectionContext.HasComponent<ImGuiWindowComponent>()))
+            {
+                m_selectionContext.AddComponent<ImGuiWindowComponent>();
+                ImGui::CloseCurrentPopup();
+            }
+
             // if (ImGui::MenuItem("Lua Script Component"))
             //{
             //    m_selectionContext.AddComponent<LuaScriptComponent>();
@@ -211,6 +251,11 @@ void SceneHierarchyPanel::DrawEntityNode(Entity entity)
             entityDeleted = true;
         }
 
+        if (ImGui::MenuItem("Create Empty Child"))
+        {
+            m_context->CreateChildEntity("Empty Child", entity);
+        }
+
         ImGui::EndPopup();
     }
 
@@ -218,10 +263,16 @@ void SceneHierarchyPanel::DrawEntityNode(Entity entity)
     {
         ImGuiTreeNodeFlags flags =
           ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth;
-        bool opened = ImGui::TreeNodeEx((void*)tag.c_str(), flags, tag.c_str());
-        if (opened)
+
+        // If this entity has childs:
+        if (entity.HasComponent<ParentEntityComponent>())
         {
-            ImGui::TreePop();
+            // Render them too.
+            const auto& childs = entity.GetComponent<ParentEntityComponent>().childs;
+            for (const auto& child : childs)
+            {
+                DrawEntityNode(child);
+            }
         }
         ImGui::TreePop();
     }
@@ -415,7 +466,202 @@ void SceneHierarchyPanel::DrawComponents(Entity entity) const
             ImGui::End();
         }
     });
-}
+
+    DrawComponent<TextComponent>("Text", entity, [](auto& text) {
+        char buffer[256] = {0};
+        strcpy_s(buffer, sizeof(buffer), text.text.c_str());
+
+        ImGui::Columns(2);
+        ImGui::TextUnformatted("Text");
+        ImGui::NextColumn();
+        if (ImGui::InputText("##Text", buffer, sizeof(buffer)))
+        {
+            text.text = std::string(buffer);
+        }
+        ImGui::NextColumn();
+        ImGui::TextUnformatted("Scale");
+        ImGui::NextColumn();
+        ImGui::DragFloat("##TextScale", &text.scale, 0.005f, 0.0f, 1.0f);
+        ImGui::Columns();
+    });
+
+    DrawComponent<ImGuiWindowComponent>("ImGui Window", entity, [this](auto& window) {
+        char buffer[256] = {0};
+        strcpy_s(buffer, sizeof(buffer), window.name.c_str());
+
+        ImGui::Columns(2);
+        ImGui::TextUnformatted("Name");
+        ImGui::NextColumn();
+        if (ImGui::InputText("##Name", buffer, sizeof(buffer)))
+        {
+            window.name = std::string(buffer);
+        }
+
+        ImGui::NextColumn();
+        ImGui::TextUnformatted("Open");
+        ImGui::NextColumn();
+        ImGui::Checkbox("##Open", &window.isOpen);
+
+        ImGui::Columns(1);
+        if (ImGui::TreeNode("Window Flags"))
+        {
+            ImGui::Columns(2);
+            IMGUI_WINDOW_FLAGS_OPTION(window, "No Title Bar", ImGuiWindowFlags_NoTitleBar);
+            IMGUI_WINDOW_FLAGS_OPTION(window, "No Resize", ImGuiWindowFlags_NoResize);
+            IMGUI_WINDOW_FLAGS_OPTION(window, "No Move", ImGuiWindowFlags_NoMove);
+            IMGUI_WINDOW_FLAGS_OPTION(window, "No Scrollbar", ImGuiWindowFlags_NoScrollbar);
+            IMGUI_WINDOW_FLAGS_OPTION(
+              window, "No Scroll With Mouse", ImGuiWindowFlags_NoScrollWithMouse);
+            IMGUI_WINDOW_FLAGS_OPTION(window, "No Collapse", ImGuiWindowFlags_NoCollapse);
+            IMGUI_WINDOW_FLAGS_OPTION(
+              window, "Always Auto Resize", ImGuiWindowFlags_AlwaysAutoResize);
+            IMGUI_WINDOW_FLAGS_OPTION(window, "No Background", ImGuiWindowFlags_NoBackground);
+            IMGUI_WINDOW_FLAGS_OPTION(
+              window, "No Saved Settings", ImGuiWindowFlags_NoSavedSettings);
+            IMGUI_WINDOW_FLAGS_OPTION(window, "No Mouse Inputs", ImGuiWindowFlags_NoMouseInputs);
+            IMGUI_WINDOW_FLAGS_OPTION(window, "Menu Bar", ImGuiWindowFlags_MenuBar);
+            IMGUI_WINDOW_FLAGS_OPTION(
+              window, "Horizontal Scrollbar", ImGuiWindowFlags_HorizontalScrollbar);
+            IMGUI_WINDOW_FLAGS_OPTION(
+              window, "No Focus On Appearing", ImGuiWindowFlags_NoFocusOnAppearing);
+            IMGUI_WINDOW_FLAGS_OPTION(
+              window, "No Bring To Front On Focus", ImGuiWindowFlags_NoBringToFrontOnFocus);
+            IMGUI_WINDOW_FLAGS_OPTION(
+              window, "Always Vertical Scrollbar", ImGuiWindowFlags_AlwaysVerticalScrollbar);
+            IMGUI_WINDOW_FLAGS_OPTION(
+              window, "Always Horizontal Scrollbar", ImGuiWindowFlags_AlwaysHorizontalScrollbar);
+            IMGUI_WINDOW_FLAGS_OPTION(
+              window, "Always Use Window Padding", ImGuiWindowFlags_AlwaysUseWindowPadding);
+            IMGUI_WINDOW_FLAGS_OPTION(window, "No Navigation Inputs", ImGuiWindowFlags_NoNavInputs);
+            IMGUI_WINDOW_FLAGS_OPTION(window, "No Navigation Focus", ImGuiWindowFlags_NoNavFocus);
+            IMGUI_WINDOW_FLAGS_OPTION(window, "Unsaved Document", ImGuiWindowFlags_UnsavedDocument);
+            IMGUI_WINDOW_FLAGS_OPTION(window, "No Docking", ImGuiWindowFlags_NoDocking);
+            ImGui::Columns(1);
+            ImGui::TreePop();
+        }
+
+        ImGui::TextUnformatted("Child Widgets");
+        ImGui::Indent();
+        int moveFrom = -1, moveTo = -1;
+        for (int i = 0; i < window.childs.size(); i++)
+        {
+            const char* childName = window.childs[i].GetComponent<TagComponent>().tag.c_str();
+            ImGui::Selectable(childName);
+
+            ImGuiDragDropFlags srcFlags = 0;
+            // Keep the source displayed as hovered.
+            srcFlags |= ImGuiDragDropFlags_SourceNoDisableHover;
+            // Because our dragging is local, we disable the feature of opening foreign
+            // tree nodes/tabs while dragging.
+            srcFlags |= ImGuiDragDropFlags_SourceNoHoldToOpenOthers;
+            // Hide the tooltip.
+            // srcFlags |= ImGuiDragDropFlags_SourceNoPreviewTooltip;
+
+            if (ImGui::BeginDragDropSource(srcFlags))
+            {
+                if (!(srcFlags & ImGuiDragDropFlags_SourceNoPreviewTooltip))
+                {
+                    ImGui::Text("Moving \"%s\"", childName);
+                }
+                ImGui::SetDragDropPayload("IMGUI widget order", &i, sizeof(int));
+                ImGui::EndDragDropSource();
+            }
+
+            if (ImGui::BeginDragDropTarget())
+            {
+                ImGuiDragDropFlags targetFlags = 0;
+                // Don't wait until the delivery (release mouse button on a target) to do something.
+                targetFlags |= ImGuiDragDropFlags_AcceptBeforeDelivery;
+                // Don't display the yellow rectangle.
+                // targetFlags |= ImGuiDragDropFlags_AcceptNoDrawDefaultRect;
+                if (const ImGuiPayload* payload =
+                      ImGui::AcceptDragDropPayload("IMGUI widget order", targetFlags))
+                {
+                    moveFrom = *(const int*)payload->Data;
+                    moveTo   = i;
+                }
+                ImGui::EndDragDropTarget();
+            }
+        }
+
+        // If an item was dragged and dropped elsewhere:
+        if (moveFrom != -1 && moveTo != -1)
+        {
+            // Reorder the list.
+            int    copyDst         = (moveFrom < moveTo) ? moveFrom : moveTo + 1;
+            int    copySrc         = (moveFrom < moveTo) ? moveFrom + 1 : moveTo;
+            int    copyCnt         = (moveFrom < moveTo) ? moveTo - moveFrom : moveFrom - moveTo;
+            Entity tmp             = window.childs[copyDst];
+            window.childs[copyDst] = window.childs[copySrc];
+            window.childs[copySrc] = tmp;
+
+            // Update payload immediately so on the next frame if we move the mouse to an earlier
+            // item our index payload will be correct.
+            ImGui::SetDragDropPayload("IMGUI widget order", &moveTo, sizeof(int));
+        }
+        ImGui::Unindent();
+
+        if (ImGui::Button("Add ImGui widget"))
+        {
+            ImGui::OpenPopup("AddWidget");
+        }
+
+        if (ImGui::BeginPopup("AddWidget"))
+        {
+            if (ImGui::MenuItem("Text"))
+            {
+                Entity newWidget = m_context->CreateChildEntity("ImGui Text", m_selectionContext);
+                newWidget.AddComponent<ImGuiTextComponent>("Placeholder");
+                window.AddChildEntity(newWidget);
+                ImGui::CloseCurrentPopup();
+            }
+
+            if (ImGui::MenuItem("Button"))
+            {
+                Entity newWidget = m_context->CreateChildEntity("ImGui Button", m_selectionContext);
+                newWidget.AddComponent<ImGuiButtonComponent>("Button");
+                window.AddChildEntity(newWidget);
+                ImGui::CloseCurrentPopup();
+            }
+
+            ImGui::EndPopup();
+        }
+    });
+
+    DrawComponent<ImGuiTextComponent>("ImGui Text", entity, [](auto& text) {
+        char buffer[512] = {0};
+        strcpy_s(buffer, sizeof(buffer), text.text.c_str());
+
+        ImGui::Columns(2);
+        ImGui::TextUnformatted("Name");
+        ImGui::NextColumn();
+        if (ImGui::InputText("##Name", buffer, sizeof(buffer)))
+        {
+            text.text = std::string(buffer);
+        }
+        ImGui::Columns();
+    });
+
+    DrawComponent<ImGuiButtonComponent>("ImGui Button", entity, [](auto& button) {
+        char buffer[512] = {0};
+        strcpy_s(buffer, sizeof(buffer), button.name.c_str());
+
+        ImGui::Columns(2);
+        ImGui::TextUnformatted("Label");
+        ImGui::NextColumn();
+        if (ImGui::InputText("##Label", buffer, sizeof(buffer)))
+        {
+            button.name = std::string(buffer);
+        }
+        ImGui::NextColumn();
+
+        static const char* states[] = {"Inactive", "Pressed", "Held", "Released"};
+        ImGui::TextUnformatted("Current State:");
+        ImGui::NextColumn();
+        ImGui::Text("%s", states[static_cast<int>(button.state)]);
+        ImGui::Columns();
+    });
+}    // namespace Brigerad
 
 /*********************************************************************************************************************/
 // [SECTION] Private Method Definitions

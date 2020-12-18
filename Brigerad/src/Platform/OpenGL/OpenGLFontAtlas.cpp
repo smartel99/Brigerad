@@ -41,18 +41,18 @@ namespace Brigerad
 /*********************************************************************************************************************/
 // [SECTION] Private Macro Definitions
 /*********************************************************************************************************************/
-struct PreTextureGlyph
-{
-    uint32_t* data = nullptr;        // Bitmap data.
-    int       w    = 0;              // Width.
-    int       h    = 0;              // Height.
-    uint8_t   c    = '\0';           // Character it represents.
-    int       xoff = 0, yoff = 0;    // Offset in the texture map.
-    int       advance         = 0;
-    int       leftSideBearing = 0;
-
-    bool operator>(const PreTextureGlyph& other) const { return (w * h) > (other.w * other.h); }
-};
+// struct PreTextureGlyph
+//{
+//    uint32_t* data = nullptr;        // Bitmap data.
+//    int       w    = 0;              // Width.
+//    int       h    = 0;              // Height.
+//    uint8_t   c    = '\0';           // Character it represents.
+//    int       xoff = 0, yoff = 0;    // Offset in the texture map.
+//    int       advance         = 0;
+//    int       leftSideBearing = 0;
+//
+//    bool operator>(const PreTextureGlyph& other) const { return (w * h) > (other.w * other.h); }
+//};
 
 /*********************************************************************************************************************/
 // [SECTION] Private Function Declarations
@@ -94,17 +94,19 @@ OpenGLFontAtlas::OpenGLFontAtlas(const std::string& fontPath)
     uint8_t* bitmap = new uint8_t[(size_t)textureWidth * textureHeight];
 
     // Calculate font scaling.
-    float scale = stbtt_ScaleForPixelHeight(&font, lineHeight);
+    float scale = stbtt_ScaleForPixelHeight(&font, (float)lineHeight);
 
     int x = 0;
     int ascent, descent, lineGap;
     stbtt_GetFontVMetrics(&font, &ascent, &descent, &lineGap);
 
-    ascent  = roundf(ascent * scale);
-    descent = roundf(descent * scale);
+    ascent  = (int)roundf(ascent * scale);
+    descent = (int)roundf(descent * scale);
+
+    int lowest = 0;
 
     m_atlas.reserve(128);
-    for (int c = 0; c < 128; c++)
+    for (int c = ' '; c <= '~'; c++)
     {
         FontGlyph glyph;
 
@@ -117,42 +119,53 @@ OpenGLFontAtlas::OpenGLFontAtlas(const std::string& fontPath)
         // below the line.
         int cX1, cY1, cX2, cY2;
         stbtt_GetCodepointBitmapBox(&font, c, scale, scale, &cX1, &cY1, &cX2, &cY2);
+        lowest = std::min(lowest, cY1);
 
         // Compute y (different characters have different heights.
         int y = ascent + cY1;
 
         // Render character (stride and offset is important here).
-        int byteOffset = x + roundf(lsb * scale) + (y * textureWidth);
+        int byteOffset = (int)(x + roundf(lsb * scale) + (y * textureWidth));
         stbtt_MakeCodepointBitmap(
           &font, &bitmap[byteOffset], cX2 - cX1, cY2 - cY1, textureWidth, scale, scale, c);
 
-        glyph.m_offset  = {textureWidth - (x + roundf(lsb * scale)), y};
-        glyph.m_size    = {cX2 - cX1, cY2 - cY1};
-        glyph.m_advance = ax;
+        glyph.m_textureOffset = {(x + roundf(lsb * scale)), textureHeight - y};
+        glyph.m_offset        = {roundf(lsb * scale), lineGap - (-1 * cY1)};
+        // glyph.m_size          = {cX2, -1 * cY2};
+        glyph.m_size    = {cX2 - cX1, -1 * (cY2 - cY1)};
+        glyph.m_lead    = roundf(lsb * scale);
+        glyph.m_advance = roundf(ax * scale);
+        glyph.m_char    = c;
         m_atlas.emplace_back(glyph);
-        BR_TRACE("{}: ({}, {}), ({}, {}) ({}, {}) [({}, {}), ({}, {})]",
-                 (char)c,
-                 x,
-                 y,
-                 glyph.m_offset.x,
-                 glyph.m_offset.y,
-                 cX2 - cX1,
-                 cY2 - cY1,
-                 cX1,
-                 cY1,
-                 cX2,
-                 cY2);
+        // BR_TRACE(
+        //  "{}: offset ({}, {}), size ({}, {}), lead {}, advance {}, c1 ({}, {}), c2 ({}, {}), pos
+        //  "
+        //  "({}, {})",
+        //  (char)glyph.m_char,
+        //  glyph.m_offset.x,
+        //  glyph.m_offset.y,
+        //  glyph.m_size.x,
+        //  glyph.m_size.y,
+        //  glyph.m_lead,
+        //  glyph.m_advance,
+        //  cX1,
+        //  cY1,
+        //  cX2,
+        //  cY2,
+        //  x,
+        //  y);
 
         // Advance x.
-        x += roundf(ax * scale);
+        x += (int)roundf(ax * scale);
 
         // Add kerning.
         int kern;
         kern = stbtt_GetCodepointKernAdvance(&font, c, c + 1);
-        x += roundf(kern * scale);
+        x += (int)roundf(kern * scale);
     }
 
     uint32_t* textureData = new uint32_t[(size_t)textureWidth * textureHeight];
+
     // for (size_t i = 0; i < (size_t)textureWidth * textureHeight; i++)
     //{
     //    uint32_t r     = (uint32_t)bitmap[i] << 24;
@@ -183,7 +196,8 @@ OpenGLFontAtlas::OpenGLFontAtlas(const std::string& fontPath)
 
     for (auto& glyph : m_atlas)
     {
-        glyph.m_texture = SubTexture2D::CreateFromCoords(m_fontMap, glyph.m_offset, glyph.m_size);
+        glyph.m_texture = SubTexture2D::CreateFromCoords(
+          m_fontMap, glyph.m_textureOffset, {1.0f, 1.0f}, glyph.m_size);
     }
 
     delete[] textureData;
@@ -329,8 +343,18 @@ OpenGLFontAtlas::OpenGLFontAtlas(const std::string& fontPath)
 const FontGlyph& OpenGLFontAtlas::GetCharacterTexture(char c) const
 {
     // Make sure the requested character is valid.
-    BR_CORE_ASSERT((c >= 32 || c <= 126), "Invalid character '{}' requested", c);
-    return m_atlas[(size_t)c - 32];
+    // BR_CORE_ASSERT((c >= 32 || c <= 126), "Invalid character '{}' requested", c);
+    // return m_atlas[(size_t)c];
+    for (const auto& glyph : m_atlas)
+    {
+        if (glyph.m_char == c)
+        {
+            return glyph;
+        }
+    }
+
+    // Unable to find char, return '?'.
+    return GetCharacterTexture('?');
 }
 
 }    // namespace Brigerad

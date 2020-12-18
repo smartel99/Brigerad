@@ -28,6 +28,7 @@ private:
     Entity     m_textureEntity;
     Entity     m_cameraEntity;
     Entity     m_cameraEntity2;
+    Entity     m_imguiWindowEntity;
 
     SceneHierarchyPanel m_sceneHierarchyPanel;
 

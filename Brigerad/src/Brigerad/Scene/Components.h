@@ -31,6 +31,9 @@
 #include "Brigerad/Renderer/Texture.h"
 #include "Brigerad/Scene/SceneCamera.h"
 #include "Brigerad/Scene/ScriptableEntity.h"
+#include "Brigerad/Scene/ImGuiWindowComponents.h"
+#include "Brigerad/Scene/ImGuiTextComponents.h"
+#include "Brigerad/Scene/ImGuiButtonComponents.h"
 
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
@@ -192,82 +195,5 @@ struct LuaScriptComponent
         instance = nullptr;
     }
 };
-
-struct ImGuiWindowComponent
-{
-
-    std::string         name   = "Window";
-    bool                isOpen = true;
-    ImGuiWindowFlags    flags  = ImGuiWindowFlags_None;
-    std::vector<Entity> childs;
-
-    ImGuiWindowComponent()                            = default;
-    ImGuiWindowComponent(const ImGuiWindowComponent&) = default;
-    ImGuiWindowComponent(const std::string& n, ImGuiWindowFlags f = ImGuiWindowFlags_None)
-    : name(n), flags(f)
-    {
-    }
-
-    void AddChildEntity(Entity child) { childs.emplace_back(child); }
-};
-
-struct ImGuiTextComponent
-{
-    std::string text = "Placeholder";
-
-    ImGuiTextComponent()                          = default;
-    ImGuiTextComponent(const ImGuiTextComponent&) = default;
-    ImGuiTextComponent(const std::string& t) : text(t) {}
-};
-
-struct ImGuiButtonComponent
-{
-    struct Listener
-    {
-    private:
-        Entity button;
-
-    public:
-        Listener()                = default;
-        Listener(const Listener&) = default;
-        Listener(const Entity& b) : button(b) {}
-
-        bool IsButton(const Entity& other) const { return button == other; }
-        bool IsButtonPressed()
-        {
-            return button.GetComponentRef<ImGuiButtonComponent>().state ==
-                   ImGuiButtonComponent::ButtonState::Pressed;
-        }
-        bool IsButtonHeld()
-        {
-            return button.GetComponentRef<ImGuiButtonComponent>().state ==
-                   ImGuiButtonComponent::ButtonState::Held;
-        }
-        bool IsButtonReleased()
-        {
-            return button.GetComponentRef<ImGuiButtonComponent>().state ==
-                   ImGuiButtonComponent::ButtonState::Released;
-        }
-    };
-
-    enum class ButtonState
-    {
-        Inactive = 0,
-        Pressed  = 1,
-        Held     = 2,
-        Released = 3
-    };
-
-    std::string name  = "Button";
-    ButtonState state = ButtonState::Inactive;
-
-    ImGuiButtonComponent()                            = default;
-    ImGuiButtonComponent(const ImGuiButtonComponent&) = default;
-    ImGuiButtonComponent(const std::string& n) : name(n) {}
-
-    void* GetImGuiID() { return reinterpret_cast<void*>(this); }
-    void* GetImGuiID() const { return const_cast<void*>(reinterpret_cast<const void*>(this)); }
-};
-
 
 }    // namespace Brigerad

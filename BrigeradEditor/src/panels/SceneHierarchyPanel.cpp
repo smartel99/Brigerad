@@ -616,12 +616,42 @@ void SceneHierarchyPanel::DrawComponents(Entity entity) const
                 ImGui::CloseCurrentPopup();
             }
 
-            if (ImGui::MenuItem("Button"))
+            if (ImGui::BeginMenu("Button"))
             {
-                Entity newWidget = m_context->CreateChildEntity("ImGui Button", m_selectionContext);
-                newWidget.AddComponent<ImGuiButtonComponent>("Button");
-                window.AddChildEntity(newWidget);
-                ImGui::CloseCurrentPopup();
+                if (ImGui::MenuItem("Button"))
+                {
+                    Entity newWidget =
+                      m_context->CreateChildEntity("ImGui Button", m_selectionContext);
+                    newWidget.AddComponent<ImGuiButtonComponent>("Button");
+                    window.AddChildEntity(newWidget);
+                    ImGui::CloseCurrentPopup();
+                }
+                if (ImGui::MenuItem("Small Button"))
+                {
+                    Entity newWidget =
+                      m_context->CreateChildEntity("ImGui Small Button", m_selectionContext);
+                    newWidget.AddComponent<ImGuiSmallButtonComponent>("Small Button");
+                    window.AddChildEntity(newWidget);
+                    ImGui::CloseCurrentPopup();
+                }
+                if (ImGui::MenuItem("Invisible Button"))
+                {
+                    Entity newWidget =
+                      m_context->CreateChildEntity("ImGui Invisible Button", m_selectionContext);
+                    newWidget.AddComponent<ImGuiInvisibleButtonComponent>("Invisible Button");
+                    window.AddChildEntity(newWidget);
+                    ImGui::CloseCurrentPopup();
+                }
+                if (ImGui::MenuItem("Arrow Button"))
+                {
+                    Entity newWidget =
+                      m_context->CreateChildEntity("ImGui Arrow Button", m_selectionContext);
+                    newWidget.AddComponent<ImGuiArrowButtonComponent>("Arrow Button");
+                    window.AddChildEntity(newWidget);
+                    ImGui::CloseCurrentPopup();
+                }
+
+                ImGui::EndMenu();
             }
 
             ImGui::EndPopup();
@@ -659,6 +689,94 @@ void SceneHierarchyPanel::DrawComponents(Entity entity) const
         ImGui::TextUnformatted("Current State:");
         ImGui::NextColumn();
         ImGui::Text("%s", states[static_cast<int>(button.state)]);
+        ImGui::Columns();
+    });
+
+    DrawComponent<ImGuiSmallButtonComponent>("ImGui Small Button", entity, [](auto& button) {
+        char buffer[512] = {0};
+        strcpy_s(buffer, sizeof(buffer), button.name.c_str());
+
+        ImGui::Columns(2);
+        ImGui::TextUnformatted("Label");
+        ImGui::NextColumn();
+        if (ImGui::InputText("##Label", buffer, sizeof(buffer)))
+        {
+            button.name = std::string(buffer);
+        }
+        ImGui::NextColumn();
+
+        static const char* states[] = {"Inactive", "Pressed", "Held", "Released"};
+        ImGui::TextUnformatted("Current State:");
+        ImGui::NextColumn();
+        ImGui::Text("%s", states[static_cast<int>(button.state)]);
+        ImGui::Columns();
+    });
+
+    DrawComponent<ImGuiInvisibleButtonComponent>(
+      "ImGui Invisible Button", entity, [](auto& button) {
+          char buffer[512] = {0};
+          strcpy_s(buffer, sizeof(buffer), button.name.c_str());
+
+          ImGui::Columns(2);
+
+          static const char* states[] = {"Inactive", "Pressed", "Held", "Released"};
+          ImGui::TextUnformatted("Current State:");
+          ImGui::NextColumn();
+          ImGui::Text("%s", states[static_cast<int>(button.state)]);
+          ImGui::NextColumn();
+
+          ImGui::TextUnformatted("Size:");
+          ImGui::NextColumn();
+          float size[2] = {button.size.x, button.size.y};
+          ImGui::DragFloat2("##Size", size, 0.1f, 0.01f);
+          button.size.x = std::max(size[0], 0.00001f);
+          button.size.y = std::max(size[1], 0.00001f);
+          ImGui::NextColumn();
+
+          static const char* mouseButtons[] = {
+            "Left Mouse Button", "Right Mouse Button", "Middle Mouse Button"};
+          ImGui::TextUnformatted("Activated by:");
+          ImGui::NextColumn();
+          if (ImGui::BeginCombo("##ActivatedBy", mouseButtons[button.flag]))
+          {
+              for (int i = 0; i < 3; i++)
+              {
+                  if (ImGui::Selectable(mouseButtons[i], button.flag == i))
+                  {
+                      button.flag = (ImGuiButtonFlags)(1 << i);
+                  }
+              }
+              ImGui::EndCombo();
+          }
+          ImGui::Columns();
+      });
+
+    DrawComponent<ImGuiArrowButtonComponent>("ImGui Arrow Button", entity, [](auto& button) {
+        char buffer[512] = {0};
+        strcpy_s(buffer, sizeof(buffer), button.name.c_str());
+
+        ImGui::Columns(2);
+
+        static const char* states[] = {"Inactive", "Pressed", "Held", "Released"};
+        ImGui::TextUnformatted("Current State:");
+        ImGui::NextColumn();
+        ImGui::Text("%s", states[static_cast<int>(button.state)]);
+        ImGui::NextColumn();
+
+        static const char* directions[] = {"Left", "Right", "Up", "Down"};
+        ImGui::TextUnformatted("Direction:");
+        ImGui::NextColumn();
+        if (ImGui::BeginCombo("##Direction", directions[button.direction]))
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                if (ImGui::Selectable(directions[i], button.direction == i))
+                {
+                    button.direction = (ImGuiDir)i;
+                }
+            }
+            ImGui::EndCombo();
+        }
         ImGui::Columns();
     });
 }    // namespace Brigerad

@@ -57,6 +57,50 @@ namespace Brigerad
 /*********************************************************************************************************************/
 // [SECTION] Private Function Declarations
 /*********************************************************************************************************************/
+template<typename T>
+void DrawImGuiButton(Entity& entity, const std::function<bool(T&)>& func)
+{
+    if (entity.HasComponent<T>())
+    {
+        auto& button = entity.GetComponentRef<T>();
+        ImGui::PushID(button.GetImGuiID());
+
+        // Update state of button from last frame.
+        if (button.state == ImGuiButtonState::Released)
+        {
+            button.state = ImGuiButtonState::Inactive;
+        }
+        else if (button.state == ImGuiButtonState::Pressed)
+        {
+            button.state = ImGuiButtonState::Held;
+        }
+
+        // Only returns true when button is released.
+        if (func(button))
+        {
+            button.state = ImGuiButtonState::Released;
+            ImGuiButtonReleasedEvent e(entity);
+            Application::Get().OnEvent(e);
+        }
+        // If the button if clicked on:
+        else if (ImGui::IsMouseDown(0) && ImGui::IsItemHovered())
+        {
+            if (button.state != ImGuiButtonState::Held)
+            {
+                button.state = ImGuiButtonState::Pressed;
+                ImGuiButtonPressedEvent e(entity);
+                Application::Get().OnEvent(e);
+            }
+        }
+        else
+        {
+            button.state = ImGuiButtonState::Inactive;
+        }
+
+        ImGui::PopID();
+    }
+}
+
 
 
 /*********************************************************************************************************************/
@@ -258,45 +302,21 @@ void Scene::HandleImGuiEntity(Entity entity)
         ImGui::Text("%s", text.text.c_str());
     }
 
-    if (entity.HasComponent<ImGuiButtonComponent>())
-    {
-        auto& button = entity.GetComponentRef<ImGuiButtonComponent>();
-        ImGui::PushID(button.GetImGuiID());
+    DrawImGuiButton<ImGuiButtonComponent>(
+      entity, [](ImGuiButtonComponent& button) { return ImGui::Button(button.name.c_str()); });
 
-        // Update state of button from last frame.
-        if (button.state == ImGuiButtonComponent::ButtonState::Released)
-        {
-            button.state = ImGuiButtonComponent::ButtonState::Inactive;
-        }
-        else if (button.state == ImGuiButtonComponent::ButtonState::Pressed)
-        {
-            button.state = ImGuiButtonComponent::ButtonState::Held;
-        }
+    DrawImGuiButton<ImGuiSmallButtonComponent>(entity, [](ImGuiSmallButtonComponent& button) {
+        return ImGui::SmallButton(button.name.c_str());
+    });
 
-        // Only returns true when button is released.
-        if (ImGui::Button(button.name.c_str()))
-        {
-            button.state = ImGuiButtonComponent::ButtonState::Released;
-            ImGuiButtonReleasedEvent e(entity);
-            Application::Get().OnEvent(e);
-        }
-        // If the button if clicked on:
-        else if (ImGui::IsMouseDown(0) && ImGui::IsItemHovered())
-        {
-            if (button.state != ImGuiButtonComponent::ButtonState::Held)
-            {
-                button.state = ImGuiButtonComponent::ButtonState::Pressed;
-                ImGuiButtonPressedEvent e(entity);
-                Application::Get().OnEvent(e);
-            }
-        }
-        else
-        {
-            button.state = ImGuiButtonComponent::ButtonState::Inactive;
-        }
+    DrawImGuiButton<ImGuiInvisibleButtonComponent>(
+      entity, [](ImGuiInvisibleButtonComponent& button) {
+          return ImGui::InvisibleButton(button.name.c_str(), button.size, button.flag);
+      });
 
-        ImGui::PopID();
-    }
+    DrawImGuiButton<ImGuiArrowButtonComponent>(entity, [](ImGuiArrowButtonComponent& button) {
+        return ImGui::ArrowButton(button.name.c_str(), button.direction);
+    });
 }
 
 
@@ -373,8 +393,44 @@ void Scene::OnComponentAdded<ImGuiButtonComponent>(Entity, ImGuiButtonComponent&
 }
 
 template<>
-void Scene::OnComponentAdded<ImGuiButtonComponent::Listener>(
-  Entity, ImGuiButtonComponent::Listener& component)
+void Scene::OnComponentAdded<ImGuiButtonListenerComponent<ImGuiButtonComponent>>(
+  Entity, ImGuiButtonListenerComponent<ImGuiButtonComponent>& component)
+{
+}
+
+template<>
+void Scene::OnComponentAdded<ImGuiSmallButtonComponent>(Entity,
+                                                        ImGuiSmallButtonComponent& component)
+{
+}
+
+template<>
+void Scene::OnComponentAdded<ImGuiButtonListenerComponent<ImGuiSmallButtonComponent>>(
+  Entity, ImGuiButtonListenerComponent<ImGuiSmallButtonComponent>& component)
+{
+}
+
+template<>
+void Scene::OnComponentAdded<ImGuiInvisibleButtonComponent>(
+  Entity, ImGuiInvisibleButtonComponent& component)
+{
+}
+
+template<>
+void Scene::OnComponentAdded<ImGuiButtonListenerComponent<ImGuiInvisibleButtonComponent>>(
+  Entity, ImGuiButtonListenerComponent<ImGuiInvisibleButtonComponent>& component)
+{
+}
+
+template<>
+void Scene::OnComponentAdded<ImGuiArrowButtonComponent>(Entity,
+                                                        ImGuiArrowButtonComponent& component)
+{
+}
+
+template<>
+void Scene::OnComponentAdded<ImGuiButtonListenerComponent<ImGuiArrowButtonComponent>>(
+  Entity, ImGuiButtonListenerComponent<ImGuiArrowButtonComponent>& component)
 {
 }
 

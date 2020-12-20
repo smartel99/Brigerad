@@ -1498,6 +1498,9 @@
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
     <ClInclude Include="src\Brigerad\Events\ImGuiEvents.h" />
+    <ClInclude Include="src\Brigerad\Scene\ImGuiWindowComponents.h" />
+    <ClInclude Include="src\Brigerad\Scene\ImGuiTextComponents.h" />
+    <ClInclude Include="src\Brigerad\Scene\ImGuiButtonComponents.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Brigerad\Core\Application.cpp">

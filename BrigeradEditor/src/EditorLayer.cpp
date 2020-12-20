@@ -40,18 +40,21 @@ void EditorLayer::OnAttach()
     text.AddComponent<ImGuiTextComponent>("Test");
     window.AddChildEntity(text);
 
-    Entity text2 = m_scene->CreateChildEntity("ImGui Text2", m_imguiWindowEntity);
-    text2.AddComponent<ImGuiTextComponent>("Test2");
-    window.AddChildEntity(text2);
-
     Entity button = m_scene->CreateChildEntity("Button", m_imguiWindowEntity);
     button.AddComponent<ImGuiButtonComponent>("Press here");
     window.AddChildEntity(button);
 
-    Entity button2 = m_scene->CreateChildEntity("Button2", m_imguiWindowEntity);
-    button2.AddComponent<ImGuiButtonComponent>("Press here too");
+    Entity button2 = m_scene->CreateChildEntity("Smoll Button", m_imguiWindowEntity);
+    button2.AddComponent<ImGuiSmallButtonComponent>("Smoll Button");
     window.AddChildEntity(button2);
 
+    Entity button3 = m_scene->CreateChildEntity("Invisible Button", m_imguiWindowEntity);
+    button3.AddComponent<ImGuiInvisibleButtonComponent>("Invisible Button");
+    window.AddChildEntity(button3);
+
+    Entity button4 = m_scene->CreateChildEntity("Arrow Button", m_imguiWindowEntity);
+    button4.AddComponent<ImGuiArrowButtonComponent>("Arrow Button");
+    window.AddChildEntity(button4);
 
     m_squareEntity = m_scene->CreateEntity("Square");
     m_squareEntity.AddComponent<ColorRendererComponent>(glm::vec4 {1.0f, 0.0f, 0.0f, 1.0f});
@@ -76,7 +79,8 @@ void EditorLayer::OnAttach()
         {
             if (e.GetEventType() == EventType::ImGuiButtonPressed)
             {
-                auto& listener = GetComponentRef<ImGuiButtonComponent::Listener>();
+                auto& listener =
+                  GetComponentRef<ImGuiButtonListenerComponent<ImGuiInvisibleButtonComponent>>();
                 if (listener.IsButton((*(ImGuiButtonPressedEvent*)&e).GetButton()))
                 {
                     m_active = !m_active;
@@ -88,7 +92,8 @@ void EditorLayer::OnAttach()
         bool m_active = false;
     };
     m_squareEntity.AddComponent<NativeScriptComponent>().Bind<SquareMover>();
-    m_squareEntity.AddComponent<ImGuiButtonComponent::Listener>(button);
+    m_squareEntity.AddComponent<ImGuiButtonListenerComponent<ImGuiInvisibleButtonComponent>>(
+      button3);
 
     m_textureEntity = m_scene->CreateEntity("Textured Square");
     m_textureEntity.AddComponent<TextureRendererComponent>("assets/textures/checkboard.png");

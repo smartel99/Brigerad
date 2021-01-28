@@ -1,0 +1,89 @@
+.TH "F:/dev/Brigerad/Brigerad/src/Brigerad/Script/ScriptEngine.cpp" 3 "Sun Jan 10 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+F:/dev/Brigerad/Brigerad/src/Brigerad/Script/ScriptEngine.cpp
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'brpch\&.h'\fP
+.br
+\fC#include 'ScriptEngine\&.h'\fP
+.br
+\fC#include 'sol/sol\&.hpp'\fP
+.br
+\fC#include 'lstate\&.h'\fP
+.br
+\fC#include 'setjmp\&.h'\fP
+.br
+\fC#include 'ScriptEngineRegistry\&.h'\fP
+.br
+\fC#include 'Brigerad/Scene/ScriptableEntity\&.h'\fP
+.br
+\fC#include 'Brigerad/Scene/Components\&.h'\fP
+.br
+
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "struct \fBBrigerad::ScriptEngineData\fP"
+.br
+.in -1c
+.SS "Namespaces"
+
+.in +1c
+.ti -1c
+.RI " \fBBrigerad\fP"
+.br
+.ti -1c
+.RI " \fBBrigerad::Scripting\fP"
+.br
+.in -1c
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBSOL_ALL_SAFETIES_ON\fP   1"
+.br
+.ti -1c
+.RI "#define \fBSOL_SAFE_USERTYPE\fP   1"
+.br
+.ti -1c
+.RI "#define \fBSOL_CHECK_ARGUMENTS\fP   1"
+.br
+.ti -1c
+.RI "#define \fBLUA_CALL\fP(name,  func, \&.\&.\&.)"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "sol::state * \fBBrigerad::Scripting::GetState\fP ()"
+.br
+.in -1c
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define SOL_ALL_SAFETIES_ON   1"
+
+.SS "#define SOL_SAFE_USERTYPE   1"
+
+.SS "#define SOL_CHECK_ARGUMENTS   1"
+
+.SS "#define LUA_CALL(name, func,  \&.\&.\&.)"
+\fBValue:\fP
+.PP
+.nf
+    if (setjmp(s_luaPanicJump) == 0)                                                               \
+    {                                                                                              \
+        lua[name][func](##__VA_ARGS__);                                                            \
+    }                                                                                              \
+    else                                                                                           \
+    {                                                                                              \
+        OnInternalLuaError();                                                                      \
+    }
+.fi
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

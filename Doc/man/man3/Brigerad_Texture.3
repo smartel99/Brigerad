@@ -1,0 +1,85 @@
+.TH "Brigerad::Texture" 3 "Sun Jan 10 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Brigerad::Texture
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Texture\&.h>\fP
+.PP
+Inherited by \fBBrigerad::Texture2D\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fB~Texture\fP ()=default"
+.br
+.ti -1c
+.RI "virtual uint32_t \fBGetWidth\fP () const =0"
+.br
+.ti -1c
+.RI "virtual uint32_t \fBGetHeight\fP () const =0"
+.br
+.ti -1c
+.RI "virtual uint32_t \fBGetFormat\fP () const =0"
+.br
+.ti -1c
+.RI "virtual const std::string & \fBGetFilePath\fP () const =0"
+.br
+.ti -1c
+.RI "virtual uint32_t \fBGetRenderID\fP () const =0"
+.br
+.ti -1c
+.RI "virtual void \fBSetData\fP (void *data, uint32_t size)=0"
+.br
+.ti -1c
+.RI "virtual void \fBBind\fP (uint32_t slot=0) const =0"
+.br
+.ti -1c
+.RI "virtual bool \fBoperator==\fP (const \fBTexture\fP &other) const =0"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "virtual Brigerad::Texture::~Texture ()\fC [virtual]\fP, \fC [default]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "virtual uint32_t Brigerad::Texture::GetWidth () const\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLTexture2D\fP\&.
+.SS "virtual uint32_t Brigerad::Texture::GetHeight () const\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLTexture2D\fP\&.
+.SS "virtual uint32_t Brigerad::Texture::GetFormat () const\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLTexture2D\fP\&.
+.SS "virtual const std::string& Brigerad::Texture::GetFilePath () const\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLTexture2D\fP\&.
+.SS "virtual uint32_t Brigerad::Texture::GetRenderID () const\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLTexture2D\fP\&.
+.SS "virtual void Brigerad::Texture::SetData (void * data, uint32_t size)\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLTexture2D\fP\&.
+.SS "virtual void Brigerad::Texture::Bind (uint32_t slot = \fC0\fP) const\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLTexture2D\fP\&.
+.SS "virtual bool Brigerad::Texture::operator== (const \fBTexture\fP & other) const\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLTexture2D\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

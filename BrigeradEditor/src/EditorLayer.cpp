@@ -33,75 +33,109 @@ void EditorLayer::OnAttach()
 
     m_scene = CreateRef<Scene>();
 
-    m_imguiWindowEntity = m_scene->CreateEntity("ImGui Window");
-    auto& window        = m_imguiWindowEntity.AddComponent<ImGuiWindowComponent>("Test Window uwu");
+    // m_mesh = Mesh::Create("assets/meshes/razor.obj");
+    Ref<Mesh>             mesh = Mesh::Create("assets/meshes/cerberus.fbx");
+    Ref<MaterialInstance> mat  = CreateRef<MaterialInstance>(mesh->GetMaterial());
+    m_meshEntity               = m_scene->CreateEntity("Mesh!");
+    m_meshEntity.AddComponent<MeshComponent>("mesh", mesh);
+    m_meshEntity.GetComponentRef<MeshComponent>().material = mat;
 
-    Entity text = m_scene->CreateChildEntity("ImGui Text", m_imguiWindowEntity);
-    text.AddComponent<ImGuiTextComponent>("Test");
-    window.AddChildEntity(text);
+    m_environmentCubeMap =
+      TextureCube::Create("assets/textures/environments/Arches_E_PineTree_Radiance.tga");
+    m_environmentIrradiance =
+      TextureCube::Create("assets/textures/environments/Arches_E_PineTree_Irradiance.tga");
+    m_brdfLut = Texture2D::Create("assets/textures/BRDF_LUT.tga");
 
-    Entity button = m_scene->CreateChildEntity("Button", m_imguiWindowEntity);
-    button.AddComponent<ImGuiButtonComponent>("Press here");
-    window.AddChildEntity(button);
+    // Set lights
+    m_Light.Direction = {-0.5f, -0.5f, 1.0f};
+    m_Light.Radiance  = {1.0f, 1.0f, 1.0f};
 
-    Entity button2 = m_scene->CreateChildEntity("Smoll Button", m_imguiWindowEntity);
-    button2.AddComponent<ImGuiSmallButtonComponent>("Smoll Button");
-    window.AddChildEntity(button2);
+    // m_imguiWindowEntity = m_scene->CreateEntity("ImGui Window");
+    // auto& window        = m_imguiWindowEntity.AddComponent<ImGuiWindowComponent>("Test Window
+    // uwu");
 
-    Entity button3 = m_scene->CreateChildEntity("Invisible Button", m_imguiWindowEntity);
-    button3.AddComponent<ImGuiInvisibleButtonComponent>("Invisible Button");
-    window.AddChildEntity(button3);
+    // Entity text = m_scene->CreateChildEntity("ImGui Text", m_imguiWindowEntity);
+    // text.AddComponent<ImGuiTextComponent>("Test");
+    // window.AddChildEntity(text);
 
-    Entity button4 = m_scene->CreateChildEntity("Arrow Button", m_imguiWindowEntity);
-    button4.AddComponent<ImGuiArrowButtonComponent>("Arrow Button");
-    window.AddChildEntity(button4);
+    // Entity button = m_scene->CreateChildEntity("Button", m_imguiWindowEntity);
+    // button.AddComponent<ImGuiButtonComponent>("Press here");
+    // window.AddChildEntity(button);
 
-    m_squareEntity = m_scene->CreateEntity("Square");
-    m_squareEntity.AddComponent<ColorRendererComponent>(glm::vec4 {1.0f, 0.0f, 0.0f, 1.0f});
+    // Entity button2 = m_scene->CreateChildEntity("Smoll Button", m_imguiWindowEntity);
+    // button2.AddComponent<ImGuiSmallButtonComponent>("Smoll Button");
+    // window.AddChildEntity(button2);
 
-    class SquareMover : public ScriptableEntity
-    {
-        virtual void OnUpdate(Timestep ts) override
-        {
-            const float  speed = 6.283f;
-            static float time  = 0.0f;
+    // Entity button3 = m_scene->CreateChildEntity("Invisible Button", m_imguiWindowEntity);
+    // button3.AddComponent<ImGuiInvisibleButtonComponent>("Invisible Button");
+    // window.AddChildEntity(button3);
 
-            if (m_active)
-            {
-                time += ts;
-                auto& position = GetComponentRef<TransformComponent>().position;
-                position.x     = speed * std::sin(time);
-                position.y     = speed * std::cos(time);
-            }
-        }
+    // Entity left = m_scene->CreateChildEntity("Left Button", m_imguiWindowEntity);
+    // left.AddComponent<ImGuiArrowButtonComponent>("Left Button", ImGuiDir_Left);
+    // window.AddChildEntity(left);
 
-        virtual void OnEvent(Event& e) override
-        {
-            if (e.GetEventType() == EventType::ImGuiButtonPressed)
-            {
-                auto& listener =
-                  GetComponentRef<ImGuiButtonListenerComponent<ImGuiInvisibleButtonComponent>>();
-                if (listener.IsButton((*(ImGuiButtonPressedEvent*)&e).GetButton()))
-                {
-                    m_active = !m_active;
-                }
-            }
-        }
+    // Entity right = m_scene->CreateChildEntity("Right Button", m_imguiWindowEntity);
+    // right.AddComponent<ImGuiArrowButtonComponent>("Right Button", ImGuiDir_Right);
+    // window.AddChildEntity(right);
 
-    private:
-        bool m_active = false;
-    };
-    m_squareEntity.AddComponent<NativeScriptComponent>().Bind<SquareMover>();
-    m_squareEntity.AddComponent<ImGuiButtonListenerComponent<ImGuiInvisibleButtonComponent>>(
-      button3);
+    // Entity up = m_scene->CreateChildEntity("Up Button", m_imguiWindowEntity);
+    // up.AddComponent<ImGuiArrowButtonComponent>("Up Button", ImGuiDir_Up);
+    // window.AddChildEntity(up);
 
-    m_textureEntity = m_scene->CreateEntity("Textured Square");
-    m_textureEntity.AddComponent<TextureRendererComponent>("assets/textures/checkboard.png");
-    m_textureEntity.AddComponent<LuaScriptComponent>("assets/scripts/test.lua", "Player");
+    // Entity down = m_scene->CreateChildEntity("Down Button", m_imguiWindowEntity);
+    // down.AddComponent<ImGuiArrowButtonComponent>("Down Button", ImGuiDir_Down);
+    // window.AddChildEntity(down);
+
+    // m_squareEntity = m_scene->CreateEntity("Square");
+    // m_squareEntity.AddComponent<ColorRendererComponent>(glm::vec4 {1.0f, 0.0f, 0.0f, 1.0f});
+
+    // class SquareMover : public ScriptableEntity
+    //{
+    //    virtual void OnUpdate(Timestep ts) override
+    //    {
+    //        const float  speed = 6.283f;
+    //        static float time  = 0.0f;
+
+    //        if (m_active)
+    //        {
+    //            time += ts;
+    //            auto& position = GetComponentRef<TransformComponent>().position;
+    //            position.x     = speed * std::sin(time);
+    //            position.y     = speed * std::cos(time);
+    //        }
+    //    }
+
+    //    virtual void OnEvent(Event& e) override
+    //    {
+    //        if (e.GetEventType() == EventType::ImGuiButtonPressed)
+    //        {
+    //            auto& listener =
+    //              GetComponentRef<ImGuiButtonListenerComponent<ImGuiButtonComponent>>();
+    //            if (listener.IsButton((*(ImGuiButtonPressedEvent*)&e).GetButton()))
+    //            {
+    //                m_active = !m_active;
+    //            }
+    //        }
+    //    }
+
+    // private:
+    //    bool m_active = false;
+    //};
+    // m_squareEntity.AddComponent<NativeScriptComponent>().Bind<SquareMover>();
+    // m_squareEntity.AddComponent<ImGuiButtonListenerComponent<ImGuiButtonComponent>>(button);
+
+    // m_textureEntity = m_scene->CreateEntity("Textured Square");
+    // m_textureEntity.AddComponent<TextureRendererComponent>("assets/textures/checkboard.png");
+    // m_textureEntity.AddComponent<LuaScriptComponent>("assets/scripts/test.lua", "Player");
 
 
     m_cameraEntity = m_scene->CreateEntity("Camera");
     m_cameraEntity.AddComponent<CameraComponent>();
+    auto& cam = m_cameraEntity.GetComponentRef<CameraComponent>();
+    cam.camera.SetViewportSize(Application::Get().GetWindow().GetWidth(),
+                               Application::Get().GetWindow().GetHeight());
+    cam.camera.SetProjectionType(SceneCamera::ProjectionType::Perspective);
+    m_cameraEntity.GetComponentRef<TransformComponent>().position.z = 60.0f;
 
     m_cameraEntity2                                         = m_scene->CreateEntity("Camera 2");
     m_cameraEntity2.AddComponent<CameraComponent>().primary = false;
@@ -185,6 +219,29 @@ void EditorLayer::OnUpdate(Timestep ts)
     // Update scene.
     m_scene->OnUpdate(ts);
 
+    auto& mainCamera      = m_cameraEntity.GetComponentRef<CameraComponent>().camera;
+    auto& cameraTransform = m_cameraEntity.GetComponentRef<TransformComponent>();
+
+    auto& mesh          = m_meshEntity.GetComponentRef<MeshComponent>();
+    auto& meshTransform = m_meshEntity.GetComponentRef<TransformComponent>();
+
+    mesh.material->Set("u_AlbedoColor", m_albedoInput.Color);
+    mesh.material->Set("u_Metalness", m_metalnessInput.Value);
+    mesh.material->Set("u_Roughness", m_roughnessInput.Value);
+    mesh.material->Set("u_ViewProjectionMatrix",
+                       mainCamera.GetProjection() * glm::inverse(cameraTransform.GetTransform()));
+    mesh.material->Set("u_ModelMatrix", meshTransform.GetTransform());
+    mesh.mesh->Render(ts, meshTransform.GetTransform(), mesh.material);
+    mesh.material->Set("u_Lights", m_Light);
+    mesh.material->Set("u_CameraPosition", cameraTransform.GetPosition());
+    mesh.material->Set("u_RadiancePrefilter", m_RadiancePrefilter ? 1.0f : 0.0f);
+    mesh.material->Set("u_AlbedoTexToggle", m_albedoInput.UseTexture ? 1.0f : 0.0f);
+    mesh.material->Set("u_NormalTexToggle", m_normalInput.UseTexture ? 1.0f : 0.0f);
+    mesh.material->Set("u_MetalnessTexToggle", m_metalnessInput.UseTexture ? 1.0f : 0.0f);
+    mesh.material->Set("u_RoughnessTexToggle", m_roughnessInput.UseTexture ? 1.0f : 0.0f);
+    mesh.material->Set("u_EnvRotation", m_EnvMapRotation);
+    mesh.material->Set("u_EnvRadianceTex", m_environmentCubeMap);
+    mesh.material->Set("u_EnvIrradianceTex", m_environmentIrradiance);
     m_fb->Unbind();
 }
 
@@ -263,6 +320,19 @@ void EditorLayer::OnImGuiRender()
     ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
     ImGui::Separator();
 
+    if (ImGui::Button("Reload Static Mesh Shader"))
+    {
+        Renderer::GetShaderLibrary()->Get("mesh_static")->Reload();
+    }
+    if (ImGui::Button("Reload Animated Mesh Shader"))
+    {
+        Renderer::GetShaderLibrary()->Get("mesh_animated")->Reload();
+    }
+    if (ImGui::Button("Reload Texture Shader"))
+    {
+        Renderer::GetShaderLibrary()->Get("Texture")->Reload();
+    }
+
     ImGui::End();
 
     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
@@ -288,6 +358,7 @@ void EditorLayer::OnImGuiRender()
     ImGui::End();
 
     m_sceneHierarchyPanel.OnImGuiRender();
+    // m_mesh->OnImGuiRender();
 
     ImGui::End();
 

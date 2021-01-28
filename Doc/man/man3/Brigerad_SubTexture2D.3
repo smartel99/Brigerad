@@ -1,0 +1,78 @@
+.TH "Brigerad::SubTexture2D" 3 "Sun Jan 10 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Brigerad::SubTexture2D
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <SubTexture2D\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSubTexture2D\fP (const \fBRef\fP< \fBTexture2D\fP > &texture, const glm::vec2 &min, const glm::vec2 &max)"
+.br
+.ti -1c
+.RI "const \fBRef\fP< \fBTexture2D\fP > \fBGetTexture\fP () const"
+.br
+.ti -1c
+.RI "const glm::vec2 * \fBGetTexCoords\fP () const"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBRef\fP< \fBSubTexture2D\fP > \fBCreateFromCoords\fP (const \fBRef\fP< \fBTexture2D\fP > &texture, const glm::vec2 &pos, const glm::vec2 &cellSize, const glm::vec2 &spriteSize={1, 1})"
+.br
+.RI "Creates a sub-texture from an already existing texture\&. "
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBRef\fP< \fBTexture2D\fP > \fBm_texture\fP"
+.br
+.ti -1c
+.RI "glm::vec2 \fBm_texCoords\fP [4]"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Brigerad::SubTexture2D::SubTexture2D (const \fBRef\fP< \fBTexture2D\fP > & texture, const glm::vec2 & min, const glm::vec2 & max)"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "const \fBRef\fP<\fBTexture2D\fP> Brigerad::SubTexture2D::GetTexture () const\fC [inline]\fP"
+
+.SS "const glm::vec2* Brigerad::SubTexture2D::GetTexCoords () const\fC [inline]\fP"
+
+.SS "\fBRef\fP< \fBSubTexture2D\fP > Brigerad::SubTexture2D::CreateFromCoords (const \fBRef\fP< \fBTexture2D\fP > & texture, const glm::vec2 & pos, const glm::vec2 & cellSize, const glm::vec2 & spriteSize = \fC{1, 1}\fP)\fC [static]\fP"
+
+.PP
+Creates a sub-texture from an already existing texture\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fItexture\fP A reference to texture from which to make the sub-texture from\&. 
+.br
+\fIpos\fP The coordinates, in pixel space, of the sub-texture\&. 
+.br
+\fIcellSize\fP The size of ? 
+.br
+\fIspriteSize\fP The size of the sprite\&. 
+.RE
+.PP
+
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBRef\fP<\fBTexture2D\fP> Brigerad::SubTexture2D::m_texture\fC [private]\fP"
+
+.SS "glm::vec2 Brigerad::SubTexture2D::m_texCoords[4]\fC [private]\fP"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

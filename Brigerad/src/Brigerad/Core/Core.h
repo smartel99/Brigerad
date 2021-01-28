@@ -105,4 +105,6 @@ constexpr Ref<T> CreateRef(Args&&... args)
 {
     return std::make_shared<T>(std::forward<Args>(args)...);
 }
+
+using byte = unsigned char;
 }    // namespace Brigerad

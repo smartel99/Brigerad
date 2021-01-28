@@ -1,0 +1,63 @@
+.TH "Brigerad::LuaScriptComponent" 3 "Sun Jan 10 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Brigerad::LuaScriptComponent
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Components\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBLuaScriptComponent\fP (const std::string &p, const std::string &n)"
+.br
+.ti -1c
+.RI "\fB~LuaScriptComponent\fP ()=default"
+.br
+.ti -1c
+.RI "\fBLuaScriptEntity\fP * \fBInstantiateScript\fP ()"
+.br
+.ti -1c
+.RI "void \fBReloadScript\fP ()"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBLuaScriptEntity\fP * \fBinstance\fP = nullptr"
+.br
+.ti -1c
+.RI "std::string \fBpath\fP = ''"
+.br
+.ti -1c
+.RI "std::string \fBname\fP = 'LuaScriptComponent'"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Brigerad::LuaScriptComponent::LuaScriptComponent (const std::string & p, const std::string & n)\fC [inline]\fP"
+
+.SS "Brigerad::LuaScriptComponent::~LuaScriptComponent ()\fC [default]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBLuaScriptEntity\fP* Brigerad::LuaScriptComponent::InstantiateScript ()\fC [inline]\fP"
+
+.SS "void Brigerad::LuaScriptComponent::ReloadScript ()\fC [inline]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBLuaScriptEntity\fP* Brigerad::LuaScriptComponent::instance = nullptr"
+
+.SS "std::string Brigerad::LuaScriptComponent::path = ''"
+
+.SS "std::string Brigerad::LuaScriptComponent::name = 'LuaScriptComponent'"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

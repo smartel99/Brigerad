@@ -3,8 +3,19 @@
 #include <glm/glm.hpp>
 #include "VertexArray.h"
 
+#include <string>
+
 namespace Brigerad
 {
+struct RenderAPICapabilities
+{
+    std::string vendor;
+    std::string renderer;
+    std::string version;
+
+    int   maxSamples;
+    float maxAnisotropy;
+};
 class RendererAPI
 {
 public:
@@ -14,6 +25,8 @@ public:
         OpenGL
     };
 
+
+
 public:
     virtual ~RendererAPI()                                                            = default;
     virtual void Init()                                                               = 0;
@@ -22,6 +35,12 @@ public:
     virtual void SetViewport(uint32_t x, uint32_t y, uint32_t width, uint32_t height) = 0;
 
     virtual void DrawIndexed(const Ref<VertexArray>& vertexArray, uint32_t indexCount = 0) = 0;
+
+    static RenderAPICapabilities& GetCapabilities()
+    {
+        static RenderAPICapabilities capabilities;
+        return capabilities;
+    }
 
     inline static API GetAPI() { return s_API; }
 

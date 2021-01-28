@@ -1,0 +1,67 @@
+.TH "Brigerad::InstrumentationTimer" 3 "Sun Jan 10 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Brigerad::InstrumentationTimer
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Instrumentor\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBInstrumentationTimer\fP (const char *name)"
+.br
+.ti -1c
+.RI "\fB~InstrumentationTimer\fP ()"
+.br
+.ti -1c
+.RI "void \fBStop\fP ()"
+.br
+.in -1c
+.SS "Private Member Functions"
+
+.in +1c
+.ti -1c
+.RI "std::chrono::time_point< std::chrono::high_resolution_clock > \fBGetTime\fP ()"
+.br
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "const char * \fBm_name\fP"
+.br
+.ti -1c
+.RI "std::chrono::time_point< std::chrono::high_resolution_clock > \fBm_startTimepoint\fP"
+.br
+.ti -1c
+.RI "bool \fBm_stopped\fP"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Brigerad::InstrumentationTimer::InstrumentationTimer (const char * name)\fC [inline]\fP"
+
+.SS "Brigerad::InstrumentationTimer::~InstrumentationTimer ()\fC [inline]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void Brigerad::InstrumentationTimer::Stop ()\fC [inline]\fP"
+
+.SS "std::chrono::time_point<std::chrono::high_resolution_clock> Brigerad::InstrumentationTimer::GetTime ()\fC [inline]\fP, \fC [private]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "const char* Brigerad::InstrumentationTimer::m_name\fC [private]\fP"
+
+.SS "std::chrono::time_point<std::chrono::high_resolution_clock> Brigerad::InstrumentationTimer::m_startTimepoint\fC [private]\fP"
+
+.SS "bool Brigerad::InstrumentationTimer::m_stopped\fC [private]\fP"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

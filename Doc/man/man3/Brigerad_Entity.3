@@ -1,0 +1,108 @@
+.TH "Brigerad::Entity" 3 "Sun Jan 10 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Brigerad::Entity
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Entity\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBEntity\fP ()=default"
+.br
+.ti -1c
+.RI "\fBEntity\fP (entt::entity entity, \fBScene\fP *scene)"
+.br
+.ti -1c
+.RI "\fBEntity\fP (const \fBEntity\fP &entity)=default"
+.br
+.ti -1c
+.RI "\fB~Entity\fP ()=default"
+.br
+.ti -1c
+.RI "template<typename T , typename\&.\&.\&. Args> T & \fBAddComponent\fP (Args &&\&.\&.\&. args)"
+.br
+.ti -1c
+.RI "template<typename T > T & \fBGetComponentRef\fP ()"
+.br
+.ti -1c
+.RI "template<typename T > const T & \fBGetComponent\fP () const"
+.br
+.ti -1c
+.RI "template<typename T > void \fBRemoveComponent\fP ()"
+.br
+.ti -1c
+.RI "template<typename T > bool \fBHasComponent\fP () const"
+.br
+.ti -1c
+.RI "\fBoperator bool\fP () const"
+.br
+.ti -1c
+.RI "\fBoperator uint32_t\fP () const"
+.br
+.ti -1c
+.RI "bool \fBoperator==\fP (const \fBEntity\fP &other) const"
+.br
+.ti -1c
+.RI "bool \fBoperator!=\fP (const \fBEntity\fP &other) const"
+.br
+.ti -1c
+.RI "\fBoperator entt::entity\fP () const"
+.br
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "entt::entity \fBm_entityHandle\fP = entt::null"
+.br
+.ti -1c
+.RI "\fBScene\fP * \fBm_scene\fP = nullptr"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Brigerad::Entity::Entity ()\fC [default]\fP"
+
+.SS "Brigerad::Entity::Entity (entt::entity entity, \fBScene\fP * scene)"
+
+.SS "Brigerad::Entity::Entity (const \fBEntity\fP & entity)\fC [default]\fP"
+
+.SS "Brigerad::Entity::~Entity ()\fC [default]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "template<typename T , typename\&.\&.\&. Args> T& Brigerad::Entity::AddComponent (Args &&\&.\&.\&. args)\fC [inline]\fP"
+
+.SS "template<typename T > T& Brigerad::Entity::GetComponentRef ()\fC [inline]\fP"
+
+.SS "template<typename T > const T& Brigerad::Entity::GetComponent () const\fC [inline]\fP"
+
+.SS "template<typename T > void Brigerad::Entity::RemoveComponent ()\fC [inline]\fP"
+
+.SS "template<typename T > bool Brigerad::Entity::HasComponent () const\fC [inline]\fP"
+
+.SS "Brigerad::Entity::operator bool () const\fC [inline]\fP"
+
+.SS "Brigerad::Entity::operator uint32_t () const\fC [inline]\fP"
+
+.SS "bool Brigerad::Entity::operator== (const \fBEntity\fP & other) const\fC [inline]\fP"
+
+.SS "bool Brigerad::Entity::operator!= (const \fBEntity\fP & other) const\fC [inline]\fP"
+
+.SS "Brigerad::Entity::operator entt::entity () const\fC [inline]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "entt::entity Brigerad::Entity::m_entityHandle = entt::null\fC [private]\fP"
+
+.SS "\fBScene\fP* Brigerad::Entity::m_scene = nullptr\fC [private]\fP"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

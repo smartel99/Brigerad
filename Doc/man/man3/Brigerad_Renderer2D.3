@@ -1,0 +1,334 @@
+.TH "Brigerad::Renderer2D" 3 "Sun Jan 10 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Brigerad::Renderer2D
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Renderer2D\&.h>\fP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "struct \fBStatistics\fP"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static void \fBInit\fP ()"
+.br
+.RI "Initialize the 2D renderer\&. This sets everything up to be able to render, amongst other things, quads\&. "
+.ti -1c
+.RI "static void \fBShutdown\fP ()"
+.br
+.RI "Gracefully shutdown the 2D renderer\&. Currently, nothing in particular needs to be done in that method\&. "
+.ti -1c
+.RI "static void \fBBeginScene\fP (const \fBOrthographicCamera\fP &camera)"
+.br
+.RI "Set everything up in the 2D renderer to begin accepting new draw calls for this frame\&. "
+.ti -1c
+.RI "static void \fBBeginScene\fP (const \fBCamera\fP &camera, const glm::mat4 &transform)"
+.br
+.ti -1c
+.RI "static void \fBEndScene\fP ()"
+.br
+.RI "End a scene\&. Calling this method makes the renderer draw the entire quad queue that was filled since the last call to \fBRenderer2D::BeginScene\fP\&. "
+.ti -1c
+.RI "static void \fBFlush\fP ()"
+.br
+.RI "Bind all queued textures and render the queue\&. "
+.ti -1c
+.RI "static long long \fBGetFrameCount\fP ()"
+.br
+.RI "Get the number of frames that has been rendered since the beginning of the application\&. "
+.ti -1c
+.RI "static void \fBDrawString\fP (const glm::vec2 &pos, const std::string &text, float scale=1\&.0f)"
+.br
+.ti -1c
+.RI "static void \fBDrawString\fP (const glm::vec3 &pos, const std::string &text, float scale=1\&.0f)"
+.br
+.ti -1c
+.RI "static void \fBDrawQuad\fP (const glm::vec2 &pos, const glm::vec2 &size, const glm::vec4 &color)"
+.br
+.RI "Queue a flat-colored quad in a 2D space\&. "
+.ti -1c
+.RI "static void \fBDrawQuad\fP (const glm::vec3 &pos, const glm::vec2 &size, const glm::vec4 &color)"
+.br
+.RI "Queue a flat-colored quad in a 3D space\&. "
+.ti -1c
+.RI "static void \fBDrawQuad\fP (const glm::vec2 &pos, const glm::vec2 &size, const \fBRef\fP< \fBTexture2D\fP > &texture, const glm::vec2 &textScale=glm::vec2(1\&.0f), const glm::vec4 &tint=glm::vec4(1\&.0f))"
+.br
+.RI "Queue a textured quad in a 2D space\&. "
+.ti -1c
+.RI "static void \fBDrawQuad\fP (const glm::vec3 &pos, const glm::vec2 &size, const \fBRef\fP< \fBTexture2D\fP > &texture, const glm::vec2 &textScale=glm::vec2(1\&.0f), const glm::vec4 &tint=glm::vec4(1\&.0f))"
+.br
+.RI "Queue a textured quad in a 3D space\&. "
+.ti -1c
+.RI "static void \fBDrawQuad\fP (const glm::vec2 &pos, const glm::vec2 &size, const \fBRef\fP< \fBSubTexture2D\fP > &texture, const glm::vec2 &textScale=glm::vec2(1\&.0f), const glm::vec4 &tint=glm::vec4(1\&.0f))"
+.br
+.ti -1c
+.RI "static void \fBDrawQuad\fP (const glm::vec3 &pos, const glm::vec2 &size, const \fBRef\fP< \fBSubTexture2D\fP > &texture, const glm::vec2 &textScale=glm::vec2(1\&.0f), const glm::vec4 &tint=glm::vec4(1\&.0f))"
+.br
+.ti -1c
+.RI "static void \fBDrawQuad\fP (const glm::mat4 &transform, const glm::vec4 &color)"
+.br
+.ti -1c
+.RI "static void \fBDrawQuad\fP (const glm::mat4 &transform, const \fBRef\fP< \fBTexture2D\fP > &texture, const glm::vec2 &textScale=glm::vec2(1\&.0f), const glm::vec4 &tint=glm::vec4(1\&.0f))"
+.br
+.ti -1c
+.RI "static void \fBDrawQuad\fP (const glm::mat4 &transform, const \fBRef\fP< \fBSubTexture2D\fP > &texture, const glm::vec2 &textScale=glm::vec2(1\&.0f), const glm::vec4 &tint=glm::vec4(1\&.0f))"
+.br
+.ti -1c
+.RI "static void \fBDrawRotatedQuad\fP (const glm::vec2 &pos, const glm::vec2 &size, const glm::vec4 &color, float rotation=0)"
+.br
+.RI "Queued a flat colored rotated quad in 2D space\&. "
+.ti -1c
+.RI "static void \fBDrawRotatedQuad\fP (const glm::vec3 &pos, const glm::vec2 &size, const glm::vec4 &color, float rotation=0)"
+.br
+.RI "Queued a flat colored rotated quad in 3D space\&. "
+.ti -1c
+.RI "static void \fBDrawRotatedQuad\fP (const glm::vec2 &pos, const glm::vec2 &size, const \fBRef\fP< \fBTexture2D\fP > &texture, const glm::vec2 &textScale=glm::vec2(1\&.0f), const glm::vec4 &tint=glm::vec4(1\&.0f), float rotation=0)"
+.br
+.RI "Queue a textured rotated quad in a 2D space\&. "
+.ti -1c
+.RI "static void \fBDrawRotatedQuad\fP (const glm::vec3 &pos, const glm::vec2 &size, const \fBRef\fP< \fBTexture2D\fP > &texture, const glm::vec2 &textScale=glm::vec2(1\&.0f), const glm::vec4 &tint=glm::vec4(1\&.0f), float rotation=0)"
+.br
+.RI "Queue a textured rotated quad in a 3D space\&. "
+.ti -1c
+.RI "static void \fBDrawRotatedQuad\fP (const glm::vec2 &pos, const glm::vec2 &size, const \fBRef\fP< \fBSubTexture2D\fP > &texture, const glm::vec2 &textScale=glm::vec2(1\&.0f), const glm::vec4 &tint=glm::vec4(1\&.0f), float rotation=0)"
+.br
+.ti -1c
+.RI "static void \fBDrawRotatedQuad\fP (const glm::vec3 &pos, const glm::vec2 &size, const \fBRef\fP< \fBSubTexture2D\fP > &texture, const glm::vec2 &textScale=glm::vec2(1\&.0f), const glm::vec4 &tint=glm::vec4(1\&.0f), float rotation=0)"
+.br
+.ti -1c
+.RI "static \fBStatistics\fP \fBGetStats\fP ()"
+.br
+.ti -1c
+.RI "static void \fBResetStats\fP ()"
+.br
+.in -1c
+.SS "Static Private Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static void \fBFlushAndReset\fP ()"
+.br
+.in -1c
+.SH "Member Function Documentation"
+.PP 
+.SS "void Brigerad::Renderer2D::Init ()\fC [static]\fP"
+
+.PP
+Initialize the 2D renderer\&. This sets everything up to be able to render, amongst other things, quads\&. 
+.SS "void Brigerad::Renderer2D::Shutdown ()\fC [static]\fP"
+
+.PP
+Gracefully shutdown the 2D renderer\&. Currently, nothing in particular needs to be done in that method\&. 
+.SS "void Brigerad::Renderer2D::BeginScene (const \fBOrthographicCamera\fP & camera)\fC [static]\fP"
+
+.PP
+Set everything up in the 2D renderer to begin accepting new draw calls for this frame\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIcamera\fP An orthographic representation of the scene that is viewable by the user\&. 
+.RE
+.PP
+
+.SS "void Brigerad::Renderer2D::BeginScene (const \fBCamera\fP & camera, const glm::mat4 & transform)\fC [static]\fP"
+
+.SS "void Brigerad::Renderer2D::EndScene ()\fC [static]\fP"
+
+.PP
+End a scene\&. Calling this method makes the renderer draw the entire quad queue that was filled since the last call to \fBRenderer2D::BeginScene\fP\&. 
+.SS "void Brigerad::Renderer2D::Flush ()\fC [static]\fP"
+
+.PP
+Bind all queued textures and render the queue\&. 
+.SS "long long Brigerad::Renderer2D::GetFrameCount ()\fC [static]\fP"
+
+.PP
+Get the number of frames that has been rendered since the beginning of the application\&. 
+.PP
+\fBReturns\fP
+.RS 4
+long long The number of frames rendered since the beginning of the application\&. 
+.RE
+.PP
+
+.SS "void Brigerad::Renderer2D::DrawString (const glm::vec2 & pos, const std::string & text, float scale = \fC1\&.0f\fP)\fC [static]\fP"
+
+.SS "void Brigerad::Renderer2D::DrawString (const glm::vec3 & pos, const std::string & text, float scale = \fC1\&.0f\fP)\fC [static]\fP"
+
+.SS "void Brigerad::Renderer2D::DrawQuad (const glm::vec2 & pos, const glm::vec2 & size, const glm::vec4 & color)\fC [static]\fP"
+
+.PP
+Queue a flat-colored quad in a 2D space\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIpos\fP The world coordinates where to render the quad, (X, Y) 
+.br
+\fIsize\fP The size of the quad, (X, Y) 
+.br
+\fIcolor\fP The color of the quad, (R, G, B, A) 
+.RE
+.PP
+
+.SS "void Brigerad::Renderer2D::DrawQuad (const glm::vec3 & pos, const glm::vec2 & size, const glm::vec4 & color)\fC [static]\fP"
+
+.PP
+Queue a flat-colored quad in a 3D space\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIpos\fP The world coordinates where to render the quad, (X, Y, Z) 
+.br
+\fIsize\fP The size of the quad, (X, Y) 
+.br
+\fIcolor\fP The color of the quad, (R, G, B, A) 
+.RE
+.PP
+
+.SS "void Brigerad::Renderer2D::DrawQuad (const glm::vec2 & pos, const glm::vec2 & size, const \fBRef\fP< \fBTexture2D\fP > & texture, const glm::vec2 & textScale = \fCglm::vec2(1\&.0f)\fP, const glm::vec4 & tint = \fCglm::vec4(1\&.0f)\fP)\fC [static]\fP"
+
+.PP
+Queue a textured quad in a 2D space\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIpos\fP The world coordinates where to render the quad, (X, Y) 
+.br
+\fIsize\fP The size of the quad, (X, Y) 
+.br
+\fItexture\fP The texture to apply on that quad\&. 
+.br
+\fItextScale\fP The scaling factor of the texture, (X, Y) 
+.br
+\fItint\fP A tint to apply to the texture, (R, G, B, A) 
+.RE
+.PP
+
+.SS "void Brigerad::Renderer2D::DrawQuad (const glm::vec3 & pos, const glm::vec2 & size, const \fBRef\fP< \fBTexture2D\fP > & texture, const glm::vec2 & textScale = \fCglm::vec2(1\&.0f)\fP, const glm::vec4 & tint = \fCglm::vec4(1\&.0f)\fP)\fC [static]\fP"
+
+.PP
+Queue a textured quad in a 3D space\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIpos\fP The world coordinates where to render the quad, (X, Y, Z) 
+.br
+\fIsize\fP The size of the quad, (X, Y) 
+.br
+\fItexture\fP The texture to apply on that quad\&. 
+.br
+\fItextScale\fP The scaling factor of the texture, (X, Y) 
+.br
+\fItint\fP A tint to apply to the texture, (R, G, B, A) 
+.RE
+.PP
+
+.SS "void Brigerad::Renderer2D::DrawQuad (const glm::vec2 & pos, const glm::vec2 & size, const \fBRef\fP< \fBSubTexture2D\fP > & texture, const glm::vec2 & textScale = \fCglm::vec2(1\&.0f)\fP, const glm::vec4 & tint = \fCglm::vec4(1\&.0f)\fP)\fC [static]\fP"
+
+.SS "void Brigerad::Renderer2D::DrawQuad (const glm::vec3 & pos, const glm::vec2 & size, const \fBRef\fP< \fBSubTexture2D\fP > & texture, const glm::vec2 & textScale = \fCglm::vec2(1\&.0f)\fP, const glm::vec4 & tint = \fCglm::vec4(1\&.0f)\fP)\fC [static]\fP"
+
+.SS "void Brigerad::Renderer2D::DrawQuad (const glm::mat4 & transform, const glm::vec4 & color)\fC [static]\fP"
+
+.SS "void Brigerad::Renderer2D::DrawQuad (const glm::mat4 & transform, const \fBRef\fP< \fBTexture2D\fP > & texture, const glm::vec2 & textScale = \fCglm::vec2(1\&.0f)\fP, const glm::vec4 & tint = \fCglm::vec4(1\&.0f)\fP)\fC [static]\fP"
+
+.SS "void Brigerad::Renderer2D::DrawQuad (const glm::mat4 & transform, const \fBRef\fP< \fBSubTexture2D\fP > & texture, const glm::vec2 & textScale = \fCglm::vec2(1\&.0f)\fP, const glm::vec4 & tint = \fCglm::vec4(1\&.0f)\fP)\fC [static]\fP"
+
+.SS "void Brigerad::Renderer2D::DrawRotatedQuad (const glm::vec2 & pos, const glm::vec2 & size, const glm::vec4 & color, float rotation = \fC0\fP)\fC [static]\fP"
+
+.PP
+Queued a flat colored rotated quad in 2D space\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIpos\fP The world coordinates where to render the quad, (X, Y) 
+.br
+\fIsize\fP The size of the quad, (X, Y) 
+.br
+\fIcolor\fP The color of the quad, (R, G, B, A) 
+.br
+\fIrotation\fP The rotation to apply to the quad, in degrees 
+.RE
+.PP
+
+.SS "void Brigerad::Renderer2D::DrawRotatedQuad (const glm::vec3 & pos, const glm::vec2 & size, const glm::vec4 & color, float rotation = \fC0\fP)\fC [static]\fP"
+
+.PP
+Queued a flat colored rotated quad in 3D space\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIpos\fP The world coordinates where to render the quad, (X, Y, Z) 
+.br
+\fIsize\fP The size of the quad, (X, Y) 
+.br
+\fIcolor\fP The color of the quad, (R, G, B, A) 
+.br
+\fIrotation\fP The rotation to apply to the quad, in degrees 
+.RE
+.PP
+
+.SS "void Brigerad::Renderer2D::DrawRotatedQuad (const glm::vec2 & pos, const glm::vec2 & size, const \fBRef\fP< \fBTexture2D\fP > & texture, const glm::vec2 & textScale = \fCglm::vec2(1\&.0f)\fP, const glm::vec4 & tint = \fCglm::vec4(1\&.0f)\fP, float rotation = \fC0\fP)\fC [static]\fP"
+
+.PP
+Queue a textured rotated quad in a 2D space\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIpos\fP The world coordinates where to render the quad, (X, Y) 
+.br
+\fIsize\fP The size of the quad, (X, Y) 
+.br
+\fItexture\fP The texture to apply on that quad\&. 
+.br
+\fItextScale\fP The scaling factor of the texture, (X, Y) 
+.br
+\fItint\fP A tint to apply to the texture, (R, G, B, A) 
+.br
+\fIrotation\fP The rotation to apply to the quad, in degrees 
+.RE
+.PP
+
+.SS "void Brigerad::Renderer2D::DrawRotatedQuad (const glm::vec3 & pos, const glm::vec2 & size, const \fBRef\fP< \fBTexture2D\fP > & texture, const glm::vec2 & textScale = \fCglm::vec2(1\&.0f)\fP, const glm::vec4 & tint = \fCglm::vec4(1\&.0f)\fP, float rotation = \fC0\fP)\fC [static]\fP"
+
+.PP
+Queue a textured rotated quad in a 3D space\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIpos\fP The world coordinates where to render the quad, (X, Y, Z) 
+.br
+\fIsize\fP The size of the quad, (X, Y) 
+.br
+\fItexture\fP The texture to apply on that quad\&. 
+.br
+\fItextScale\fP The scaling factor of the texture, (X, Y) 
+.br
+\fItint\fP A tint to apply to the texture, (R, G, B, A) 
+.br
+\fIrotation\fP The rotation to apply to the quad, in degrees 
+.RE
+.PP
+
+.SS "void Brigerad::Renderer2D::DrawRotatedQuad (const glm::vec2 & pos, const glm::vec2 & size, const \fBRef\fP< \fBSubTexture2D\fP > & texture, const glm::vec2 & textScale = \fCglm::vec2(1\&.0f)\fP, const glm::vec4 & tint = \fCglm::vec4(1\&.0f)\fP, float rotation = \fC0\fP)\fC [static]\fP"
+
+.SS "void Brigerad::Renderer2D::DrawRotatedQuad (const glm::vec3 & pos, const glm::vec2 & size, const \fBRef\fP< \fBSubTexture2D\fP > & texture, const glm::vec2 & textScale = \fCglm::vec2(1\&.0f)\fP, const glm::vec4 & tint = \fCglm::vec4(1\&.0f)\fP, float rotation = \fC0\fP)\fC [static]\fP"
+
+.SS "\fBRenderer2D::Statistics\fP Brigerad::Renderer2D::GetStats ()\fC [static]\fP"
+
+.SS "void Brigerad::Renderer2D::ResetStats ()\fC [static]\fP"
+
+.SS "void Brigerad::Renderer2D::FlushAndReset ()\fC [static]\fP, \fC [private]\fP"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

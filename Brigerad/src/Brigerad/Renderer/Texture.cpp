@@ -43,4 +43,19 @@ Ref<Texture2D> Texture2D::Create(const std::string& path)
     }
 }
 
+Ref<TextureCube> TextureCube::Create(const std::string& path)
+{
+    switch (Renderer::GetAPI())
+    {
+        case RendererAPI::API::None:
+            BR_CORE_ASSERT(false, "RendererAPI::None is currently not supported!");
+            return nullptr;
+        case RendererAPI::API::OpenGL:
+            return std::make_shared<OpenGLTextureCube>(path);
+        default:
+            BR_CORE_ASSERT(false, "Invalid RendererAPI!");
+            return nullptr;
+    }
+}
+
 }    // namespace Brigerad

@@ -1,0 +1,137 @@
+.TH "Brigerad::OrthographicCameraController" 3 "Sun Jan 10 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Brigerad::OrthographicCameraController
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <OrthographicCameraController\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBOrthographicCameraController\fP (float aspectRatio, bool rotation=false)"
+.br
+.ti -1c
+.RI "void \fBOnUpdate\fP (\fBTimestep\fP ts)"
+.br
+.ti -1c
+.RI "void \fBOnEvent\fP (\fBEvent\fP &e)"
+.br
+.ti -1c
+.RI "void \fBOnResize\fP (float width, float height)"
+.br
+.ti -1c
+.RI "\fBOrthographicCamera\fP & \fBGetCamera\fP ()"
+.br
+.ti -1c
+.RI "const \fBOrthographicCamera\fP & \fBGetCamera\fP () const"
+.br
+.ti -1c
+.RI "void \fBSetZoomLevel\fP (float level)"
+.br
+.ti -1c
+.RI "float \fBGetZoomLevel\fP () const"
+.br
+.ti -1c
+.RI "const \fBOrthographicCameraBounds\fP & \fBGetBounds\fP () const"
+.br
+.in -1c
+.SS "Private Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBCalculateView\fP ()"
+.br
+.ti -1c
+.RI "bool \fBOnMouseScrolled\fP (\fBMouseScrolledEvent\fP &e)"
+.br
+.ti -1c
+.RI "bool \fBOnWindowResized\fP (\fBWindowResizeEvent\fP &e)"
+.br
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "float \fBm_aspectRatio\fP"
+.br
+.ti -1c
+.RI "float \fBm_zoomLevel\fP = 0\&.5f"
+.br
+.ti -1c
+.RI "\fBOrthographicCamera\fP \fBm_camera\fP"
+.br
+.ti -1c
+.RI "\fBOrthographicCameraBounds\fP \fBm_bounds\fP"
+.br
+.ti -1c
+.RI "bool \fBm_allowRotation\fP = false"
+.br
+.ti -1c
+.RI "glm::vec3 \fBm_cameraPosition\fP = { 0\&.0f, 0\&.0f, 0\&.0f }"
+.br
+.ti -1c
+.RI "float \fBm_cameraRotation\fP = 0\&.0f"
+.br
+.ti -1c
+.RI "float \fBm_cameraTranslationSpeed\fP = 10\&.0f"
+.br
+.ti -1c
+.RI "float \fBm_cameraRotationSpeed\fP = 180\&.0f"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Brigerad::OrthographicCameraController::OrthographicCameraController (float aspectRatio, bool rotation = \fCfalse\fP)"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void Brigerad::OrthographicCameraController::OnUpdate (\fBTimestep\fP ts)"
+
+.SS "void Brigerad::OrthographicCameraController::OnEvent (\fBEvent\fP & e)"
+
+.SS "void Brigerad::OrthographicCameraController::OnResize (float width, float height)"
+
+.SS "\fBOrthographicCamera\fP& Brigerad::OrthographicCameraController::GetCamera ()\fC [inline]\fP"
+
+.SS "const \fBOrthographicCamera\fP& Brigerad::OrthographicCameraController::GetCamera () const\fC [inline]\fP"
+
+.SS "void Brigerad::OrthographicCameraController::SetZoomLevel (float level)\fC [inline]\fP"
+
+.SS "float Brigerad::OrthographicCameraController::GetZoomLevel () const\fC [inline]\fP"
+
+.SS "const \fBOrthographicCameraBounds\fP& Brigerad::OrthographicCameraController::GetBounds () const\fC [inline]\fP"
+
+.SS "void Brigerad::OrthographicCameraController::CalculateView ()\fC [private]\fP"
+
+.SS "bool Brigerad::OrthographicCameraController::OnMouseScrolled (\fBMouseScrolledEvent\fP & e)\fC [private]\fP"
+
+.SS "bool Brigerad::OrthographicCameraController::OnWindowResized (\fBWindowResizeEvent\fP & e)\fC [private]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "float Brigerad::OrthographicCameraController::m_aspectRatio\fC [private]\fP"
+
+.SS "float Brigerad::OrthographicCameraController::m_zoomLevel = 0\&.5f\fC [private]\fP"
+
+.SS "\fBOrthographicCamera\fP Brigerad::OrthographicCameraController::m_camera\fC [private]\fP"
+
+.SS "\fBOrthographicCameraBounds\fP Brigerad::OrthographicCameraController::m_bounds\fC [private]\fP"
+
+.SS "bool Brigerad::OrthographicCameraController::m_allowRotation = false\fC [private]\fP"
+
+.SS "glm::vec3 Brigerad::OrthographicCameraController::m_cameraPosition = { 0\&.0f, 0\&.0f, 0\&.0f }\fC [private]\fP"
+
+.SS "float Brigerad::OrthographicCameraController::m_cameraRotation = 0\&.0f\fC [private]\fP"
+
+.SS "float Brigerad::OrthographicCameraController::m_cameraTranslationSpeed = 10\&.0f\fC [private]\fP"
+
+.SS "float Brigerad::OrthographicCameraController::m_cameraRotationSpeed = 180\&.0f\fC [private]\fP"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

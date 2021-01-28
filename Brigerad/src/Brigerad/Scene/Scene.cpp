@@ -205,21 +205,22 @@ void Scene::OnUpdate(Timestep ts)
     {
         Renderer2D::BeginScene(mainCamera->GetProjection(), cameraTransform);
 
-        auto group = m_registry.group<TransformComponent>(entt::get<ColorRendererComponent>);
+        auto colorRendererGroup =
+          m_registry.group<TransformComponent>(entt::get<ColorRendererComponent>);
 
-        for (auto entity : group)
+        for (auto entity : colorRendererGroup)
         {
             auto [transform, sprite] =
-              group.get<TransformComponent, ColorRendererComponent>(entity);
+              colorRendererGroup.get<TransformComponent, ColorRendererComponent>(entity);
 
             Renderer2D::DrawQuad(transform, sprite.color);
         }
-        auto view = m_registry.view<TransformComponent, TextureRendererComponent>();
+        auto textureRendererView = m_registry.view<TransformComponent, TextureRendererComponent>();
 
-        for (auto entity : view)
+        for (auto entity : textureRendererView)
         {
             auto [transform, sprite] =
-              view.get<TransformComponent, TextureRendererComponent>(entity);
+              textureRendererView.get<TransformComponent, TextureRendererComponent>(entity);
 
             Renderer2D::DrawQuad(transform, sprite.texture);
         }
@@ -237,6 +238,21 @@ void Scene::OnUpdate(Timestep ts)
         }
 
         Renderer2D::EndScene();
+
+        auto meshRendererView = m_registry.view<TransformComponent, MeshComponent>();
+
+        for (auto entity : meshRendererView)
+        {
+            auto [transform, mesh] =
+              meshRendererView.get<TransformComponent, MeshComponent>(entity);
+
+            // mesh.material->Set("u_ViewProjectionMatrix",
+            //                   mainCamera->GetProjection() * cameraTransform);
+            mesh.material->Set("u_ViewProjectionMatrix",
+                               mainCamera->GetProjection() * glm::inverse(cameraTransform));
+            mesh.material->Set("u_ModelMatrix", transform.GetTransform());
+            // mesh.mesh->Render(ts, transform.GetTransform(), mesh.material);
+        }
     }
 }
 
@@ -249,6 +265,18 @@ void Scene::OnImguiRender()
             HandleImGuiEntity(entity);
         }
     });
+
+    auto meshRendererGroup = m_registry.view<MeshComponent>();
+
+    for (auto entity : meshRendererGroup)
+    {
+        auto& mesh = meshRendererGroup.get<MeshComponent>(entity);
+
+        if (mesh.viewDebugMenu == true)
+        {
+            mesh.mesh->OnImGuiRender();
+        }
+    }
 }
 
 void Scene::OnViewportResize(uint32_t w, uint32_t h)
@@ -317,6 +345,17 @@ void Scene::HandleImGuiEntity(Entity entity)
     DrawImGuiButton<ImGuiArrowButtonComponent>(entity, [](ImGuiArrowButtonComponent& button) {
         return ImGui::ArrowButton(button.name.c_str(), button.direction);
     });
+
+    if (entity.HasComponent<ImGuiSeparatorComponent>())
+    {
+        ImGui::Separator();
+    }
+
+    if (entity.HasComponent<ImGuiSameLineComponent>())
+    {
+        auto& sameLine = entity.GetComponent<ImGuiSameLineComponent>();
+        ImGui::SameLine(sameLine.offsetFromStartX, sameLine.spacing);
+    }
 }
 
 
@@ -431,6 +470,21 @@ void Scene::OnComponentAdded<ImGuiArrowButtonComponent>(Entity,
 template<>
 void Scene::OnComponentAdded<ImGuiButtonListenerComponent<ImGuiArrowButtonComponent>>(
   Entity, ImGuiButtonListenerComponent<ImGuiArrowButtonComponent>& component)
+{
+}
+
+template<>
+void Scene::OnComponentAdded<ImGuiSeparatorComponent>(Entity, ImGuiSeparatorComponent& component)
+{
+}
+
+template<>
+void Scene::OnComponentAdded<ImGuiSameLineComponent>(Entity, ImGuiSameLineComponent& component)
+{
+}
+
+template<>
+void Scene::OnComponentAdded<MeshComponent>(Entity, MeshComponent& component)
 {
 }
 

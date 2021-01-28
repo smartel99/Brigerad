@@ -1,0 +1,102 @@
+.TH "Brigerad::RendererAPI" 3 "Sun Jan 10 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Brigerad::RendererAPI
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <RendererAPI\&.h>\fP
+.PP
+Inherited by \fBBrigerad::OpenGLRendererAPI\fP\&.
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum class \fBAPI\fP { \fBNone\fP = 0, \fBOpenGL\fP }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fB~RendererAPI\fP ()=default"
+.br
+.ti -1c
+.RI "virtual void \fBInit\fP ()=0"
+.br
+.ti -1c
+.RI "virtual void \fBSetClearColor\fP (const glm::vec4 &color)=0"
+.br
+.ti -1c
+.RI "virtual void \fBClear\fP ()=0"
+.br
+.ti -1c
+.RI "virtual void \fBSetViewport\fP (uint32_t x, uint32_t y, uint32_t width, uint32_t height)=0"
+.br
+.ti -1c
+.RI "virtual void \fBDrawIndexed\fP (const \fBRef\fP< \fBVertexArray\fP > &vertexArray, uint32_t indexCount=0)=0"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBAPI\fP \fBGetAPI\fP ()"
+.br
+.in -1c
+.SS "Static Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "static \fBAPI\fP \fBs_API\fP = \fBRendererAPI::API::OpenGL\fP"
+.br
+.in -1c
+.SH "Member Enumeration Documentation"
+.PP 
+.SS "enum \fBBrigerad::RendererAPI::API\fP\fC [strong]\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fINone \fP\fP
+.TP
+\fB\fIOpenGL \fP\fP
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "virtual Brigerad::RendererAPI::~RendererAPI ()\fC [virtual]\fP, \fC [default]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "virtual void Brigerad::RendererAPI::Init ()\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLRendererAPI\fP\&.
+.SS "virtual void Brigerad::RendererAPI::SetClearColor (const glm::vec4 & color)\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLRendererAPI\fP\&.
+.SS "virtual void Brigerad::RendererAPI::Clear ()\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLRendererAPI\fP\&.
+.SS "virtual void Brigerad::RendererAPI::SetViewport (uint32_t x, uint32_t y, uint32_t width, uint32_t height)\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLRendererAPI\fP\&.
+.SS "virtual void Brigerad::RendererAPI::DrawIndexed (const \fBRef\fP< \fBVertexArray\fP > & vertexArray, uint32_t indexCount = \fC0\fP)\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLRendererAPI\fP\&.
+.SS "static \fBAPI\fP Brigerad::RendererAPI::GetAPI ()\fC [inline]\fP, \fC [static]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBRendererAPI::API\fP Brigerad::RendererAPI::s_API = \fBRendererAPI::API::OpenGL\fP\fC [static]\fP, \fC [private]\fP"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

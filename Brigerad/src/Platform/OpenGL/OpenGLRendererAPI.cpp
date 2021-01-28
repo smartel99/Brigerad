@@ -12,9 +12,31 @@
 
 namespace Brigerad
 {
+static void OpenGLLogMessage(GLenum        source,
+                             GLenum        type,
+                             GLuint        id,
+                             GLenum        severity,
+                             GLsizei       len,
+                             const GLchar* msg,
+                             const void*   usrParam)
+{
+    if (severity != GL_DEBUG_SEVERITY_NOTIFICATION)
+    {
+        BR_CORE_ERROR("{}", msg);
+        // BR_CORE_ASSERT(false, "");
+    }
+    else
+    {
+        // BR_CORE_TRACE("{}", msg);
+    }
+}
+
 void OpenGLRendererAPI::Init()
 {
     BR_PROFILE_FUNCTION();
+    glDebugMessageCallback(OpenGLLogMessage, nullptr);
+    glEnable(GL_DEBUG_OUTPUT);
+    glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
 
     // Enable alpha blending.
     glEnable(GL_BLEND);
@@ -24,8 +46,26 @@ void OpenGLRendererAPI::Init()
     // Enable depth testing, which tells OpenGL to check if the pixel to be
     // drawn is in front or behind the others.
     glEnable(GL_DEPTH_TEST);
+    glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
+    glFrontFace(GL_CCW);
 
-    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);  // Disable byte-alignment restriction.
+    auto& caps = RendererAPI::GetCapabilities();
+
+    caps.vendor   = (const char*)glGetString(GL_VENDOR);
+    caps.renderer = (const char*)glGetString(GL_RENDERER);
+    caps.version  = (const char*)glGetString(GL_VERSION);
+
+    glGetIntegerv(GL_MAX_SAMPLES, &caps.maxSamples);
+    glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY, &caps.maxAnisotropy);
+
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);    // Disable byte-alignment restriction.
+
+    GLenum error = glGetError();
+    while (error != GL_NO_ERROR)
+    {
+        BR_CORE_ERROR("OpenGL Error: {}", error);
+        error = glGetError();
+    }
 }
 
 void OpenGLRendererAPI::SetClearColor(const glm::vec4& color)
@@ -49,4 +89,4 @@ void OpenGLRendererAPI::SetViewport(uint32_t x, uint32_t y, uint32_t width, uint
 {
     glViewport(x, y, width, height);
 }
-}  // namespace Brigerad
+}    // namespace Brigerad

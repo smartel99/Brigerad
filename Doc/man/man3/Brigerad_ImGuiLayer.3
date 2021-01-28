@@ -1,0 +1,129 @@
+.TH "Brigerad::ImGuiLayer" 3 "Sun Jan 10 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Brigerad::ImGuiLayer
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <ImGuiLayer\&.h>\fP
+.PP
+Inherits \fBBrigerad::Layer\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBImGuiLayer\fP ()"
+.br
+.ti -1c
+.RI "\fB~ImGuiLayer\fP () override"
+.br
+.ti -1c
+.RI "virtual void \fBOnAttach\fP () override"
+.br
+.ti -1c
+.RI "virtual void \fBOnDetach\fP () override"
+.br
+.ti -1c
+.RI "virtual void \fBOnEvent\fP (\fBEvent\fP &event) override"
+.br
+.ti -1c
+.RI "virtual void \fBOnImGuiRender\fP () override"
+.br
+.ti -1c
+.RI "void \fBBegin\fP ()"
+.br
+.ti -1c
+.RI "void \fBEnd\fP ()"
+.br
+.ti -1c
+.RI "void \fBSetIsVisible\fP (bool isVisible)"
+.br
+.ti -1c
+.RI "void \fBToggleIsVisible\fP ()"
+.br
+.ti -1c
+.RI "void \fBSetBlockEvents\fP (bool state)"
+.br
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "double \fBm_time\fP = 0\&.0"
+.br
+.ti -1c
+.RI "bool \fBm_open\fP = false"
+.br
+.ti -1c
+.RI "bool \fBm_showMetricWindow\fP = false"
+.br
+.ti -1c
+.RI "bool \fBm_isProfiling\fP = false"
+.br
+.ti -1c
+.RI "double \fBm_profilingStartTime\fP = 0\&.0"
+.br
+.ti -1c
+.RI "double \fBm_profilingDuration\fP = 1\&.0"
+.br
+.ti -1c
+.RI "bool \fBm_blockImGuiEvents\fP = false"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Brigerad::ImGuiLayer::ImGuiLayer ()"
+
+.SS "Brigerad::ImGuiLayer::~ImGuiLayer ()\fC [override]\fP, \fC [default]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void Brigerad::ImGuiLayer::OnAttach ()\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Reimplemented from \fBBrigerad::Layer\fP\&.
+.SS "void Brigerad::ImGuiLayer::OnDetach ()\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Reimplemented from \fBBrigerad::Layer\fP\&.
+.SS "void Brigerad::ImGuiLayer::OnEvent (\fBEvent\fP & event)\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Reimplemented from \fBBrigerad::Layer\fP\&.
+.SS "void Brigerad::ImGuiLayer::OnImGuiRender ()\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Reimplemented from \fBBrigerad::Layer\fP\&.
+.SS "void Brigerad::ImGuiLayer::Begin ()"
+
+.SS "void Brigerad::ImGuiLayer::End ()"
+
+.SS "void Brigerad::ImGuiLayer::SetIsVisible (bool isVisible)\fC [inline]\fP"
+
+.SS "void Brigerad::ImGuiLayer::ToggleIsVisible ()\fC [inline]\fP"
+
+.SS "void Brigerad::ImGuiLayer::SetBlockEvents (bool state)\fC [inline]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "double Brigerad::ImGuiLayer::m_time = 0\&.0\fC [private]\fP"
+
+.SS "bool Brigerad::ImGuiLayer::m_open = false\fC [private]\fP"
+
+.SS "bool Brigerad::ImGuiLayer::m_showMetricWindow = false\fC [private]\fP"
+
+.SS "bool Brigerad::ImGuiLayer::m_isProfiling = false\fC [private]\fP"
+
+.SS "double Brigerad::ImGuiLayer::m_profilingStartTime = 0\&.0\fC [private]\fP"
+
+.SS "double Brigerad::ImGuiLayer::m_profilingDuration = 1\&.0\fC [private]\fP"
+
+.SS "bool Brigerad::ImGuiLayer::m_blockImGuiEvents = false\fC [private]\fP"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

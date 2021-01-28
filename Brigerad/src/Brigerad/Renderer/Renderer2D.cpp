@@ -250,6 +250,7 @@ void Renderer2D::Flush()
         s_data.textureSlots[i]->Bind(i);
     }
     // Draw the entire vertex array.
+    s_data.vertexArray->Bind();
     RenderCommand::DrawIndexed(s_data.vertexArray, s_data.quadIndexCount);
 }
 

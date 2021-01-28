@@ -1,0 +1,73 @@
+.TH "F:/dev/Brigerad/Brigerad/src/Brigerad/Events/Event.h" 3 "Sun Jan 10 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+F:/dev/Brigerad/Brigerad/src/Brigerad/Events/Event.h
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'brpch\&.h'\fP
+.br
+\fC#include 'Brigerad/Core/Core\&.h'\fP
+.br
+
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBBrigerad::Event\fP"
+.br
+.ti -1c
+.RI "class \fBBrigerad::EventDispatcher\fP"
+.br
+.in -1c
+.SS "Namespaces"
+
+.in +1c
+.ti -1c
+.RI " \fBBrigerad\fP"
+.br
+.in -1c
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBEVENT_CLASS_TYPE\fP(type)"
+.br
+.ti -1c
+.RI "#define \fBEVENT_CLASS_CATEGORY\fP(category)       virtual int GetCategoryFlags() const override { return category; }"
+.br
+.in -1c
+.SS "Enumerations"
+
+.in +1c
+.ti -1c
+.RI "enum class \fBBrigerad::EventType\fP { \fBBrigerad::None\fP = 0, \fBBrigerad::WindowClose\fP, \fBBrigerad::WindowResize\fP, \fBBrigerad::WindowFocus\fP, \fBBrigerad::WindowLostFocus\fP, \fBBrigerad::WindowMoved\fP, \fBBrigerad::AppTick\fP, \fBBrigerad::AppUpdate\fP, \fBBrigerad::AppRender\fP, \fBBrigerad::KeyPressed\fP, \fBBrigerad::KeyReleased\fP, \fBBrigerad::KeyTyped\fP, \fBBrigerad::MouseButtonPressed\fP, \fBBrigerad::MouseButtonReleased\fP, \fBBrigerad::MouseMoved\fP, \fBBrigerad::MouseScrolled\fP, \fBBrigerad::ImGuiButtonPressed\fP, \fBBrigerad::ImGuiButtonReleased\fP }"
+.br
+.RI "Lists all possible types of Event for \fBBrigerad\fP\&. "
+.ti -1c
+.RI "enum \fBBrigerad::EventCategory\fP { \fBBrigerad::None\fP = 0, \fBBrigerad::None\fP = 0, \fBBrigerad::EventCategoryApplication\fP = BIT(0), \fBBrigerad::EventCategoryInput\fP = BIT(1), \fBBrigerad::EventCategoryKeyboard\fP = BIT(2), \fBBrigerad::EventCategoryMouse\fP = BIT(3), \fBBrigerad::EventCategoryMouseButton\fP = BIT(4), \fBBrigerad::EventCategoryImGui\fP = BIT(5) }"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "std::ostream & \fBBrigerad::operator<<\fP (std::ostream &os, const Event &e)"
+.br
+.in -1c
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define EVENT_CLASS_TYPE(type)"
+\fBValue:\fP
+.PP
+.nf
+    static EventType    GetStaticType() { return type; }                                           \
+    virtual EventType   GetEventType() const override { return GetStaticType(); }                  \
+    virtual const char* GetName() const override { return #type; }
+.fi
+.SS "#define EVENT_CLASS_CATEGORY(category)       virtual int GetCategoryFlags() const override { return category; }"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

@@ -73,7 +73,8 @@ project "Brigerad"
         "%{IncludeDir.serial}/include",
         "%{IncludeDir.entt}",
         "%{IncludeDir.lua}/src",
-        "%{IncludeDir.sol}/include"
+        "%{IncludeDir.sol}/include",
+		"%{prj.name}/vendor/assimp/include",
     }
 
     defines
@@ -243,16 +244,44 @@ project "Sandbox"
         }
         runtime "Debug"
         symbols "On"
+        links
+        {
+            "Brigerad/vendor/assimp/bin/Debug/assimp-vc141-mtd.lib"
+        }
+
+        postbuildcommands
+        {
+            '{COPY} "../Brigerad/vendor/assimp/bin/Debug/assimp-vc141-mtd.dll" "%{cfg.targetdir}"'
+        }
             
     filter "configurations:Release"
         defines "BR_RELEASE"
         runtime "Release"
         optimize "On"
+        
+        links
+        {
+            "Brigerad/vendor/assimp/bin/Release/assimp-vc141-mtd.lib"
+        }
+
+        postbuildcommands
+        {
+            '{COPY} "../Brigerad/vendor/assimp/bin/Release/assimp-vc141-mtd.dll" "%{cfg.targetdir}"'
+        }
             
     filter "configurations:Dist"
         defines "BR_DIST"
         runtime "Release"
         optimize "On"
+        links
+        {
+            "Brigerad/vendor/assimp/bin/Release/assimp-vc141-mtd.lib"
+        }
+
+        postbuildcommands
+        {
+            '{COPY} "../Brigerad/vendor/assimp/bin/Release/assimp-vc141-mtd.dll" "%{cfg.targetdir}"'
+        }
     
 
 project "BrigeradEditor"
@@ -341,15 +370,42 @@ project "BrigeradEditor"
         }
         runtime "Debug"
         symbols "On"
+        links
+        {
+            "Brigerad/vendor/assimp/bin/Debug/assimp-vc141-mtd.lib"
+        }
+
+        postbuildcommands
+        {
+            '{COPY} "../Brigerad/vendor/assimp/bin/Debug/assimp-vc141-mtd.dll" "%{cfg.targetdir}"'
+        }
             
     filter "configurations:Release"
         defines "BR_RELEASE"
         runtime "Release"
         optimize "On"
+        links
+        {
+            "Brigerad/vendor/assimp/bin/Release/assimp-vc141-mtd.lib"
+        }
+
+        postbuildcommands
+        {
+            '{COPY} "../Brigerad/vendor/assimp/bin/Release/assimp-vc141-mtd.dll" "%{cfg.targetdir}"'
+        }
             
     filter "configurations:Dist"
         defines "BR_DIST"
         runtime "Release"
         optimize "On"
+        links
+        {
+            "Brigerad/vendor/assimp/bin/Release/assimp-vc141-mtd.lib"
+        }
+
+        postbuildcommands
+        {
+            '{COPY} "../Brigerad/vendor/assimp/bin/Release/assimp-vc141-mtd.dll" "%{cfg.targetdir}"'
+        }
     
 

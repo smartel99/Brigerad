@@ -35,4 +35,36 @@ private:
     uint32_t    m_rendererID = 0;
     GLenum      m_internalFormat, m_dataFormat;
 };
+
+class OpenGLTextureCube : public TextureCube
+{
+public:
+    OpenGLTextureCube(const std::string& path);
+    virtual ~OpenGLTextureCube();
+
+    virtual void Bind(uint32_t slot = 0) const;
+
+    virtual uint32_t GetFormat() const { return m_dataFormat; }
+    virtual uint32_t GetWidth() const { return m_width; }
+    virtual uint32_t GetHeight() const { return m_height; }
+
+    virtual void SetData(void* data, uint32_t size) {}
+
+    virtual const std::string& GetFilePath() const { return m_path; }
+    virtual uint32_t           GetRenderID() const { return m_rendererID; }
+
+    virtual bool operator==(const Texture& other) const override
+    {
+        return m_rendererID == ((OpenGLTextureCube&)other).m_rendererID;
+    }
+
+private:
+    uint32_t m_rendererID;
+    uint32_t m_width;
+    uint32_t m_height;
+    GLenum   m_internalFormat, m_dataFormat;
+
+    uint8_t*    m_imageData;
+    std::string m_path;
+};
 }    // namespace Brigerad

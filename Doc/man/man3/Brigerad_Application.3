@@ -1,0 +1,328 @@
+.TH "Brigerad::Application" 3 "Sun Jan 10 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Brigerad::Application \- Base class for the client application using the \fBBrigerad\fP engine\&.
+.br
+\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Application\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBApplication\fP (const std::string &name='Brigerad Engine')"
+.br
+.RI "Default constructor of the \fBApplication\fP\&.
+.br
+This creates a new window and binds the event functions to it\&. "
+.ti -1c
+.RI "virtual \fB~Application\fP ()"
+.br
+.RI "Destroy the \fBApplication\fP:: \fBApplication\fP object\&. "
+.ti -1c
+.RI "void \fBRun\fP ()"
+.br
+.RI "Where all of the magic happens\&. During normal execution, this function never returns, for as long as the process window is open\&. "
+.ti -1c
+.RI "void \fBOnEvent\fP (\fBEvent\fP &e)"
+.br
+.RI "Callback function for all events happening in the application\&. It dispatches and propagates the event through all layers until it is handled\&. "
+.ti -1c
+.RI "void \fBPushLayer\fP (\fBLayer\fP *layer)"
+.br
+.RI "Push a new layer at the back of the layer stack\&. "
+.ti -1c
+.RI "void \fBPushOverlay\fP (\fBLayer\fP *layer)"
+.br
+.RI "Push a new layer at the front of the layer stack\&. "
+.ti -1c
+.RI "void \fBPopLayer\fP (\fBLayer\fP *layer)"
+.br
+.RI "Queue a layer to be removed from the application at the end of this frame\&. "
+.ti -1c
+.RI "void \fBClose\fP ()"
+.br
+.ti -1c
+.RI "\fBWindow\fP & \fBGetWindow\fP ()"
+.br
+.RI "Get a reference to the \fBApplication\fP's window handle\&. "
+.ti -1c
+.RI "\fBImGuiLayer\fP * \fBGetImGuiLayer\fP ()"
+.br
+.RI "Get a pointer to the \fBApplication\fP's ImGui layer\&. "
+.ti -1c
+.RI "void \fBQueuePostFrameTask\fP (const std::function< void()> &fn)"
+.br
+.RI "Queue a task to be executed at the end of the current frame\&. "
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBApplication\fP & \fBGet\fP ()"
+.br
+.in -1c
+.SS "Private Member Functions"
+
+.in +1c
+.ti -1c
+.RI "bool \fBOnWindowClose\fP (\fBWindowCloseEvent\fP &e)"
+.br
+.RI "Handle the window close event\&. "
+.ti -1c
+.RI "bool \fBOnWindowResize\fP (\fBWindowResizeEvent\fP &e)"
+.br
+.RI "Handle the window resize event\&. "
+.ti -1c
+.RI "bool \fBOnKeyPressed\fP (\fBKeyPressedEvent\fP &e)"
+.br
+.RI "Handle the key pressed event, which mainly consists of opening or closing the profiling window\&. "
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBScope\fP< \fBWindow\fP > \fBm_window\fP"
+.br
+.ti -1c
+.RI "\fBImGuiLayer\fP * \fBm_imguiLayer\fP"
+.br
+.ti -1c
+.RI "bool \fBm_running\fP = true"
+.br
+.ti -1c
+.RI "bool \fBm_minimized\fP = false"
+.br
+.ti -1c
+.RI "\fBLayerStack\fP \fBm_layerStack\fP"
+.br
+.ti -1c
+.RI "float \fBm_lastFrameTime\fP = 0\&.0f"
+.br
+.ti -1c
+.RI "std::vector< std::function< void()> > \fBm_postFrameTasks\fP"
+.br
+.in -1c
+.SS "Static Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "static \fBApplication\fP * \fBs_instance\fP = nullptr"
+.br
+.RI "Singleton instance of the running application\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Base class for the client application using the \fBBrigerad\fP engine\&.
+.br
+\&. 
+
+All client application class must inherit from this class\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Brigerad::Application::Application (const std::string & name = \fC'Brigerad Engine'\fP)"
+
+.PP
+Default constructor of the \fBApplication\fP\&.
+.br
+This creates a new window and binds the event functions to it\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIname\fP The name of the application\&. This is the name that is shown in the top bar of the window\&. 
+.RE
+.PP
+
+.SS "Brigerad::Application::~Application ()\fC [virtual]\fP"
+
+.PP
+Destroy the \fBApplication\fP:: \fBApplication\fP object\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void Brigerad::Application::Run ()"
+
+.PP
+Where all of the magic happens\&. During normal execution, this function never returns, for as long as the process window is open\&. It iterates through all of the layers and ImGui layers contained in the application, handles the refreshing of window events (key press, mouse events, window closed/minimized, etc\&.), as well as handling the frame creation/rendering for ImGui\&. 
+.SS "void Brigerad::Application::OnEvent (\fBEvent\fP & e)"
+
+.PP
+Callback function for all events happening in the application\&. It dispatches and propagates the event through all layers until it is handled\&. 
+.PP
+\fBHow to use this\fP
+.RS 4
+
+.PP
+.nf
+// A button has been released\&.
+button\&.state = ImGuiButtonState::Released;
+
+// Create the event object\&.
+ImGuiButtonReleasedEvent e(entity);
+
+// Send the event to the application\&.
+* Application::Get()\&.OnEvent(e);
+
+.fi
+.PP
+.RE
+.PP
+\fBParameters\fP
+.RS 4
+\fIe\fP The event itself\&. 
+.RE
+.PP
+
+.SS "void Brigerad::Application::PushLayer (\fBLayer\fP * layer)"
+
+.PP
+Push a new layer at the back of the layer stack\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIlayer\fP A pointer to the layer 
+.RE
+.PP
+
+.SS "void Brigerad::Application::PushOverlay (\fBLayer\fP * layer)"
+
+.PP
+Push a new layer at the front of the layer stack\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIlayer\fP A pointer to the layer 
+.RE
+.PP
+
+.SS "void Brigerad::Application::PopLayer (\fBLayer\fP * layer)"
+
+.PP
+Queue a layer to be removed from the application at the end of this frame\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIlayer\fP A pointer to the layer to remove
+.RE
+.PP
+\fBAttention\fP
+.RS 4
+If \fBlayer\fP is NULL, this function will assert false\&. 
+.RE
+.PP
+
+.SS "void Brigerad::Application::Close ()"
+Mark the application as closed, which will cause the process to be terminated at the end of this frame\&. 
+.SS "\fBWindow\fP& Brigerad::Application::GetWindow ()\fC [inline]\fP"
+
+.PP
+Get a reference to the \fBApplication\fP's window handle\&. 
+.PP
+\fBReturn values\fP
+.RS 4
+\fIA\fP reference to the window handle\&. 
+.RE
+.PP
+
+.SS "\fBImGuiLayer\fP* Brigerad::Application::GetImGuiLayer ()\fC [inline]\fP"
+
+.PP
+Get a pointer to the \fBApplication\fP's ImGui layer\&. The only reason why you would want to get the ImGui layer is to set the block event flag\&.
+.PP
+\fBReturn values\fP
+.RS 4
+\fIA\fP pointer to the ImGui \fBLayer\fP\&. 
+.RE
+.PP
+
+.SS "void Brigerad::Application::QueuePostFrameTask (const std::function< void()> & fn)\fC [inline]\fP"
+
+.PP
+Queue a task to be executed at the end of the current frame\&. This could be tasks such as removing a layer from another layer, which would cause the application to crash if it is done during the run loop\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIfn\fP The task to execute\&. 
+.RE
+.PP
+
+.SS "static \fBApplication\fP& Brigerad::Application::Get ()\fC [inline]\fP, \fC [static]\fP"
+
+.SS "bool Brigerad::Application::OnWindowClose (\fBWindowCloseEvent\fP & e)\fC [private]\fP"
+
+.PP
+Handle the window close event\&. This event happens whenever the main application window closes\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIe\fP The event 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+Always returns true\&. 
+.RE
+.PP
+
+.SS "bool Brigerad::Application::OnWindowResize (\fBWindowResizeEvent\fP & e)\fC [private]\fP"
+
+.PP
+Handle the window resize event\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIe\fP The event 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+Always returns false\&. 
+.RE
+.PP
+
+.SS "bool Brigerad::Application::OnKeyPressed (\fBKeyPressedEvent\fP & e)\fC [private]\fP"
+
+.PP
+Handle the key pressed event, which mainly consists of opening or closing the profiling window\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIe\fP The event 
+.RE
+.PP
+\fBReturn values\fP
+.RS 4
+\fItrue\fP If the key pressed if the escape key\&. 
+.br
+\fIfalse\fP If any other key is pressed\&. 
+.RE
+.PP
+
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBScope\fP<\fBWindow\fP> Brigerad::Application::m_window\fC [private]\fP"
+The application's window context\&. 
+.SS "\fBImGuiLayer\fP* Brigerad::Application::m_imguiLayer\fC [private]\fP"
+The application's main ImGui layer\&. 
+.SS "bool Brigerad::Application::m_running = true\fC [private]\fP"
+Flag indicating if the application should keep running or close\&. 
+.SS "bool Brigerad::Application::m_minimized = false\fC [private]\fP"
+Flag indicating if the application is minimized or active\&. 
+.SS "\fBLayerStack\fP Brigerad::Application::m_layerStack\fC [private]\fP"
+The application's stack of layers\&. 
+.SS "float Brigerad::Application::m_lastFrameTime = 0\&.0f\fC [private]\fP"
+Process time of the last frame\&. 
+.SS "std::vector<std::function<void()> > Brigerad::Application::m_postFrameTasks\fC [private]\fP"
+Queue of the tasks to execute at the end of this frame\&. 
+.SS "\fBApplication\fP * Brigerad::Application::s_instance = nullptr\fC [static]\fP, \fC [private]\fP"
+
+.PP
+Singleton instance of the running application\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

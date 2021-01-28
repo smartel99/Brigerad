@@ -1,0 +1,98 @@
+.TH "Brigerad::OpenGLVertexBuffer" 3 "Sun Jan 10 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Brigerad::OpenGLVertexBuffer
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <OpenGLBuffer\&.h>\fP
+.PP
+Inherits \fBBrigerad::VertexBuffer\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBOpenGLVertexBuffer\fP (uint32_t size)"
+.br
+.ti -1c
+.RI "\fBOpenGLVertexBuffer\fP (float *vertices, uint32_t size)"
+.br
+.ti -1c
+.RI "virtual \fB~OpenGLVertexBuffer\fP () override"
+.br
+.ti -1c
+.RI "virtual void \fBBind\fP () const override"
+.br
+.ti -1c
+.RI "virtual void \fBUnbind\fP () const override"
+.br
+.ti -1c
+.RI "virtual const \fBBufferLayout\fP & \fBGetLayout\fP () override"
+.br
+.ti -1c
+.RI "virtual void \fBSetLayout\fP (const \fBBufferLayout\fP &layout) override"
+.br
+.ti -1c
+.RI "virtual void \fBSetData\fP (const void *data, uint32_t size) override"
+.br
+.ti -1c
+.RI "virtual const uint32_t \fBGetId\fP () const override"
+.br
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "uint32_t \fBm_rendererID\fP"
+.br
+.ti -1c
+.RI "\fBBufferLayout\fP \fBm_layout\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Brigerad::OpenGLVertexBuffer::OpenGLVertexBuffer (uint32_t size)"
+
+.SS "Brigerad::OpenGLVertexBuffer::OpenGLVertexBuffer (float * vertices, uint32_t size)"
+
+.SS "Brigerad::OpenGLVertexBuffer::~OpenGLVertexBuffer ()\fC [override]\fP, \fC [virtual]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void Brigerad::OpenGLVertexBuffer::Bind () const\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBBrigerad::VertexBuffer\fP\&.
+.SS "void Brigerad::OpenGLVertexBuffer::Unbind () const\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBBrigerad::VertexBuffer\fP\&.
+.SS "virtual const \fBBufferLayout\fP& Brigerad::OpenGLVertexBuffer::GetLayout ()\fC [inline]\fP, \fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBBrigerad::VertexBuffer\fP\&.
+.SS "virtual void Brigerad::OpenGLVertexBuffer::SetLayout (const \fBBufferLayout\fP & layout)\fC [inline]\fP, \fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBBrigerad::VertexBuffer\fP\&.
+.SS "void Brigerad::OpenGLVertexBuffer::SetData (const void * data, uint32_t size)\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBBrigerad::VertexBuffer\fP\&.
+.SS "virtual const uint32_t Brigerad::OpenGLVertexBuffer::GetId () const\fC [inline]\fP, \fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBBrigerad::VertexBuffer\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "uint32_t Brigerad::OpenGLVertexBuffer::m_rendererID\fC [private]\fP"
+
+.SS "\fBBufferLayout\fP Brigerad::OpenGLVertexBuffer::m_layout\fC [private]\fP"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

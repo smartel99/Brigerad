@@ -1,0 +1,73 @@
+.TH "Brigerad::MouseScrolledEvent" 3 "Sun Jan 10 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Brigerad::MouseScrolledEvent
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <MouseEvent\&.h>\fP
+.PP
+Inherits \fBBrigerad::Event\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBMouseScrolledEvent\fP (float xOffset, float yOffset)"
+.br
+.ti -1c
+.RI "float \fBGetXOffset\fP () const"
+.br
+.ti -1c
+.RI "float \fBGetYOffset\fP () const"
+.br
+.ti -1c
+.RI "std::string \fBToString\fP () const override"
+.br
+.ti -1c
+.RI "\fBEVENT_CLASS_TYPE\fP (\fBEventType::MouseScrolled\fP)"
+.br
+.ti -1c
+.RI "\fBEVENT_CLASS_CATEGORY\fP (\fBEventCategoryMouse\fP|\fBEventCategoryInput\fP)"
+.br
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "float \fBm_xOffset\fP"
+.br
+.ti -1c
+.RI "float \fBm_yOffset\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Brigerad::MouseScrolledEvent::MouseScrolledEvent (float xOffset, float yOffset)\fC [inline]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "float Brigerad::MouseScrolledEvent::GetXOffset () const\fC [inline]\fP"
+
+.SS "float Brigerad::MouseScrolledEvent::GetYOffset () const\fC [inline]\fP"
+
+.SS "std::string Brigerad::MouseScrolledEvent::ToString () const\fC [inline]\fP, \fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Reimplemented from \fBBrigerad::Event\fP\&.
+.SS "Brigerad::MouseScrolledEvent::EVENT_CLASS_TYPE (\fBEventType::MouseScrolled\fP)"
+
+.SS "Brigerad::MouseScrolledEvent::EVENT_CLASS_CATEGORY (\fBEventCategoryMouse\fP| EventCategoryInput)"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "float Brigerad::MouseScrolledEvent::m_xOffset\fC [private]\fP"
+
+.SS "float Brigerad::MouseScrolledEvent::m_yOffset\fC [private]\fP"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

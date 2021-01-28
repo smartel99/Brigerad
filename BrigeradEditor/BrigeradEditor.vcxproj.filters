@@ -18,4 +18,8 @@
       <Filter>panels</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\shaders\mesh_static_base.glsl" />
+    <None Include="assets\shaders\mesh_static.glsl" />
+  </ItemGroup>
 </Project>

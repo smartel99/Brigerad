@@ -18,13 +18,14 @@ OpenGLVertexBuffer::OpenGLVertexBuffer(uint32_t size)
     glBufferData(GL_ARRAY_BUFFER, size, nullptr, GL_DYNAMIC_DRAW);
 }
 
-OpenGLVertexBuffer::OpenGLVertexBuffer(float* vertices, uint32_t size)
+OpenGLVertexBuffer::OpenGLVertexBuffer(void* vertices, uint32_t size)
 {
     BR_PROFILE_FUNCTION();
 
     glCreateBuffers(1, &m_rendererID);
-    glBindBuffer(GL_ARRAY_BUFFER, m_rendererID);
-    glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
+    // glBindBuffer(GL_ARRAY_BUFFER, m_rendererID);
+    // glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
+    glNamedBufferData(m_rendererID, size, vertices, GL_STATIC_DRAW);
 }
 
 OpenGLVertexBuffer::~OpenGLVertexBuffer()
@@ -60,14 +61,22 @@ void OpenGLVertexBuffer::SetData(const void* data, uint32_t size)
 /* IndexBuffer                                                          */
 /************************************************************************/
 
-OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t* indices, uint32_t count)
-: m_count(count)
+OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t* indices, uint32_t count) : m_count(count)
 {
     BR_PROFILE_FUNCTION();
 
     glCreateBuffers(1, &m_rendererID);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_rendererID);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(uint32_t), indices, GL_STATIC_DRAW);
+}
+
+OpenGLIndexBuffer::OpenGLIndexBuffer(void* indices, uint32_t count) : m_count(count)
+{
+    BR_PROFILE_FUNCTION();
+
+    glCreateBuffers(1, &m_rendererID);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_rendererID);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, count, indices, GL_STATIC_DRAW);
 }
 
 OpenGLIndexBuffer::~OpenGLIndexBuffer()
@@ -92,4 +101,4 @@ void OpenGLIndexBuffer::Unbind() const
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
-}  // namespace Brigerad
+}    // namespace Brigerad

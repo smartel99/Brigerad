@@ -1,0 +1,189 @@
+.TH "Brigerad::SceneCamera" 3 "Sun Jan 10 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Brigerad::SceneCamera
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <SceneCamera\&.h>\fP
+.PP
+Inherits \fBBrigerad::Camera\fP\&.
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum class \fBProjectionType\fP { \fBPerspective\fP = 0, \fBOrtographic\fP = 1 }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSceneCamera\fP ()"
+.br
+.ti -1c
+.RI "virtual \fB~SceneCamera\fP ()=default"
+.br
+.ti -1c
+.RI "void \fBSetOrthographic\fP (float size, float nearClip, float farClip)"
+.br
+.ti -1c
+.RI "void \fBSetPerspective\fP (float vFov, float nearClip, float farClip)"
+.br
+.ti -1c
+.RI "void \fBSetViewportSize\fP (uint32_t w, uint32_t h)"
+.br
+.ti -1c
+.RI "\fBProjectionType\fP \fBGetProjectionType\fP () const"
+.br
+.ti -1c
+.RI "void \fBSetProjectionType\fP (\fBProjectionType\fP type)"
+.br
+.ti -1c
+.RI "float \fBGetOrthographicSize\fP () const"
+.br
+.ti -1c
+.RI "void \fBSetOrthographicSize\fP (float size)"
+.br
+.ti -1c
+.RI "float \fBGetOrtographicNearClip\fP () const"
+.br
+.ti -1c
+.RI "void \fBSetOrtographicNearClip\fP (float clip)"
+.br
+.ti -1c
+.RI "float \fBGetOrtographicFarClip\fP () const"
+.br
+.ti -1c
+.RI "void \fBSetOrtographicFarClip\fP (float clip)"
+.br
+.ti -1c
+.RI "float \fBGetPerspectiveNearClip\fP () const"
+.br
+.ti -1c
+.RI "void \fBSetPerspectiveNearClip\fP (float clip)"
+.br
+.ti -1c
+.RI "float \fBGetPerspectiveFarClip\fP () const"
+.br
+.ti -1c
+.RI "void \fBSetPerspectiveFarClip\fP (float clip)"
+.br
+.ti -1c
+.RI "float \fBGetPerspectiveFov\fP () const"
+.br
+.ti -1c
+.RI "void \fBSetPerspectiveFov\fP (float fov)"
+.br
+.ti -1c
+.RI "void \fBRecalculateProjection\fP ()"
+.br
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBProjectionType\fP \fBm_projectionType\fP = \fBProjectionType::Ortographic\fP"
+.br
+.ti -1c
+.RI "float \fBm_orthographicSize\fP = 10\&.0f"
+.br
+.ti -1c
+.RI "float \fBm_orthographicNear\fP = \-1\&.0f"
+.br
+.ti -1c
+.RI "float \fBm_orthographicFar\fP = 1\&.0f"
+.br
+.ti -1c
+.RI "float \fBm_perspectiveFov\fP = glm::radians(45\&.0f)"
+.br
+.ti -1c
+.RI "float \fBm_perspectiveNear\fP = 0\&.01f"
+.br
+.ti -1c
+.RI "float \fBm_perspectiveFar\fP = 1000\&.0f"
+.br
+.ti -1c
+.RI "float \fBm_aspectRatio\fP = 0"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Member Enumeration Documentation"
+.PP 
+.SS "enum \fBBrigerad::SceneCamera::ProjectionType\fP\fC [strong]\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fIPerspective \fP\fP
+.TP
+\fB\fIOrtographic \fP\fP
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Brigerad::SceneCamera::SceneCamera ()"
+
+.SS "virtual Brigerad::SceneCamera::~SceneCamera ()\fC [virtual]\fP, \fC [default]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void Brigerad::SceneCamera::SetOrthographic (float size, float nearClip, float farClip)"
+
+.SS "void Brigerad::SceneCamera::SetPerspective (float vFov, float nearClip, float farClip)"
+
+.SS "void Brigerad::SceneCamera::SetViewportSize (uint32_t w, uint32_t h)"
+
+.SS "\fBProjectionType\fP Brigerad::SceneCamera::GetProjectionType () const\fC [inline]\fP"
+
+.SS "void Brigerad::SceneCamera::SetProjectionType (\fBProjectionType\fP type)"
+
+.SS "float Brigerad::SceneCamera::GetOrthographicSize () const\fC [inline]\fP"
+
+.SS "void Brigerad::SceneCamera::SetOrthographicSize (float size)\fC [inline]\fP"
+
+.SS "float Brigerad::SceneCamera::GetOrtographicNearClip () const\fC [inline]\fP"
+
+.SS "void Brigerad::SceneCamera::SetOrtographicNearClip (float clip)\fC [inline]\fP"
+
+.SS "float Brigerad::SceneCamera::GetOrtographicFarClip () const\fC [inline]\fP"
+
+.SS "void Brigerad::SceneCamera::SetOrtographicFarClip (float clip)\fC [inline]\fP"
+
+.SS "float Brigerad::SceneCamera::GetPerspectiveNearClip () const\fC [inline]\fP"
+
+.SS "void Brigerad::SceneCamera::SetPerspectiveNearClip (float clip)\fC [inline]\fP"
+
+.SS "float Brigerad::SceneCamera::GetPerspectiveFarClip () const\fC [inline]\fP"
+
+.SS "void Brigerad::SceneCamera::SetPerspectiveFarClip (float clip)\fC [inline]\fP"
+
+.SS "float Brigerad::SceneCamera::GetPerspectiveFov () const\fC [inline]\fP"
+
+.SS "void Brigerad::SceneCamera::SetPerspectiveFov (float fov)\fC [inline]\fP"
+
+.SS "void Brigerad::SceneCamera::RecalculateProjection ()"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBProjectionType\fP Brigerad::SceneCamera::m_projectionType = \fBProjectionType::Ortographic\fP\fC [private]\fP"
+
+.SS "float Brigerad::SceneCamera::m_orthographicSize = 10\&.0f\fC [private]\fP"
+
+.SS "float Brigerad::SceneCamera::m_orthographicNear = \-1\&.0f\fC [private]\fP"
+
+.SS "float Brigerad::SceneCamera::m_orthographicFar = 1\&.0f\fC [private]\fP"
+
+.SS "float Brigerad::SceneCamera::m_perspectiveFov = glm::radians(45\&.0f)\fC [private]\fP"
+
+.SS "float Brigerad::SceneCamera::m_perspectiveNear = 0\&.01f\fC [private]\fP"
+
+.SS "float Brigerad::SceneCamera::m_perspectiveFar = 1000\&.0f\fC [private]\fP"
+
+.SS "float Brigerad::SceneCamera::m_aspectRatio = 0\fC [private]\fP"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

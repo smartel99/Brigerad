@@ -1,0 +1,73 @@
+.TH "Brigerad::Renderer" 3 "Sun Jan 10 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Brigerad::Renderer
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Renderer\&.h>\fP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "struct \fBSceneData\fP"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static void \fBInit\fP ()"
+.br
+.ti -1c
+.RI "static void \fBOnWindowResize\fP (uint32_t width, uint32_t height)"
+.br
+.ti -1c
+.RI "static void \fBBeginScene\fP (\fBOrthographicCamera\fP &camera)"
+.br
+.ti -1c
+.RI "static void \fBEndScene\fP ()"
+.br
+.ti -1c
+.RI "static long long \fBGetFrameCount\fP ()"
+.br
+.ti -1c
+.RI "static void \fBSubmit\fP (const \fBRef\fP< \fBShader\fP > &shader, const \fBRef\fP< \fBVertexArray\fP > &vertexArray, const glm::mat4 &transform=glm::mat4(1\&.0f))"
+.br
+.ti -1c
+.RI "static \fBRendererAPI::API\fP \fBGetAPI\fP ()"
+.br
+.in -1c
+.SS "Static Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "static \fBSceneData\fP * \fBm_sceneData\fP = new \fBRenderer::SceneData\fP"
+.br
+.in -1c
+.SH "Member Function Documentation"
+.PP 
+.SS "void Brigerad::Renderer::Init ()\fC [static]\fP"
+
+.SS "void Brigerad::Renderer::OnWindowResize (uint32_t width, uint32_t height)\fC [static]\fP"
+
+.SS "void Brigerad::Renderer::BeginScene (\fBOrthographicCamera\fP & camera)\fC [static]\fP"
+
+.SS "void Brigerad::Renderer::EndScene ()\fC [static]\fP"
+
+.SS "long long Brigerad::Renderer::GetFrameCount ()\fC [static]\fP"
+
+.SS "void Brigerad::Renderer::Submit (const \fBRef\fP< \fBShader\fP > & shader, const \fBRef\fP< \fBVertexArray\fP > & vertexArray, const glm::mat4 & transform = \fCglm::mat4(1\&.0f)\fP)\fC [static]\fP"
+
+.SS "static \fBRendererAPI::API\fP Brigerad::Renderer::GetAPI ()\fC [inline]\fP, \fC [static]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBRenderer::SceneData\fP * Brigerad::Renderer::m_sceneData = new \fBRenderer::SceneData\fP\fC [static]\fP, \fC [private]\fP"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

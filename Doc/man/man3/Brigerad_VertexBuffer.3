@@ -1,0 +1,85 @@
+.TH "Brigerad::VertexBuffer" 3 "Sun Jan 10 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Brigerad::VertexBuffer
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Buffer\&.h>\fP
+.PP
+Inherited by \fBBrigerad::OpenGLVertexBuffer\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fB~VertexBuffer\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBBind\fP () const =0"
+.br
+.ti -1c
+.RI "virtual void \fBUnbind\fP () const =0"
+.br
+.ti -1c
+.RI "virtual const \fBBufferLayout\fP & \fBGetLayout\fP ()=0"
+.br
+.ti -1c
+.RI "virtual void \fBSetLayout\fP (const \fBBufferLayout\fP &layout)=0"
+.br
+.ti -1c
+.RI "virtual void \fBSetData\fP (const void *data, uint32_t size)=0"
+.br
+.ti -1c
+.RI "virtual const uint32_t \fBGetId\fP () const =0"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBRef\fP< \fBVertexBuffer\fP > \fBCreate\fP (uint32_t size)"
+.br
+.ti -1c
+.RI "static \fBRef\fP< \fBVertexBuffer\fP > \fBCreate\fP (float *vertices, uint32_t size)"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "virtual Brigerad::VertexBuffer::~VertexBuffer ()\fC [inline]\fP, \fC [virtual]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "virtual void Brigerad::VertexBuffer::Bind () const\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLVertexBuffer\fP\&.
+.SS "virtual void Brigerad::VertexBuffer::Unbind () const\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLVertexBuffer\fP\&.
+.SS "virtual const \fBBufferLayout\fP& Brigerad::VertexBuffer::GetLayout ()\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLVertexBuffer\fP\&.
+.SS "virtual void Brigerad::VertexBuffer::SetLayout (const \fBBufferLayout\fP & layout)\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLVertexBuffer\fP\&.
+.SS "virtual void Brigerad::VertexBuffer::SetData (const void * data, uint32_t size)\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLVertexBuffer\fP\&.
+.SS "virtual const uint32_t Brigerad::VertexBuffer::GetId () const\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLVertexBuffer\fP\&.
+.SS "\fBRef\fP< \fBVertexBuffer\fP > Brigerad::VertexBuffer::Create (uint32_t size)\fC [static]\fP"
+
+.SS "\fBRef\fP< \fBVertexBuffer\fP > Brigerad::VertexBuffer::Create (float * vertices, uint32_t size)\fC [static]\fP"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

@@ -114,6 +114,74 @@ static void DrawComponent(const std::string& label, Entity entity, UIFunction fu
     }
 }
 
+template<typename T>
+static void DrawImGuiButtonListenerComponent(const std::string& label,
+                                             const Entity&      entity,
+                                             Ref<Scene>         scene)
+{
+    DrawComponent<ImGuiButtonListenerComponent<T>>(label.c_str(), entity, [=](auto& listener) {
+        ImGui::Columns(2);
+        ImGui::TextUnformatted("Watched Entity");
+        ImGui::NextColumn();
+
+        const char* label = "<Unknown>";
+
+        if (listener.button)
+        {
+            label = listener.button.GetComponent<TagComponent>().tag.c_str();
+        }
+
+        if (ImGui::BeginCombo("##WatchedEntity", label))
+        {
+            // Get all entities that have a T component.
+            auto buttons = scene->Reg().view<T>();
+
+            // For each of these entities:
+            for (auto button : buttons)
+            {
+                // Create a Brigerad::Entity from the entt::entity
+                Entity buttonEntity = Entity(button, scene.get());
+                // Selectable label with the name of the entity.
+                if (ImGui::Selectable(buttonEntity.GetComponent<TagComponent>().tag.c_str(),
+                                      buttonEntity == listener.button))
+                {
+                    // Update the listener if the label is selected.
+                    listener.button = buttonEntity;
+                }
+            }
+            ImGui::EndCombo();
+        }
+        ImGui::NextColumn();
+
+        const char* buttonState = "<Unknown>";
+        if (listener.button)
+        {
+            if (listener.IsButtonPressed())
+            {
+                buttonState = "Pressed";
+            }
+            else if (listener.IsButtonHeld())
+            {
+                buttonState = "Held";
+            }
+            else if (listener.IsButtonReleased())
+            {
+                buttonState = "Released";
+            }
+            else
+            {
+                buttonState = "Inactive";
+            }
+        }
+
+        ImGui::TextUnformatted("Current State:");
+        ImGui::NextColumn();
+        ImGui::Text("%s", buttonState);
+
+        ImGui::Columns();
+    });
+}
+
 
 /*********************************************************************************************************************/
 // [SECTION] Public Method Definitions
@@ -215,6 +283,59 @@ void SceneHierarchyPanel::OnImGuiRender()
                 ImGui::CloseCurrentPopup();
             }
 
+            if (ImGui::BeginMenu("ImGui Listeners"))
+            {
+                if (ImGui::MenuItem(
+                      "Button Listener",
+                      nullptr,
+                      nullptr,
+                      !m_selectionContext
+                         .HasComponent<ImGuiButtonListenerComponent<ImGuiButtonComponent>>()))
+                {
+                    m_selectionContext
+                      .AddComponent<ImGuiButtonListenerComponent<ImGuiButtonComponent>>();
+                    ImGui::CloseCurrentPopup();
+                }
+
+                if (ImGui::MenuItem(
+                      "Small Button Listener",
+                      nullptr,
+                      nullptr,
+                      !m_selectionContext
+                         .HasComponent<ImGuiButtonListenerComponent<ImGuiSmallButtonComponent>>()))
+                {
+                    m_selectionContext
+                      .AddComponent<ImGuiButtonListenerComponent<ImGuiSmallButtonComponent>>();
+                    ImGui::CloseCurrentPopup();
+                }
+
+                if (ImGui::MenuItem(
+                      "Invisible Button Listener",
+                      nullptr,
+                      nullptr,
+                      !m_selectionContext.HasComponent<
+                        ImGuiButtonListenerComponent<ImGuiInvisibleButtonComponent>>()))
+                {
+                    m_selectionContext
+                      .AddComponent<ImGuiButtonListenerComponent<ImGuiInvisibleButtonComponent>>();
+                    ImGui::CloseCurrentPopup();
+                }
+
+                if (ImGui::MenuItem(
+                      "Arrow Button Listener",
+                      nullptr,
+                      nullptr,
+                      !m_selectionContext
+                         .HasComponent<ImGuiButtonListenerComponent<ImGuiArrowButtonComponent>>()))
+                {
+                    m_selectionContext
+                      .AddComponent<ImGuiButtonListenerComponent<ImGuiArrowButtonComponent>>();
+                    ImGui::CloseCurrentPopup();
+                }
+
+                ImGui::EndMenu();
+            }
+
             // if (ImGui::MenuItem("Lua Script Component"))
             //{
             //    m_selectionContext.AddComponent<LuaScriptComponent>();
@@ -277,15 +398,40 @@ void SceneHierarchyPanel::DrawEntityNode(Entity entity)
         ImGui::TreePop();
     }
 
+    // #BUG When deleting a child entity, it fucks the parent's vector iteration when drawing it.
     if (entityDeleted)
     {
+        // If the entity has childs:
+        if (entity.HasComponent<ParentEntityComponent>())
+        {
+            const auto& childs = entity.GetComponent<ParentEntityComponent>().childs;
+            // Destroy them too.
+            for (const auto& child : childs)
+            {
+                m_context->DestroyEntity(child);
+            }
+        }
+
+        // If the entity has a parent:
+        if (entity.HasComponent<ChildEntityComponent>())
+        {
+            // Notify the parent of the child's destruction.
+            auto& parentEntity = entity.GetComponentRef<ChildEntityComponent>().parent;
+            if (parentEntity.HasComponent<ParentEntityComponent>())
+            {
+                ParentEntityComponent parent =
+                  parentEntity.GetComponentRef<ParentEntityComponent>();
+                parent.RemoveChild(entity);
+            }
+        }
+
         m_context->DestroyEntity(entity);
         if (m_selectionContext == entity)
         {
             m_selectionContext = {};
         }
     }
-}
+}    // namespace Brigerad
 
 void SceneHierarchyPanel::DrawComponents(Entity entity) const
 {
@@ -545,8 +691,11 @@ void SceneHierarchyPanel::DrawComponents(Entity entity) const
         int moveFrom = -1, moveTo = -1;
         for (int i = 0; i < window.childs.size(); i++)
         {
-            const char* childName = window.childs[i].GetComponent<TagComponent>().tag.c_str();
-            ImGui::Selectable(childName);
+            std::string childName = window.childs[i].GetComponent<TagComponent>().tag;
+            childName += "##";
+            childName += (const char*)&window.childs[i];
+
+            ImGui::Selectable(childName.c_str());
 
             ImGuiDragDropFlags srcFlags = 0;
             // Keep the source displayed as hovered.
@@ -561,7 +710,7 @@ void SceneHierarchyPanel::DrawComponents(Entity entity) const
             {
                 if (!(srcFlags & ImGuiDragDropFlags_SourceNoPreviewTooltip))
                 {
-                    ImGui::Text("Moving \"%s\"", childName);
+                    ImGui::Text("Moving \"%s\"", childName.c_str());
                 }
                 ImGui::SetDragDropPayload("IMGUI widget order", &i, sizeof(int));
                 ImGui::EndDragDropSource();
@@ -654,6 +803,24 @@ void SceneHierarchyPanel::DrawComponents(Entity entity) const
                 ImGui::EndMenu();
             }
 
+            if (ImGui::MenuItem("Separator"))
+            {
+                Entity newWidget =
+                  m_context->CreateChildEntity("ImGui Separator", m_selectionContext);
+                newWidget.AddComponent<ImGuiSeparatorComponent>();
+                window.AddChildEntity(newWidget);
+                ImGui::CloseCurrentPopup();
+            }
+
+            if (ImGui::MenuItem("Same Line"))
+            {
+                Entity newWidget =
+                  m_context->CreateChildEntity("ImGui SameLine", m_selectionContext);
+                newWidget.AddComponent<ImGuiSameLineComponent>();
+                window.AddChildEntity(newWidget);
+                ImGui::CloseCurrentPopup();
+            }
+
             ImGui::EndPopup();
         }
     });
@@ -692,6 +859,9 @@ void SceneHierarchyPanel::DrawComponents(Entity entity) const
         ImGui::Columns();
     });
 
+    DrawImGuiButtonListenerComponent<ImGuiButtonComponent>(
+      "ImGui Button Listener", entity, m_context);
+
     DrawComponent<ImGuiSmallButtonComponent>("ImGui Small Button", entity, [](auto& button) {
         char buffer[512] = {0};
         strcpy_s(buffer, sizeof(buffer), button.name.c_str());
@@ -711,6 +881,9 @@ void SceneHierarchyPanel::DrawComponents(Entity entity) const
         ImGui::Text("%s", states[static_cast<int>(button.state)]);
         ImGui::Columns();
     });
+
+    DrawImGuiButtonListenerComponent<ImGuiSmallButtonComponent>(
+      "ImGui Small Button Listener", entity, m_context);
 
     DrawComponent<ImGuiInvisibleButtonComponent>(
       "ImGui Invisible Button", entity, [](auto& button) {
@@ -751,6 +924,9 @@ void SceneHierarchyPanel::DrawComponents(Entity entity) const
           ImGui::Columns();
       });
 
+    DrawImGuiButtonListenerComponent<ImGuiInvisibleButtonComponent>(
+      "ImGui Invisible Button Listener", entity, m_context);
+
     DrawComponent<ImGuiArrowButtonComponent>("ImGui Arrow Button", entity, [](auto& button) {
         char buffer[512] = {0};
         strcpy_s(buffer, sizeof(buffer), button.name.c_str());
@@ -779,6 +955,24 @@ void SceneHierarchyPanel::DrawComponents(Entity entity) const
         }
         ImGui::Columns();
     });
+
+    DrawImGuiButtonListenerComponent<ImGuiArrowButtonComponent>(
+      "ImGui Arrow Button Listener", entity, m_context);
+
+    DrawComponent<ImGuiSeparatorComponent>("ImGui Separator", entity, [](auto& separator) {});
+
+    DrawComponent<ImGuiSameLineComponent>("ImGui SameLine", entity, [](auto& sameLine) {
+        ImGui::Columns(2);
+        ImGui::TextUnformatted("Offset from starting X");
+        ImGui::NextColumn();
+        ImGui::DragFloat("##offset", &sameLine.offsetFromStartX, 0.01f);
+        ImGui::NextColumn();
+        ImGui::TextUnformatted("Spacing");
+        ImGui::NextColumn();
+        ImGui::DragFloat("##spacing", &sameLine.spacing, 0.01f);
+        ImGui::Columns(1);
+    });
+
 }    // namespace Brigerad
 
 /*********************************************************************************************************************/

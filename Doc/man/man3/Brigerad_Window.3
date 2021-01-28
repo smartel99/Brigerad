@@ -1,0 +1,82 @@
+.TH "Brigerad::Window" 3 "Sun Jan 10 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Brigerad::Window
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Window\&.h>\fP
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "using \fBEventCallbackFn\fP = std::function< void(\fBEvent\fP &)>"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fB~Window\fP ()=default"
+.br
+.ti -1c
+.RI "virtual void \fBOnUpdate\fP ()=0"
+.br
+.ti -1c
+.RI "virtual unsigned int \fBGetWidth\fP () const =0"
+.br
+.ti -1c
+.RI "virtual unsigned int \fBGetHeight\fP () const =0"
+.br
+.ti -1c
+.RI "virtual void \fBSetEventCallback\fP (const \fBEventCallbackFn\fP &callback)=0"
+.br
+.ti -1c
+.RI "virtual void \fBSetVSync\fP (bool enabled)=0"
+.br
+.ti -1c
+.RI "virtual bool \fBIsVSync\fP () const =0"
+.br
+.ti -1c
+.RI "virtual void * \fBGetNativeWindow\fP () const =0"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBWindow\fP * \fBCreate\fP (const \fBWindowProps\fP &props=\fBWindowProps\fP())"
+.br
+.in -1c
+.SH "Member Typedef Documentation"
+.PP 
+.SS "using \fBBrigerad::Window::EventCallbackFn\fP =  std::function<void(\fBEvent\fP &)>"
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "virtual Brigerad::Window::~Window ()\fC [virtual]\fP, \fC [default]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "virtual void Brigerad::Window::OnUpdate ()\fC [pure virtual]\fP"
+
+.SS "virtual unsigned int Brigerad::Window::GetWidth () const\fC [pure virtual]\fP"
+
+.SS "virtual unsigned int Brigerad::Window::GetHeight () const\fC [pure virtual]\fP"
+
+.SS "virtual void Brigerad::Window::SetEventCallback (const \fBEventCallbackFn\fP & callback)\fC [pure virtual]\fP"
+
+.SS "virtual void Brigerad::Window::SetVSync (bool enabled)\fC [pure virtual]\fP"
+
+.SS "virtual bool Brigerad::Window::IsVSync () const\fC [pure virtual]\fP"
+
+.SS "virtual void* Brigerad::Window::GetNativeWindow () const\fC [pure virtual]\fP"
+
+.SS "\fBWindow\fP * Brigerad::Window::Create (const \fBWindowProps\fP & props = \fC\fBWindowProps\fP()\fP)\fC [static]\fP"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

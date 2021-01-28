@@ -1,0 +1,912 @@
+.TH "Brigerad::Serial" 3 "Sun Jan 10 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Brigerad::Serial
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Serial\&.h>\fP
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum class \fBBaudrates\fP { \fBBaud110\fP, \fBBaud300\fP, \fBBaud600\fP, \fBBaud1200\fP, \fBBaud2400\fP, \fBBaud4800\fP, \fBBaud9600\fP, \fBBaud14400\fP, \fBBaud19200\fP, \fBBaud38400\fP, \fBBaud56000\fP, \fBBaud57600\fP, \fBBaud115200\fP, \fBBaud128000\fP, \fBBaud153600\fP, \fBBaud230400\fP, \fBBaud256000\fP, \fBBaud460800\fP, \fBBaud500000\fP, \fBBaud921600\fP }"
+.br
+.ti -1c
+.RI "enum class \fBByteSizes\fP { \fBFiveBits\fP = 5, \fBSixBits\fP = 6, \fBSevenBits\fP = 7, \fBEightBits\fP = 8 }"
+.br
+.ti -1c
+.RI "enum class \fBParities\fP { \fBNone\fP = 0, \fBOdd\fP = 1, \fBEven\fP = 2, \fBMark\fP = 3, \fBSpace\fP = 4 }"
+.br
+.ti -1c
+.RI "enum class \fBStopBits\fP { \fBOne\fP = 1, \fBTwo\fP = 2, \fBOnePointFive\fP }"
+.br
+.ti -1c
+.RI "enum class \fBFlowControls\fP { \fBNone\fP = 0, \fBSoftware\fP, \fBHardware\fP }"
+.br
+.ti -1c
+.RI "using \fBTimeout\fP = serial::Timeout"
+.br
+.ti -1c
+.RI "using \fBPortInfo\fP = serial::PortInfo"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSerial\fP (const std::string &port, \fBBaudrates\fP baudrate=\fBBaudrates::Baud9600\fP, \fBTimeout\fP timeout=\fBTimeout\fP(), \fBByteSizes\fP byteSize=\fBByteSizes::EightBits\fP, \fBParities\fP parity=\fBParities::None\fP, \fBStopBits\fP stopBit=\fBStopBits::One\fP, \fBFlowControls\fP flowControl=\fBFlowControls::None\fP)"
+.br
+.ti -1c
+.RI "\fB~Serial\fP ()"
+.br
+.ti -1c
+.RI "bool \fBOpen\fP ()"
+.br
+.ti -1c
+.RI "bool \fBIsOpen\fP () const"
+.br
+.ti -1c
+.RI "void \fBClose\fP ()"
+.br
+.ti -1c
+.RI "size_t \fBBytesAvailable\fP ()"
+.br
+.ti -1c
+.RI "bool \fBWaitForByte\fP ()"
+.br
+.ti -1c
+.RI "void \fBWaitForBytes\fP (size_t nb)"
+.br
+.ti -1c
+.RI "size_t \fBRead\fP (uint8_t *buffer, size_t size)"
+.br
+.ti -1c
+.RI "size_t \fBRead\fP (std::vector< uint8_t > &buffer, size_t size=1)"
+.br
+.ti -1c
+.RI "size_t \fBRead\fP (std::string &buffer, size_t size=1)"
+.br
+.ti -1c
+.RI "std::string \fBRead\fP (size_t size=1)"
+.br
+.ti -1c
+.RI "size_t \fBReadLine\fP (std::string &buffer, size_t size=65536, const std::string &eol='\\n')"
+.br
+.ti -1c
+.RI "std::string \fBReadLine\fP (size_t size=65536, const std::string &eol='\\n')"
+.br
+.ti -1c
+.RI "std::vector< std::string > \fBReadLines\fP (size_t maxLines=65536, const std::string &eol='\\n')"
+.br
+.ti -1c
+.RI "size_t \fBWrite\fP (const uint8_t *data, size_t len)"
+.br
+.ti -1c
+.RI "size_t \fBWrite\fP (const std::vector< uint8_t > &data)"
+.br
+.ti -1c
+.RI "size_t \fBWrite\fP (const std::string &data)"
+.br
+.ti -1c
+.RI "void \fBSetPort\fP (const std::string &port)"
+.br
+.ti -1c
+.RI "std::string \fBGetPort\fP () const"
+.br
+.ti -1c
+.RI "void \fBSetTimeout\fP (\fBTimeout\fP &timeout)"
+.br
+.ti -1c
+.RI "void \fBsetTimeout\fP (uint32_t inter_byte_timeout, uint32_t read_timeout_constant, uint32_t read_timeout_multiplier, uint32_t write_timeout_constant, uint32_t write_timeout_multiplier)"
+.br
+.ti -1c
+.RI "\fBTimeout\fP \fBGetTimeout\fP () const"
+.br
+.ti -1c
+.RI "void \fBSetBaudrate\fP (\fBBaudrates\fP baudrate)"
+.br
+.ti -1c
+.RI "\fBBaudrates\fP \fBGetBaudrate\fP () const"
+.br
+.ti -1c
+.RI "void \fBSetByteSize\fP (\fBByteSizes\fP size)"
+.br
+.ti -1c
+.RI "\fBByteSizes\fP \fBGetByteSize\fP () const"
+.br
+.ti -1c
+.RI "void \fBSetParity\fP (\fBParities\fP parity)"
+.br
+.ti -1c
+.RI "\fBParities\fP \fBGetParity\fP () const"
+.br
+.ti -1c
+.RI "void \fBSetStopBits\fP (\fBStopBits\fP stopbits)"
+.br
+.ti -1c
+.RI "\fBStopBits\fP \fBGetStopBits\fP () const"
+.br
+.ti -1c
+.RI "void \fBSetFlowControl\fP (\fBFlowControls\fP method)"
+.br
+.ti -1c
+.RI "\fBFlowControls\fP \fBGetFlowControl\fP () const"
+.br
+.ti -1c
+.RI "void \fBFlush\fP ()"
+.br
+.ti -1c
+.RI "void \fBFlushInput\fP ()"
+.br
+.ti -1c
+.RI "void \fBFlushOutput\fP ()"
+.br
+.ti -1c
+.RI "void \fBSendBreak\fP (int duration)"
+.br
+.ti -1c
+.RI "void \fBSetBreak\fP (bool level=true)"
+.br
+.ti -1c
+.RI "void \fBSetRTS\fP (bool level=true)"
+.br
+.ti -1c
+.RI "void \fBSetDTR\fP (bool level=true)"
+.br
+.ti -1c
+.RI "bool \fBWaitForChange\fP ()"
+.br
+.ti -1c
+.RI "bool \fBGetCTS\fP ()"
+.br
+.ti -1c
+.RI "bool \fBGetDSR\fP ()"
+.br
+.ti -1c
+.RI "bool \fBGetRI\fP ()"
+.br
+.ti -1c
+.RI "bool \fBGetCD\fP ()"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static std::vector< \fBPortInfo\fP > \fBListPorts\fP ()"
+.br
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "serial::Serial \fBm_port\fP"
+.br
+.in -1c
+.SH "Member Typedef Documentation"
+.PP 
+.SS "using \fBBrigerad::Serial::Timeout\fP =  serial::Timeout"
+
+.SS "using \fBBrigerad::Serial::PortInfo\fP =  serial::PortInfo"
+
+.SH "Member Enumeration Documentation"
+.PP 
+.SS "enum \fBBrigerad::Serial::Baudrates\fP\fC [strong]\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fIBaud110 \fP\fP
+.TP
+\fB\fIBaud300 \fP\fP
+.TP
+\fB\fIBaud600 \fP\fP
+.TP
+\fB\fIBaud1200 \fP\fP
+.TP
+\fB\fIBaud2400 \fP\fP
+.TP
+\fB\fIBaud4800 \fP\fP
+.TP
+\fB\fIBaud9600 \fP\fP
+.TP
+\fB\fIBaud14400 \fP\fP
+.TP
+\fB\fIBaud19200 \fP\fP
+.TP
+\fB\fIBaud38400 \fP\fP
+.TP
+\fB\fIBaud56000 \fP\fP
+.TP
+\fB\fIBaud57600 \fP\fP
+.TP
+\fB\fIBaud115200 \fP\fP
+.TP
+\fB\fIBaud128000 \fP\fP
+.TP
+\fB\fIBaud153600 \fP\fP
+.TP
+\fB\fIBaud230400 \fP\fP
+.TP
+\fB\fIBaud256000 \fP\fP
+.TP
+\fB\fIBaud460800 \fP\fP
+.TP
+\fB\fIBaud500000 \fP\fP
+.TP
+\fB\fIBaud921600 \fP\fP
+.SS "enum \fBBrigerad::Serial::ByteSizes\fP\fC [strong]\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fIFiveBits \fP\fP
+.TP
+\fB\fISixBits \fP\fP
+.TP
+\fB\fISevenBits \fP\fP
+.TP
+\fB\fIEightBits \fP\fP
+.SS "enum \fBBrigerad::Serial::Parities\fP\fC [strong]\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fINone \fP\fP
+.TP
+\fB\fIOdd \fP\fP
+.TP
+\fB\fIEven \fP\fP
+.TP
+\fB\fIMark \fP\fP
+.TP
+\fB\fISpace \fP\fP
+.SS "enum \fBBrigerad::Serial::StopBits\fP\fC [strong]\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fIOne \fP\fP
+.TP
+\fB\fITwo \fP\fP
+.TP
+\fB\fIOnePointFive \fP\fP
+.SS "enum \fBBrigerad::Serial::FlowControls\fP\fC [strong]\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fINone \fP\fP
+.TP
+\fB\fISoftware \fP\fP
+.TP
+\fB\fIHardware \fP\fP
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Brigerad::Serial::Serial (const std::string & port, \fBBaudrates\fP baudrate = \fC\fBBaudrates::Baud9600\fP\fP, \fBTimeout\fP timeout = \fC\fBTimeout\fP()\fP, \fBByteSizes\fP byteSize = \fC\fBByteSizes::EightBits\fP\fP, \fBParities\fP parity = \fC\fBParities::None\fP\fP, \fBStopBits\fP stopBit = \fC\fBStopBits::One\fP\fP, \fBFlowControls\fP flowControl = \fC\fBFlowControls::None\fP\fP)\fC [inline]\fP"
+Creates a \fBSerial\fP object and opens the port if a port is specified, otherwise it remains closed until \fBSerial::Open\fP is called\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIport\fP std::string containing the address of the serial port, which would be something like 'COM1' on Windows and '/dev/ttyS0' on Linux\&. 
+.br
+\fIbaudrate\fP The baudrate to be used by the serial port\&. 
+.br
+\fItimeout\fP A \fBSerial::Timeout\fP struct that defines the timeout conditions of the serial port\&. 
+.br
+\fIbyteSize\fP Size of each byte in the serial transmission of data, default is eight bits\&. 
+.br
+\fIparity\fP Method of parity, default is None\&. 
+.br
+\fIstopBit\fP Number of stop bits used, default is One\&. 
+.br
+\fIflowControl\fP Type of flow control used, default is none\&.
+.RE
+.PP
+\fBExceptions\fP
+.RS 4
+\fIPortNotOpenedException\fP 
+.br
+\fIIOException\fP 
+.br
+\fIInvalidArgument\fP 
+.RE
+.PP
+
+.SS "Brigerad::Serial::~Serial ()\fC [inline]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "static std::vector<\fBPortInfo\fP> Brigerad::Serial::ListPorts ()\fC [inline]\fP, \fC [static]\fP"
+
+.SS "bool Brigerad::Serial::Open ()\fC [inline]\fP"
+Opens the serial port as long as the port is set and the port isn't already open\&.
+.PP
+If the port is provided to the constructor then an explicit call to open is not needed\&.
+.PP
+\fBReturns\fP
+.RS 4
+true if the port is successfully open\&. 
+.PP
+false if the port couldn't be opened\&.
+.RE
+.PP
+\fBExceptions\fP
+.RS 4
+\fIInvalidArgument\fP 
+.br
+\fISerialException\fP 
+.br
+\fIIOException\fP 
+.RE
+.PP
+
+.SS "bool Brigerad::Serial::IsOpen () const\fC [inline]\fP"
+Get the open status of the serial port\&.
+.PP
+\fBReturns\fP
+.RS 4
+true if the port is open 
+.PP
+false if the port is closed 
+.RE
+.PP
+
+.SS "void Brigerad::Serial::Close ()\fC [inline]\fP"
+Close the serial port\&. 
+.SS "size_t Brigerad::Serial::BytesAvailable ()\fC [inline]\fP"
+Return the number of characters in the buffer 
+.SS "bool Brigerad::Serial::WaitForByte ()\fC [inline]\fP"
+Block until there is serial data to read or read_timeout_constant number of milliseconds have elapsed\&.
+.PP
+\fBReturns\fP
+.RS 4
+true when the function exits with the port in a readable state 
+.PP
+false otherwise (due to timeout or select interruption) 
+.RE
+.PP
+
+.SS "void Brigerad::Serial::WaitForBytes (size_t nb)\fC [inline]\fP"
+Block for a period of time corresponding to the transmission time of nb characters at the current serial settings\&. This may be used in con-junction with WaitReadable to read larger blocks of data from the port\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fInb\fP The number of bytes to wait for\&.
+.RE
+.PP
+\fBNote\fP
+.RS 4
+This method does not wait until nb bytes of data are received, but rather waits for the time it would take to receive nb bytes\&. There is thus no guarantee that nb bytes of data are received\&. 
+.RE
+.PP
+
+.SS "size_t Brigerad::Serial::Read (uint8_t * buffer, size_t size)\fC [inline]\fP"
+Read a given amount of bytes from the serial port into a given buffer\&.
+.PP
+The read function will return in one of three cases:
+.IP "\(bu" 2
+The number of requested bytes was read\&.
+.IP "  \(bu" 4
+In this case, the number of bytes requested will match the size_t returned by this method\&.
+.PP
+
+.IP "\(bu" 2
+A timeout occurred, in this case the number of bytes read will not match the amount requested, but no exception will be thrown\&. One of two possible timeouts occurred:
+.IP "  \(bu" 4
+The inner byte timeout expired\&. This means that number of milliseconds elapsed between receiving bytes from the serial port exceeded the inter byte timeout\&.
+.IP "  \(bu" 4
+The total timeout expired, which is calculated by multiplying the read timeout multiplier by the number of requested bytes and then added to the read timeout constant\&. If that total number of milliseconds elapses after the initial call to read, a timeout will occur\&.
+.PP
+
+.IP "\(bu" 2
+An exception occurred, in this case an actual exception will be thrown\&.
+.PP
+.PP
+\fBParameters\fP
+.RS 4
+\fIbuffer\fP A pointer to the output buffer\&. The memory must already be allocated\&. 
+.br
+\fIsize\fP The number of bytes to read\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+The number of bytes read\&.
+.RE
+.PP
+\fBExceptions\fP
+.RS 4
+\fIPortNotOpenedException\fP 
+.br
+\fISerialException\fP 
+.RE
+.PP
+
+.SS "size_t Brigerad::Serial::Read (std::vector< uint8_t > & buffer, size_t size = \fC1\fP)\fC [inline]\fP"
+Read a given amount of bytes from the serial port into a give buffer\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIbuffer\fP A reference to a std::vector of uint8_t\&. 
+.br
+\fIsize\fP The number of bytes to read\&.
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+The number of bytes read\&.
+.RE
+.PP
+\fBExceptions\fP
+.RS 4
+\fIserial::PortNotOpenedException\fP 
+.br
+\fIserial::SerialException\fP 
+.RE
+.PP
+
+.SS "size_t Brigerad::Serial::Read (std::string & buffer, size_t size = \fC1\fP)\fC [inline]\fP"
+Read a given amount of bytes from the serial port into a given buffer\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIbuffer\fP A reference to a std::string\&. 
+.br
+\fIsize\fP The number of bytes to read\&.
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+The number of bytes read\&.
+.RE
+.PP
+\fBExceptions\fP
+.RS 4
+\fIserial::PortNotOpenedException\fP 
+.br
+\fIserial::SerialException\fP 
+.RE
+.PP
+
+.SS "std::string Brigerad::Serial::Read (size_t size = \fC1\fP)\fC [inline]\fP"
+Read a given amount of bytes from the serial port into a given buffer\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIsize\fP The number of bytes to read\&.
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+A std::string containing the data read from the port\&.
+.RE
+.PP
+\fBExceptions\fP
+.RS 4
+\fIPortNotOpenedException\fP 
+.br
+\fISerialException\fP 
+.RE
+.PP
+
+.SS "size_t Brigerad::Serial::ReadLine (std::string & buffer, size_t size = \fC65536\fP, const std::string & eol = \fC'\\n'\fP)\fC [inline]\fP"
+Read in a line or until a given delimiter has been processed\&.
+.PP
+Reads from the serial port until a single line has been read\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIbuffer\fP A reference to a std::string used to store the data\&. 
+.br
+\fIsize\fP The maximum length of a line, defaults to 65536\&. 
+.br
+\fIeol\fP The delimiter, defaults to '\\n'\&.
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+The number of bytes read\&.
+.RE
+.PP
+\fBExceptions\fP
+.RS 4
+\fIPortNotOpenedException\fP 
+.br
+\fISerialException\fP 
+.RE
+.PP
+
+.SS "std::string Brigerad::Serial::ReadLine (size_t size = \fC65536\fP, const std::string & eol = \fC'\\n'\fP)\fC [inline]\fP"
+Read in a line or until a given delimiter has been processed\&.
+.PP
+Reads from the serial port until a single line has been read\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIsize\fP The maximum length of a line, defaults to 65536\&. 
+.br
+\fIeol\fP The delimiter, defaults to '\\n'\&.
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+A std::string containing the line received from the serial port\&.
+.RE
+.PP
+\fBExceptions\fP
+.RS 4
+\fIPortNotOpenedException\fP 
+.br
+\fISerialException\fP 
+.RE
+.PP
+
+.SS "std::vector<std::string> Brigerad::Serial::ReadLines (size_t maxLines = \fC65536\fP, const std::string & eol = \fC'\\n'\fP)\fC [inline]\fP"
+Read in multiple lines until the serial port times out\&.
+.PP
+This requires a timeout > 0 before it can be used\&. It will read until a timeout occurs and return a list of strings\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIsize\fP The maximum number of lines that should be read, defaults to 65536\&. 
+.br
+\fIeol\fP A string that indicates the end of a line, defaults to '\\n'
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+A std::vector of std::string containing every lines read\&.
+.RE
+.PP
+\fBExceptions\fP
+.RS 4
+\fIPortNotOpenedException\fP 
+.br
+\fISerialException\fP 
+.RE
+.PP
+
+.SS "size_t Brigerad::Serial::Write (const uint8_t * data, size_t len)\fC [inline]\fP"
+Write a string to the serial port\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIdata\fP A pointer to the data to be written to the serial port\&. 
+.br
+\fIsize\fP The number of bytes that are to be written to the serial port\&.
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+The number of bytes that actually were written on the port\&.
+.RE
+.PP
+\fBExceptions\fP
+.RS 4
+\fIPortNotOpenedException\fP 
+.br
+\fISerialException\fP 
+.br
+\fIIOException\fP 
+.RE
+.PP
+
+.SS "size_t Brigerad::Serial::Write (const std::vector< uint8_t > & data)\fC [inline]\fP"
+Write a string to the serial port\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIdata\fP A reference to a vector containing the data to be written\&.
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+The number of bytes that actually were written on the port\&.
+.RE
+.PP
+\fBExceptions\fP
+.RS 4
+\fIPortNotOpenedException\fP 
+.br
+\fISerialException\fP 
+.br
+\fIIOException\fP 
+.RE
+.PP
+
+.SS "size_t Brigerad::Serial::Write (const std::string & data)\fC [inline]\fP"
+Write a string to the serial port\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIdata\fP A reference to a string containing the data to be written\&.
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+The number of bytes that actually were written on the port\&.
+.RE
+.PP
+\fBExceptions\fP
+.RS 4
+\fIPortNotOpenedException\fP 
+.br
+\fISerialException\fP 
+.br
+\fIIOException\fP 
+.RE
+.PP
+
+.SS "void Brigerad::Serial::SetPort (const std::string & port)\fC [inline]\fP"
+Set the serial port identifier\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIport\fP A string containing the address of the serial port, which would be something like 'COM1' on Windows and '/dev/ttyS0' on Linux\&.
+.RE
+.PP
+\fBExceptions\fP
+.RS 4
+\fIInvalidArgument\fP 
+.RE
+.PP
+
+.SS "std::string Brigerad::Serial::GetPort () const\fC [inline]\fP"
+Get the serial port identifier\&.
+.PP
+\fBSee also\fP
+.RS 4
+\fBSerial::SetPort\fP
+.RE
+.PP
+\fBExceptions\fP
+.RS 4
+\fIInvalidArgument\fP 
+.RE
+.PP
+
+.SS "void Brigerad::Serial::SetTimeout (\fBTimeout\fP & timeout)\fC [inline]\fP"
+Sets the timeout for reads and writes using the Timeout struct\&.
+.PP
+There are two timeout conditions described here:
+.IP "\(bu" 2
+The inter byte timeout:
+.IP "  \(bu" 4
+The inter_byte_timeout component of serial::Timeout defines the maximum amount of time, in milliseconds, between receiving bytes on the serial port that can pass before a timeout occurs\&. Setting this to zero will prevent inter byte timeouts from occurring\&.
+.PP
+
+.IP "\(bu" 2
+Total time timeout:
+.IP "  \(bu" 4
+The constant and multiplier component of this timeout condition, for both read and write, are defined in serial::Timeout\&. This timeout occurs if the total time since the read or write call was made exceeds the specified time in milliseconds\&.
+.IP "  \(bu" 4
+The limit is defined by multiplying the multiplier component by the number of requested bytes and adding that product to the constant component\&. In this way if you want a read call, for example, to timeout after exactly one second regardless of the number of bytes you asked for then set the read_timeout_constant component of serial::Timeout to 1000 and the read_timeout_multiplier to zero\&. This timeout condition can be used in conjunction with the inter byte timeout condition with out any problems, timeout will simply occur when one of the two timeout conditions is met\&. This allows users to have maximum control over the trade-off between responsiveness and efficiency\&.
+.PP
+
+.PP
+.PP
+Read and write functions will return in one of three cases\&. When the reading or writing is complete, when a timeout occurs, or when an exception occurs\&.
+.PP
+A timeout of 0 enables non-blocking mode\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fItimeout\fP A serial::Timeout struct containing the inter byte timeout, and the read and write timeout constants and multipliers\&. 
+.RE
+.PP
+
+.SS "void Brigerad::Serial::setTimeout (uint32_t inter_byte_timeout, uint32_t read_timeout_constant, uint32_t read_timeout_multiplier, uint32_t write_timeout_constant, uint32_t write_timeout_multiplier)\fC [inline]\fP"
+Sets the timeout for reads and writes\&. 
+.SS "\fBTimeout\fP Brigerad::Serial::GetTimeout () const\fC [inline]\fP"
+Get the timeout for reads in seconds\&.
+.PP
+\fBReturns\fP
+.RS 4
+A Timeout struct containing the inter_byte_timeout, and read and write timeout constants and multipliers\&. 
+.RE
+.PP
+
+.SS "void Brigerad::Serial::SetBaudrate (\fBBaudrates\fP baudrate)\fC [inline]\fP"
+Sets the baudrate for the serial port\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIbaudrate\fP An integer that sets the baud rate for the serial port\&.
+.RE
+.PP
+\fBExceptions\fP
+.RS 4
+\fIInvalidArgument\fP 
+.RE
+.PP
+
+.SS "\fBBaudrates\fP Brigerad::Serial::GetBaudrate () const\fC [inline]\fP"
+Get the baudrate for the serial port\&.
+.PP
+\fBReturns\fP
+.RS 4
+The baud rate of the serial port\&.
+.RE
+.PP
+\fBSee also\fP
+.RS 4
+\fBSerial::SetBaudrate\fP
+.RE
+.PP
+\fBExceptions\fP
+.RS 4
+\fIInvalidArguments\fP 
+.RE
+.PP
+
+.SS "void Brigerad::Serial::SetByteSize (\fBByteSizes\fP size)\fC [inline]\fP"
+Set the byte size for the serial port\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIsize\fP Size of each byte in the serial transmission of data\&. Defaults to 8 bits\&.
+.RE
+.PP
+\fBExceptions\fP
+.RS 4
+\fIInvalidArgument\fP 
+.RE
+.PP
+
+.SS "\fBByteSizes\fP Brigerad::Serial::GetByteSize () const\fC [inline]\fP"
+Get the byte size for the serial port\&.
+.PP
+\fBSee also\fP
+.RS 4
+\fBSerial::SetByteSize\fP
+.RE
+.PP
+\fBExceptions\fP
+.RS 4
+\fIInvalidArgument\fP 
+.RE
+.PP
+
+.SS "void Brigerad::Serial::SetParity (\fBParities\fP parity)\fC [inline]\fP"
+Set the parity for the serial port\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIparity\fP Method of parity\&. Defaults to None\&.
+.RE
+.PP
+\fBExceptions\fP
+.RS 4
+\fIInvalidArgument\fP 
+.RE
+.PP
+
+.SS "\fBParities\fP Brigerad::Serial::GetParity () const\fC [inline]\fP"
+Get the type of parity used by the serial port\&.
+.PP
+\fBSee also\fP
+.RS 4
+\fBSerial::SetParity\fP
+.RE
+.PP
+\fBExceptions\fP
+.RS 4
+\fIInvalidArgument\fP 
+.RE
+.PP
+
+.SS "void Brigerad::Serial::SetStopBits (\fBStopBits\fP stopbits)\fC [inline]\fP"
+Set the number of stop bits for the serial port\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIstopbits\fP Number of stop bits used\&. Defaults to 1\&.
+.RE
+.PP
+\fBExceptions\fP
+.RS 4
+\fIInvalidArgument\fP 
+.RE
+.PP
+
+.SS "\fBStopBits\fP Brigerad::Serial::GetStopBits () const\fC [inline]\fP"
+Get the number of stop bits by the serial port\&.
+.PP
+\fBSee also\fP
+.RS 4
+\fBSerial::SetStopBits\fP
+.RE
+.PP
+\fBExceptions\fP
+.RS 4
+\fIInvalidArgument\fP 
+.RE
+.PP
+
+.SS "void Brigerad::Serial::SetFlowControl (\fBFlowControls\fP method)\fC [inline]\fP"
+Set the method of flow control used by the serial port\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fImethod\fP The type of flow control used\&. Defaults to none\&.
+.RE
+.PP
+\fBExceptions\fP
+.RS 4
+\fIInvalidArgument\fP 
+.RE
+.PP
+
+.SS "\fBFlowControls\fP Brigerad::Serial::GetFlowControl () const\fC [inline]\fP"
+Get the method of flow control used by the serial port\&.
+.PP
+\fBSee also\fP
+.RS 4
+\fBSerial::SetFlowControl\fP
+.RE
+.PP
+\fBExceptions\fP
+.RS 4
+\fIInvalidArgument\fP 
+.RE
+.PP
+
+.SS "void Brigerad::Serial::Flush ()\fC [inline]\fP"
+Flush the input and output buffers\&. 
+.SS "void Brigerad::Serial::FlushInput ()\fC [inline]\fP"
+Flush only the input buffer\&. 
+.SS "void Brigerad::Serial::FlushOutput ()\fC [inline]\fP"
+Flush only the output buffer\&. 
+.SS "void Brigerad::Serial::SendBreak (int duration)\fC [inline]\fP"
+Sends the RS-232 break signal\&.
+.PP
+See tcsendbreak(3)\&. 
+.SS "void Brigerad::Serial::SetBreak (bool level = \fCtrue\fP)\fC [inline]\fP"
+Set the break condition to a given level\&. Defaults to true\&. 
+.SS "void Brigerad::Serial::SetRTS (bool level = \fCtrue\fP)\fC [inline]\fP"
+Set the RTS handshaking line to the given level\&. Defaults to true\&. 
+.SS "void Brigerad::Serial::SetDTR (bool level = \fCtrue\fP)\fC [inline]\fP"
+Set the DTR handshaking line to the given level\&. Defaults to true\&. 
+.SS "bool Brigerad::Serial::WaitForChange ()\fC [inline]\fP"
+Blocks until CTS, DSR, RI or CD changes or something interrupts it\&.
+.PP
+Can throw an exception if an error occurs while waiting\&. You can check the status of CTS, DSR, RI and CD once this method returns\&. Uses TIOCMIWAIT via ioctl if available (mostly on Linux) with a resolution of less than +/-1ms and as good as +/-0\&.2ms\&. Otherwise a polling method is used which can give a +/-2ms resolution\&.
+.PP
+\fBReturns\fP
+.RS 4
+true if one of the lines changed\&. 
+.PP
+false if something else occurred\&.
+.RE
+.PP
+\fBExceptions\fP
+.RS 4
+\fISerialException\fP 
+.RE
+.PP
+
+.SS "bool Brigerad::Serial::GetCTS ()\fC [inline]\fP"
+Get the current status of the CTS line\&. 
+.SS "bool Brigerad::Serial::GetDSR ()\fC [inline]\fP"
+Get the current status of the DSR line\&. 
+.SS "bool Brigerad::Serial::GetRI ()\fC [inline]\fP"
+Get the current status of the RI line\&. 
+.SS "bool Brigerad::Serial::GetCD ()\fC [inline]\fP"
+Get the current status of the CD line\&. 
+.SH "Member Data Documentation"
+.PP 
+.SS "serial::Serial Brigerad::Serial::m_port\fC [private]\fP"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

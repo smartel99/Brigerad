@@ -1,0 +1,79 @@
+.TH "Brigerad::IndexBuffer" 3 "Sun Jan 10 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Brigerad::IndexBuffer \- Wrapper around an index buffer inside of the GPU's memory\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Buffer\&.h>\fP
+.PP
+Inherited by \fBBrigerad::OpenGLIndexBuffer\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fB~IndexBuffer\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBBind\fP () const =0"
+.br
+.ti -1c
+.RI "virtual void \fBUnbind\fP () const =0"
+.br
+.ti -1c
+.RI "virtual uint32_t \fBGetCount\fP () const =0"
+.br
+.ti -1c
+.RI "virtual const uint32_t \fBGetId\fP () const =0"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBRef\fP< \fBIndexBuffer\fP > \fBCreate\fP (uint32_t *indices, uint32_t count)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Wrapper around an index buffer inside of the GPU's memory\&. 
+
+
+.PP
+\fBNote\fP
+.RS 4
+\fBBrigerad\fP currently only supports 32-bit index buffers\&. 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "virtual Brigerad::IndexBuffer::~IndexBuffer ()\fC [inline]\fP, \fC [virtual]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "virtual void Brigerad::IndexBuffer::Bind () const\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLIndexBuffer\fP\&.
+.SS "virtual void Brigerad::IndexBuffer::Unbind () const\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLIndexBuffer\fP\&.
+.SS "virtual uint32_t Brigerad::IndexBuffer::GetCount () const\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLIndexBuffer\fP\&.
+.SS "virtual const uint32_t Brigerad::IndexBuffer::GetId () const\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLIndexBuffer\fP\&.
+.SS "\fBRef\fP< \fBIndexBuffer\fP > Brigerad::IndexBuffer::Create (uint32_t * indices, uint32_t count)\fC [static]\fP"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

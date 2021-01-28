@@ -1,0 +1,88 @@
+.TH "F:/dev/Brigerad/Brigerad/src/Brigerad/Core/Log.h" 3 "Sun Jan 10 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+F:/dev/Brigerad/Brigerad/src/Brigerad/Core/Log.h
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'Core\&.h'\fP
+.br
+\fC#include 'spdlog/spdlog\&.h'\fP
+.br
+\fC#include 'spdlog/fmt/ostr\&.h'\fP
+.br
+
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBBrigerad::Log\fP"
+.br
+.in -1c
+.SS "Namespaces"
+
+.in +1c
+.ti -1c
+.RI " \fBBrigerad\fP"
+.br
+.in -1c
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBBR_CORE_TRACE\fP(\&.\&.\&.)   ::\fBBrigerad::Log::GetCoreLogger\fP()\->trace(__VA_ARGS__)"
+.br
+.ti -1c
+.RI "#define \fBBR_CORE_INFO\fP(\&.\&.\&.)   ::\fBBrigerad::Log::GetCoreLogger\fP()\->info(__VA_ARGS__)"
+.br
+.ti -1c
+.RI "#define \fBBR_CORE_WARN\fP(\&.\&.\&.)   ::\fBBrigerad::Log::GetCoreLogger\fP()\->warn(__VA_ARGS__)"
+.br
+.ti -1c
+.RI "#define \fBBR_CORE_ERROR\fP(\&.\&.\&.)   ::\fBBrigerad::Log::GetCoreLogger\fP()\->error(__VA_ARGS__)"
+.br
+.ti -1c
+.RI "#define \fBBR_CORE_CRITICAL\fP(\&.\&.\&.)   ::\fBBrigerad::Log::GetCoreLogger\fP()\->critical(__VA_ARGS__)"
+.br
+.ti -1c
+.RI "#define \fBBR_TRACE\fP(\&.\&.\&.)   ::\fBBrigerad::Log::GetClientLogger\fP()\->trace(__VA_ARGS__)"
+.br
+.ti -1c
+.RI "#define \fBBR_INFO\fP(\&.\&.\&.)   ::\fBBrigerad::Log::GetClientLogger\fP()\->info(__VA_ARGS__)"
+.br
+.ti -1c
+.RI "#define \fBBR_WARN\fP(\&.\&.\&.)   ::\fBBrigerad::Log::GetClientLogger\fP()\->warn(__VA_ARGS__)"
+.br
+.ti -1c
+.RI "#define \fBBR_ERROR\fP(\&.\&.\&.)   ::\fBBrigerad::Log::GetClientLogger\fP()\->error(__VA_ARGS__)"
+.br
+.ti -1c
+.RI "#define \fBBR_CRITICAL\fP(\&.\&.\&.)   ::\fBBrigerad::Log::GetClientLogger\fP()\->critical(__VA_ARGS__)"
+.br
+.in -1c
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define BR_CORE_TRACE( \&.\&.\&.)   ::\fBBrigerad::Log::GetCoreLogger\fP()\->trace(__VA_ARGS__)"
+
+.SS "#define BR_CORE_INFO( \&.\&.\&.)   ::\fBBrigerad::Log::GetCoreLogger\fP()\->info(__VA_ARGS__)"
+
+.SS "#define BR_CORE_WARN( \&.\&.\&.)   ::\fBBrigerad::Log::GetCoreLogger\fP()\->warn(__VA_ARGS__)"
+
+.SS "#define BR_CORE_ERROR( \&.\&.\&.)   ::\fBBrigerad::Log::GetCoreLogger\fP()\->error(__VA_ARGS__)"
+
+.SS "#define BR_CORE_CRITICAL( \&.\&.\&.)   ::\fBBrigerad::Log::GetCoreLogger\fP()\->critical(__VA_ARGS__)"
+
+.SS "#define BR_TRACE( \&.\&.\&.)   ::\fBBrigerad::Log::GetClientLogger\fP()\->trace(__VA_ARGS__)"
+
+.SS "#define BR_INFO( \&.\&.\&.)   ::\fBBrigerad::Log::GetClientLogger\fP()\->info(__VA_ARGS__)"
+
+.SS "#define BR_WARN( \&.\&.\&.)   ::\fBBrigerad::Log::GetClientLogger\fP()\->warn(__VA_ARGS__)"
+
+.SS "#define BR_ERROR( \&.\&.\&.)   ::\fBBrigerad::Log::GetClientLogger\fP()\->error(__VA_ARGS__)"
+
+.SS "#define BR_CRITICAL( \&.\&.\&.)   ::\fBBrigerad::Log::GetClientLogger\fP()\->critical(__VA_ARGS__)"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

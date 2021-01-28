@@ -1,0 +1,78 @@
+.TH "Brigerad::LayerStack" 3 "Sun Jan 10 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Brigerad::LayerStack
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <LayerStack\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBLayerStack\fP ()"
+.br
+.ti -1c
+.RI "\fB~LayerStack\fP ()"
+.br
+.ti -1c
+.RI "void \fBPushLayer\fP (\fBLayer\fP *layer)"
+.br
+.ti -1c
+.RI "void \fBPushOverlay\fP (\fBLayer\fP *overlay)"
+.br
+.ti -1c
+.RI "void \fBPopLayer\fP (\fBLayer\fP *layer)"
+.br
+.ti -1c
+.RI "void \fBPopOverlay\fP (\fBLayer\fP *overlay)"
+.br
+.ti -1c
+.RI "std::vector< \fBLayer\fP * >::iterator \fBbegin\fP ()"
+.br
+.ti -1c
+.RI "std::vector< \fBLayer\fP * >::iterator \fBend\fP ()"
+.br
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "std::vector< \fBLayer\fP * > \fBm_layers\fP"
+.br
+.ti -1c
+.RI "unsigned int \fBm_layerInsertIndex\fP = 0"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Brigerad::LayerStack::LayerStack ()\fC [default]\fP"
+
+.SS "Brigerad::LayerStack::~LayerStack ()"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void Brigerad::LayerStack::PushLayer (\fBLayer\fP * layer)"
+
+.SS "void Brigerad::LayerStack::PushOverlay (\fBLayer\fP * overlay)"
+
+.SS "void Brigerad::LayerStack::PopLayer (\fBLayer\fP * layer)"
+
+.SS "void Brigerad::LayerStack::PopOverlay (\fBLayer\fP * overlay)"
+
+.SS "std::vector<\fBLayer\fP *>::iterator Brigerad::LayerStack::begin ()\fC [inline]\fP"
+
+.SS "std::vector<\fBLayer\fP *>::iterator Brigerad::LayerStack::end ()\fC [inline]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "std::vector<\fBLayer\fP *> Brigerad::LayerStack::m_layers\fC [private]\fP"
+
+.SS "unsigned int Brigerad::LayerStack::m_layerInsertIndex = 0\fC [private]\fP"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

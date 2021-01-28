@@ -1,0 +1,61 @@
+.TH "Brigerad::ShaderLibrary" 3 "Sun Jan 10 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Brigerad::ShaderLibrary
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Shader\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBAdd\fP (const \fBRef\fP< \fBShader\fP > &shader)"
+.br
+.ti -1c
+.RI "void \fBAdd\fP (const std::string &name, const \fBRef\fP< \fBShader\fP > &shader)"
+.br
+.ti -1c
+.RI "\fBRef\fP< \fBShader\fP > \fBLoad\fP (const std::string &filePath)"
+.br
+.ti -1c
+.RI "\fBRef\fP< \fBShader\fP > \fBLoad\fP (const std::string &name, const std::string &filePath)"
+.br
+.ti -1c
+.RI "\fBRef\fP< \fBShader\fP > \fBGet\fP (const std::string &name)"
+.br
+.ti -1c
+.RI "bool \fBExists\fP (const std::string &name) const"
+.br
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "std::unordered_map< std::string, \fBRef\fP< \fBShader\fP > > \fBm_shaders\fP"
+.br
+.in -1c
+.SH "Member Function Documentation"
+.PP 
+.SS "void Brigerad::ShaderLibrary::Add (const \fBRef\fP< \fBShader\fP > & shader)"
+
+.SS "void Brigerad::ShaderLibrary::Add (const std::string & name, const \fBRef\fP< \fBShader\fP > & shader)"
+
+.SS "\fBBrigerad::Ref\fP< \fBBrigerad::Shader\fP > Brigerad::ShaderLibrary::Load (const std::string & filePath)"
+
+.SS "\fBBrigerad::Ref\fP< \fBBrigerad::Shader\fP > Brigerad::ShaderLibrary::Load (const std::string & name, const std::string & filePath)"
+
+.SS "\fBBrigerad::Ref\fP< \fBBrigerad::Shader\fP > Brigerad::ShaderLibrary::Get (const std::string & name)"
+
+.SS "bool Brigerad::ShaderLibrary::Exists (const std::string & name) const"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "std::unordered_map<std::string, \fBRef\fP<\fBShader\fP> > Brigerad::ShaderLibrary::m_shaders\fC [private]\fP"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

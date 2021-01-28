@@ -1,0 +1,120 @@
+.TH "Brigerad::Shader" 3 "Sun Jan 10 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Brigerad::Shader
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Shader\&.h>\fP
+.PP
+Inherited by \fBBrigerad::OpenGLShader\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fB~Shader\fP ()=default"
+.br
+.ti -1c
+.RI "virtual void \fBBind\fP () const =0"
+.br
+.ti -1c
+.RI "virtual void \fBUnbind\fP () const =0"
+.br
+.ti -1c
+.RI "virtual void \fBSetInt\fP (const std::string &name, int value)=0"
+.br
+.ti -1c
+.RI "virtual void \fBSetIntArray\fP (const std::string &name, int *values, uint32_t count)=0"
+.br
+.ti -1c
+.RI "virtual void \fBSetFloat\fP (const std::string &name, float value)=0"
+.br
+.ti -1c
+.RI "virtual void \fBSetFloat2\fP (const std::string &name, const glm::vec2 &value)=0"
+.br
+.ti -1c
+.RI "virtual void \fBSetFloat3\fP (const std::string &name, const glm::vec3 &value)=0"
+.br
+.ti -1c
+.RI "virtual void \fBSetFloat4\fP (const std::string &name, const glm::vec4 &value)=0"
+.br
+.ti -1c
+.RI "virtual void \fBSetMat3\fP (const std::string &name, const glm::mat3 &value)=0"
+.br
+.ti -1c
+.RI "virtual void \fBSetMat4\fP (const std::string &name, const glm::mat4 &value)=0"
+.br
+.ti -1c
+.RI "virtual const std::string & \fBGetName\fP () const =0"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBRef\fP< \fBShader\fP > \fBCreate\fP (const std::string &filePath)"
+.br
+.ti -1c
+.RI "static \fBRef\fP< \fBShader\fP > \fBCreate\fP (const std::string &name, const std::string &vertexSrc, const std::string &fragmentSrc)"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "virtual Brigerad::Shader::~Shader ()\fC [virtual]\fP, \fC [default]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "virtual void Brigerad::Shader::Bind () const\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLShader\fP\&.
+.SS "virtual void Brigerad::Shader::Unbind () const\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLShader\fP\&.
+.SS "virtual void Brigerad::Shader::SetInt (const std::string & name, int value)\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLShader\fP\&.
+.SS "virtual void Brigerad::Shader::SetIntArray (const std::string & name, int * values, uint32_t count)\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLShader\fP\&.
+.SS "virtual void Brigerad::Shader::SetFloat (const std::string & name, float value)\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLShader\fP\&.
+.SS "virtual void Brigerad::Shader::SetFloat2 (const std::string & name, const glm::vec2 & value)\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLShader\fP\&.
+.SS "virtual void Brigerad::Shader::SetFloat3 (const std::string & name, const glm::vec3 & value)\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLShader\fP\&.
+.SS "virtual void Brigerad::Shader::SetFloat4 (const std::string & name, const glm::vec4 & value)\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLShader\fP\&.
+.SS "virtual void Brigerad::Shader::SetMat3 (const std::string & name, const glm::mat3 & value)\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLShader\fP\&.
+.SS "virtual void Brigerad::Shader::SetMat4 (const std::string & name, const glm::mat4 & value)\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLShader\fP\&.
+.SS "virtual const std::string& Brigerad::Shader::GetName () const\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLShader\fP\&.
+.SS "\fBRef\fP< \fBShader\fP > Brigerad::Shader::Create (const std::string & filePath)\fC [static]\fP"
+
+.SS "\fBRef\fP< \fBShader\fP > Brigerad::Shader::Create (const std::string & name, const std::string & vertexSrc, const std::string & fragmentSrc)\fC [static]\fP"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

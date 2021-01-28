@@ -1,0 +1,35 @@
+var class_brigerad_1_1_scene_camera =
+[
+    [ "ProjectionType", "class_brigerad_1_1_scene_camera.html#acbf9905629c1236d98f30113c04eff71", [
+      [ "Perspective", "class_brigerad_1_1_scene_camera.html#acbf9905629c1236d98f30113c04eff71aa80420eef88d11f77532f1b9cb467fa3", null ],
+      [ "Ortographic", "class_brigerad_1_1_scene_camera.html#acbf9905629c1236d98f30113c04eff71ade2e42175e8c9f7cfbfeda17b37c72d4", null ]
+    ] ],
+    [ "SceneCamera", "class_brigerad_1_1_scene_camera.html#a195b63a58cb16f34f18a1f00189736dc", null ],
+    [ "~SceneCamera", "class_brigerad_1_1_scene_camera.html#a2dc8999eaa3db5650e5ed8278b48db92", null ],
+    [ "SetOrthographic", "class_brigerad_1_1_scene_camera.html#a85f39318149eba20a828a056fd6fe2b7", null ],
+    [ "SetPerspective", "class_brigerad_1_1_scene_camera.html#a1abfcc0c15d481e18d26c2dc5cf5a8c4", null ],
+    [ "SetViewportSize", "class_brigerad_1_1_scene_camera.html#a1839f6146c7dcca8b7856bbe74530d38", null ],
+    [ "GetProjectionType", "class_brigerad_1_1_scene_camera.html#a9ae22ccd3405a19dedb15beb9701f55d", null ],
+    [ "SetProjectionType", "class_brigerad_1_1_scene_camera.html#af98bd89f89b949f3187db72ac4597168", null ],
+    [ "GetOrthographicSize", "class_brigerad_1_1_scene_camera.html#a7a8254605305c0c9f8539e6d6b7e0deb", null ],
+    [ "SetOrthographicSize", "class_brigerad_1_1_scene_camera.html#a40cb3540a61a099fe1307832da1ee3a7", null ],
+    [ "GetOrtographicNearClip", "class_brigerad_1_1_scene_camera.html#a056782900362dbe9270b78e698640c61", null ],
+    [ "SetOrtographicNearClip", "class_brigerad_1_1_scene_camera.html#a08e804d9210e94db65e4c6aa1f29444e", null ],
+    [ "GetOrtographicFarClip", "class_brigerad_1_1_scene_camera.html#a47d3c9eae5dd5adc9aee5b61355e0cfc", null ],
+    [ "SetOrtographicFarClip", "class_brigerad_1_1_scene_camera.html#a7a4da02c6fd318ddccd3a457f946cf57", null ],
+    [ "GetPerspectiveNearClip", "class_brigerad_1_1_scene_camera.html#adff206b5119e526f8a21de4341849fc3", null ],
+    [ "SetPerspectiveNearClip", "class_brigerad_1_1_scene_camera.html#aa2567437c63a7b3e4824ea5e8a1f8b4a", null ],
+    [ "GetPerspectiveFarClip", "class_brigerad_1_1_scene_camera.html#a5d1932e7c7a3877b62ae2d65a0129077", null ],
+    [ "SetPerspectiveFarClip", "class_brigerad_1_1_scene_camera.html#a238add4ad5cf9b1ace7d1dcf8871b8c8", null ],
+    [ "GetPerspectiveFov", "class_brigerad_1_1_scene_camera.html#a3e977b1448c74222e11255c61db95e40", null ],
+    [ "SetPerspectiveFov", "class_brigerad_1_1_scene_camera.html#ab74db7684f940d74adb2abe8dcf73d0f", null ],
+    [ "RecalculateProjection", "class_brigerad_1_1_scene_camera.html#a093a64519d292a2ef302f4af5dc3bcc4", null ],
+    [ "m_projectionType", "class_brigerad_1_1_scene_camera.html#a43a008f803f279a129e7dc4e482651ec", null ],
+    [ "m_orthographicSize", "class_brigerad_1_1_scene_camera.html#a912f766e8e91587ea30e38f3541f238c", null ],
+    [ "m_orthographicNear", "class_brigerad_1_1_scene_camera.html#af16c5e487fc02653ba8fc1f445c48585", null ],
+    [ "m_orthographicFar", "class_brigerad_1_1_scene_camera.html#aa506f1468d3a2984f7222f12151d47e8", null ],
+    [ "m_perspectiveFov", "class_brigerad_1_1_scene_camera.html#a4c4762d8af42d7749af75682d834ce41", null ],
+    [ "m_perspectiveNear", "class_brigerad_1_1_scene_camera.html#a1e675b5f4392d398af92fae07b10b1d0", null ],
+    [ "m_perspectiveFar", "class_brigerad_1_1_scene_camera.html#a170de7f1cb61cc1e625d43fb906449bd", null ],
+    [ "m_aspectRatio", "class_brigerad_1_1_scene_camera.html#aade085014834bab9047f02a5e752e0c0", null ]
+];

@@ -1,0 +1,73 @@
+.TH "Brigerad::Framebuffer" 3 "Sun Jan 10 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Brigerad::Framebuffer
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <FrameBuffer\&.h>\fP
+.PP
+Inherited by \fBBrigerad::OpenGLFramebuffer\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fB~Framebuffer\fP ()=default"
+.br
+.ti -1c
+.RI "virtual const \fBFramebufferSpecification\fP & \fBGetSpecification\fP () const =0"
+.br
+.ti -1c
+.RI "virtual void \fBBind\fP ()=0"
+.br
+.ti -1c
+.RI "virtual void \fBUnbind\fP ()=0"
+.br
+.ti -1c
+.RI "virtual void \fBResize\fP (uint32_t width, uint32_t height)=0"
+.br
+.ti -1c
+.RI "virtual uint32_t \fBGetColorAttachmentRenderID\fP () const =0"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBRef\fP< \fBFramebuffer\fP > \fBCreate\fP (const \fBFramebufferSpecification\fP &spec)"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "virtual Brigerad::Framebuffer::~Framebuffer ()\fC [virtual]\fP, \fC [default]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "virtual const \fBFramebufferSpecification\fP& Brigerad::Framebuffer::GetSpecification () const\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLFramebuffer\fP\&.
+.SS "virtual void Brigerad::Framebuffer::Bind ()\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLFramebuffer\fP\&.
+.SS "virtual void Brigerad::Framebuffer::Unbind ()\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLFramebuffer\fP\&.
+.SS "virtual void Brigerad::Framebuffer::Resize (uint32_t width, uint32_t height)\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLFramebuffer\fP\&.
+.SS "virtual uint32_t Brigerad::Framebuffer::GetColorAttachmentRenderID () const\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLFramebuffer\fP\&.
+.SS "\fBRef\fP< \fBFramebuffer\fP > Brigerad::Framebuffer::Create (const \fBFramebufferSpecification\fP & spec)\fC [static]\fP"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

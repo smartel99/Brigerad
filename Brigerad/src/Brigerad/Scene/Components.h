@@ -34,6 +34,9 @@
 #include "Brigerad/Scene/ImGuiWindowComponents.h"
 #include "Brigerad/Scene/ImGuiTextComponents.h"
 #include "Brigerad/Scene/ImGuiButtonComponents.h"
+#include "Brigerad/Scene/ImGuiMiscComponents.h"
+#include "Brigerad/Renderer/Mesh.h"
+#include "Brigerad/Renderer/Material.h"
 
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
@@ -84,6 +87,8 @@ struct ParentEntityComponent
     ParentEntityComponent(const ParentEntityComponent&) = default;
     ParentEntityComponent(const std::vector<Entity>& c) : childs(c) {}
     ParentEntityComponent(Entity child) : childs({child}) {}
+
+    void RemoveChild(const Entity& child);
 };
 
 struct TransformComponent
@@ -194,6 +199,29 @@ struct LuaScriptComponent
         delete instance;
         instance = nullptr;
     }
+};
+
+struct MeshComponent
+{
+    Ref<Mesh>             mesh          = nullptr;
+    Ref<MaterialInstance> material      = nullptr;
+    std::string           name          = "MeshComponent";
+    std::string           path          = "";
+    bool                  viewDebugMenu = false;
+
+
+    MeshComponent(const std::string& meshName, const std::string& meshPath)
+    : name(meshName), path(meshPath)
+    {
+        mesh = Mesh::Create(meshPath);
+    }
+    MeshComponent(const std::string& meshName, const Ref<Mesh>& meshRef)
+    : name(meshName), mesh(meshRef), path(meshRef->GetFilePath())
+    {
+    }
+    ~MeshComponent() = default;
+
+    void ReloadMesh() { mesh = Mesh::Create(path); }
 };
 
 }    // namespace Brigerad

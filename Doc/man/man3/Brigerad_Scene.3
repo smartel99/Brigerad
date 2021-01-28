@@ -1,0 +1,233 @@
+.TH "Brigerad::Scene" 3 "Sun Jan 10 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Brigerad::Scene
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Scene\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBScene\fP ()"
+.br
+.ti -1c
+.RI "\fB~Scene\fP ()"
+.br
+.ti -1c
+.RI "\fBEntity\fP \fBCreateEntity\fP (const std::string &name=std::string())"
+.br
+.ti -1c
+.RI "\fBEntity\fP \fBCreateChildEntity\fP (const std::string &name, \fBEntity\fP parent)"
+.br
+.ti -1c
+.RI "void \fBDestroyEntity\fP (\fBEntity\fP entity)"
+.br
+.ti -1c
+.RI "entt::registry & \fBReg\fP ()"
+.br
+.ti -1c
+.RI "void \fBOnUpdate\fP (\fBTimestep\fP ts)"
+.br
+.ti -1c
+.RI "void \fBOnImguiRender\fP ()"
+.br
+.ti -1c
+.RI "void \fBOnViewportResize\fP (uint32_t w, uint32_t h)"
+.br
+.ti -1c
+.RI "void \fBOnEvent\fP (\fBEvent\fP &e)"
+.br
+.in -1c
+.SS "Private Member Functions"
+
+.in +1c
+.ti -1c
+.RI "template<typename T > void \fBOnComponentAdded\fP (\fBEntity\fP entity, T &component)"
+.br
+.ti -1c
+.RI "void \fBHandleImGuiEntity\fP (\fBEntity\fP entity)"
+.br
+.ti -1c
+.RI "template<> void \fBOnComponentAdded\fP (\fBEntity\fP, \fBTagComponent\fP &component)"
+.br
+.ti -1c
+.RI "template<> void \fBOnComponentAdded\fP (\fBEntity\fP entity, \fBChildEntityComponent\fP &component)"
+.br
+.ti -1c
+.RI "template<> void \fBOnComponentAdded\fP (\fBEntity\fP entity, \fBParentEntityComponent\fP &component)"
+.br
+.ti -1c
+.RI "template<> void \fBOnComponentAdded\fP (\fBEntity\fP, \fBTransformComponent\fP &component)"
+.br
+.ti -1c
+.RI "template<> void \fBOnComponentAdded\fP (\fBEntity\fP, \fBCameraComponent\fP &component)"
+.br
+.ti -1c
+.RI "template<> void \fBOnComponentAdded\fP (\fBEntity\fP, \fBColorRendererComponent\fP &component)"
+.br
+.ti -1c
+.RI "template<> void \fBOnComponentAdded\fP (\fBEntity\fP, \fBTextureRendererComponent\fP &component)"
+.br
+.ti -1c
+.RI "template<> void \fBOnComponentAdded\fP (\fBEntity\fP, \fBTextComponent\fP &component)"
+.br
+.ti -1c
+.RI "template<> void \fBOnComponentAdded\fP (\fBEntity\fP, \fBNativeScriptComponent\fP &component)"
+.br
+.ti -1c
+.RI "template<> void \fBOnComponentAdded\fP (\fBEntity\fP, \fBLuaScriptComponent\fP &component)"
+.br
+.ti -1c
+.RI "template<> void \fBOnComponentAdded\fP (\fBEntity\fP, \fBImGuiWindowComponent\fP &component)"
+.br
+.ti -1c
+.RI "template<> void \fBOnComponentAdded\fP (\fBEntity\fP, \fBImGuiTextComponent\fP &component)"
+.br
+.ti -1c
+.RI "template<> void \fBOnComponentAdded\fP (\fBEntity\fP, \fBImGuiButtonComponent\fP &component)"
+.br
+.ti -1c
+.RI "template<> void \fBOnComponentAdded\fP (\fBEntity\fP, \fBImGuiButtonListenerComponent\fP< \fBImGuiButtonComponent\fP > &component)"
+.br
+.ti -1c
+.RI "template<> void \fBOnComponentAdded\fP (\fBEntity\fP, \fBImGuiSmallButtonComponent\fP &component)"
+.br
+.ti -1c
+.RI "template<> void \fBOnComponentAdded\fP (\fBEntity\fP, \fBImGuiButtonListenerComponent\fP< \fBImGuiSmallButtonComponent\fP > &component)"
+.br
+.ti -1c
+.RI "template<> void \fBOnComponentAdded\fP (\fBEntity\fP, \fBImGuiInvisibleButtonComponent\fP &component)"
+.br
+.ti -1c
+.RI "template<> void \fBOnComponentAdded\fP (\fBEntity\fP, \fBImGuiButtonListenerComponent\fP< \fBImGuiInvisibleButtonComponent\fP > &component)"
+.br
+.ti -1c
+.RI "template<> void \fBOnComponentAdded\fP (\fBEntity\fP, \fBImGuiArrowButtonComponent\fP &component)"
+.br
+.ti -1c
+.RI "template<> void \fBOnComponentAdded\fP (\fBEntity\fP, \fBImGuiButtonListenerComponent\fP< \fBImGuiArrowButtonComponent\fP > &component)"
+.br
+.ti -1c
+.RI "template<> void \fBOnComponentAdded\fP (\fBEntity\fP, \fBImGuiSeparatorComponent\fP &component)"
+.br
+.ti -1c
+.RI "template<> void \fBOnComponentAdded\fP (\fBEntity\fP, \fBImGuiSameLineComponent\fP &component)"
+.br
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "entt::registry \fBm_registry\fP"
+.br
+.ti -1c
+.RI "uint32_t \fBm_viewportWidth\fP = 0"
+.br
+.ti -1c
+.RI "uint32_t \fBm_viewportHeight\fP = 0"
+.br
+.in -1c
+.SS "Friends"
+
+.in +1c
+.ti -1c
+.RI "class \fBEntity\fP"
+.br
+.ti -1c
+.RI "class \fBSceneHierarchyPanel\fP"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Brigerad::Scene::Scene ()"
+
+.SS "Brigerad::Scene::~Scene ()"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBEntity\fP Brigerad::Scene::CreateEntity (const std::string & name = \fCstd::string()\fP)"
+
+.SS "\fBEntity\fP Brigerad::Scene::CreateChildEntity (const std::string & name, \fBEntity\fP parent)"
+
+.SS "void Brigerad::Scene::DestroyEntity (\fBEntity\fP entity)"
+
+.SS "entt::registry& Brigerad::Scene::Reg ()\fC [inline]\fP"
+
+.SS "void Brigerad::Scene::OnUpdate (\fBTimestep\fP ts)"
+
+.SS "void Brigerad::Scene::OnImguiRender ()"
+
+.SS "void Brigerad::Scene::OnViewportResize (uint32_t w, uint32_t h)"
+
+.SS "void Brigerad::Scene::OnEvent (\fBEvent\fP & e)"
+
+.SS "template<typename T > void Brigerad::Scene::OnComponentAdded (\fBEntity\fP entity, T & component)\fC [private]\fP"
+
+.SS "void Brigerad::Scene::HandleImGuiEntity (\fBEntity\fP entity)\fC [private]\fP"
+
+.SS "template<> void Brigerad::Scene::OnComponentAdded (\fBEntity\fP, \fBTagComponent\fP & component)\fC [private]\fP"
+
+.SS "template<> void Brigerad::Scene::OnComponentAdded (\fBEntity\fP entity, \fBChildEntityComponent\fP & component)\fC [private]\fP"
+
+.SS "template<> void Brigerad::Scene::OnComponentAdded (\fBEntity\fP entity, \fBParentEntityComponent\fP & component)\fC [private]\fP"
+
+.SS "template<> void Brigerad::Scene::OnComponentAdded (\fBEntity\fP, \fBTransformComponent\fP & component)\fC [private]\fP"
+
+.SS "template<> void Brigerad::Scene::OnComponentAdded (\fBEntity\fP, \fBCameraComponent\fP & component)\fC [private]\fP"
+
+.SS "template<> void Brigerad::Scene::OnComponentAdded (\fBEntity\fP, \fBColorRendererComponent\fP & component)\fC [private]\fP"
+
+.SS "template<> void Brigerad::Scene::OnComponentAdded (\fBEntity\fP, \fBTextureRendererComponent\fP & component)\fC [private]\fP"
+
+.SS "template<> void Brigerad::Scene::OnComponentAdded (\fBEntity\fP, \fBTextComponent\fP & component)\fC [private]\fP"
+
+.SS "template<> void Brigerad::Scene::OnComponentAdded (\fBEntity\fP, \fBNativeScriptComponent\fP & component)\fC [private]\fP"
+
+.SS "template<> void Brigerad::Scene::OnComponentAdded (\fBEntity\fP, \fBLuaScriptComponent\fP & component)\fC [private]\fP"
+
+.SS "template<> void Brigerad::Scene::OnComponentAdded (\fBEntity\fP, \fBImGuiWindowComponent\fP & component)\fC [private]\fP"
+
+.SS "template<> void Brigerad::Scene::OnComponentAdded (\fBEntity\fP, \fBImGuiTextComponent\fP & component)\fC [private]\fP"
+
+.SS "template<> void Brigerad::Scene::OnComponentAdded (\fBEntity\fP, \fBImGuiButtonComponent\fP & component)\fC [private]\fP"
+
+.SS "template<> void Brigerad::Scene::OnComponentAdded (\fBEntity\fP, \fBImGuiButtonListenerComponent\fP< \fBImGuiButtonComponent\fP > & component)\fC [private]\fP"
+
+.SS "template<> void Brigerad::Scene::OnComponentAdded (\fBEntity\fP, \fBImGuiSmallButtonComponent\fP & component)\fC [private]\fP"
+
+.SS "template<> void Brigerad::Scene::OnComponentAdded (\fBEntity\fP, \fBImGuiButtonListenerComponent\fP< \fBImGuiSmallButtonComponent\fP > & component)\fC [private]\fP"
+
+.SS "template<> void Brigerad::Scene::OnComponentAdded (\fBEntity\fP, \fBImGuiInvisibleButtonComponent\fP & component)\fC [private]\fP"
+
+.SS "template<> void Brigerad::Scene::OnComponentAdded (\fBEntity\fP, \fBImGuiButtonListenerComponent\fP< \fBImGuiInvisibleButtonComponent\fP > & component)\fC [private]\fP"
+
+.SS "template<> void Brigerad::Scene::OnComponentAdded (\fBEntity\fP, \fBImGuiArrowButtonComponent\fP & component)\fC [private]\fP"
+
+.SS "template<> void Brigerad::Scene::OnComponentAdded (\fBEntity\fP, \fBImGuiButtonListenerComponent\fP< \fBImGuiArrowButtonComponent\fP > & component)\fC [private]\fP"
+
+.SS "template<> void Brigerad::Scene::OnComponentAdded (\fBEntity\fP, \fBImGuiSeparatorComponent\fP & component)\fC [private]\fP"
+
+.SS "template<> void Brigerad::Scene::OnComponentAdded (\fBEntity\fP, \fBImGuiSameLineComponent\fP & component)\fC [private]\fP"
+
+.SH "Friends And Related Function Documentation"
+.PP 
+.SS "friend class \fBEntity\fP\fC [friend]\fP"
+
+.SS "friend class SceneHierarchyPanel\fC [friend]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "entt::registry Brigerad::Scene::m_registry\fC [private]\fP"
+
+.SS "uint32_t Brigerad::Scene::m_viewportWidth = 0\fC [private]\fP"
+
+.SS "uint32_t Brigerad::Scene::m_viewportHeight = 0\fC [private]\fP"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

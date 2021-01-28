@@ -144,6 +144,9 @@
     <ClInclude Include="src\Brigerad\Events\Event.h">
       <Filter>src\Brigerad\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\Brigerad\Events\ImGuiEvents.h">
+      <Filter>src\Brigerad\Events</Filter>
+    </ClInclude>
     <ClInclude Include="src\Brigerad\Events\KeyEvents.h">
       <Filter>src\Brigerad\Events</Filter>
     </ClInclude>
@@ -166,6 +169,9 @@
       <Filter>src\Brigerad\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Brigerad\Renderer\GraphicsContext.h">
+      <Filter>src\Brigerad\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Brigerad\Renderer\Mesh.h">
       <Filter>src\Brigerad\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Brigerad\Renderer\OrthographicCamera.h">
@@ -204,6 +210,18 @@
     <ClInclude Include="src\Brigerad\Scene\Entity.h">
       <Filter>src\Brigerad\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="src\Brigerad\Scene\ImGuiButtonComponents.h">
+      <Filter>src\Brigerad\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Brigerad\Scene\ImGuiMiscComponents.h">
+      <Filter>src\Brigerad\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Brigerad\Scene\ImGuiTextComponents.h">
+      <Filter>src\Brigerad\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Brigerad\Scene\ImGuiWindowComponents.h">
+      <Filter>src\Brigerad\Scene</Filter>
+    </ClInclude>
     <ClInclude Include="src\Brigerad\Scene\Scene.h">
       <Filter>src\Brigerad\Scene</Filter>
     </ClInclude>
@@ -232,6 +250,9 @@
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLFrameBuffer.h">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLMesh.h">
       <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h">
@@ -1497,10 +1518,11 @@
     <ClInclude Include="vendor\stb_image\stb_image_write.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\Brigerad\Events\ImGuiEvents.h" />
-    <ClInclude Include="src\Brigerad\Scene\ImGuiWindowComponents.h" />
-    <ClInclude Include="src\Brigerad\Scene\ImGuiTextComponents.h" />
-    <ClInclude Include="src\Brigerad\Scene\ImGuiButtonComponents.h" />
+    <ClInclude Include="src\Brigerad\Renderer\RenderCommandQueue.h" />
+    <ClInclude Include="src\Brigerad\Renderer\Material.h" />
+    <ClInclude Include="src\Brigerad\Core\Buffer.h" />
+    <ClInclude Include="src\Brigerad\Renderer\ShaderUniform.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLShaderUniform.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Brigerad\Core\Application.cpp">
@@ -1536,6 +1558,9 @@
     <ClCompile Include="src\Brigerad\Renderer\GraphicsContext.cpp">
       <Filter>src\Brigerad\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Brigerad\Renderer\Mesh.cpp">
+      <Filter>src\Brigerad\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\Brigerad\Renderer\OrthographicCamera.cpp">
       <Filter>src\Brigerad\Renderer</Filter>
     </ClCompile>
@@ -1565,6 +1590,9 @@
     </ClCompile>
     <ClCompile Include="src\Brigerad\Renderer\VertexArray.cpp">
       <Filter>src\Brigerad\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Brigerad\Scene\Components.cpp">
+      <Filter>src\Brigerad\Scene</Filter>
     </ClCompile>
     <ClCompile Include="src\Brigerad\Scene\Entity.cpp">
       <Filter>src\Brigerad\Scene</Filter>
@@ -1603,6 +1631,9 @@
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLFrameBuffer.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLMesh.cpp">
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp">
@@ -1650,5 +1681,8 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
+    <ClCompile Include="src\Brigerad\Renderer\RenderCommandQueue.cpp" />
+    <ClCompile Include="src\Brigerad\Renderer\Material.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLShaderUniform.cpp" />
   </ItemGroup>
 </Project>

@@ -1,0 +1,60 @@
+.TH "Brigerad::ScriptEngine" 3 "Sun Jan 10 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Brigerad::ScriptEngine
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <ScriptEngine\&.h>\fP
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static void \fBInit\fP ()"
+.br
+.ti -1c
+.RI "static void \fBShutdown\fP ()"
+.br
+.ti -1c
+.RI "static void \fBExecuteScript\fP (const std::string &file)"
+.br
+.ti -1c
+.RI "static void \fBLoadEntityScript\fP (const std::string &file)"
+.br
+.ti -1c
+.RI "static void \fBOnCreate\fP (\fBLuaScriptEntity\fP *entity)"
+.br
+.ti -1c
+.RI "static void \fBOnDestroyed\fP (const \fBLuaScriptEntity\fP *entity)"
+.br
+.ti -1c
+.RI "static void \fBOnUpdate\fP (const \fBLuaScriptEntity\fP *entity, float ts)"
+.br
+.ti -1c
+.RI "static void \fBOnRender\fP (const \fBLuaScriptEntity\fP *entity)"
+.br
+.in -1c
+.SH "Member Function Documentation"
+.PP 
+.SS "void Brigerad::ScriptEngine::Init ()\fC [static]\fP"
+
+.SS "void Brigerad::ScriptEngine::Shutdown ()\fC [static]\fP"
+
+.SS "void Brigerad::ScriptEngine::ExecuteScript (const std::string & file)\fC [static]\fP"
+
+.SS "void Brigerad::ScriptEngine::LoadEntityScript (const std::string & file)\fC [static]\fP"
+
+.SS "void Brigerad::ScriptEngine::OnCreate (\fBLuaScriptEntity\fP * entity)\fC [static]\fP"
+
+.SS "void Brigerad::ScriptEngine::OnDestroyed (const \fBLuaScriptEntity\fP * entity)\fC [static]\fP"
+
+.SS "void Brigerad::ScriptEngine::OnUpdate (const \fBLuaScriptEntity\fP * entity, float ts)\fC [static]\fP"
+
+.SS "void Brigerad::ScriptEngine::OnRender (const \fBLuaScriptEntity\fP * entity)\fC [static]\fP"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

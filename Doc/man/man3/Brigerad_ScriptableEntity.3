@@ -1,0 +1,88 @@
+.TH "Brigerad::ScriptableEntity" 3 "Sun Jan 10 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Brigerad::ScriptableEntity
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <ScriptableEntity\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBScriptableEntity\fP ()=default"
+.br
+.ti -1c
+.RI "virtual \fB~ScriptableEntity\fP ()=default"
+.br
+.ti -1c
+.RI "template<typename T > T & \fBGetComponentRef\fP ()"
+.br
+.ti -1c
+.RI "template<typename T > const T & \fBGetComponent\fP () const"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual void \fBOnCreate\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBOnUpdate\fP (\fBTimestep\fP ts)"
+.br
+.ti -1c
+.RI "virtual void \fBOnDestroy\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBOnEvent\fP (\fBEvent\fP &e)"
+.br
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBEntity\fP \fBm_entity\fP"
+.br
+.in -1c
+.SS "Friends"
+
+.in +1c
+.ti -1c
+.RI "class \fBScene\fP"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Brigerad::ScriptableEntity::ScriptableEntity ()\fC [default]\fP"
+
+.SS "virtual Brigerad::ScriptableEntity::~ScriptableEntity ()\fC [virtual]\fP, \fC [default]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "template<typename T > T& Brigerad::ScriptableEntity::GetComponentRef ()\fC [inline]\fP"
+
+.SS "template<typename T > const T& Brigerad::ScriptableEntity::GetComponent () const\fC [inline]\fP"
+
+.SS "virtual void Brigerad::ScriptableEntity::OnCreate ()\fC [inline]\fP, \fC [protected]\fP, \fC [virtual]\fP"
+
+.SS "virtual void Brigerad::ScriptableEntity::OnUpdate (\fBTimestep\fP ts)\fC [inline]\fP, \fC [protected]\fP, \fC [virtual]\fP"
+
+.SS "virtual void Brigerad::ScriptableEntity::OnDestroy ()\fC [inline]\fP, \fC [protected]\fP, \fC [virtual]\fP"
+
+.SS "virtual void Brigerad::ScriptableEntity::OnEvent (\fBEvent\fP & e)\fC [inline]\fP, \fC [protected]\fP, \fC [virtual]\fP"
+
+.SH "Friends And Related Function Documentation"
+.PP 
+.SS "friend class \fBScene\fP\fC [friend]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBEntity\fP Brigerad::ScriptableEntity::m_entity\fC [private]\fP"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

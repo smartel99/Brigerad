@@ -20,10 +20,8 @@ enum class ImGuiButtonState
 template<typename T>
 struct ImGuiButtonListenerComponent
 {
-private:
     Entity button;
 
-public:
     ImGuiButtonListenerComponent()                                    = default;
     ImGuiButtonListenerComponent(const ImGuiButtonListenerComponent&) = default;
     ImGuiButtonListenerComponent(const Entity& b) : button(b) {}
@@ -106,5 +104,9 @@ struct ImGuiArrowButtonComponent
 
     void* GetImGuiID() { return reinterpret_cast<void*>(this); }
     void* GetImGuiID() const { return const_cast<void*>(reinterpret_cast<const void*>(this)); }
+};
+
+struct ImGuiCheckboxComponent
+{
 };
 }    // namespace Brigerad

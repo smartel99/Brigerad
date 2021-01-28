@@ -1,0 +1,58 @@
+.TH "Brigerad::ParentEntityComponent" 3 "Sun Jan 10 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Brigerad::ParentEntityComponent
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Components\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBParentEntityComponent\fP ()=default"
+.br
+.ti -1c
+.RI "\fBParentEntityComponent\fP (const \fBParentEntityComponent\fP &)=default"
+.br
+.ti -1c
+.RI "\fBParentEntityComponent\fP (const std::vector< \fBEntity\fP > &c)"
+.br
+.ti -1c
+.RI "\fBParentEntityComponent\fP (\fBEntity\fP child)"
+.br
+.ti -1c
+.RI "void \fBRemoveChild\fP (const \fBEntity\fP &child)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "std::vector< \fBEntity\fP > \fBchilds\fP"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Brigerad::ParentEntityComponent::ParentEntityComponent ()\fC [default]\fP"
+
+.SS "Brigerad::ParentEntityComponent::ParentEntityComponent (const \fBParentEntityComponent\fP &)\fC [default]\fP"
+
+.SS "Brigerad::ParentEntityComponent::ParentEntityComponent (const std::vector< \fBEntity\fP > & c)\fC [inline]\fP"
+
+.SS "Brigerad::ParentEntityComponent::ParentEntityComponent (\fBEntity\fP child)\fC [inline]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void Brigerad::ParentEntityComponent::RemoveChild (const \fBEntity\fP & child)"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "std::vector<\fBEntity\fP> Brigerad::ParentEntityComponent::childs"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

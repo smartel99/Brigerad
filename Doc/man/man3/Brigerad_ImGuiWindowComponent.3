@@ -1,0 +1,68 @@
+.TH "Brigerad::ImGuiWindowComponent" 3 "Sun Jan 10 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Brigerad::ImGuiWindowComponent
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <ImGuiWindowComponents\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBImGuiWindowComponent\fP ()=default"
+.br
+.ti -1c
+.RI "\fBImGuiWindowComponent\fP (const \fBImGuiWindowComponent\fP &)=default"
+.br
+.ti -1c
+.RI "\fBImGuiWindowComponent\fP (const std::string &n, ImGuiWindowFlags f=ImGuiWindowFlags_None)"
+.br
+.ti -1c
+.RI "void \fBAddChildEntity\fP (\fBEntity\fP child)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "std::string \fBname\fP = 'Window'"
+.br
+.ti -1c
+.RI "bool \fBisOpen\fP = true"
+.br
+.ti -1c
+.RI "ImGuiWindowFlags \fBflags\fP = ImGuiWindowFlags_None"
+.br
+.ti -1c
+.RI "std::vector< \fBEntity\fP > \fBchilds\fP"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Brigerad::ImGuiWindowComponent::ImGuiWindowComponent ()\fC [default]\fP"
+
+.SS "Brigerad::ImGuiWindowComponent::ImGuiWindowComponent (const \fBImGuiWindowComponent\fP &)\fC [default]\fP"
+
+.SS "Brigerad::ImGuiWindowComponent::ImGuiWindowComponent (const std::string & n, ImGuiWindowFlags f = \fCImGuiWindowFlags_None\fP)\fC [inline]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void Brigerad::ImGuiWindowComponent::AddChildEntity (\fBEntity\fP child)\fC [inline]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "std::string Brigerad::ImGuiWindowComponent::name = 'Window'"
+
+.SS "bool Brigerad::ImGuiWindowComponent::isOpen = true"
+
+.SS "ImGuiWindowFlags Brigerad::ImGuiWindowComponent::flags = ImGuiWindowFlags_None"
+
+.SS "std::vector<\fBEntity\fP> Brigerad::ImGuiWindowComponent::childs"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

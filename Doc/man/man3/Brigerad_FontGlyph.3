@@ -1,0 +1,71 @@
+.TH "Brigerad::FontGlyph" 3 "Sun Jan 10 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Brigerad::FontGlyph
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <FontAtlas\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBFontGlyph\fP ()=default"
+.br
+.ti -1c
+.RI "\fBFontGlyph\fP (\fBRef\fP< \fBSubTexture2D\fP > texture, const glm::vec2 &size, const glm::vec2 &offset, float advance)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBRef\fP< \fBSubTexture2D\fP > \fBm_texture\fP = nullptr"
+.br
+.ti -1c
+.RI "glm::vec2 \fBm_size\fP = {0\&.0f, 0\&.0f}"
+.br
+.ti -1c
+.RI "glm::vec2 \fBm_textureOffset\fP = {0\&.0f, 0\&.0f}"
+.br
+.ti -1c
+.RI "glm::vec2 \fBm_offset\fP = {0\&.0f, 0\&.0f}"
+.br
+.ti -1c
+.RI "float \fBm_lead\fP = 0\&.0f"
+.br
+.ti -1c
+.RI "float \fBm_advance\fP = 0\&.0f"
+.br
+.ti -1c
+.RI "char \fBm_char\fP = '\\0'"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Brigerad::FontGlyph::FontGlyph ()\fC [default]\fP"
+
+.SS "Brigerad::FontGlyph::FontGlyph (\fBRef\fP< \fBSubTexture2D\fP > texture, const glm::vec2 & size, const glm::vec2 & offset, float advance)\fC [inline]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBRef\fP<\fBSubTexture2D\fP> Brigerad::FontGlyph::m_texture = nullptr"
+
+.SS "glm::vec2 Brigerad::FontGlyph::m_size = {0\&.0f, 0\&.0f}"
+
+.SS "glm::vec2 Brigerad::FontGlyph::m_textureOffset = {0\&.0f, 0\&.0f}"
+
+.SS "glm::vec2 Brigerad::FontGlyph::m_offset = {0\&.0f, 0\&.0f}"
+
+.SS "float Brigerad::FontGlyph::m_lead = 0\&.0f"
+
+.SS "float Brigerad::FontGlyph::m_advance = 0\&.0f"
+
+.SS "char Brigerad::FontGlyph::m_char = '\\0'"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

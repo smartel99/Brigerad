@@ -9,6 +9,7 @@
 #include "OpenGLTexture.h"
 
 #include "stb_image.h"
+#include "Brigerad/Renderer/RendererAPI.h"
 
 namespace Brigerad
 {
@@ -138,5 +139,175 @@ void OpenGLTexture2D::Bind(uint32_t slot) const
     glBindTextureUnit(slot, m_rendererID);
 }
 
+
+OpenGLTextureCube::OpenGLTextureCube(const std::string& path)
+{
+    int w, h, channels;
+    stbi_set_flip_vertically_on_load(false);
+    m_imageData = stbi_load(path.c_str(), &w, &h, &channels, 0);
+
+    m_width               = w;
+    m_height              = h;
+    GLenum internalFormat = 0, dataFormat = 0;
+    if (channels == 4)
+    {
+        internalFormat = GL_RGBA8;
+        dataFormat     = GL_RGBA;
+    }
+    else if (channels == 3)
+    {
+        internalFormat = GL_RGB8;
+        dataFormat     = GL_RGB;
+    }
+
+    m_internalFormat = internalFormat;
+    m_dataFormat     = dataFormat;
+
+    BR_CORE_ASSERT(internalFormat && dataFormat, "Format not supported");
+
+    uint32_t faceW = m_width / 4;
+    uint32_t faceH = m_height / 3;
+    BR_CORE_ASSERT(faceW == faceH, "Non-square faces!");
+
+    std::array<uint8_t*, 6> faces;
+    for (size_t i = 0; i < faces.size(); i++)
+    {
+        faces[i] = new uint8_t[faceW * faceH * 3];    // 3BPP.
+    }
+
+    int faceIndex = 0;
+
+    for (size_t i = 0; i < 4; i++)
+    {
+        for (size_t y = 0; y < faceH; y++)
+        {
+            size_t yOffset = y + faceH;
+            for (size_t x = 0; x < faceW; x++)
+            {
+                size_t xOffset = x + i * faceW;
+                faces[faceIndex][(x + y * faceW) * 3 + 0] =
+                  m_imageData[(xOffset + yOffset * m_width) * 3 + 0];
+                faces[faceIndex][(x + y * faceW) * 3 + 1] =
+                  m_imageData[(xOffset + yOffset * m_width) * 3 + 1];
+                faces[faceIndex][(x + y * faceW) * 3 + 2] =
+                  m_imageData[(xOffset + yOffset * m_width) * 3 + 2];
+            }
+        }
+        faceIndex++;
+    }
+
+    for (size_t i = 0; i < 3; i++)
+    {
+        // Skip the middle one.
+        if (i == 0)
+        {
+            continue;
+        }
+
+        for (size_t y = 0; y < faceH; y++)
+        {
+            size_t yOffset = y + i * faceH;
+            for (size_t x = 0; x < faceW; x++)
+            {
+                size_t xOffset = x + faceW;
+                faces[faceIndex][(x + y * faceW) * 3 + 0] =
+                  m_imageData[(xOffset + yOffset * m_width) * 3 + 0];
+                faces[faceIndex][(x + y * faceW) * 3 + 1] =
+                  m_imageData[(xOffset + yOffset * m_width) * 3 + 1];
+                faces[faceIndex][(x + y * faceW) * 3 + 2] =
+                  m_imageData[(xOffset + yOffset * m_width) * 3 + 2];
+            }
+        }
+
+        faceIndex++;
+    }
+
+    glGenTextures(1, &m_rendererID);
+    glBindTexture(GL_TEXTURE_CUBE_MAP, m_rendererID);
+
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTextureParameterf(
+      m_rendererID, GL_TEXTURE_MAX_ANISOTROPY, RendererAPI::GetCapabilities().maxAnisotropy);
+
+    glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X,
+                 0,
+                 m_dataFormat,
+                 faceW,
+                 faceH,
+                 0,
+                 m_dataFormat,
+                 GL_UNSIGNED_BYTE,
+                 faces[2]);
+    glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_X,
+                 0,
+                 m_dataFormat,
+                 faceW,
+                 faceH,
+                 0,
+                 m_dataFormat,
+                 GL_UNSIGNED_BYTE,
+                 faces[0]);
+
+    glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Y,
+                 0,
+                 m_dataFormat,
+                 faceW,
+                 faceH,
+                 0,
+                 m_dataFormat,
+                 GL_UNSIGNED_BYTE,
+                 faces[4]);
+    glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Y,
+                 0,
+                 m_dataFormat,
+                 faceW,
+                 faceH,
+                 0,
+                 m_dataFormat,
+                 GL_UNSIGNED_BYTE,
+                 faces[5]);
+
+    glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Z,
+                 0,
+                 m_dataFormat,
+                 faceW,
+                 faceH,
+                 0,
+                 m_dataFormat,
+                 GL_UNSIGNED_BYTE,
+                 faces[1]);
+    glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Z,
+                 0,
+                 m_dataFormat,
+                 faceW,
+                 faceH,
+                 0,
+                 m_dataFormat,
+                 GL_UNSIGNED_BYTE,
+                 faces[3]);
+
+    glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+    for (size_t i = 0; i < faces.size(); i++)
+    {
+        delete[] faces[i];
+    }
+
+    stbi_image_free(m_imageData);
+}
+
+OpenGLTextureCube::~OpenGLTextureCube()
+{
+    glDeleteTextures(1, &m_rendererID);
+}
+
+void OpenGLTextureCube::Bind(uint32_t slot /*= 0*/) const
+{
+    glBindTextureUnit(slot, m_rendererID);
+}
 
 }    // namespace Brigerad

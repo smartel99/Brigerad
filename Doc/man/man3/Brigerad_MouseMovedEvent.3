@@ -1,0 +1,73 @@
+.TH "Brigerad::MouseMovedEvent" 3 "Sun Jan 10 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Brigerad::MouseMovedEvent
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <MouseEvent\&.h>\fP
+.PP
+Inherits \fBBrigerad::Event\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBMouseMovedEvent\fP (float x, float y)"
+.br
+.ti -1c
+.RI "float \fBGetX\fP () const"
+.br
+.ti -1c
+.RI "float \fBGetY\fP () const"
+.br
+.ti -1c
+.RI "std::string \fBToString\fP () const override"
+.br
+.ti -1c
+.RI "\fBEVENT_CLASS_TYPE\fP (\fBEventType::MouseMoved\fP)"
+.br
+.ti -1c
+.RI "\fBEVENT_CLASS_CATEGORY\fP (\fBEventCategoryMouse\fP|\fBEventCategoryInput\fP)"
+.br
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "float \fBm_mouseX\fP"
+.br
+.ti -1c
+.RI "float \fBm_mouseY\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Brigerad::MouseMovedEvent::MouseMovedEvent (float x, float y)\fC [inline]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "float Brigerad::MouseMovedEvent::GetX () const\fC [inline]\fP"
+
+.SS "float Brigerad::MouseMovedEvent::GetY () const\fC [inline]\fP"
+
+.SS "std::string Brigerad::MouseMovedEvent::ToString () const\fC [inline]\fP, \fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Reimplemented from \fBBrigerad::Event\fP\&.
+.SS "Brigerad::MouseMovedEvent::EVENT_CLASS_TYPE (\fBEventType::MouseMoved\fP)"
+
+.SS "Brigerad::MouseMovedEvent::EVENT_CLASS_CATEGORY (\fBEventCategoryMouse\fP| EventCategoryInput)"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "float Brigerad::MouseMovedEvent::m_mouseX\fC [private]\fP"
+
+.SS "float Brigerad::MouseMovedEvent::m_mouseY\fC [private]\fP"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

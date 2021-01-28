@@ -1,0 +1,58 @@
+.TH "Brigerad::OpenGLRendererAPI" 3 "Sun Jan 10 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Brigerad::OpenGLRendererAPI
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <OpenGLRendererAPI\&.h>\fP
+.PP
+Inherits \fBBrigerad::RendererAPI\fP\&.
+.SS "Private Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual void \fBInit\fP () override"
+.br
+.ti -1c
+.RI "virtual void \fBSetClearColor\fP (const glm::vec4 &color) override"
+.br
+.ti -1c
+.RI "virtual void \fBClear\fP () override"
+.br
+.ti -1c
+.RI "virtual void \fBSetViewport\fP (uint32_t x, uint32_t y, uint32_t width, uint32_t height) override"
+.br
+.ti -1c
+.RI "virtual void \fBDrawIndexed\fP (const \fBRef\fP< \fBVertexArray\fP > &vertexArray, uint32_t indexCount=0) override"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Member Function Documentation"
+.PP 
+.SS "void Brigerad::OpenGLRendererAPI::Init ()\fC [override]\fP, \fC [private]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBBrigerad::RendererAPI\fP\&.
+.SS "void Brigerad::OpenGLRendererAPI::SetClearColor (const glm::vec4 & color)\fC [override]\fP, \fC [private]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBBrigerad::RendererAPI\fP\&.
+.SS "void Brigerad::OpenGLRendererAPI::Clear ()\fC [override]\fP, \fC [private]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBBrigerad::RendererAPI\fP\&.
+.SS "void Brigerad::OpenGLRendererAPI::SetViewport (uint32_t x, uint32_t y, uint32_t width, uint32_t height)\fC [override]\fP, \fC [private]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBBrigerad::RendererAPI\fP\&.
+.SS "void Brigerad::OpenGLRendererAPI::DrawIndexed (const \fBRef\fP< \fBVertexArray\fP > & vertexArray, uint32_t indexCount = \fC0\fP)\fC [override]\fP, \fC [private]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBBrigerad::RendererAPI\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

@@ -21,16 +21,10 @@ namespace Brigerad
 {
 #define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
 
-/**
- * @brief   Singleton instance of the running application
- *
- */
+
 Application* Application::s_instance = nullptr;
 
-/**
- * @brief   Construct a new Application:: Application object
- *          This creates a new window and binds the event function to it.
- */
+
 Application::Application(const std::string& name)
 {
     BR_PROFILE_FUNCTION();
@@ -58,21 +52,12 @@ Application::Application(const std::string& name)
     m_imguiLayer->OnAttach();
 }
 
-/**
- * @brief   Destroy the Application:: Application object
- */
 Application::~Application()
 {
     // Gracefully shut down the scripting engine.
     ScriptEngine::Shutdown();
 }
 
-/**
- * @brief   The main run loop of the application, where all layers are updated.
- *
- * @param   None
- * @retval  None
- */
 void Application::Run()
 {
     BR_PROFILE_FUNCTION();
@@ -124,12 +109,6 @@ void Application::Run()
     }
 }
 
-/**
- * @brief   Callback function for all events happening in the application.
- *          It dispatches and propagates the event through all layers until it is handled.
- *
- * @param   e The event to be dispatched.
- */
 void Application::OnEvent(Event& e)
 {
     BR_PROFILE_FUNCTION();
@@ -156,13 +135,6 @@ void Application::OnEvent(Event& e)
 }
 
 
-
-/**
- * @brief   Push a new layer at the back of the layer stack.
- *
- * @param   layer A pointer to the layer
- * @retval  None
- */
 void Application::PushLayer(Layer* layer)
 {
     BR_PROFILE_FUNCTION();
@@ -177,12 +149,7 @@ void Application::PushLayer(Layer* layer)
     m_postFrameTasks.push_back(task);
 }
 
-/**
- * @brief   Push a new layer at the front of the layer stack.
- *
- * @param   layer A pointer to the layer
- * @retval  None
- */
+
 void Application::PushOverlay(Layer* layer)
 {
     BR_PROFILE_FUNCTION();
@@ -196,6 +163,7 @@ void Application::PushOverlay(Layer* layer)
 
     m_postFrameTasks.push_back(task);
 }
+
 
 void Application::PopLayer(Layer* layer)
 {
@@ -212,31 +180,19 @@ void Application::PopLayer(Layer* layer)
     m_postFrameTasks.push_back(task);
 }
 
+
 void Application::Close()
 {
     m_running = false;
 }
 
-/**
- * @brief   Handle the window close event.
- *          This event happens whenever the main application window closes.
- *
- * @param   e The event
- * @retval  Always return true
- */
+
 bool Application::OnWindowClose(WindowCloseEvent& e)
 {
     m_running = false;
     return true;
 }
 
-/**
- * @brief   Handle the window resize event.
- *
- * @param   e
- * @retval  true
- * @retval  false
- */
 bool Application::OnWindowResize(WindowResizeEvent& e)
 {
     BR_PROFILE_FUNCTION();

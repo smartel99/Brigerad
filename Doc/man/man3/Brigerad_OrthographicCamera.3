@@ -1,0 +1,107 @@
+.TH "Brigerad::OrthographicCamera" 3 "Sun Jan 10 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Brigerad::OrthographicCamera
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <OrthographicCamera\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBOrthographicCamera\fP (float left, float right, float bottom, float top)"
+.br
+.ti -1c
+.RI "void \fBSetProjection\fP (float left, float right, float bottom, float top)"
+.br
+.ti -1c
+.RI "const glm::vec3 & \fBGetPosition\fP () const"
+.br
+.ti -1c
+.RI "void \fBSetPosition\fP (const glm::vec3 &position)"
+.br
+.ti -1c
+.RI "float \fBGetRotation\fP () const"
+.br
+.ti -1c
+.RI "void \fBSetRotation\fP (float rotation)"
+.br
+.ti -1c
+.RI "const glm::mat4 & \fBGetProjectionMatrix\fP () const"
+.br
+.ti -1c
+.RI "const glm::mat4 & \fBGetViewMatrix\fP () const"
+.br
+.ti -1c
+.RI "const glm::mat4 & \fBGetViewProjectionMatrix\fP () const"
+.br
+.in -1c
+.SS "Private Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBRecalculateViewMatrix\fP ()"
+.br
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "glm::mat4 \fBm_projectionMatrix\fP"
+.br
+.ti -1c
+.RI "glm::mat4 \fBm_viewMatrix\fP"
+.br
+.ti -1c
+.RI "glm::mat4 \fBm_vpMatrix\fP"
+.br
+.ti -1c
+.RI "glm::vec3 \fBm_position\fP = glm::vec3(0\&.0f)"
+.br
+.ti -1c
+.RI "float \fBm_rotation\fP = 0\&.0f"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Brigerad::OrthographicCamera::OrthographicCamera (float left, float right, float bottom, float top)"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void Brigerad::OrthographicCamera::SetProjection (float left, float right, float bottom, float top)"
+
+.SS "const glm::vec3& Brigerad::OrthographicCamera::GetPosition () const\fC [inline]\fP"
+
+.SS "void Brigerad::OrthographicCamera::SetPosition (const glm::vec3 & position)\fC [inline]\fP"
+
+.SS "float Brigerad::OrthographicCamera::GetRotation () const\fC [inline]\fP"
+
+.SS "void Brigerad::OrthographicCamera::SetRotation (float rotation)\fC [inline]\fP"
+
+.SS "const glm::mat4& Brigerad::OrthographicCamera::GetProjectionMatrix () const\fC [inline]\fP"
+
+.SS "const glm::mat4& Brigerad::OrthographicCamera::GetViewMatrix () const\fC [inline]\fP"
+
+.SS "const glm::mat4& Brigerad::OrthographicCamera::GetViewProjectionMatrix () const\fC [inline]\fP"
+
+.SS "void Brigerad::OrthographicCamera::RecalculateViewMatrix ()\fC [private]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "glm::mat4 Brigerad::OrthographicCamera::m_projectionMatrix\fC [private]\fP"
+
+.SS "glm::mat4 Brigerad::OrthographicCamera::m_viewMatrix\fC [private]\fP"
+
+.SS "glm::mat4 Brigerad::OrthographicCamera::m_vpMatrix\fC [private]\fP"
+
+.SS "glm::vec3 Brigerad::OrthographicCamera::m_position = glm::vec3(0\&.0f)\fC [private]\fP"
+
+.SS "float Brigerad::OrthographicCamera::m_rotation = 0\&.0f\fC [private]\fP"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

@@ -1,0 +1,120 @@
+.TH "F:/dev/Brigerad/Brigerad/src/Brigerad/Debug/Instrumentor.h" 3 "Sun Jan 10 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+F:/dev/Brigerad/Brigerad/src/Brigerad/Debug/Instrumentor.h \- Basic instrumentation profiler by Cherno\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'Brigerad/Core/Core\&.h'\fP
+.br
+\fC#include <string>\fP
+.br
+\fC#include <chrono>\fP
+.br
+\fC#include <algorithm>\fP
+.br
+\fC#include <fstream>\fP
+.br
+\fC#include <thread>\fP
+.br
+
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "struct \fBBrigerad::ProfileResult\fP"
+.br
+.ti -1c
+.RI "struct \fBBrigerad::InstrumentationSession\fP"
+.br
+.ti -1c
+.RI "class \fBBrigerad::Instrumentor\fP"
+.br
+.ti -1c
+.RI "class \fBBrigerad::InstrumentationTimer\fP"
+.br
+.in -1c
+.SS "Namespaces"
+
+.in +1c
+.ti -1c
+.RI " \fBBrigerad\fP"
+.br
+.in -1c
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBBR_PROFILE\fP   1"
+.br
+.ti -1c
+.RI "#define \fBBR_PROFILE_BEGIN_SESSION\fP(name,  filepath)           ::\fBBrigerad::Instrumentor::Get\fP()\&.BeginSession(name, filepath)"
+.br
+.RI "Initialize a profiling session\&. "
+.ti -1c
+.RI "#define \fBBR_PROFILE_END_SESSION\fP()           ::\fBBrigerad::Instrumentor::Get\fP()\&.EndSession()"
+.br
+.RI "End a profiling session and dump it into the file set in BR_PROFILE_BEGIN_SESSION\&. "
+.ti -1c
+.RI "#define \fBBR_PROFILE_SCOPE\fP(name)           ::\fBBrigerad::InstrumentationTimer\fP timer##__LINE__(name);"
+.br
+.RI "Measure the execution time of the current scope\&. "
+.ti -1c
+.RI "#define \fBBR_PROFILE_FUNCTION\fP()   \fBBR_PROFILE_SCOPE\fP(FUNCSIG)"
+.br
+.RI "Measure the execution time of the current function\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Basic instrumentation profiler by Cherno\&. 
+
+
+.PP
+\fBAuthor\fP
+.RS 4
+The Cherno 
+.RE
+.PP
+\fBVersion\fP
+.RS 4
+0\&.1 
+.RE
+.PP
+\fBDate\fP
+.RS 4
+2020-05-09
+.RE
+.PP
+\fBNote\fP
+.RS 4
+Usage: Include this header file somewhere in your code (eg\&. precompiled header), and then use like:
+.RE
+.PP
+``` Instrumentor::Get()\&.BeginSession('Session Name'); // Begin Session\&. { // Place code like this in scopes you'd like to include in profiling\&. InstrumentationTimer timer('Profiled Scope Name'); // Your code here\&. } Instrumentor::Get()\&.EndSession(); // End the Session\&. ```
+.PP
+You will probably want to macro-fy this, to switch on/off easily and use things like \fBFUNCSIG\fP for the profile name\&. 
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define BR_PROFILE   1"
+
+.SS "#define BR_PROFILE_BEGIN_SESSION(name, filepath)           ::\fBBrigerad::Instrumentor::Get\fP()\&.BeginSession(name, filepath)"
+
+.PP
+Initialize a profiling session\&. 
+.SS "#define BR_PROFILE_END_SESSION()           ::\fBBrigerad::Instrumentor::Get\fP()\&.EndSession()"
+
+.PP
+End a profiling session and dump it into the file set in BR_PROFILE_BEGIN_SESSION\&. 
+.SS "#define BR_PROFILE_SCOPE(name)           ::\fBBrigerad::InstrumentationTimer\fP timer##__LINE__(name);"
+
+.PP
+Measure the execution time of the current scope\&. 
+.SS "#define BR_PROFILE_FUNCTION()   \fBBR_PROFILE_SCOPE\fP(FUNCSIG)"
+
+.PP
+Measure the execution time of the current function\&. 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

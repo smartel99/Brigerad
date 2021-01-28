@@ -1,0 +1,73 @@
+.TH "Brigerad::WindowResizeEvent" 3 "Sun Jan 10 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Brigerad::WindowResizeEvent
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <ApplicationEvent\&.h>\fP
+.PP
+Inherits \fBBrigerad::Event\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBWindowResizeEvent\fP (unsigned int width, unsigned int height)"
+.br
+.ti -1c
+.RI "const unsigned int \fBGetWidth\fP () const"
+.br
+.ti -1c
+.RI "const unsigned int \fBGetHeight\fP () const"
+.br
+.ti -1c
+.RI "std::string \fBToString\fP () const override"
+.br
+.ti -1c
+.RI "\fBEVENT_CLASS_TYPE\fP (\fBEventType::WindowResize\fP)"
+.br
+.ti -1c
+.RI "\fBEVENT_CLASS_CATEGORY\fP (\fBEventCategoryApplication\fP)"
+.br
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "unsigned int \fBm_width\fP"
+.br
+.ti -1c
+.RI "unsigned int \fBm_height\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Brigerad::WindowResizeEvent::WindowResizeEvent (unsigned int width, unsigned int height)\fC [inline]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "const unsigned int Brigerad::WindowResizeEvent::GetWidth () const\fC [inline]\fP"
+
+.SS "const unsigned int Brigerad::WindowResizeEvent::GetHeight () const\fC [inline]\fP"
+
+.SS "std::string Brigerad::WindowResizeEvent::ToString () const\fC [inline]\fP, \fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Reimplemented from \fBBrigerad::Event\fP\&.
+.SS "Brigerad::WindowResizeEvent::EVENT_CLASS_TYPE (\fBEventType::WindowResize\fP)"
+
+.SS "Brigerad::WindowResizeEvent::EVENT_CLASS_CATEGORY (\fBEventCategoryApplication\fP)"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "unsigned int Brigerad::WindowResizeEvent::m_width\fC [private]\fP"
+
+.SS "unsigned int Brigerad::WindowResizeEvent::m_height\fC [private]\fP"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

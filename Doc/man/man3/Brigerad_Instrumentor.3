@@ -1,0 +1,82 @@
+.TH "Brigerad::Instrumentor" 3 "Sun Jan 10 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Brigerad::Instrumentor
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Instrumentor\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBInstrumentor\fP ()"
+.br
+.ti -1c
+.RI "void \fBBeginSession\fP (const std::string &name, const std::string &filepath='results\&.json', long long duration=0)"
+.br
+.ti -1c
+.RI "void \fBEndSession\fP ()"
+.br
+.ti -1c
+.RI "void \fBWriteProfile\fP (const \fBProfileResult\fP &result)"
+.br
+.ti -1c
+.RI "void \fBWriteHeader\fP ()"
+.br
+.ti -1c
+.RI "void \fBWriteFooter\fP ()"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBInstrumentor\fP & \fBGet\fP ()"
+.br
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBInstrumentationSession\fP * \fBm_currentSession\fP"
+.br
+.ti -1c
+.RI "std::ofstream \fBm_outputStream\fP"
+.br
+.ti -1c
+.RI "int \fBm_profileCount\fP"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Brigerad::Instrumentor::Instrumentor ()\fC [inline]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void Brigerad::Instrumentor::BeginSession (const std::string & name, const std::string & filepath = \fC'results\&.json'\fP, long long duration = \fC0\fP)\fC [inline]\fP"
+
+.SS "void Brigerad::Instrumentor::EndSession ()\fC [inline]\fP"
+
+.SS "void Brigerad::Instrumentor::WriteProfile (const \fBProfileResult\fP & result)\fC [inline]\fP"
+
+.SS "void Brigerad::Instrumentor::WriteHeader ()\fC [inline]\fP"
+
+.SS "void Brigerad::Instrumentor::WriteFooter ()\fC [inline]\fP"
+
+.SS "static \fBInstrumentor\fP& Brigerad::Instrumentor::Get ()\fC [inline]\fP, \fC [static]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBInstrumentationSession\fP* Brigerad::Instrumentor::m_currentSession\fC [private]\fP"
+
+.SS "std::ofstream Brigerad::Instrumentor::m_outputStream\fC [private]\fP"
+
+.SS "int Brigerad::Instrumentor::m_profileCount\fC [private]\fP"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

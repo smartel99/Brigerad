@@ -1,0 +1,457 @@
+.TH "Brigerad::OpenGLShader" 3 "Sun Jan 10 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Brigerad::OpenGLShader
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <OpenGLShader\&.h>\fP
+.PP
+Inherits \fBBrigerad::Shader\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBOpenGLShader\fP (const std::string &filePath)"
+.br
+.RI "Construct a new \fBOpenGLShader\fP object from a file\&. "
+.ti -1c
+.RI "\fBOpenGLShader\fP (const std::string &name, const std::string &vertexSrc, const std::string &fragmentSrc)"
+.br
+.RI "Construct a new \fBOpenGLShader\fP object using shaders passed as parameters\&. "
+.ti -1c
+.RI "\fB~OpenGLShader\fP () override"
+.br
+.RI "Destroy the \fBOpenGLShader\fP object\&. This removes the shader program from the OpenGL context\&. "
+.ti -1c
+.RI "void \fBBind\fP () const override"
+.br
+.RI "Bind the shader, if it is not already bound\&. "
+.ti -1c
+.RI "void \fBUnbind\fP () const override"
+.br
+.RI "Unbind the shader\&. "
+.ti -1c
+.RI "virtual void \fBSetInt\fP (const std::string &name, int value) override"
+.br
+.RI "Set an integer uniform value in the shader\&. "
+.ti -1c
+.RI "virtual void \fBSetIntArray\fP (const std::string &name, int *values, uint32_t count) override"
+.br
+.RI "Set a uniform array of integer values in the shader\&. "
+.ti -1c
+.RI "virtual void \fBSetFloat\fP (const std::string &name, float value) override"
+.br
+.RI "Set a float uniform value in the shader\&. "
+.ti -1c
+.RI "virtual void \fBSetFloat2\fP (const std::string &name, const glm::vec2 &value) override"
+.br
+.RI "Set a float2 vector uniform value in the shader\&. "
+.ti -1c
+.RI "virtual void \fBSetFloat3\fP (const std::string &name, const glm::vec3 &value) override"
+.br
+.RI "Set a float3 vector uniform value in the shader\&. "
+.ti -1c
+.RI "virtual void \fBSetFloat4\fP (const std::string &name, const glm::vec4 &value) override"
+.br
+.RI "Set a float4 vector uniform value in the shader\&. "
+.ti -1c
+.RI "virtual void \fBSetMat3\fP (const std::string &name, const glm::mat3 &value) override"
+.br
+.RI "Set a mat3 uniform value in the shader\&. "
+.ti -1c
+.RI "virtual void \fBSetMat4\fP (const std::string &name, const glm::mat4 &value) override"
+.br
+.RI "Set a mat4 vector uniform value in the shader\&. "
+.ti -1c
+.RI "void \fBUploadUniformInt\fP (const std::string &name, int value)"
+.br
+.RI "Upload an integer to an uniform in the GPU\&. "
+.ti -1c
+.RI "void \fBUploadUniformIntArray\fP (const std::string &name, int *values, uint32_t count)"
+.br
+.ti -1c
+.RI "void \fBUploadUniformFloat\fP (const std::string &name, float values)"
+.br
+.RI "Upload a float to an uniform in the GPU\&. "
+.ti -1c
+.RI "void \fBUploadUniformFloat2\fP (const std::string &name, const glm::vec2 &values)"
+.br
+.RI "Upload a float2 vector to an uniform in the GPU\&. "
+.ti -1c
+.RI "void \fBUploadUniformFloat3\fP (const std::string &name, const glm::vec3 &values)"
+.br
+.RI "Upload a float3 vector to an uniform in the GPU\&. "
+.ti -1c
+.RI "void \fBUploadUniformFloat4\fP (const std::string &name, const glm::vec4 &values)"
+.br
+.RI "Upload a float4 vector to an uniform in the GPU\&. "
+.ti -1c
+.RI "void \fBUploadUniformMat3\fP (const std::string &name, const glm::mat3 &matrix)"
+.br
+.RI "Upload a mat3 vector to an uniform in the GPU\&. "
+.ti -1c
+.RI "void \fBUploadUniformMat4\fP (const std::string &name, const glm::mat4 &matrix)"
+.br
+.RI "Upload a mat4 vector to an uniform in the GPU\&. "
+.ti -1c
+.RI "virtual const std::string & \fBGetName\fP () const override"
+.br
+.ti -1c
+.RI "const uint32_t \fBGetId\fP () const"
+.br
+.in -1c
+.SS "Private Member Functions"
+
+.in +1c
+.ti -1c
+.RI "std::string \fBReadFile\fP (const std::string &filePath)"
+.br
+.RI "Read the entire content of the file pointed by \fCfilePath\fP, if it exists\&. "
+.ti -1c
+.RI "std::unordered_map< \fBGLenum\fP, std::string > \fBPreProcess\fP (const std::string &source)"
+.br
+.RI "Pre-processes the source file to ensure a valid structure\&. This process takes the content of the file and ensures that there is at least one '#type vertex' token and either one '#type fragment' or '#type pixel' token\&. "
+.ti -1c
+.RI "void \fBCompile\fP (const std::unordered_map< \fBGLenum\fP, std::string > &shaderSrcs)"
+.br
+.RI "Compile all of the provided shaders and links them into an OpenGL program\&. "
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "uint32_t \fBm_rendererID\fP"
+.br
+.ti -1c
+.RI "std::string \fBm_name\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Brigerad::OpenGLShader::OpenGLShader (const std::string & filePath)"
+
+.PP
+Construct a new \fBOpenGLShader\fP object from a file\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIfilePath\fP The file to get the Vertex and Fragment shaders from\&.
+.RE
+.PP
+\fBAttention\fP
+.RS 4
+Both Vertex and Fragment shaders needs to be present in the file for successful compilation\&. 
+.RE
+.PP
+
+.SS "Brigerad::OpenGLShader::OpenGLShader (const std::string & name, const std::string & vertexSrc, const std::string & fragmentSrc)"
+
+.PP
+Construct a new \fBOpenGLShader\fP object using shaders passed as parameters\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIname\fP The debug name of the shader\&. 
+.br
+\fIvertexSrc\fP The code of the vertex shader\&. 
+.br
+\fIfragmentSrc\fP The code of the fragment shader\&. 
+.RE
+.PP
+
+.SS "Brigerad::OpenGLShader::~OpenGLShader ()\fC [override]\fP"
+
+.PP
+Destroy the \fBOpenGLShader\fP object\&. This removes the shader program from the OpenGL context\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "void Brigerad::OpenGLShader::Bind () const\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Bind the shader, if it is not already bound\&. 
+.PP
+Implements \fBBrigerad::Shader\fP\&.
+.SS "void Brigerad::OpenGLShader::Unbind () const\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Unbind the shader\&. 
+.PP
+Implements \fBBrigerad::Shader\fP\&.
+.SS "void Brigerad::OpenGLShader::SetInt (const std::string & name, int value)\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Set an integer uniform value in the shader\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIname\fP The name of the uniform\&. 
+.br
+\fIvalue\fP The value to assign to that uniform\&. 
+.RE
+.PP
+
+.PP
+Implements \fBBrigerad::Shader\fP\&.
+.SS "void Brigerad::OpenGLShader::SetIntArray (const std::string & name, int * values, uint32_t count)\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Set a uniform array of integer values in the shader\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIname\fP The name of the uniform\&. 
+.br
+\fIvalues\fP The values to assign to that uniform\&. 
+.br
+\fIcount\fP The number of values to assign to that uniform\&. 
+.RE
+.PP
+
+.PP
+Implements \fBBrigerad::Shader\fP\&.
+.SS "void Brigerad::OpenGLShader::SetFloat (const std::string & name, float value)\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Set a float uniform value in the shader\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIname\fP The name of the uniform\&. 
+.br
+\fIvalue\fP The value to assign to that uniform\&. 
+.RE
+.PP
+
+.PP
+Implements \fBBrigerad::Shader\fP\&.
+.SS "void Brigerad::OpenGLShader::SetFloat2 (const std::string & name, const glm::vec2 & value)\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Set a float2 vector uniform value in the shader\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIname\fP The name of the uniform\&. 
+.br
+\fIvalue\fP The value to assign to that uniform\&. 
+.RE
+.PP
+
+.PP
+Implements \fBBrigerad::Shader\fP\&.
+.SS "void Brigerad::OpenGLShader::SetFloat3 (const std::string & name, const glm::vec3 & value)\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Set a float3 vector uniform value in the shader\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIname\fP The name of the uniform\&. 
+.br
+\fIvalue\fP The value to assign to that uniform\&. 
+.RE
+.PP
+
+.PP
+Implements \fBBrigerad::Shader\fP\&.
+.SS "void Brigerad::OpenGLShader::SetFloat4 (const std::string & name, const glm::vec4 & value)\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Set a float4 vector uniform value in the shader\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIname\fP The name of the uniform\&. 
+.br
+\fIvalue\fP The value to assign to that uniform\&. 
+.RE
+.PP
+
+.PP
+Implements \fBBrigerad::Shader\fP\&.
+.SS "void Brigerad::OpenGLShader::SetMat3 (const std::string & name, const glm::mat3 & value)\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Set a mat3 uniform value in the shader\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIname\fP The name of the uniform\&. 
+.br
+\fIvalue\fP The value to assign to that uniform\&. 
+.RE
+.PP
+
+.PP
+Implements \fBBrigerad::Shader\fP\&.
+.SS "void Brigerad::OpenGLShader::SetMat4 (const std::string & name, const glm::mat4 & value)\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Set a mat4 vector uniform value in the shader\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIname\fP The name of the uniform\&. 
+.br
+\fIvalue\fP The value to assign to that uniform\&. 
+.RE
+.PP
+
+.PP
+Implements \fBBrigerad::Shader\fP\&.
+.SS "void Brigerad::OpenGLShader::UploadUniformInt (const std::string & name, int value)"
+
+.PP
+Upload an integer to an uniform in the GPU\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIname\fP The name of the uniform\&. 
+.br
+\fIvalue\fP The value to upload in the GPU\&. 
+.RE
+.PP
+
+.SS "void Brigerad::OpenGLShader::UploadUniformIntArray (const std::string & name, int * values, uint32_t count)"
+
+.SS "void Brigerad::OpenGLShader::UploadUniformFloat (const std::string & name, float value)"
+
+.PP
+Upload a float to an uniform in the GPU\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIname\fP The name of the uniform\&. 
+.br
+\fIvalue\fP The value to upload in the GPU\&. 
+.RE
+.PP
+
+.SS "void Brigerad::OpenGLShader::UploadUniformFloat2 (const std::string & name, const glm::vec2 & values)"
+
+.PP
+Upload a float2 vector to an uniform in the GPU\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIname\fP The name of the uniform\&. 
+.br
+\fIvalue\fP The value to upload in the GPU\&. 
+.RE
+.PP
+
+.SS "void Brigerad::OpenGLShader::UploadUniformFloat3 (const std::string & name, const glm::vec3 & values)"
+
+.PP
+Upload a float3 vector to an uniform in the GPU\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIname\fP The name of the uniform\&. 
+.br
+\fIvalue\fP The value to upload in the GPU\&. 
+.RE
+.PP
+
+.SS "void Brigerad::OpenGLShader::UploadUniformFloat4 (const std::string & name, const glm::vec4 & values)"
+
+.PP
+Upload a float4 vector to an uniform in the GPU\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIname\fP The name of the uniform\&. 
+.br
+\fIvalue\fP The value to upload in the GPU\&. 
+.RE
+.PP
+
+.SS "void Brigerad::OpenGLShader::UploadUniformMat3 (const std::string & name, const glm::mat3 & matrix)"
+
+.PP
+Upload a mat3 vector to an uniform in the GPU\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIname\fP The name of the uniform\&. 
+.br
+\fIvalue\fP The value to upload in the GPU\&. 
+.RE
+.PP
+
+.SS "void Brigerad::OpenGLShader::UploadUniformMat4 (const std::string & name, const glm::mat4 & matrix)"
+
+.PP
+Upload a mat4 vector to an uniform in the GPU\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIname\fP The name of the uniform\&. 
+.br
+\fIvalue\fP The value to upload in the GPU\&. 
+.RE
+.PP
+
+.SS "virtual const std::string& Brigerad::OpenGLShader::GetName () const\fC [inline]\fP, \fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBBrigerad::Shader\fP\&.
+.SS "const uint32_t Brigerad::OpenGLShader::GetId () const\fC [inline]\fP"
+
+.SS "std::string Brigerad::OpenGLShader::ReadFile (const std::string & filePath)\fC [private]\fP"
+
+.PP
+Read the entire content of the file pointed by \fCfilePath\fP, if it exists\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIfilePath\fP The path of the file to read\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+std::string The content read from the file\&. 
+.RE
+.PP
+
+.SS "std::unordered_map< \fBGLenum\fP, std::string > Brigerad::OpenGLShader::PreProcess (const std::string & source)\fC [private]\fP"
+
+.PP
+Pre-processes the source file to ensure a valid structure\&. This process takes the content of the file and ensures that there is at least one '#type vertex' token and either one '#type fragment' or '#type pixel' token\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIsource\fP The source file\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+std::unordered_map<GLenum, std::string> A map containing the separated shader sources\&. 
+.RE
+.PP
+
+.SS "void Brigerad::OpenGLShader::Compile (const std::unordered_map< \fBGLenum\fP, std::string > & shaderSrcs)\fC [private]\fP"
+
+.PP
+Compile all of the provided shaders and links them into an OpenGL program\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIshaderSrcs\fP The shaders to compile\&. 
+.RE
+.PP
+
+.SH "Member Data Documentation"
+.PP 
+.SS "uint32_t Brigerad::OpenGLShader::m_rendererID\fC [private]\fP"
+
+.SS "std::string Brigerad::OpenGLShader::m_name\fC [private]\fP"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

@@ -1,0 +1,80 @@
+.TH "Brigerad::VertexArray" 3 "Sun Jan 10 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Brigerad::VertexArray
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <VertexArray\&.h>\fP
+.PP
+Inherited by \fBBrigerad::OpenGLVertexArray\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fB~VertexArray\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBBind\fP () const =0"
+.br
+.ti -1c
+.RI "virtual void \fBUnbind\fP () const =0"
+.br
+.ti -1c
+.RI "virtual void \fBAddVertexBuffer\fP (const \fBRef\fP< \fBVertexBuffer\fP > &vertexBuffer)=0"
+.br
+.ti -1c
+.RI "virtual void \fBSetIndexBuffer\fP (const \fBRef\fP< \fBIndexBuffer\fP > &indexBuffer)=0"
+.br
+.ti -1c
+.RI "virtual const std::vector< \fBRef\fP< \fBVertexBuffer\fP > > & \fBGetVertexBuffers\fP () const =0"
+.br
+.ti -1c
+.RI "virtual const \fBRef\fP< \fBIndexBuffer\fP > & \fBGetIndexBuffers\fP () const =0"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBRef\fP< \fBVertexArray\fP > \fBCreate\fP ()"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "virtual Brigerad::VertexArray::~VertexArray ()\fC [inline]\fP, \fC [virtual]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "virtual void Brigerad::VertexArray::Bind () const\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLVertexArray\fP\&.
+.SS "virtual void Brigerad::VertexArray::Unbind () const\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLVertexArray\fP\&.
+.SS "virtual void Brigerad::VertexArray::AddVertexBuffer (const \fBRef\fP< \fBVertexBuffer\fP > & vertexBuffer)\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLVertexArray\fP\&.
+.SS "virtual void Brigerad::VertexArray::SetIndexBuffer (const \fBRef\fP< \fBIndexBuffer\fP > & indexBuffer)\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLVertexArray\fP\&.
+.SS "virtual const std::vector<\fBRef\fP<\fBVertexBuffer\fP> >& Brigerad::VertexArray::GetVertexBuffers () const\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLVertexArray\fP\&.
+.SS "virtual const \fBRef\fP<\fBIndexBuffer\fP>& Brigerad::VertexArray::GetIndexBuffers () const\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLVertexArray\fP\&.
+.SS "\fBRef\fP< \fBVertexArray\fP > Brigerad::VertexArray::Create ()\fC [static]\fP"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

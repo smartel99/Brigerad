@@ -1,0 +1,108 @@
+.TH "Brigerad::Input" 3 "Sun Jan 10 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Brigerad::Input \- Platform-independent input management class\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Input\&.h>\fP
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static bool \fBIsKeyPressed\fP (\fBKeyCode\fP keycode)"
+.br
+.RI "Checks if the specified key is currently being pressed\&. "
+.ti -1c
+.RI "static bool \fBIsMouseButtonPressed\fP (\fBMouseCode\fP button)"
+.br
+.RI "Check if the specified mouse button is currently being pressed\&. "
+.ti -1c
+.RI "static float \fBGetMouseX\fP ()"
+.br
+.RI "Get the X portion of the current mouse position\&. View \fBGetMousePos\fP for more information\&. "
+.ti -1c
+.RI "static float \fBGetMouseY\fP ()"
+.br
+.RI "Get the Y portion of the current mouse position\&. View \fBGetMousePos\fP for more information\&. "
+.ti -1c
+.RI "static std::pair< float, float > \fBGetMousePos\fP ()"
+.br
+.RI "Retrieves the position of the cursor relative to the content area of the window\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Platform-independent input management class\&. 
+
+This class offers information about the input peripheral such as keyboard and mouse\&. 
+.SH "Member Function Documentation"
+.PP 
+.SS "static bool Brigerad::Input::IsKeyPressed (\fBKeyCode\fP keycode)\fC [static]\fP"
+
+.PP
+Checks if the specified key is currently being pressed\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIkeycode\fP The key to check\&. 
+.RE
+.PP
+\fBReturn values\fP
+.RS 4
+\fItrue\fP If the key is pressed\&. 
+.br
+\fIfalse\fP If the key is not pressed\&. 
+.RE
+.PP
+
+.SS "static bool Brigerad::Input::IsMouseButtonPressed (\fBMouseCode\fP button)\fC [static]\fP"
+
+.PP
+Check if the specified mouse button is currently being pressed\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIbutton\fP The button to check\&. 
+.RE
+.PP
+\fBReturn values\fP
+.RS 4
+\fItrue\fP If the button is pressed\&. 
+.br
+\fIfalse\fP If the button is not pressed\&. 
+.RE
+.PP
+
+.SS "static float Brigerad::Input::GetMouseX ()\fC [static]\fP"
+
+.PP
+Get the X portion of the current mouse position\&. View \fBGetMousePos\fP for more information\&. 
+.PP
+\fBReturns\fP
+.RS 4
+The X portion of the mouse position\&. 
+.RE
+.PP
+
+.SS "static float Brigerad::Input::GetMouseY ()\fC [static]\fP"
+
+.PP
+Get the Y portion of the current mouse position\&. View \fBGetMousePos\fP for more information\&. 
+.PP
+\fBReturns\fP
+.RS 4
+The Y portion of the mouse position\&. 
+.RE
+.PP
+
+.SS "static std::pair<float, float> Brigerad::Input::GetMousePos ()\fC [static]\fP"
+
+.PP
+Retrieves the position of the cursor relative to the content area of the window\&. This function returns the position of the cursor, in screen coordinates, relative to the upper-left corner of the content area of the specified window\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

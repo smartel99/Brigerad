@@ -1,0 +1,847 @@
+.TH "Brigerad" 3 "Sun Jan 10 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Brigerad
+.SH SYNOPSIS
+.br
+.PP
+.SS "Namespaces"
+
+.in +1c
+.ti -1c
+.RI " \fBMemory\fP"
+.br
+.ti -1c
+.RI " \fBScripting\fP"
+.br
+.in -1c
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBApplication\fP"
+.br
+.RI "Base class for the client application using the \fBBrigerad\fP engine\&.
+.br
+\&. "
+.ti -1c
+.RI "class \fBInput\fP"
+.br
+.RI "Platform-independent input management class\&. "
+.ti -1c
+.RI "class \fBLayer\fP"
+.br
+.ti -1c
+.RI "class \fBLayerStack\fP"
+.br
+.ti -1c
+.RI "class \fBLog\fP"
+.br
+.ti -1c
+.RI "class \fBTimestep\fP"
+.br
+.ti -1c
+.RI "class \fBVec2\fP"
+.br
+.RI "2D vector (Often used to store positions, size, etc\&.) "
+.ti -1c
+.RI "class \fBVec4\fP"
+.br
+.RI "4D vector (often used to store floating-point colors) "
+.ti -1c
+.RI "struct \fBBrBoolVector\fP"
+.br
+.ti -1c
+.RI "struct \fBWindowProps\fP"
+.br
+.ti -1c
+.RI "class \fBWindow\fP"
+.br
+.ti -1c
+.RI "struct \fBProfileResult\fP"
+.br
+.ti -1c
+.RI "struct \fBInstrumentationSession\fP"
+.br
+.ti -1c
+.RI "class \fBInstrumentor\fP"
+.br
+.ti -1c
+.RI "class \fBInstrumentationTimer\fP"
+.br
+.ti -1c
+.RI "class \fBWindowResizeEvent\fP"
+.br
+.ti -1c
+.RI "class \fBWindowCloseEvent\fP"
+.br
+.ti -1c
+.RI "class \fBAppTickEvent\fP"
+.br
+.ti -1c
+.RI "class \fBAppUpdateEvent\fP"
+.br
+.ti -1c
+.RI "class \fBAppRenderEvent\fP"
+.br
+.ti -1c
+.RI "class \fBEvent\fP"
+.br
+.ti -1c
+.RI "class \fBEventDispatcher\fP"
+.br
+.ti -1c
+.RI "class \fBImGuiButtonEvent\fP"
+.br
+.ti -1c
+.RI "class \fBImGuiButtonPressedEvent\fP"
+.br
+.ti -1c
+.RI "class \fBImGuiButtonReleasedEvent\fP"
+.br
+.ti -1c
+.RI "class \fBKeyEvent\fP"
+.br
+.ti -1c
+.RI "class \fBKeyPressedEvent\fP"
+.br
+.ti -1c
+.RI "class \fBKeyReleasedEvent\fP"
+.br
+.ti -1c
+.RI "class \fBKeyTypedEvent\fP"
+.br
+.ti -1c
+.RI "class \fBMouseMovedEvent\fP"
+.br
+.ti -1c
+.RI "class \fBMouseScrolledEvent\fP"
+.br
+.ti -1c
+.RI "class \fBMouseButtonEvent\fP"
+.br
+.ti -1c
+.RI "class \fBMouseButtonPressedEvent\fP"
+.br
+.ti -1c
+.RI "class \fBMouseButtonReleasedEvent\fP"
+.br
+.ti -1c
+.RI "class \fBImGuiLayer\fP"
+.br
+.ti -1c
+.RI "struct \fBBufferElements\fP"
+.br
+.ti -1c
+.RI "class \fBBufferLayout\fP"
+.br
+.ti -1c
+.RI "class \fBVertexBuffer\fP"
+.br
+.ti -1c
+.RI "class \fBIndexBuffer\fP"
+.br
+.RI "Wrapper around an index buffer inside of the GPU's memory\&. "
+.ti -1c
+.RI "class \fBCamera\fP"
+.br
+.ti -1c
+.RI "struct \fBFontGlyph\fP"
+.br
+.ti -1c
+.RI "class \fBFontAtlas\fP"
+.br
+.ti -1c
+.RI "struct \fBFramebufferSpecification\fP"
+.br
+.ti -1c
+.RI "class \fBFramebuffer\fP"
+.br
+.ti -1c
+.RI "class \fBGraphicsContext\fP"
+.br
+.ti -1c
+.RI "class \fBOrthographicCamera\fP"
+.br
+.ti -1c
+.RI "struct \fBOrthographicCameraBounds\fP"
+.br
+.ti -1c
+.RI "class \fBOrthographicCameraController\fP"
+.br
+.ti -1c
+.RI "class \fBRenderCommand\fP"
+.br
+.ti -1c
+.RI "class \fBRenderer\fP"
+.br
+.ti -1c
+.RI "struct \fBQuadVertex\fP"
+.br
+.RI "Data structure that contains all the information needed by a quad\&. "
+.ti -1c
+.RI "struct \fBRenderer2DData\fP"
+.br
+.RI "Runtime data structure that contains all the things needed by the renderer at runtime\&. "
+.ti -1c
+.RI "class \fBRenderer2D\fP"
+.br
+.ti -1c
+.RI "class \fBRendererAPI\fP"
+.br
+.ti -1c
+.RI "class \fBShader\fP"
+.br
+.ti -1c
+.RI "class \fBShaderLibrary\fP"
+.br
+.ti -1c
+.RI "class \fBSubTexture2D\fP"
+.br
+.ti -1c
+.RI "class \fBTexture\fP"
+.br
+.ti -1c
+.RI "class \fBTexture2D\fP"
+.br
+.ti -1c
+.RI "class \fBVertexArray\fP"
+.br
+.ti -1c
+.RI "struct \fBTagComponent\fP"
+.br
+.ti -1c
+.RI "struct \fBChildEntityComponent\fP"
+.br
+.ti -1c
+.RI "struct \fBParentEntityComponent\fP"
+.br
+.ti -1c
+.RI "struct \fBTransformComponent\fP"
+.br
+.ti -1c
+.RI "struct \fBColorRendererComponent\fP"
+.br
+.ti -1c
+.RI "struct \fBTextureRendererComponent\fP"
+.br
+.ti -1c
+.RI "struct \fBCameraComponent\fP"
+.br
+.ti -1c
+.RI "struct \fBTextComponent\fP"
+.br
+.ti -1c
+.RI "struct \fBNativeScriptComponent\fP"
+.br
+.ti -1c
+.RI "struct \fBLuaScriptComponent\fP"
+.br
+.ti -1c
+.RI "class \fBEntity\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiButtonListenerComponent\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiButtonComponent\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiSmallButtonComponent\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiInvisibleButtonComponent\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiArrowButtonComponent\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiCheckboxComponent\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiSeparatorComponent\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiSameLineComponent\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiTextComponent\fP"
+.br
+.ti -1c
+.RI "struct \fBImGuiWindowComponent\fP"
+.br
+.ti -1c
+.RI "class \fBScene\fP"
+.br
+.ti -1c
+.RI "class \fBSceneCamera\fP"
+.br
+.ti -1c
+.RI "class \fBScriptableEntity\fP"
+.br
+.ti -1c
+.RI "struct \fBScriptEngineData\fP"
+.br
+.ti -1c
+.RI "class \fBLuaScriptEntity\fP"
+.br
+.ti -1c
+.RI "class \fBScriptEngine\fP"
+.br
+.ti -1c
+.RI "class \fBScriptEngineRegistry\fP"
+.br
+.ti -1c
+.RI "class \fBSerial\fP"
+.br
+.ti -1c
+.RI "class \fBOpenGLVertexBuffer\fP"
+.br
+.ti -1c
+.RI "class \fBOpenGLIndexBuffer\fP"
+.br
+.ti -1c
+.RI "class \fBOpenGLContext\fP"
+.br
+.ti -1c
+.RI "class \fBOpenGLFontAtlas\fP"
+.br
+.ti -1c
+.RI "class \fBOpenGLFramebuffer\fP"
+.br
+.ti -1c
+.RI "class \fBOpenGLRendererAPI\fP"
+.br
+.ti -1c
+.RI "class \fBOpenGLShader\fP"
+.br
+.ti -1c
+.RI "class \fBOpenGLTexture2D\fP"
+.br
+.ti -1c
+.RI "class \fBOpenGLVertexArray\fP"
+.br
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "template<typename T > using \fBScope\fP = std::unique_ptr< T >"
+.br
+.ti -1c
+.RI "template<typename T > using \fBRef\fP = std::shared_ptr< T >"
+.br
+.ti -1c
+.RI "typedef enum \fBBrigerad::KeyCode\fP \fBKey\fP"
+.br
+.RI "All possible keycodes for standard keyboards\&. "
+.ti -1c
+.RI "typedef enum \fBBrigerad::MouseCode\fP \fBMouse\fP"
+.br
+.in -1c
+.SS "Enumerations"
+
+.in +1c
+.ti -1c
+.RI "enum class \fBKeyCode\fP : uint16_t { \fBSpace\fP = 32, \fBApostrophe\fP = 39, \fBComma\fP = 44, \fBMinus\fP = 45, \fBPeriod\fP = 46, \fBSlash\fP = 47, \fBD0\fP = 48, \fBD1\fP = 49, \fBD2\fP = 50, \fBD3\fP = 51, \fBD4\fP = 52, \fBD5\fP = 53, \fBD6\fP = 54, \fBD7\fP = 55, \fBD8\fP = 56, \fBD9\fP = 57, \fBSemicolon\fP = 59, \fBEqual\fP = 61, \fBA\fP = 65, \fBB\fP = 66, \fBC\fP = 67, \fBD\fP = 68, \fBE\fP = 69, \fBF\fP = 70, \fBG\fP = 71, \fBH\fP = 72, \fBI\fP = 73, \fBJ\fP = 74, \fBK\fP = 75, \fBL\fP = 76, \fBM\fP = 77, \fBN\fP = 78, \fBO\fP = 79, \fBP\fP = 80, \fBQ\fP = 81, \fBR\fP = 82, \fBS\fP = 83, \fBT\fP = 84, \fBU\fP = 85, \fBV\fP = 86, \fBW\fP = 87, \fBX\fP = 88, \fBY\fP = 89, \fBZ\fP = 90, \fBLeftBracket\fP = 91, \fBBackslash\fP = 92, \fBRightBracket\fP = 93, \fBGraveAccent\fP = 96, \fBWorld1\fP = 161, \fBWorld2\fP = 162, \fBEscape\fP = 256, \fBEnter\fP = 257, \fBTab\fP = 258, \fBBackspace\fP = 259, \fBInsert\fP = 260, \fBDelete\fP = 261, \fBRight\fP = 262, \fBLeft\fP = 263, \fBDown\fP = 264, \fBUp\fP = 265, \fBPageUp\fP = 266, \fBPageDown\fP = 267, \fBHome\fP = 268, \fBEnd\fP = 269, \fBCapsLock\fP = 280, \fBScrollLock\fP = 281, \fBNumLock\fP = 282, \fBPrintScreen\fP = 283, \fBPause\fP = 284, \fBF1\fP = 290, \fBF2\fP = 291, \fBF3\fP = 292, \fBF4\fP = 293, \fBF5\fP = 294, \fBF6\fP = 295, \fBF7\fP = 296, \fBF8\fP = 297, \fBF9\fP = 298, \fBF10\fP = 299, \fBF11\fP = 300, \fBF12\fP = 301, \fBF13\fP = 302, \fBF14\fP = 303, \fBF15\fP = 304, \fBF16\fP = 305, \fBF17\fP = 306, \fBF18\fP = 307, \fBF19\fP = 308, \fBF20\fP = 309, \fBF21\fP = 310, \fBF22\fP = 311, \fBF23\fP = 312, \fBF24\fP = 313, \fBF25\fP = 314, \fBKP0\fP = 320, \fBKP1\fP = 321, \fBKP2\fP = 322, \fBKP3\fP = 323, \fBKP4\fP = 324, \fBKP5\fP = 325, \fBKP6\fP = 326, \fBKP7\fP = 327, \fBKP8\fP = 328, \fBKP9\fP = 329, \fBKPDecimal\fP = 330, \fBKPDivide\fP = 331, \fBKPMultiply\fP = 332, \fBKPSubtract\fP = 333, \fBKPAdd\fP = 334, \fBKPEnter\fP = 335, \fBKPEqual\fP = 336, \fBLeftShift\fP = 340, \fBLeftControl\fP = 341, \fBLeftAlt\fP = 342, \fBLeftSuper\fP = 343, \fBRightShift\fP = 344, \fBRightControl\fP = 345, \fBRightAlt\fP = 346, \fBRightSuper\fP = 347, \fBMenu\fP = 348 }"
+.br
+.RI "All possible keycodes for standard keyboards\&. "
+.ti -1c
+.RI "enum class \fBMouseCode\fP : uint16_t { \fBButton0\fP = 0, \fBButton1\fP = 1, \fBButton2\fP = 2, \fBButton3\fP = 3, \fBButton4\fP = 4, \fBButton5\fP = 5, \fBButton6\fP = 6, \fBButton7\fP = 7, \fBButtonLast\fP = Button7, \fBButtonLeft\fP = Button0, \fBButtonRight\fP = Button1, \fBButtonMiddle\fP = Button2 }"
+.br
+.ti -1c
+.RI "enum class \fBEventType\fP { \fBNone\fP = 0, \fBWindowClose\fP, \fBWindowResize\fP, \fBWindowFocus\fP, \fBWindowLostFocus\fP, \fBWindowMoved\fP, \fBAppTick\fP, \fBAppUpdate\fP, \fBAppRender\fP, \fBKeyPressed\fP, \fBKeyReleased\fP, \fBKeyTyped\fP, \fBMouseButtonPressed\fP, \fBMouseButtonReleased\fP, \fBMouseMoved\fP, \fBMouseScrolled\fP, \fBImGuiButtonPressed\fP, \fBImGuiButtonReleased\fP }"
+.br
+.RI "Lists all possible types of Event for \fBBrigerad\fP\&. "
+.ti -1c
+.RI "enum \fBEventCategory\fP { \fBNone\fP = 0, \fBNone\fP = 0, \fBEventCategoryApplication\fP = BIT(0), \fBEventCategoryInput\fP = BIT(1), \fBEventCategoryKeyboard\fP = BIT(2), \fBEventCategoryMouse\fP = BIT(3), \fBEventCategoryMouseButton\fP = BIT(4), \fBEventCategoryImGui\fP = BIT(5) }"
+.br
+.ti -1c
+.RI "enum class \fBShaderDataType\fP { \fBNone\fP = 0, \fBFloat\fP, \fBFloat2\fP, \fBFloat3\fP, \fBFloat4\fP, \fBMat3\fP, \fBMat4\fP, \fBInt\fP, \fBInt2\fP, \fBInt3\fP, \fBInt4\fP, \fBBool\fP }"
+.br
+.ti -1c
+.RI "enum class \fBImGuiButtonState\fP { \fBInactive\fP = 0, \fBPressed\fP = 1, \fBHeld\fP = 2, \fBReleased\fP = 3 }"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBApplication\fP * \fBCreateApplication\fP ()"
+.br
+.ti -1c
+.RI "template<typename T , typename\&.\&.\&. Args> constexpr \fBScope\fP< T > \fBCreateScope\fP (Args &&\&.\&.\&. args)"
+.br
+.ti -1c
+.RI "template<typename T , typename\&.\&.\&. Args> constexpr \fBRef\fP< T > \fBCreateRef\fP (Args &&\&.\&.\&. args)"
+.br
+.ti -1c
+.RI "std::ostream & \fBoperator<<\fP (std::ostream &os, \fBKeyCode\fP keyCode)"
+.br
+.ti -1c
+.RI "std::ostream & \fBoperator<<\fP (std::ostream &os, \fBMouseCode\fP mouseCode)"
+.br
+.ti -1c
+.RI "double \fBGetTime\fP ()"
+.br
+.ti -1c
+.RI "std::ostream & \fBoperator<<\fP (std::ostream &os, const \fBEvent\fP &e)"
+.br
+.ti -1c
+.RI "template<typename T > void \fBDrawImGuiButton\fP (\fBEntity\fP &entity, const std::function< bool(T &)> &func)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "constexpr float \fBMAX_POS_SPEED\fP = 10\&.0f"
+.br
+.ti -1c
+.RI "constexpr float \fBMAX_NEG_SPEED\fP = \-10\&.0f"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+https://github.com/wjwwood/serial The MIT License
+.PP
+Copyright (c) 2012 William Woodall, John Harrison
+.PP
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the 'Software'), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+.PP
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software\&.
+.PP
+THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT\&. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE\&. 
+.SH "Typedef Documentation"
+.PP 
+.SS "template<typename T > using \fBBrigerad::Scope\fP = typedef std::unique_ptr<T>"
+
+.SS "template<typename T > using \fBBrigerad::Ref\fP = typedef std::shared_ptr<T>"
+
+.SS "typedef enum \fBBrigerad::KeyCode\fP \fBBrigerad::Key\fP"
+
+.PP
+All possible keycodes for standard keyboards\&. These codes come from GLFW\&. 
+.SS "typedef enum \fBBrigerad::MouseCode\fP \fBBrigerad::Mouse\fP"
+
+.SH "Enumeration Type Documentation"
+.PP 
+.SS "enum \fBBrigerad::KeyCode\fP : uint16_t\fC [strong]\fP"
+
+.PP
+All possible keycodes for standard keyboards\&. These codes come from GLFW\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fISpace \fP\fP
+.TP
+\fB\fIApostrophe \fP\fP
+.TP
+\fB\fIComma \fP\fP
+' 
+.TP
+\fB\fIMinus \fP\fP
+, 
+.TP
+\fB\fIPeriod \fP\fP
+
+.IP "\(bu" 2
+
+.PP
+
+.TP
+\fB\fISlash \fP\fP
+
+.TP
+\fB\fID0 \fP\fP
+/ 
+.TP
+\fB\fID1 \fP\fP
+.TP
+\fB\fID2 \fP\fP
+.TP
+\fB\fID3 \fP\fP
+.TP
+\fB\fID4 \fP\fP
+.TP
+\fB\fID5 \fP\fP
+.TP
+\fB\fID6 \fP\fP
+.TP
+\fB\fID7 \fP\fP
+.TP
+\fB\fID8 \fP\fP
+.TP
+\fB\fID9 \fP\fP
+.TP
+\fB\fISemicolon \fP\fP
+.TP
+\fB\fIEqual \fP\fP
+.TP
+\fB\fIA \fP\fP
+.TP
+\fB\fIB \fP\fP
+.TP
+\fB\fIC \fP\fP
+.TP
+\fB\fID \fP\fP
+.TP
+\fB\fIE \fP\fP
+.TP
+\fB\fIF \fP\fP
+.TP
+\fB\fIG \fP\fP
+.TP
+\fB\fIH \fP\fP
+.TP
+\fB\fII \fP\fP
+.TP
+\fB\fIJ \fP\fP
+.TP
+\fB\fIK \fP\fP
+.TP
+\fB\fIL \fP\fP
+.TP
+\fB\fIM \fP\fP
+.TP
+\fB\fIN \fP\fP
+.TP
+\fB\fIO \fP\fP
+.TP
+\fB\fIP \fP\fP
+.TP
+\fB\fIQ \fP\fP
+.TP
+\fB\fIR \fP\fP
+.TP
+\fB\fIS \fP\fP
+.TP
+\fB\fIT \fP\fP
+.TP
+\fB\fIU \fP\fP
+.TP
+\fB\fIV \fP\fP
+.TP
+\fB\fIW \fP\fP
+.TP
+\fB\fIX \fP\fP
+.TP
+\fB\fIY \fP\fP
+.TP
+\fB\fIZ \fP\fP
+.TP
+\fB\fILeftBracket \fP\fP
+.TP
+\fB\fIBackslash \fP\fP
+.TP
+\fB\fIRightBracket \fP\fP
+.TP
+\fB\fIGraveAccent \fP\fP
+.TP
+\fB\fIWorld1 \fP\fP
+.TP
+\fB\fIWorld2 \fP\fP
+.TP
+\fB\fIEscape \fP\fP
+.TP
+\fB\fIEnter \fP\fP
+.TP
+\fB\fITab \fP\fP
+.TP
+\fB\fIBackspace \fP\fP
+.TP
+\fB\fIInsert \fP\fP
+.TP
+\fB\fIDelete \fP\fP
+.TP
+\fB\fIRight \fP\fP
+.TP
+\fB\fILeft \fP\fP
+.TP
+\fB\fIDown \fP\fP
+.TP
+\fB\fIUp \fP\fP
+.TP
+\fB\fIPageUp \fP\fP
+.TP
+\fB\fIPageDown \fP\fP
+.TP
+\fB\fIHome \fP\fP
+.TP
+\fB\fIEnd \fP\fP
+.TP
+\fB\fICapsLock \fP\fP
+.TP
+\fB\fIScrollLock \fP\fP
+.TP
+\fB\fINumLock \fP\fP
+.TP
+\fB\fIPrintScreen \fP\fP
+.TP
+\fB\fIPause \fP\fP
+.TP
+\fB\fIF1 \fP\fP
+.TP
+\fB\fIF2 \fP\fP
+.TP
+\fB\fIF3 \fP\fP
+.TP
+\fB\fIF4 \fP\fP
+.TP
+\fB\fIF5 \fP\fP
+.TP
+\fB\fIF6 \fP\fP
+.TP
+\fB\fIF7 \fP\fP
+.TP
+\fB\fIF8 \fP\fP
+.TP
+\fB\fIF9 \fP\fP
+.TP
+\fB\fIF10 \fP\fP
+.TP
+\fB\fIF11 \fP\fP
+.TP
+\fB\fIF12 \fP\fP
+.TP
+\fB\fIF13 \fP\fP
+.TP
+\fB\fIF14 \fP\fP
+.TP
+\fB\fIF15 \fP\fP
+.TP
+\fB\fIF16 \fP\fP
+.TP
+\fB\fIF17 \fP\fP
+.TP
+\fB\fIF18 \fP\fP
+.TP
+\fB\fIF19 \fP\fP
+.TP
+\fB\fIF20 \fP\fP
+.TP
+\fB\fIF21 \fP\fP
+.TP
+\fB\fIF22 \fP\fP
+.TP
+\fB\fIF23 \fP\fP
+.TP
+\fB\fIF24 \fP\fP
+.TP
+\fB\fIF25 \fP\fP
+.TP
+\fB\fIKP0 \fP\fP
+.TP
+\fB\fIKP1 \fP\fP
+.TP
+\fB\fIKP2 \fP\fP
+.TP
+\fB\fIKP3 \fP\fP
+.TP
+\fB\fIKP4 \fP\fP
+.TP
+\fB\fIKP5 \fP\fP
+.TP
+\fB\fIKP6 \fP\fP
+.TP
+\fB\fIKP7 \fP\fP
+.TP
+\fB\fIKP8 \fP\fP
+.TP
+\fB\fIKP9 \fP\fP
+.TP
+\fB\fIKPDecimal \fP\fP
+.TP
+\fB\fIKPDivide \fP\fP
+.TP
+\fB\fIKPMultiply \fP\fP
+.TP
+\fB\fIKPSubtract \fP\fP
+.TP
+\fB\fIKPAdd \fP\fP
+.TP
+\fB\fIKPEnter \fP\fP
+.TP
+\fB\fIKPEqual \fP\fP
+.TP
+\fB\fILeftShift \fP\fP
+.TP
+\fB\fILeftControl \fP\fP
+.TP
+\fB\fILeftAlt \fP\fP
+.TP
+\fB\fILeftSuper \fP\fP
+.TP
+\fB\fIRightShift \fP\fP
+.TP
+\fB\fIRightControl \fP\fP
+.TP
+\fB\fIRightAlt \fP\fP
+.TP
+\fB\fIRightSuper \fP\fP
+.TP
+\fB\fIMenu \fP\fP
+.SS "enum \fBBrigerad::MouseCode\fP : uint16_t\fC [strong]\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fIButton0 \fP\fP
+.TP
+\fB\fIButton1 \fP\fP
+.TP
+\fB\fIButton2 \fP\fP
+.TP
+\fB\fIButton3 \fP\fP
+.TP
+\fB\fIButton4 \fP\fP
+.TP
+\fB\fIButton5 \fP\fP
+.TP
+\fB\fIButton6 \fP\fP
+.TP
+\fB\fIButton7 \fP\fP
+.TP
+\fB\fIButtonLast \fP\fP
+.TP
+\fB\fIButtonLeft \fP\fP
+.TP
+\fB\fIButtonRight \fP\fP
+.TP
+\fB\fIButtonMiddle \fP\fP
+.SS "enum \fBBrigerad::EventType\fP\fC [strong]\fP"
+
+.PP
+Lists all possible types of \fBEvent\fP for \fBBrigerad\fP\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fINone \fP\fP
+.TP
+\fB\fIWindowClose \fP\fP
+.TP
+\fB\fIWindowResize \fP\fP
+.TP
+\fB\fIWindowFocus \fP\fP
+.TP
+\fB\fIWindowLostFocus \fP\fP
+.TP
+\fB\fIWindowMoved \fP\fP
+.TP
+\fB\fIAppTick \fP\fP
+.TP
+\fB\fIAppUpdate \fP\fP
+.TP
+\fB\fIAppRender \fP\fP
+.TP
+\fB\fIKeyPressed \fP\fP
+.TP
+\fB\fIKeyReleased \fP\fP
+.TP
+\fB\fIKeyTyped \fP\fP
+.TP
+\fB\fIMouseButtonPressed \fP\fP
+.TP
+\fB\fIMouseButtonReleased \fP\fP
+.TP
+\fB\fIMouseMoved \fP\fP
+.TP
+\fB\fIMouseScrolled \fP\fP
+.TP
+\fB\fIImGuiButtonPressed \fP\fP
+.TP
+\fB\fIImGuiButtonReleased \fP\fP
+.SS "enum \fBBrigerad::EventCategory\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fINone \fP\fP
+.TP
+\fB\fINone \fP\fP
+.TP
+\fB\fIEventCategoryApplication \fP\fP
+.TP
+\fB\fIEventCategoryInput \fP\fP
+.TP
+\fB\fIEventCategoryKeyboard \fP\fP
+.TP
+\fB\fIEventCategoryMouse \fP\fP
+.TP
+\fB\fIEventCategoryMouseButton \fP\fP
+.TP
+\fB\fIEventCategoryImGui \fP\fP
+.SS "enum \fBBrigerad::ShaderDataType\fP\fC [strong]\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fINone \fP\fP
+.TP
+\fB\fIFloat \fP\fP
+.TP
+\fB\fIFloat2 \fP\fP
+.TP
+\fB\fIFloat3 \fP\fP
+.TP
+\fB\fIFloat4 \fP\fP
+.TP
+\fB\fIMat3 \fP\fP
+.TP
+\fB\fIMat4 \fP\fP
+.TP
+\fB\fIInt \fP\fP
+.TP
+\fB\fIInt2 \fP\fP
+.TP
+\fB\fIInt3 \fP\fP
+.TP
+\fB\fIInt4 \fP\fP
+.TP
+\fB\fIBool \fP\fP
+.SS "enum \fBBrigerad::ImGuiButtonState\fP\fC [strong]\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fIInactive \fP\fP
+.TP
+\fB\fIPressed \fP\fP
+.TP
+\fB\fIHeld \fP\fP
+.TP
+\fB\fIReleased \fP\fP
+.SH "Function Documentation"
+.PP 
+.SS "\fBApplication\fP* Brigerad::CreateApplication ()"
+
+.SS "template<typename T , typename\&.\&.\&. Args> constexpr \fBScope\fP<T> Brigerad::CreateScope (Args &&\&.\&.\&. args)\fC [constexpr]\fP"
+
+.SS "template<typename T , typename\&.\&.\&. Args> constexpr \fBRef\fP<T> Brigerad::CreateRef (Args &&\&.\&.\&. args)\fC [constexpr]\fP"
+
+.SS "std::ostream& Brigerad::operator<< (std::ostream & os, \fBKeyCode\fP keyCode)\fC [inline]\fP"
+
+.SS "std::ostream& Brigerad::operator<< (std::ostream & os, \fBMouseCode\fP mouseCode)\fC [inline]\fP"
+
+.SS "double Brigerad::GetTime ()"
+
+.SS "std::ostream& Brigerad::operator<< (std::ostream & os, const \fBEvent\fP & e)\fC [inline]\fP"
+
+.SS "template<typename T > void Brigerad::DrawImGuiButton (\fBEntity\fP & entity, const std::function< bool(T &)> & func)"
+
+.SH "Variable Documentation"
+.PP 
+.SS "constexpr float Brigerad::MAX_POS_SPEED = 10\&.0f\fC [constexpr]\fP"
+
+.SS "constexpr float Brigerad::MAX_NEG_SPEED = \-10\&.0f\fC [constexpr]\fP"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

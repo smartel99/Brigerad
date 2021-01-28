@@ -5,6 +5,7 @@
 
 namespace Brigerad
 {
+
 class Texture
 {
 public:
@@ -28,5 +29,19 @@ class Texture2D : public Texture
 public:
     static Ref<Texture2D> Create(uint32_t width, uint32_t height, uint8_t channels = 4);
     static Ref<Texture2D> Create(const std::string& path);
+};
+
+class TextureCube : public Texture
+{
+public:
+    static Ref<TextureCube> Create(const std::string& path);
+
+    virtual uint32_t GetFormat() const = 0;
+    virtual uint32_t GetWidth() const  = 0;
+    virtual uint32_t GetHeight() const = 0;
+
+    virtual void SetData(void* data, uint32_t size) = 0;
+
+    virtual const std::string& GetFilePath() const = 0;
 };
 }    // namespace Brigerad

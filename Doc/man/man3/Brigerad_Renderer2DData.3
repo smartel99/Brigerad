@@ -1,0 +1,111 @@
+.TH "Brigerad::Renderer2DData" 3 "Sun Jan 10 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Brigerad::Renderer2DData \- Runtime data structure that contains all the things needed by the renderer at runtime\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBRef\fP< \fBVertexArray\fP > \fBvertexArray\fP"
+.br
+.ti -1c
+.RI "\fBRef\fP< \fBVertexBuffer\fP > \fBvertexBuffer\fP"
+.br
+.ti -1c
+.RI "\fBRef\fP< \fBShader\fP > \fBtextureShader\fP"
+.br
+.ti -1c
+.RI "\fBRef\fP< \fBTexture2D\fP > \fBwhiteTexture\fP"
+.br
+.ti -1c
+.RI "\fBRef\fP< \fBFontAtlas\fP > \fBfont\fP"
+.br
+.ti -1c
+.RI "long long \fBframeCount\fP = 0"
+.br
+.ti -1c
+.RI "uint32_t \fBquadIndexCount\fP = 0"
+.br
+.ti -1c
+.RI "\fBQuadVertex\fP * \fBquadVertexBufferBase\fP = nullptr"
+.br
+.ti -1c
+.RI "\fBQuadVertex\fP * \fBquadVertexBufferPtr\fP = nullptr"
+.br
+.ti -1c
+.RI "std::array< \fBRef\fP< \fBTexture2D\fP >, \fBmaxTextureSlots\fP > \fBtextureSlots\fP"
+.br
+.ti -1c
+.RI "uint32_t \fBtextureSlotIndex\fP = 2"
+.br
+.ti -1c
+.RI "glm::vec4 \fBquadVertexPosition\fP [4] = {glm::vec4 {0\&.0f}}"
+.br
+.ti -1c
+.RI "\fBRenderer2D::Statistics\fP \fBstats\fP"
+.br
+.in -1c
+.SS "Static Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "static const uint32_t \fBmaxQuads\fP = 100000"
+.br
+.ti -1c
+.RI "static const uint32_t \fBmaxVertices\fP = \fBmaxQuads\fP * 4"
+.br
+.ti -1c
+.RI "static const uint32_t \fBmaxIndices\fP = \fBmaxQuads\fP * 6"
+.br
+.ti -1c
+.RI "static const uint32_t \fBmaxTextureSlots\fP = 32"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Runtime data structure that contains all the things needed by the renderer at runtime\&. 
+.SH "Member Data Documentation"
+.PP 
+.SS "const uint32_t Brigerad::Renderer2DData::maxQuads = 100000\fC [static]\fP"
+
+.SS "const uint32_t Brigerad::Renderer2DData::maxVertices = \fBmaxQuads\fP * 4\fC [static]\fP"
+
+.SS "const uint32_t Brigerad::Renderer2DData::maxIndices = \fBmaxQuads\fP * 6\fC [static]\fP"
+
+.SS "const uint32_t Brigerad::Renderer2DData::maxTextureSlots = 32\fC [static]\fP"
+
+.SS "\fBRef\fP<\fBVertexArray\fP> Brigerad::Renderer2DData::vertexArray"
+
+.SS "\fBRef\fP<\fBVertexBuffer\fP> Brigerad::Renderer2DData::vertexBuffer"
+
+.SS "\fBRef\fP<\fBShader\fP> Brigerad::Renderer2DData::textureShader"
+
+.SS "\fBRef\fP<\fBTexture2D\fP> Brigerad::Renderer2DData::whiteTexture"
+
+.SS "\fBRef\fP<\fBFontAtlas\fP> Brigerad::Renderer2DData::font"
+
+.SS "long long Brigerad::Renderer2DData::frameCount = 0"
+
+.SS "uint32_t Brigerad::Renderer2DData::quadIndexCount = 0"
+
+.SS "\fBQuadVertex\fP* Brigerad::Renderer2DData::quadVertexBufferBase = nullptr"
+
+.SS "\fBQuadVertex\fP* Brigerad::Renderer2DData::quadVertexBufferPtr = nullptr"
+
+.SS "std::array<\fBRef\fP<\fBTexture2D\fP>, \fBmaxTextureSlots\fP> Brigerad::Renderer2DData::textureSlots"
+
+.SS "uint32_t Brigerad::Renderer2DData::textureSlotIndex = 2"
+
+.SS "glm::vec4 Brigerad::Renderer2DData::quadVertexPosition[4] = {glm::vec4 {0\&.0f}}"
+
+.SS "\fBRenderer2D::Statistics\fP Brigerad::Renderer2DData::stats"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

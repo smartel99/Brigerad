@@ -58,19 +58,18 @@ static uint32_t ShaderDataTypeSize(ShaderDataType type)
 
 struct BufferElements
 {
-    std::string name;
+    std::string    name;
     ShaderDataType type;
-    uint32_t size;
-    uint32_t offset;
-    bool normalized;
+    uint32_t       size;
+    uint32_t       offset;
+    bool           normalized;
 
     BufferElements(ShaderDataType t, const std::string& n, bool norm = false)
     : name(n), type(t), size(ShaderDataTypeSize(t)), offset(0), normalized(norm)
     {
     }
 
-    BufferElements()
-    : name(""), type(ShaderDataType::None), size(0), offset(0), normalized(false)
+    BufferElements() : name(""), type(ShaderDataType::None), size(0), offset(0), normalized(false)
     {
     }
 
@@ -111,39 +110,29 @@ struct BufferElements
 
 class BufferLayout
 {
-    public:
-    BufferLayout(const std::initializer_list<BufferElements>& elements)
-    : m_elements(elements)
+public:
+    BufferLayout(const std::initializer_list<BufferElements>& elements) : m_elements(elements)
     {
         CalculateOffsetsAndStride();
     }
 
     BufferLayout() {}
 
-    inline const std::vector<BufferElements>& GetElements() const
-    {
-        return m_elements;
-    }
+    inline const std::vector<BufferElements>& GetElements() const { return m_elements; }
 
     inline const uint32_t GetStride() const { return m_stride; }
 
     std::vector<BufferElements>::iterator begin() { return m_elements.begin(); }
     std::vector<BufferElements>::iterator end() { return m_elements.end(); }
 
-    std::vector<BufferElements>::const_iterator begin() const
-    {
-        return m_elements.begin();
-    }
-    std::vector<BufferElements>::const_iterator end() const
-    {
-        return m_elements.end();
-    }
+    std::vector<BufferElements>::const_iterator begin() const { return m_elements.begin(); }
+    std::vector<BufferElements>::const_iterator end() const { return m_elements.end(); }
 
-    private:
+private:
     std::vector<BufferElements> m_elements;
-    uint32_t m_stride = 0;
+    uint32_t                    m_stride = 0;
 
-    private:
+private:
     void CalculateOffsetsAndStride()
     {
         uint32_t offset = 0;
@@ -159,22 +148,22 @@ class BufferLayout
 
 class VertexBuffer
 {
-    public:
+public:
     virtual ~VertexBuffer() {}
 
     virtual void Bind() const   = 0;
     virtual void Unbind() const = 0;
 
 
-    virtual const BufferLayout& GetLayout()            = 0;
-    virtual void SetLayout(const BufferLayout& layout) = 0;
+    virtual const BufferLayout& GetLayout()                           = 0;
+    virtual void                SetLayout(const BufferLayout& layout) = 0;
 
     virtual void SetData(const void* data, uint32_t size) = 0;
 
     virtual const uint32_t GetId() const = 0;
 
     static Ref<VertexBuffer> Create(uint32_t size);
-    static Ref<VertexBuffer> Create(float* vertices, uint32_t size);
+    static Ref<VertexBuffer> Create(void* vertices, uint32_t size);
 };
 
 /**
@@ -184,16 +173,17 @@ class VertexBuffer
  */
 class IndexBuffer
 {
-    public:
+public:
     virtual ~IndexBuffer() {}
 
     virtual void Bind() const   = 0;
     virtual void Unbind() const = 0;
 
-    virtual uint32_t GetCount() const    = 0;
-    virtual const uint32_t GetId() const = 0;
+    virtual uint32_t       GetCount() const = 0;
+    virtual const uint32_t GetId() const    = 0;
 
     static Ref<IndexBuffer> Create(uint32_t* indices, uint32_t count);
+    static Ref<IndexBuffer> Create(void* indices, uint32_t count);
 };
 
-}  // namespace Brigerad
+}    // namespace Brigerad

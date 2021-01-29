@@ -35,8 +35,7 @@
 #include "Brigerad/Scene/ImGuiTextComponents.h"
 #include "Brigerad/Scene/ImGuiButtonComponents.h"
 #include "Brigerad/Scene/ImGuiMiscComponents.h"
-#include "Brigerad/Renderer/Mesh.h"
-#include "Brigerad/Renderer/Material.h"
+#include "Brigerad/Scene/MeshComponent.h"
 
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
@@ -201,27 +200,23 @@ struct LuaScriptComponent
     }
 };
 
-struct MeshComponent
+struct LightComponent
 {
-    Ref<Mesh>             mesh          = nullptr;
-    Ref<MaterialInstance> material      = nullptr;
-    std::string           name          = "MeshComponent";
-    std::string           path          = "";
-    bool                  viewDebugMenu = false;
-
-
-    MeshComponent(const std::string& meshName, const std::string& meshPath)
-    : name(meshName), path(meshPath)
+    struct Light
     {
-        mesh = Mesh::Create(meshPath);
-    }
-    MeshComponent(const std::string& meshName, const Ref<Mesh>& meshRef)
-    : name(meshName), mesh(meshRef), path(meshRef->GetFilePath())
+        glm::vec3 Direction = glm::vec3();
+        glm::vec3 Radiance  = glm::vec3();
+    };
+    Light light;
+    bool  isPrimary = true;
+
+    LightComponent() = default;
+    LightComponent(const glm::vec3& direction, const glm::vec3& radiance)
+    : light({direction, radiance})
     {
     }
-    ~MeshComponent() = default;
-
-    void ReloadMesh() { mesh = Mesh::Create(path); }
 };
+
+
 
 }    // namespace Brigerad

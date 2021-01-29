@@ -21,7 +21,7 @@ Ref<Texture2D> Texture2D::Create(uint32_t width, uint32_t height, uint8_t channe
             BR_CORE_ASSERT(false, "RendererAPI::None is currently not supported!");
             return nullptr;
         case RendererAPI::API::OpenGL:
-            return std::make_shared<OpenGLTexture2D>(width, height, channels);
+            return CreateRef<OpenGLTexture2D>(width, height, channels);
         default:
             BR_CORE_ASSERT(false, "Invalid RendererAPI!");
             return nullptr;
@@ -36,7 +36,22 @@ Ref<Texture2D> Texture2D::Create(const std::string& path)
             BR_CORE_ASSERT(false, "RendererAPI::None is currently not supported!");
             return nullptr;
         case RendererAPI::API::OpenGL:
-            return std::make_shared<OpenGLTexture2D>(path);
+            return CreateRef<OpenGLTexture2D>(path);
+        default:
+            BR_CORE_ASSERT(false, "Invalid RendererAPI!");
+            return nullptr;
+    }
+}
+
+Ref<TextureCube> TextureCube::Create(uint32_t width, uint32_t height, uint8_t channels)
+{
+    switch (Renderer::GetAPI())
+    {
+        case RendererAPI::API::None:
+            BR_CORE_ASSERT(false, "RendererAPI::None is currently not supported!");
+            return nullptr;
+        case RendererAPI::API::OpenGL:
+            return CreateRef<OpenGLTextureCube>(width, height, channels);
         default:
             BR_CORE_ASSERT(false, "Invalid RendererAPI!");
             return nullptr;
@@ -51,7 +66,7 @@ Ref<TextureCube> TextureCube::Create(const std::string& path)
             BR_CORE_ASSERT(false, "RendererAPI::None is currently not supported!");
             return nullptr;
         case RendererAPI::API::OpenGL:
-            return std::make_shared<OpenGLTextureCube>(path);
+            return CreateRef<OpenGLTextureCube>(path);
         default:
             BR_CORE_ASSERT(false, "Invalid RendererAPI!");
             return nullptr;

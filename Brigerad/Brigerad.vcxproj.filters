@@ -1523,6 +1523,7 @@
     <ClInclude Include="src\Brigerad\Core\Buffer.h" />
     <ClInclude Include="src\Brigerad\Renderer\ShaderUniform.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLShaderUniform.h" />
+    <ClInclude Include="src\Brigerad\Scene\MeshComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Brigerad\Core\Application.cpp">

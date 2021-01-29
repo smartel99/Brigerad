@@ -78,6 +78,11 @@ OpenGLTexture2D::OpenGLTexture2D(const std::string& path) : m_path(path)
         internalFormat = GL_RGB8;
         dataFormat     = GL_RGB;
     }
+    else if (channels == 2)
+    {
+        internalFormat = GL_RG8;
+        dataFormat     = GL_RG;
+    }
 
     m_internalFormat = internalFormat;
     m_dataFormat     = dataFormat;
@@ -140,6 +145,43 @@ void OpenGLTexture2D::Bind(uint32_t slot) const
 }
 
 
+OpenGLTextureCube::OpenGLTextureCube(uint32_t width, uint32_t height, uint8_t channels)
+: m_width(width), m_height(height)
+{
+    BR_PROFILE_FUNCTION();
+
+    if (channels == 4)
+    {
+        m_internalFormat = GL_RGBA8;
+        m_dataFormat     = GL_RGBA;
+    }
+    else if (channels == 3)
+    {
+        m_internalFormat = GL_RGB8;
+        m_dataFormat     = GL_RGB;
+    }
+    else if (channels == 1)
+    {
+        // m_internalFormat = GL_ALPHA8;
+        m_internalFormat = GL_R8;
+        // m_dataFormat = GL_ALPHA;
+        m_dataFormat = GL_R;
+    }
+    else
+    {
+        BR_ERROR("Invalid number of channels!");
+        return;
+    }
+
+
+    uint8_t* data = new uint8_t[m_width * m_width * channels];
+
+    memset(data, 0, (m_width * m_width * channels));
+    CreateTexture(data);
+
+    delete[] data;
+}
+
 OpenGLTextureCube::OpenGLTextureCube(const std::string& path)
 {
     int w, h, channels;
@@ -165,6 +207,27 @@ OpenGLTextureCube::OpenGLTextureCube(const std::string& path)
 
     BR_CORE_ASSERT(internalFormat && dataFormat, "Format not supported");
 
+    CreateTexture(m_imageData);
+
+    stbi_image_free(m_imageData);
+}
+
+OpenGLTextureCube::~OpenGLTextureCube()
+{
+    glDeleteTextures(1, &m_rendererID);
+}
+
+void OpenGLTextureCube::Bind(uint32_t slot /*= 0*/) const
+{
+    glBindTextureUnit(slot, m_rendererID);
+}
+
+void OpenGLTextureCube::SetData(void* data, uint32_t size)
+{
+}
+
+void OpenGLTextureCube::CreateTexture(uint8_t* data)
+{
     uint32_t faceW = m_width / 4;
     uint32_t faceH = m_height / 3;
     BR_CORE_ASSERT(faceW == faceH, "Non-square faces!");
@@ -186,11 +249,11 @@ OpenGLTextureCube::OpenGLTextureCube(const std::string& path)
             {
                 size_t xOffset = x + i * faceW;
                 faces[faceIndex][(x + y * faceW) * 3 + 0] =
-                  m_imageData[(xOffset + yOffset * m_width) * 3 + 0];
+                  data[(xOffset + yOffset * m_width) * 3 + 0];
                 faces[faceIndex][(x + y * faceW) * 3 + 1] =
-                  m_imageData[(xOffset + yOffset * m_width) * 3 + 1];
+                  data[(xOffset + yOffset * m_width) * 3 + 1];
                 faces[faceIndex][(x + y * faceW) * 3 + 2] =
-                  m_imageData[(xOffset + yOffset * m_width) * 3 + 2];
+                  data[(xOffset + yOffset * m_width) * 3 + 2];
             }
         }
         faceIndex++;
@@ -211,11 +274,11 @@ OpenGLTextureCube::OpenGLTextureCube(const std::string& path)
             {
                 size_t xOffset = x + faceW;
                 faces[faceIndex][(x + y * faceW) * 3 + 0] =
-                  m_imageData[(xOffset + yOffset * m_width) * 3 + 0];
+                  data[(xOffset + yOffset * m_width) * 3 + 0];
                 faces[faceIndex][(x + y * faceW) * 3 + 1] =
-                  m_imageData[(xOffset + yOffset * m_width) * 3 + 1];
+                  data[(xOffset + yOffset * m_width) * 3 + 1];
                 faces[faceIndex][(x + y * faceW) * 3 + 2] =
-                  m_imageData[(xOffset + yOffset * m_width) * 3 + 2];
+                  data[(xOffset + yOffset * m_width) * 3 + 2];
             }
         }
 
@@ -296,18 +359,6 @@ OpenGLTextureCube::OpenGLTextureCube(const std::string& path)
     {
         delete[] faces[i];
     }
-
-    stbi_image_free(m_imageData);
-}
-
-OpenGLTextureCube::~OpenGLTextureCube()
-{
-    glDeleteTextures(1, &m_rendererID);
-}
-
-void OpenGLTextureCube::Bind(uint32_t slot /*= 0*/) const
-{
-    glBindTextureUnit(slot, m_rendererID);
 }
 
 }    // namespace Brigerad

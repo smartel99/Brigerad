@@ -265,6 +265,23 @@ void SceneHierarchyPanel::OnImGuiRender()
                 ImGui::CloseCurrentPopup();
             }
 
+            if (ImGui::MenuItem("Mesh Renderer Component",
+                                nullptr,
+                                nullptr,
+                                !m_selectionContext.HasComponent<MeshComponent>()))
+            {
+                m_selectionContext.AddComponent<MeshComponent>();
+                ImGui::CloseCurrentPopup();
+            }
+            if (ImGui::MenuItem("Light Component",
+                                nullptr,
+                                nullptr,
+                                !m_selectionContext.HasComponent<LightComponent>()))
+            {
+                m_selectionContext.AddComponent<LightComponent>();
+                ImGui::CloseCurrentPopup();
+            }
+
             if (ImGui::MenuItem("Text Component",
                                 nullptr,
                                 nullptr,
@@ -566,6 +583,170 @@ void SceneHierarchyPanel::DrawComponents(Entity entity) const
         ImGui::Checkbox("##fixedAR", &camera.fixedAspectRatio);
 
         ImGui::Columns(1);
+    });
+
+    DrawComponent<LightComponent>("Light", entity, [](auto& light) {
+        DrawVec3Control("Direction", light.light.Direction, 0.0f);
+        DrawVec3Control("Radiance", light.light.Radiance, 1.0f);
+    });
+
+    DrawComponent<MeshComponent>("Mesh", entity, [](auto& mesh) {
+        char nameBuff[256] = {0};
+        char pathBuff[512] = {0};
+        strcpy_s(nameBuff, sizeof(nameBuff), mesh.MeshName.c_str());
+        strcpy_s(pathBuff, sizeof(pathBuff), mesh.MeshPath.c_str());
+
+        ImGui::Columns(2);
+        ImGui::TextUnformatted("Name");
+        ImGui::NextColumn();
+        if (ImGui::InputText("##Name", nameBuff, sizeof(nameBuff)))
+        {
+            mesh.MeshName = std::string(nameBuff);
+        }
+
+        ImGui::NextColumn();
+        ImGui::TextUnformatted("Path");
+        ImGui::NextColumn();
+        if (ImGui::InputText("##MeshPath", pathBuff, sizeof(pathBuff)))
+        {
+            mesh.MeshPath = std::string(pathBuff);
+        }
+        if (ImGui::Button("Reload Mesh"))
+        {
+            mesh.ReloadMesh();
+        }
+        ImGui::NextColumn();
+        ImGui::TextUnformatted("View Debug Menu");
+        ImGui::NextColumn();
+        ImGui::Checkbox("##ViewDebugMenu", &mesh.viewDebugMenu);
+        ImGui::Columns();
+
+        ImGui::Separator();
+        ImGui::Unindent();
+        ImGui::TextUnformatted("Albedo");
+        ImGui::Indent();
+        ImGui::Columns(2);
+        ImGui::TextUnformatted("Use Texture");
+        ImGui::NextColumn();
+        ImGui::Checkbox("##AlbedoUseTexture", &mesh.Albedo.UseTexture);
+        ImGui::NextColumn();
+
+        if (mesh.Albedo.UseTexture)
+        {
+            std::string path = mesh.Albedo.TextureMap ? mesh.Albedo.TextureMap->GetFilePath() : "";
+            strcpy_s(pathBuff, sizeof(pathBuff), path.c_str());
+            ImGui::TextUnformatted("Path");
+            ImGui::NextColumn();
+            if (ImGui::InputText(
+                  "##AlbedoPath", pathBuff, sizeof(pathBuff), ImGuiInputTextFlags_EnterReturnsTrue))
+            {
+                mesh.Albedo.TextureMap = Texture2D::Create(pathBuff);
+            }
+            ImGui::NextColumn();
+        }
+        else
+        {
+            ImGui::TextUnformatted("Color");
+            ImGui::NextColumn();
+            ImGui::ColorEdit3("##AlbedoColor", glm::value_ptr(mesh.Albedo.Color));
+            ImGui::NextColumn();
+        }
+        ImGui::Columns();
+
+        ImGui::Separator();
+        ImGui::Unindent();
+        ImGui::TextUnformatted("Normal");
+        ImGui::Indent();
+        ImGui::Columns(2);
+        ImGui::TextUnformatted("Use Texture");
+        ImGui::NextColumn();
+        ImGui::Checkbox("##NormalUseTexture", &mesh.Normal.UseTexture);
+        ImGui::NextColumn();
+
+        if (mesh.Normal.UseTexture)
+        {
+            std::string path = mesh.Normal.TextureMap ? mesh.Normal.TextureMap->GetFilePath() : "";
+            strcpy_s(pathBuff, sizeof(pathBuff), path.c_str());
+            ImGui::TextUnformatted("Path");
+            ImGui::NextColumn();
+            if (ImGui::InputText(
+                  "##NormalPath", pathBuff, sizeof(pathBuff), ImGuiInputTextFlags_EnterReturnsTrue))
+            {
+                mesh.Normal.TextureMap = Texture2D::Create(pathBuff);
+            }
+            ImGui::NextColumn();
+        }
+        ImGui::Columns();
+
+        ImGui::Separator();
+        ImGui::Unindent();
+        ImGui::TextUnformatted("Metalness");
+        ImGui::Indent();
+        ImGui::Columns(2);
+        ImGui::TextUnformatted("Use Texture");
+        ImGui::NextColumn();
+        ImGui::Checkbox("##MetalnessUseTexture", &mesh.Metalness.UseTexture);
+        ImGui::NextColumn();
+
+        if (mesh.Metalness.UseTexture)
+        {
+            std::string path =
+              mesh.Metalness.TextureMap ? mesh.Metalness.TextureMap->GetFilePath() : "";
+            strcpy_s(pathBuff, sizeof(pathBuff), path.c_str());
+            ImGui::TextUnformatted("Path");
+            ImGui::NextColumn();
+            if (ImGui::InputText("##MetalnessPath",
+                                 pathBuff,
+                                 sizeof(pathBuff),
+                                 ImGuiInputTextFlags_EnterReturnsTrue))
+            {
+                mesh.Metalness.TextureMap = Texture2D::Create(pathBuff);
+            }
+            ImGui::NextColumn();
+        }
+        else
+        {
+            ImGui::TextUnformatted("Value");
+            ImGui::NextColumn();
+            ImGui::DragFloat("##MetalnessColor", &mesh.Metalness.Value, 0.001f, 0.0f, 1.0f);
+            ImGui::NextColumn();
+        }
+        ImGui::Columns();
+
+        ImGui::Separator();
+        ImGui::Unindent();
+        ImGui::TextUnformatted("Roughness");
+        ImGui::Indent();
+        ImGui::Columns(2);
+        ImGui::TextUnformatted("Use Texture");
+        ImGui::NextColumn();
+        ImGui::Checkbox("##RoughnessUseTexture", &mesh.Roughness.UseTexture);
+        ImGui::NextColumn();
+
+        if (mesh.Roughness.UseTexture)
+        {
+            std::string path =
+              mesh.Roughness.TextureMap ? mesh.Roughness.TextureMap->GetFilePath() : "";
+            strcpy_s(pathBuff, sizeof(pathBuff), path.c_str());
+            ImGui::TextUnformatted("Path");
+            ImGui::NextColumn();
+            if (ImGui::InputText("##RoughnessPath",
+                                 pathBuff,
+                                 sizeof(pathBuff),
+                                 ImGuiInputTextFlags_EnterReturnsTrue))
+            {
+                mesh.Roughness.TextureMap = Texture2D::Create(pathBuff);
+            }
+            ImGui::NextColumn();
+        }
+        else
+        {
+            ImGui::TextUnformatted("Value");
+            ImGui::NextColumn();
+            ImGui::DragFloat("##RoughnessColor", &mesh.Roughness.Value, 0.001f, 0.0f, 1.0f);
+            ImGui::NextColumn();
+        }
+        ImGui::Columns();
     });
 
     DrawComponent<LuaScriptComponent>("Lua Script", entity, [](auto& script) {

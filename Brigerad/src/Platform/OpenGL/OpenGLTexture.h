@@ -39,6 +39,7 @@ private:
 class OpenGLTextureCube : public TextureCube
 {
 public:
+    OpenGLTextureCube(uint32_t width, uint32_t height, uint8_t channels);
     OpenGLTextureCube(const std::string& path);
     virtual ~OpenGLTextureCube();
 
@@ -48,7 +49,7 @@ public:
     virtual uint32_t GetWidth() const { return m_width; }
     virtual uint32_t GetHeight() const { return m_height; }
 
-    virtual void SetData(void* data, uint32_t size) {}
+    virtual void SetData(void* data, uint32_t size);
 
     virtual const std::string& GetFilePath() const { return m_path; }
     virtual uint32_t           GetRenderID() const { return m_rendererID; }
@@ -59,6 +60,7 @@ public:
     }
 
 private:
+    void     CreateTexture(uint8_t* data);
     uint32_t m_rendererID;
     uint32_t m_width;
     uint32_t m_height;

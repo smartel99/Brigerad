@@ -119,6 +119,11 @@ public:
         Set(name, (const Ref<Texture>&)texture);
     }
 
+    void Set(const std::string& name, const Ref<TextureCube>& texture)
+    {
+        Set(name, (const Ref<Texture>&)texture);
+    }
+
     void Bind() const;
 
 public:

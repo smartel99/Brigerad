@@ -21,5 +21,6 @@
   <ItemGroup>
     <None Include="assets\shaders\mesh_static_base.glsl" />
     <None Include="assets\shaders\mesh_static.glsl" />
+    <None Include="assets\shaders\skybox.glsl" />
   </ItemGroup>
 </Project>

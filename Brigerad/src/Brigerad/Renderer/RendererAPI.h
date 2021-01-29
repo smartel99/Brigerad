@@ -9,12 +9,12 @@ namespace Brigerad
 {
 struct RenderAPICapabilities
 {
-    std::string vendor;
-    std::string renderer;
-    std::string version;
+    std::string vendor   = "";
+    std::string renderer = "";
+    std::string version  = "";
 
-    int   maxSamples;
-    float maxAnisotropy;
+    int   maxSamples    = 0;
+    float maxAnisotropy = 0.0f;
 };
 class RendererAPI
 {

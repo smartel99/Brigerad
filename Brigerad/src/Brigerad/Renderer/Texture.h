@@ -9,13 +9,13 @@ namespace Brigerad
 class Texture
 {
 public:
-    virtual ~Texture()                                           = default;
-    [[nodiscard]] virtual uint32_t           GetWidth() const    = 0;
-    [[nodiscard]] virtual uint32_t           GetHeight() const   = 0;
-    [[nodiscard]] virtual uint32_t           GetFormat() const   = 0;
-    [[nodiscard]] virtual const std::string& GetFilePath() const = 0;
+    virtual ~Texture()                             = default;
+    virtual uint32_t           GetWidth() const    = 0;
+    virtual uint32_t           GetHeight() const   = 0;
+    virtual uint32_t           GetFormat() const   = 0;
+    virtual const std::string& GetFilePath() const = 0;
 
-    [[nodiscard]] virtual uint32_t GetRenderID() const = 0;
+    virtual uint32_t GetRenderID() const = 0;
 
     virtual void SetData(void* data, uint32_t size) = 0;
 
@@ -34,6 +34,7 @@ public:
 class TextureCube : public Texture
 {
 public:
+    static Ref<TextureCube> Create(uint32_t width, uint32_t height, uint8_t channels = 4);
     static Ref<TextureCube> Create(const std::string& path);
 
     virtual uint32_t GetFormat() const = 0;

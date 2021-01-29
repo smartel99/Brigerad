@@ -15,7 +15,7 @@ namespace Brigerad
 
 static void UpdateFps();
 
-EditorLayer::EditorLayer() : Layer("Brigerad Editor")
+EditorLayer::EditorLayer() : Layer("Brigerad Editor"), m_Light({glm::vec3(1.0f), glm::vec3(1.0f)})
 {
 }
 
@@ -31,24 +31,46 @@ void EditorLayer::OnAttach()
 
     m_fb = Framebuffer::Create(spec);
 
+    Ref<TextureCube> envCubeMap =
+      TextureCube::Create("assets/textures/environments/Arches_E_PineTree_Radiance.tga");
+    Ref<TextureCube> envIrradiance =
+      TextureCube::Create("assets/textures/environments/Arches_E_PineTree_Irradiance.tga");
+
     m_scene = CreateRef<Scene>();
+    m_scene->SetSkyboxTexture(envCubeMap);
+    m_scene->SetEnvironmentIrradiance(envIrradiance);
+    m_brdfLut = Texture2D::Create("assets/textures/BRDF_LUT.tga");
 
     // m_mesh = Mesh::Create("assets/meshes/razor.obj");
-    Ref<Mesh>             mesh = Mesh::Create("assets/meshes/cerberus.fbx");
+    Ref<Mesh>             mesh = Mesh::Create("assets/meshes/razor.obj");
     Ref<MaterialInstance> mat  = CreateRef<MaterialInstance>(mesh->GetMaterial());
     m_meshEntity               = m_scene->CreateEntity("Mesh!");
     m_meshEntity.AddComponent<MeshComponent>("mesh", mesh);
-    m_meshEntity.GetComponentRef<MeshComponent>().material = mat;
+    auto& meshRef       = m_meshEntity.GetComponentRef<MeshComponent>();
+    meshRef.BrdfLut     = m_brdfLut;
+    meshRef.MaterialRef = mat;
 
-    m_environmentCubeMap =
-      TextureCube::Create("assets/textures/environments/Arches_E_PineTree_Radiance.tga");
-    m_environmentIrradiance =
-      TextureCube::Create("assets/textures/environments/Arches_E_PineTree_Irradiance.tga");
-    m_brdfLut = Texture2D::Create("assets/textures/BRDF_LUT.tga");
+    // Ref<Mesh>             mesh = Mesh::Create("assets/models/m1911/m1911.fbx");
+    // Ref<MaterialInstance> mat  = CreateRef<MaterialInstance>(mesh->GetMaterial());
+    // m_meshEntity               = m_scene->CreateEntity("Mesh!");
+    // m_meshEntity.AddComponent<MeshComponent>("mesh", mesh);
+    // auto& meshRef                = m_meshEntity.GetComponentRef<MeshComponent>();
+    // meshRef.BrdfLut              = m_brdfLut;
+    // meshRef.MaterialRef          = mat;
+    // meshRef.Albedo.TextureMap    = Texture2D::Create("assets/models/m1911/m1911_color.png");
+    // meshRef.Albedo.UseTexture    = true;
+    // meshRef.Metalness.TextureMap = Texture2D::Create("assets/models/m1911/m1911_metalness.png");
+    // meshRef.Metalness.UseTexture = true;
+    // meshRef.Normal.TextureMap    = Texture2D::Create("assets/models/m1911/m1911_normal.png");
+    // meshRef.Normal.UseTexture    = true;
+    // meshRef.Roughness.TextureMap = Texture2D::Create("assets/models/m1911/m1911_roughness.png");
+    // meshRef.Roughness.UseTexture = true;
+
 
     // Set lights
-    m_Light.Direction = {-0.5f, -0.5f, 1.0f};
-    m_Light.Radiance  = {1.0f, 1.0f, 1.0f};
+    m_lightEntity = m_scene->CreateEntity("Light");
+    m_lightEntity.AddComponent<LightComponent>(glm::vec3 {-0.5f, -0.5f, 1.0f},
+                                               glm::vec3 {1.0f, 1.0f, 1.0f});
 
     // m_imguiWindowEntity = m_scene->CreateEntity("ImGui Window");
     // auto& window        = m_imguiWindowEntity.AddComponent<ImGuiWindowComponent>("Test Window
@@ -219,29 +241,30 @@ void EditorLayer::OnUpdate(Timestep ts)
     // Update scene.
     m_scene->OnUpdate(ts);
 
-    auto& mainCamera      = m_cameraEntity.GetComponentRef<CameraComponent>().camera;
-    auto& cameraTransform = m_cameraEntity.GetComponentRef<TransformComponent>();
+    // auto& mainCamera      = m_cameraEntity.GetComponentRef<CameraComponent>().camera;
+    // auto& cameraTransform = m_cameraEntity.GetComponentRef<TransformComponent>();
 
-    auto& mesh          = m_meshEntity.GetComponentRef<MeshComponent>();
-    auto& meshTransform = m_meshEntity.GetComponentRef<TransformComponent>();
+    // auto& mesh          = m_meshEntity.GetComponentRef<MeshComponent>();
+    // auto& meshTransform = m_meshEntity.GetComponentRef<TransformComponent>();
 
-    mesh.material->Set("u_AlbedoColor", m_albedoInput.Color);
-    mesh.material->Set("u_Metalness", m_metalnessInput.Value);
-    mesh.material->Set("u_Roughness", m_roughnessInput.Value);
-    mesh.material->Set("u_ViewProjectionMatrix",
-                       mainCamera.GetProjection() * glm::inverse(cameraTransform.GetTransform()));
-    mesh.material->Set("u_ModelMatrix", meshTransform.GetTransform());
-    mesh.mesh->Render(ts, meshTransform.GetTransform(), mesh.material);
-    mesh.material->Set("u_Lights", m_Light);
-    mesh.material->Set("u_CameraPosition", cameraTransform.GetPosition());
-    mesh.material->Set("u_RadiancePrefilter", m_RadiancePrefilter ? 1.0f : 0.0f);
-    mesh.material->Set("u_AlbedoTexToggle", m_albedoInput.UseTexture ? 1.0f : 0.0f);
-    mesh.material->Set("u_NormalTexToggle", m_normalInput.UseTexture ? 1.0f : 0.0f);
-    mesh.material->Set("u_MetalnessTexToggle", m_metalnessInput.UseTexture ? 1.0f : 0.0f);
-    mesh.material->Set("u_RoughnessTexToggle", m_roughnessInput.UseTexture ? 1.0f : 0.0f);
-    mesh.material->Set("u_EnvRotation", m_EnvMapRotation);
-    mesh.material->Set("u_EnvRadianceTex", m_environmentCubeMap);
-    mesh.material->Set("u_EnvIrradianceTex", m_environmentIrradiance);
+    // mesh.MaterialRef->Set("u_AlbedoColor", m_albedoInput.Color);
+    // mesh.MaterialRef->Set("u_Metalness", m_metalnessInput.Value);
+    // mesh.MaterialRef->Set("u_Roughness", m_roughnessInput.Value);
+    // mesh.MaterialRef->Set("u_ViewProjectionMatrix",
+    //                      mainCamera.GetProjection() *
+    //                        glm::inverse(cameraTransform.GetTransform()));
+    // mesh.MaterialRef->Set("u_ModelMatrix", meshTransform.GetTransform());
+    // mesh.MaterialRef->Set("u_Lights", m_Light);
+    // mesh.MaterialRef->Set("u_CameraPosition", cameraTransform.GetPosition());
+    // mesh.MaterialRef->Set("u_RadiancePrefilter", m_RadiancePrefilter ? 1.0f : 0.0f);
+    // mesh.MaterialRef->Set("u_AlbedoTexToggle", m_albedoInput.UseTexture ? 1.0f : 0.0f);
+    // mesh.MaterialRef->Set("u_NormalTexToggle", m_normalInput.UseTexture ? 1.0f : 0.0f);
+    // mesh.MaterialRef->Set("u_MetalnessTexToggle", m_metalnessInput.UseTexture ? 1.0f : 0.0f);
+    // mesh.MaterialRef->Set("u_RoughnessTexToggle", m_roughnessInput.UseTexture ? 1.0f : 0.0f);
+    // mesh.MaterialRef->Set("u_EnvRotation", m_EnvMapRotation);
+    // mesh.MaterialRef->Set("u_EnvRadianceTex", m_environmentCubeMap);
+    // mesh.MaterialRef->Set("u_EnvIrradianceTex", m_environmentIrradiance);
+    // mesh.MeshRef->Render(ts, meshTransform.GetTransform(), mesh.MaterialRef);
     m_fb->Unbind();
 }
 

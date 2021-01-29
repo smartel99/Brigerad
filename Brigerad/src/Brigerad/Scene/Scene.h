@@ -30,6 +30,9 @@
 
 #include "Brigerad/Core/Timestep.h"
 #include "Brigerad/Events/Event.h"
+#include "Brigerad/Renderer/Texture.h"
+#include "Brigerad/Renderer/VertexArray.h"
+#include "Brigerad/Renderer/Shader.h"
 
 
 /*********************************************************************************************************************/
@@ -49,7 +52,14 @@ class Scene
 {
 public:
     Scene();
+    Scene(const Ref<TextureCube>& texture);
     ~Scene();
+
+    void SetSkyboxTexture(const Ref<TextureCube>& texture) { m_skyboxTexture = texture; }
+    void SetEnvironmentIrradiance(const Ref<TextureCube>& texture)
+    {
+        m_environmentIrradiance = texture;
+    }
 
     Entity CreateEntity(const std::string& name = std::string());
     Entity CreateChildEntity(const std::string& name, Entity parent);
@@ -67,11 +77,23 @@ private:
     void OnComponentAdded(Entity entity, T& component);
 
     void HandleImGuiEntity(Entity entity);
+    void CreateSkyboxVA();
 
 private:
     entt::registry m_registry;
     uint32_t       m_viewportWidth  = 0;
     uint32_t       m_viewportHeight = 0;
+
+    Ref<VertexArray> m_skybox                = nullptr;
+    Ref<TextureCube> m_skyboxTexture         = nullptr;
+    Ref<TextureCube> m_environmentIrradiance = nullptr;
+    Ref<Shader>      m_skyboxShader          = nullptr;
+
+    // PBR parameters.
+    float m_exposure          = 1.0f;
+    bool  m_radiancePrefilter = false;
+    float m_envMapRotation    = 0.0f;
+
 
     friend class Entity;
     friend class SceneHierarchyPanel;

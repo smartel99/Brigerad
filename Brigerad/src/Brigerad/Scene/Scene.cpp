@@ -108,6 +108,16 @@ void DrawImGuiButton(Entity& entity, const std::function<bool(T&)>& func)
 /*********************************************************************************************************************/
 Scene::Scene()
 {
+    // Default blank skybox texture.
+    m_skyboxTexture = TextureCube::Create(4, 3, 4);
+    m_skyboxShader  = Shader::Create("assets/shaders/skybox.glsl");
+    CreateSkyboxVA();
+}
+
+Scene::Scene(const Ref<TextureCube>& texture) : m_skyboxTexture(texture)
+{
+    m_skyboxShader = Shader::Create("assets/shaders/skybox.glsl");
+    CreateSkyboxVA();
 }
 
 Scene::~Scene()
@@ -185,8 +195,9 @@ void Scene::OnUpdate(Timestep ts)
 
 
     // Render 2D.
-    Camera*   mainCamera = nullptr;
-    glm::mat4 cameraTransform;
+    Camera*            mainCamera = nullptr;
+    glm::mat4          cameraTransform;
+    TransformComponent cameraTransComp;
     {
         auto view = m_registry.view<TransformComponent, CameraComponent>();
         for (auto entity : view)
@@ -196,6 +207,7 @@ void Scene::OnUpdate(Timestep ts)
             if (camera.primary)
             {
                 mainCamera      = &camera.camera;
+                cameraTransComp = transform;
                 cameraTransform = transform.GetTransform();
             }
         }
@@ -239,6 +251,28 @@ void Scene::OnUpdate(Timestep ts)
 
         Renderer2D::EndScene();
 
+        LightComponent::Light sceneLight;
+        auto                  lightEntities = m_registry.view<TransformComponent, LightComponent>();
+        for (auto entity : lightEntities)
+        {
+            auto [trans, light] = lightEntities.get<TransformComponent, LightComponent>(entity);
+
+            if (light.isPrimary == true)
+            {
+                sceneLight = light.light;
+            }
+        }
+
+
+        m_skyboxShader->Bind();
+        m_skyboxShader->SetMat4(
+          "u_InverseVP", glm::inverse(mainCamera->GetProjection() * glm::inverse(cameraTransform)));
+
+        m_environmentIrradiance->Bind(0);
+        m_skybox->Bind();
+        RenderCommand::DrawIndexed(m_skybox);
+
+
         auto meshRendererView = m_registry.view<TransformComponent, MeshComponent>();
 
         for (auto entity : meshRendererView)
@@ -246,12 +280,20 @@ void Scene::OnUpdate(Timestep ts)
             auto [transform, mesh] =
               meshRendererView.get<TransformComponent, MeshComponent>(entity);
 
-            // mesh.material->Set("u_ViewProjectionMatrix",
-            //                   mainCamera->GetProjection() * cameraTransform);
-            mesh.material->Set("u_ViewProjectionMatrix",
-                               mainCamera->GetProjection() * glm::inverse(cameraTransform));
-            mesh.material->Set("u_ModelMatrix", transform.GetTransform());
-            // mesh.mesh->Render(ts, transform.GetTransform(), mesh.material);
+            if (mesh.MeshRef != nullptr && mesh.MaterialRef != nullptr)
+            {
+                mesh.SetMaterialUniforms();
+                mesh.MaterialRef->Set("u_ViewProjectionMatrix",
+                                      mainCamera->GetProjection() * glm::inverse(cameraTransform));
+                mesh.MaterialRef->Set("u_ModelMatrix", transform.GetTransform());
+                mesh.MaterialRef->Set("u_Lights", sceneLight);
+                mesh.MaterialRef->Set("u_CameraPosition", cameraTransComp.GetPosition());
+                mesh.MaterialRef->Set("u_RadiancePrefilter", m_radiancePrefilter ? 1.0f : 0.0f);
+                mesh.MaterialRef->Set("u_EnvMapRotation", m_envMapRotation);
+                mesh.MaterialRef->Set("u_EnvRadianceTex", m_skyboxTexture);
+                mesh.MaterialRef->Set("u_EnvIrradianceTex", m_environmentIrradiance);
+                mesh.MeshRef->Render(ts, transform.GetTransform(), mesh.MaterialRef);
+            }
         }
     }
 }
@@ -274,7 +316,7 @@ void Scene::OnImguiRender()
 
         if (mesh.viewDebugMenu == true)
         {
-            mesh.mesh->OnImGuiRender();
+            mesh.MeshRef->OnImGuiRender();
         }
     }
 }
@@ -356,6 +398,43 @@ void Scene::HandleImGuiEntity(Entity entity)
         auto& sameLine = entity.GetComponent<ImGuiSameLineComponent>();
         ImGui::SameLine(sameLine.offsetFromStartX, sameLine.spacing);
     }
+}
+
+void Scene::CreateSkyboxVA()
+{
+    float x = -1.0f, y = -1.0f;
+    float width = 2.0f, height = 2.0f;
+
+    struct QuadVertex
+    {
+        glm::vec3 position;
+        glm::vec2 texCoord;
+    };
+
+    QuadVertex* data = new QuadVertex[4];
+
+    data[0].position = glm::vec3(x, y, 0.0f);
+    data[0].texCoord = glm::vec2(0.0f, 0.0f);
+
+    data[1].position = glm::vec3(x + width, y, 0.0f);
+    data[1].texCoord = glm::vec2(1.0f, 0.0f);
+
+    data[2].position = glm::vec3(x + width, y + height, 0.0f);
+    data[2].texCoord = glm::vec2(1.0f, 1.0f);
+
+    data[3].position = glm::vec3(x, y + height, 0.0f);
+    data[3].texCoord = glm::vec2(0.0f, 1.0f);
+
+    m_skybox    = VertexArray::Create();
+    auto quadVB = VertexBuffer::Create(data, sizeof(QuadVertex) * 4);
+    quadVB->SetLayout(
+      {{ShaderDataType::Float3, "a_Position"}, {ShaderDataType::Float2, "a_TexCoord"}});
+
+    uint32_t indices[6] = {0, 1, 2, 2, 3, 0};
+    auto     quadIB     = IndexBuffer::Create(indices, sizeof(uint32_t) * 6);
+
+    m_skybox->AddVertexBuffer(quadVB);
+    m_skybox->SetIndexBuffer(quadIB);
 }
 
 
@@ -485,6 +564,11 @@ void Scene::OnComponentAdded<ImGuiSameLineComponent>(Entity, ImGuiSameLineCompon
 
 template<>
 void Scene::OnComponentAdded<MeshComponent>(Entity, MeshComponent& component)
+{
+}
+
+template<>
+void Scene::OnComponentAdded<LightComponent>(Entity entity, LightComponent& component)
 {
 }
 

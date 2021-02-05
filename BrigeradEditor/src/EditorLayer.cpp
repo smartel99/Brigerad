@@ -42,7 +42,7 @@ void EditorLayer::OnAttach()
     m_brdfLut = Texture2D::Create("assets/textures/BRDF_LUT.tga");
 
     // m_mesh = Mesh::Create("assets/meshes/razor.obj");
-    Ref<Mesh>             mesh = Mesh::Create("assets/meshes/razor.obj");
+    Ref<Mesh>             mesh = Mesh::Create("assets/meshes/Kaph.obj");
     Ref<MaterialInstance> mat  = CreateRef<MaterialInstance>(mesh->GetMaterial());
     m_meshEntity               = m_scene->CreateEntity("Mesh!");
     m_meshEntity.AddComponent<MeshComponent>("mesh", mesh);

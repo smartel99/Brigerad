@@ -76,7 +76,6 @@ private:
     template<typename T>
     void OnComponentAdded(Entity entity, T& component);
 
-    void HandleImGuiEntity(Entity entity);
     void CreateSkyboxVA();
 
 private:

@@ -31,10 +31,6 @@
 #include "Brigerad/Renderer/Texture.h"
 #include "Brigerad/Scene/SceneCamera.h"
 #include "Brigerad/Scene/ScriptableEntity.h"
-#include "Brigerad/Scene/ImGuiWindowComponents.h"
-#include "Brigerad/Scene/ImGuiTextComponents.h"
-#include "Brigerad/Scene/ImGuiButtonComponents.h"
-#include "Brigerad/Scene/ImGuiMiscComponents.h"
 #include "Brigerad/Scene/MeshComponent.h"
 
 #include "glm/glm.hpp"

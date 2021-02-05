@@ -31,7 +31,6 @@
 #include "Components.h"
 #include "Entity.h"
 #include "Brigerad/Renderer/Renderer2D.h"
-#include "Brigerad/Events/ImGuiEvents.h"
 #include "Brigerad/Core/Application.h"
 
 #include "imgui.h"
@@ -300,14 +299,6 @@ void Scene::OnUpdate(Timestep ts)
 
 void Scene::OnImguiRender()
 {
-    m_registry.each([&](auto entityID) {
-        Entity entity {entityID, this};
-        if (!entity.HasComponent<ChildEntityComponent>())
-        {
-            HandleImGuiEntity(entity);
-        }
-    });
-
     auto meshRendererGroup = m_registry.view<MeshComponent>();
 
     for (auto entity : meshRendererGroup)
@@ -348,56 +339,6 @@ void Scene::OnEvent(Event& e)
             entity.GetComponent<NativeScriptComponent>().instance->OnEvent(e);
         }
     });
-}
-
-void Scene::HandleImGuiEntity(Entity entity)
-{
-    if (entity.HasComponent<ImGuiWindowComponent>())
-    {
-        auto& window = entity.GetComponentRef<ImGuiWindowComponent>();
-        if (window.isOpen)
-        {
-            ImGui::Begin(window.name.c_str(), &window.isOpen, window.flags);
-            for (const auto& child : window.childs)
-            {
-                HandleImGuiEntity(child);
-            }
-            ImGui::End();
-        }
-    }
-
-    if (entity.HasComponent<ImGuiTextComponent>())
-    {
-        auto& text = entity.GetComponentRef<ImGuiTextComponent>();
-        ImGui::Text("%s", text.text.c_str());
-    }
-
-    DrawImGuiButton<ImGuiButtonComponent>(
-      entity, [](ImGuiButtonComponent& button) { return ImGui::Button(button.name.c_str()); });
-
-    DrawImGuiButton<ImGuiSmallButtonComponent>(entity, [](ImGuiSmallButtonComponent& button) {
-        return ImGui::SmallButton(button.name.c_str());
-    });
-
-    DrawImGuiButton<ImGuiInvisibleButtonComponent>(
-      entity, [](ImGuiInvisibleButtonComponent& button) {
-          return ImGui::InvisibleButton(button.name.c_str(), button.size, button.flag);
-      });
-
-    DrawImGuiButton<ImGuiArrowButtonComponent>(entity, [](ImGuiArrowButtonComponent& button) {
-        return ImGui::ArrowButton(button.name.c_str(), button.direction);
-    });
-
-    if (entity.HasComponent<ImGuiSeparatorComponent>())
-    {
-        ImGui::Separator();
-    }
-
-    if (entity.HasComponent<ImGuiSameLineComponent>())
-    {
-        auto& sameLine = entity.GetComponent<ImGuiSameLineComponent>();
-        ImGui::SameLine(sameLine.offsetFromStartX, sameLine.spacing);
-    }
 }
 
 void Scene::CreateSkyboxVA()
@@ -492,73 +433,6 @@ void Scene::OnComponentAdded<NativeScriptComponent>(Entity, NativeScriptComponen
 
 template<>
 void Scene::OnComponentAdded<LuaScriptComponent>(Entity, LuaScriptComponent& component)
-{
-}
-
-template<>
-void Scene::OnComponentAdded<ImGuiWindowComponent>(Entity, ImGuiWindowComponent& component)
-{
-}
-
-template<>
-void Scene::OnComponentAdded<ImGuiTextComponent>(Entity, ImGuiTextComponent& component)
-{
-}
-
-template<>
-void Scene::OnComponentAdded<ImGuiButtonComponent>(Entity, ImGuiButtonComponent& component)
-{
-}
-
-template<>
-void Scene::OnComponentAdded<ImGuiButtonListenerComponent<ImGuiButtonComponent>>(
-  Entity, ImGuiButtonListenerComponent<ImGuiButtonComponent>& component)
-{
-}
-
-template<>
-void Scene::OnComponentAdded<ImGuiSmallButtonComponent>(Entity,
-                                                        ImGuiSmallButtonComponent& component)
-{
-}
-
-template<>
-void Scene::OnComponentAdded<ImGuiButtonListenerComponent<ImGuiSmallButtonComponent>>(
-  Entity, ImGuiButtonListenerComponent<ImGuiSmallButtonComponent>& component)
-{
-}
-
-template<>
-void Scene::OnComponentAdded<ImGuiInvisibleButtonComponent>(
-  Entity, ImGuiInvisibleButtonComponent& component)
-{
-}
-
-template<>
-void Scene::OnComponentAdded<ImGuiButtonListenerComponent<ImGuiInvisibleButtonComponent>>(
-  Entity, ImGuiButtonListenerComponent<ImGuiInvisibleButtonComponent>& component)
-{
-}
-
-template<>
-void Scene::OnComponentAdded<ImGuiArrowButtonComponent>(Entity,
-                                                        ImGuiArrowButtonComponent& component)
-{
-}
-
-template<>
-void Scene::OnComponentAdded<ImGuiButtonListenerComponent<ImGuiArrowButtonComponent>>(
-  Entity, ImGuiButtonListenerComponent<ImGuiArrowButtonComponent>& component)
-{
-}
-
-template<>
-void Scene::OnComponentAdded<ImGuiSeparatorComponent>(Entity, ImGuiSeparatorComponent& component)
-{
-}
-
-template<>
-void Scene::OnComponentAdded<ImGuiSameLineComponent>(Entity, ImGuiSameLineComponent& component)
 {
 }
 

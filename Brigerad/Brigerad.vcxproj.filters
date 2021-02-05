@@ -144,9 +144,6 @@
     <ClInclude Include="src\Brigerad\Events\Event.h">
       <Filter>src\Brigerad\Events</Filter>
     </ClInclude>
-    <ClInclude Include="src\Brigerad\Events\ImGuiEvents.h">
-      <Filter>src\Brigerad\Events</Filter>
-    </ClInclude>
     <ClInclude Include="src\Brigerad\Events\KeyEvents.h">
       <Filter>src\Brigerad\Events</Filter>
     </ClInclude>
@@ -208,18 +205,6 @@
       <Filter>src\Brigerad\Scene</Filter>
     </ClInclude>
     <ClInclude Include="src\Brigerad\Scene\Entity.h">
-      <Filter>src\Brigerad\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Brigerad\Scene\ImGuiButtonComponents.h">
-      <Filter>src\Brigerad\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Brigerad\Scene\ImGuiMiscComponents.h">
-      <Filter>src\Brigerad\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Brigerad\Scene\ImGuiTextComponents.h">
-      <Filter>src\Brigerad\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Brigerad\Scene\ImGuiWindowComponents.h">
       <Filter>src\Brigerad\Scene</Filter>
     </ClInclude>
     <ClInclude Include="src\Brigerad\Scene\Scene.h">

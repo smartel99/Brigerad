@@ -8,14 +8,13 @@
 #include "Brigerad/Utils/Serial.h"
 
 #include <cmath>
-#include "Brigerad/Events/ImGuiEvents.h"
 
 namespace Brigerad
 {
 
 static void UpdateFps();
 
-EditorLayer::EditorLayer() : Layer("Brigerad Editor"), m_Light({glm::vec3(1.0f), glm::vec3(1.0f)})
+EditorLayer::EditorLayer() : Layer("Brigerad Editor")
 {
 }
 
@@ -39,117 +38,20 @@ void EditorLayer::OnAttach()
     m_scene = CreateRef<Scene>();
     m_scene->SetSkyboxTexture(envCubeMap);
     m_scene->SetEnvironmentIrradiance(envIrradiance);
-    m_brdfLut = Texture2D::Create("assets/textures/BRDF_LUT.tga");
+    auto& brdfLut = Texture2D::Create("assets/textures/BRDF_LUT.tga");
 
-    // m_mesh = Mesh::Create("assets/meshes/razor.obj");
-    Ref<Mesh>             mesh = Mesh::Create("assets/meshes/Kaph.obj");
+    Ref<Mesh>             mesh = Mesh::Create("assets/models/Sphere1m.fbx");
     Ref<MaterialInstance> mat  = CreateRef<MaterialInstance>(mesh->GetMaterial());
     m_meshEntity               = m_scene->CreateEntity("Mesh!");
     m_meshEntity.AddComponent<MeshComponent>("mesh", mesh);
     auto& meshRef       = m_meshEntity.GetComponentRef<MeshComponent>();
-    meshRef.BrdfLut     = m_brdfLut;
+    meshRef.BrdfLut     = brdfLut;
     meshRef.MaterialRef = mat;
-
-    // Ref<Mesh>             mesh = Mesh::Create("assets/models/m1911/m1911.fbx");
-    // Ref<MaterialInstance> mat  = CreateRef<MaterialInstance>(mesh->GetMaterial());
-    // m_meshEntity               = m_scene->CreateEntity("Mesh!");
-    // m_meshEntity.AddComponent<MeshComponent>("mesh", mesh);
-    // auto& meshRef                = m_meshEntity.GetComponentRef<MeshComponent>();
-    // meshRef.BrdfLut              = m_brdfLut;
-    // meshRef.MaterialRef          = mat;
-    // meshRef.Albedo.TextureMap    = Texture2D::Create("assets/models/m1911/m1911_color.png");
-    // meshRef.Albedo.UseTexture    = true;
-    // meshRef.Metalness.TextureMap = Texture2D::Create("assets/models/m1911/m1911_metalness.png");
-    // meshRef.Metalness.UseTexture = true;
-    // meshRef.Normal.TextureMap    = Texture2D::Create("assets/models/m1911/m1911_normal.png");
-    // meshRef.Normal.UseTexture    = true;
-    // meshRef.Roughness.TextureMap = Texture2D::Create("assets/models/m1911/m1911_roughness.png");
-    // meshRef.Roughness.UseTexture = true;
-
 
     // Set lights
     m_lightEntity = m_scene->CreateEntity("Light");
     m_lightEntity.AddComponent<LightComponent>(glm::vec3 {-0.5f, -0.5f, 1.0f},
                                                glm::vec3 {1.0f, 1.0f, 1.0f});
-
-    // m_imguiWindowEntity = m_scene->CreateEntity("ImGui Window");
-    // auto& window        = m_imguiWindowEntity.AddComponent<ImGuiWindowComponent>("Test Window
-    // uwu");
-
-    // Entity text = m_scene->CreateChildEntity("ImGui Text", m_imguiWindowEntity);
-    // text.AddComponent<ImGuiTextComponent>("Test");
-    // window.AddChildEntity(text);
-
-    // Entity button = m_scene->CreateChildEntity("Button", m_imguiWindowEntity);
-    // button.AddComponent<ImGuiButtonComponent>("Press here");
-    // window.AddChildEntity(button);
-
-    // Entity button2 = m_scene->CreateChildEntity("Smoll Button", m_imguiWindowEntity);
-    // button2.AddComponent<ImGuiSmallButtonComponent>("Smoll Button");
-    // window.AddChildEntity(button2);
-
-    // Entity button3 = m_scene->CreateChildEntity("Invisible Button", m_imguiWindowEntity);
-    // button3.AddComponent<ImGuiInvisibleButtonComponent>("Invisible Button");
-    // window.AddChildEntity(button3);
-
-    // Entity left = m_scene->CreateChildEntity("Left Button", m_imguiWindowEntity);
-    // left.AddComponent<ImGuiArrowButtonComponent>("Left Button", ImGuiDir_Left);
-    // window.AddChildEntity(left);
-
-    // Entity right = m_scene->CreateChildEntity("Right Button", m_imguiWindowEntity);
-    // right.AddComponent<ImGuiArrowButtonComponent>("Right Button", ImGuiDir_Right);
-    // window.AddChildEntity(right);
-
-    // Entity up = m_scene->CreateChildEntity("Up Button", m_imguiWindowEntity);
-    // up.AddComponent<ImGuiArrowButtonComponent>("Up Button", ImGuiDir_Up);
-    // window.AddChildEntity(up);
-
-    // Entity down = m_scene->CreateChildEntity("Down Button", m_imguiWindowEntity);
-    // down.AddComponent<ImGuiArrowButtonComponent>("Down Button", ImGuiDir_Down);
-    // window.AddChildEntity(down);
-
-    // m_squareEntity = m_scene->CreateEntity("Square");
-    // m_squareEntity.AddComponent<ColorRendererComponent>(glm::vec4 {1.0f, 0.0f, 0.0f, 1.0f});
-
-    // class SquareMover : public ScriptableEntity
-    //{
-    //    virtual void OnUpdate(Timestep ts) override
-    //    {
-    //        const float  speed = 6.283f;
-    //        static float time  = 0.0f;
-
-    //        if (m_active)
-    //        {
-    //            time += ts;
-    //            auto& position = GetComponentRef<TransformComponent>().position;
-    //            position.x     = speed * std::sin(time);
-    //            position.y     = speed * std::cos(time);
-    //        }
-    //    }
-
-    //    virtual void OnEvent(Event& e) override
-    //    {
-    //        if (e.GetEventType() == EventType::ImGuiButtonPressed)
-    //        {
-    //            auto& listener =
-    //              GetComponentRef<ImGuiButtonListenerComponent<ImGuiButtonComponent>>();
-    //            if (listener.IsButton((*(ImGuiButtonPressedEvent*)&e).GetButton()))
-    //            {
-    //                m_active = !m_active;
-    //            }
-    //        }
-    //    }
-
-    // private:
-    //    bool m_active = false;
-    //};
-    // m_squareEntity.AddComponent<NativeScriptComponent>().Bind<SquareMover>();
-    // m_squareEntity.AddComponent<ImGuiButtonListenerComponent<ImGuiButtonComponent>>(button);
-
-    // m_textureEntity = m_scene->CreateEntity("Textured Square");
-    // m_textureEntity.AddComponent<TextureRendererComponent>("assets/textures/checkboard.png");
-    // m_textureEntity.AddComponent<LuaScriptComponent>("assets/scripts/test.lua", "Player");
-
 
     m_cameraEntity = m_scene->CreateEntity("Camera");
     m_cameraEntity.AddComponent<CameraComponent>();
@@ -158,10 +60,6 @@ void EditorLayer::OnAttach()
                                Application::Get().GetWindow().GetHeight());
     cam.camera.SetProjectionType(SceneCamera::ProjectionType::Perspective);
     m_cameraEntity.GetComponentRef<TransformComponent>().position.z = 60.0f;
-
-    m_cameraEntity2                                         = m_scene->CreateEntity("Camera 2");
-    m_cameraEntity2.AddComponent<CameraComponent>().primary = false;
-
 
     class CameraController : public ScriptableEntity
     {
@@ -203,11 +101,6 @@ void EditorLayer::OnAttach()
     };
 
     m_cameraEntity.AddComponent<NativeScriptComponent>().Bind<CameraController>();
-    m_cameraEntity2.AddComponent<NativeScriptComponent>().Bind<CameraController>();
-
-    // auto& trans      = m_textEntity.GetComponentRef<TransformComponent>();
-    // trans.position.x = -2.70f;
-    // trans.position.y = 0.90f;
 
     m_sceneHierarchyPanel = SceneHierarchyPanel(m_scene);
 }
@@ -241,30 +134,6 @@ void EditorLayer::OnUpdate(Timestep ts)
     // Update scene.
     m_scene->OnUpdate(ts);
 
-    // auto& mainCamera      = m_cameraEntity.GetComponentRef<CameraComponent>().camera;
-    // auto& cameraTransform = m_cameraEntity.GetComponentRef<TransformComponent>();
-
-    // auto& mesh          = m_meshEntity.GetComponentRef<MeshComponent>();
-    // auto& meshTransform = m_meshEntity.GetComponentRef<TransformComponent>();
-
-    // mesh.MaterialRef->Set("u_AlbedoColor", m_albedoInput.Color);
-    // mesh.MaterialRef->Set("u_Metalness", m_metalnessInput.Value);
-    // mesh.MaterialRef->Set("u_Roughness", m_roughnessInput.Value);
-    // mesh.MaterialRef->Set("u_ViewProjectionMatrix",
-    //                      mainCamera.GetProjection() *
-    //                        glm::inverse(cameraTransform.GetTransform()));
-    // mesh.MaterialRef->Set("u_ModelMatrix", meshTransform.GetTransform());
-    // mesh.MaterialRef->Set("u_Lights", m_Light);
-    // mesh.MaterialRef->Set("u_CameraPosition", cameraTransform.GetPosition());
-    // mesh.MaterialRef->Set("u_RadiancePrefilter", m_RadiancePrefilter ? 1.0f : 0.0f);
-    // mesh.MaterialRef->Set("u_AlbedoTexToggle", m_albedoInput.UseTexture ? 1.0f : 0.0f);
-    // mesh.MaterialRef->Set("u_NormalTexToggle", m_normalInput.UseTexture ? 1.0f : 0.0f);
-    // mesh.MaterialRef->Set("u_MetalnessTexToggle", m_metalnessInput.UseTexture ? 1.0f : 0.0f);
-    // mesh.MaterialRef->Set("u_RoughnessTexToggle", m_roughnessInput.UseTexture ? 1.0f : 0.0f);
-    // mesh.MaterialRef->Set("u_EnvRotation", m_EnvMapRotation);
-    // mesh.MaterialRef->Set("u_EnvRadianceTex", m_environmentCubeMap);
-    // mesh.MaterialRef->Set("u_EnvIrradianceTex", m_environmentIrradiance);
-    // mesh.MeshRef->Render(ts, meshTransform.GetTransform(), mesh.MaterialRef);
     m_fb->Unbind();
 }
 

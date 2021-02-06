@@ -1,0 +1,74 @@
+.TH "Brigerad::RenderCommandQueue" 3 "Sun Feb 7 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Brigerad::RenderCommandQueue
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <RenderCommandQueue\&.h>\fP
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "typedef void(* \fBRenderCommandFn\fP) (void *)"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBRenderCommandQueue\fP ()"
+.br
+.ti -1c
+.RI "\fB~RenderCommandQueue\fP ()"
+.br
+.ti -1c
+.RI "void * \fBAllocate\fP (\fBRenderCommandFn\fP fun, unsigned int size)"
+.br
+.ti -1c
+.RI "void \fBExecute\fP ()"
+.br
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "unsigned char * \fBm_commandBuffer\fP"
+.br
+.ti -1c
+.RI "unsigned char * \fBm_commandBufferPtr\fP"
+.br
+.ti -1c
+.RI "unsigned int \fBm_commandCount\fP = 0"
+.br
+.in -1c
+.SH "Member Typedef Documentation"
+.PP 
+.SS "typedef void(* Brigerad::RenderCommandQueue::RenderCommandFn) (void *)"
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Brigerad::RenderCommandQueue::RenderCommandQueue ()"
+
+.SS "Brigerad::RenderCommandQueue::~RenderCommandQueue ()"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void * Brigerad::RenderCommandQueue::Allocate (\fBRenderCommandFn\fP fun, unsigned int size)"
+
+.SS "void Brigerad::RenderCommandQueue::Execute ()"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "unsigned char* Brigerad::RenderCommandQueue::m_commandBuffer\fC [private]\fP"
+
+.SS "unsigned char* Brigerad::RenderCommandQueue::m_commandBufferPtr\fC [private]\fP"
+
+.SS "unsigned int Brigerad::RenderCommandQueue::m_commandCount = 0\fC [private]\fP"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

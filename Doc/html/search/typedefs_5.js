@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['ref_1817',['Ref',['../namespace_brigerad.html#ae8e468075164a68e75cc3179124c006b',1,'Brigerad']]]
+  ['portinfo_2252',['PortInfo',['../class_brigerad_1_1_serial.html#a6050d5911b450b96f750edcf2e7360ee',1,'Brigerad::Serial']]]
 ];

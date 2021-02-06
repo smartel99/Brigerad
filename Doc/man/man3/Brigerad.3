@@ -1,4 +1,4 @@
-.TH "Brigerad" 3 "Sun Jan 10 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.TH "Brigerad" 3 "Sun Feb 7 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -26,12 +26,16 @@ Brigerad
 .br
 \&. "
 .ti -1c
+.RI "struct \fBBuffer\fP"
+.br
+.ti -1c
 .RI "class \fBInput\fP"
 .br
 .RI "Platform-independent input management class\&. "
 .ti -1c
 .RI "class \fBLayer\fP"
 .br
+.RI "\fBLayer\fP class, where most of the client's logic should occur\&. "
 .ti -1c
 .RI "class \fBLayerStack\fP"
 .br
@@ -90,15 +94,6 @@ Brigerad
 .br
 .ti -1c
 .RI "class \fBEventDispatcher\fP"
-.br
-.ti -1c
-.RI "class \fBImGuiButtonEvent\fP"
-.br
-.ti -1c
-.RI "class \fBImGuiButtonPressedEvent\fP"
-.br
-.ti -1c
-.RI "class \fBImGuiButtonReleasedEvent\fP"
 .br
 .ti -1c
 .RI "class \fBKeyEvent\fP"
@@ -162,6 +157,35 @@ Brigerad
 .RI "class \fBGraphicsContext\fP"
 .br
 .ti -1c
+.RI "class \fBMaterial\fP"
+.br
+.RI "Platform-agnostic \fBMaterial\fP class\&. "
+.ti -1c
+.RI "class \fBMaterialInstance\fP"
+.br
+.RI "An instance of a \fBMaterial\fP\&. "
+.ti -1c
+.RI "struct \fBVertex\fP"
+.br
+.ti -1c
+.RI "struct \fBAnimatedVertex\fP"
+.br
+.ti -1c
+.RI "struct \fBIndex\fP"
+.br
+.ti -1c
+.RI "struct \fBBoneInfo\fP"
+.br
+.ti -1c
+.RI "struct \fBVertexBoneData\fP"
+.br
+.ti -1c
+.RI "class \fBSubmesh\fP"
+.br
+.ti -1c
+.RI "class \fBMesh\fP"
+.br
+.ti -1c
 .RI "class \fBOrthographicCamera\fP"
 .br
 .ti -1c
@@ -172,6 +196,9 @@ Brigerad
 .br
 .ti -1c
 .RI "class \fBRenderCommand\fP"
+.br
+.ti -1c
+.RI "class \fBRenderCommandQueue\fP"
 .br
 .ti -1c
 .RI "class \fBRenderer\fP"
@@ -188,13 +215,46 @@ Brigerad
 .RI "class \fBRenderer2D\fP"
 .br
 .ti -1c
+.RI "struct \fBRenderAPICapabilities\fP"
+.br
+.ti -1c
 .RI "class \fBRendererAPI\fP"
+.br
+.ti -1c
+.RI "struct \fBShaderUniform\fP"
+.br
+.ti -1c
+.RI "struct \fBShaderUniformCollection\fP"
+.br
+.ti -1c
+.RI "struct \fBUniformDecl\fP"
+.br
+.ti -1c
+.RI "struct \fBUniformBuffer\fP"
+.br
+.ti -1c
+.RI "struct \fBUniformBufferBase\fP"
+.br
+.ti -1c
+.RI "struct \fBUniformBufferDeclaration\fP"
 .br
 .ti -1c
 .RI "class \fBShader\fP"
 .br
 .ti -1c
 .RI "class \fBShaderLibrary\fP"
+.br
+.ti -1c
+.RI "class \fBShaderUniformDeclaration\fP"
+.br
+.ti -1c
+.RI "class \fBShaderUniformBufferDeclaration\fP"
+.br
+.ti -1c
+.RI "class \fBShaderStruct\fP"
+.br
+.ti -1c
+.RI "class \fBShaderResourceDeclaration\fP"
 .br
 .ti -1c
 .RI "class \fBSubTexture2D\fP"
@@ -204,6 +264,9 @@ Brigerad
 .br
 .ti -1c
 .RI "class \fBTexture2D\fP"
+.br
+.ti -1c
+.RI "class \fBTextureCube\fP"
 .br
 .ti -1c
 .RI "class \fBVertexArray\fP"
@@ -239,37 +302,25 @@ Brigerad
 .RI "struct \fBLuaScriptComponent\fP"
 .br
 .ti -1c
+.RI "struct \fBLightComponent\fP"
+.br
+.ti -1c
 .RI "class \fBEntity\fP"
 .br
 .ti -1c
-.RI "struct \fBImGuiButtonListenerComponent\fP"
+.RI "struct \fBAlbedoInput\fP"
 .br
 .ti -1c
-.RI "struct \fBImGuiButtonComponent\fP"
+.RI "struct \fBNormalInput\fP"
 .br
 .ti -1c
-.RI "struct \fBImGuiSmallButtonComponent\fP"
+.RI "struct \fBMetalnessInput\fP"
 .br
 .ti -1c
-.RI "struct \fBImGuiInvisibleButtonComponent\fP"
+.RI "struct \fBRoughnessInput\fP"
 .br
 .ti -1c
-.RI "struct \fBImGuiArrowButtonComponent\fP"
-.br
-.ti -1c
-.RI "struct \fBImGuiCheckboxComponent\fP"
-.br
-.ti -1c
-.RI "struct \fBImGuiSeparatorComponent\fP"
-.br
-.ti -1c
-.RI "struct \fBImGuiSameLineComponent\fP"
-.br
-.ti -1c
-.RI "struct \fBImGuiTextComponent\fP"
-.br
-.ti -1c
-.RI "struct \fBImGuiWindowComponent\fP"
+.RI "struct \fBMeshComponent\fP"
 .br
 .ti -1c
 .RI "class \fBScene\fP"
@@ -311,13 +362,34 @@ Brigerad
 .RI "class \fBOpenGLFramebuffer\fP"
 .br
 .ti -1c
+.RI "struct \fBLogStream\fP"
+.br
+.ti -1c
+.RI "class \fBOpenGLMesh\fP"
+.br
+.ti -1c
 .RI "class \fBOpenGLRendererAPI\fP"
 .br
 .ti -1c
 .RI "class \fBOpenGLShader\fP"
 .br
 .ti -1c
+.RI "class \fBOpenGLShaderResourceDeclaration\fP"
+.br
+.ti -1c
+.RI "class \fBOpenGLShaderUniformDeclaration\fP"
+.br
+.ti -1c
+.RI "struct \fBGLShaderUniformField\fP"
+.br
+.ti -1c
+.RI "class \fBOpenGLShaderUniformBufferDeclaration\fP"
+.br
+.ti -1c
 .RI "class \fBOpenGLTexture2D\fP"
+.br
+.ti -1c
+.RI "class \fBOpenGLTextureCube\fP"
 .br
 .ti -1c
 .RI "class \fBOpenGLVertexArray\fP"
@@ -333,11 +405,26 @@ Brigerad
 .RI "template<typename T > using \fBRef\fP = std::shared_ptr< T >"
 .br
 .ti -1c
+.RI "using \fBbyte\fP = unsigned char"
+.br
+.ti -1c
 .RI "typedef enum \fBBrigerad::KeyCode\fP \fBKey\fP"
 .br
 .RI "All possible keycodes for standard keyboards\&. "
 .ti -1c
 .RI "typedef enum \fBBrigerad::MouseCode\fP \fBMouse\fP"
+.br
+.ti -1c
+.RI "using \fBShaderUniformDeclarationList\fP = std::vector< \fBShaderUniformDeclaration\fP * >"
+.br
+.ti -1c
+.RI "using \fBShaderUniformBufferList\fP = std::vector< \fBShaderUniformBufferDeclaration\fP * >"
+.br
+.ti -1c
+.RI "using \fBShaderStructList\fP = std::vector< \fBShaderStruct\fP * >"
+.br
+.ti -1c
+.RI "using \fBShaderResourceList\fP = std::vector< \fBShaderResourceDeclaration\fP * >"
 .br
 .in -1c
 .SS "Enumerations"
@@ -361,7 +448,10 @@ Brigerad
 .RI "enum class \fBShaderDataType\fP { \fBNone\fP = 0, \fBFloat\fP, \fBFloat2\fP, \fBFloat3\fP, \fBFloat4\fP, \fBMat3\fP, \fBMat4\fP, \fBInt\fP, \fBInt2\fP, \fBInt3\fP, \fBInt4\fP, \fBBool\fP }"
 .br
 .ti -1c
-.RI "enum class \fBImGuiButtonState\fP { \fBInactive\fP = 0, \fBPressed\fP = 1, \fBHeld\fP = 2, \fBReleased\fP = 3 }"
+.RI "enum class \fBUniformType\fP { \fBNone\fP = 0, \fBFloat\fP, \fBFloat2\fP, \fBFloat3\fP, \fBFloat4\fP, \fBMatrix3x3\fP, \fBMatrix4x4\fP, \fBInt32\fP, \fBUint32\fP }"
+.br
+.ti -1c
+.RI "enum class \fBShaderDomain\fP { \fBNone\fP = 0, \fBVertex\fP = 0, \fBPixel\fP = 1 }"
 .br
 .in -1c
 .SS "Functions"
@@ -391,6 +481,33 @@ Brigerad
 .ti -1c
 .RI "template<typename T > void \fBDrawImGuiButton\fP (\fBEntity\fP &entity, const std::function< bool(T &)> &func)"
 .br
+.ti -1c
+.RI "const char * \fBFindToken\fP (const char *str, const std::string &token)"
+.br
+.ti -1c
+.RI "const char * \fBFindToken\fP (const std::string &string, const std::string &token)"
+.br
+.ti -1c
+.RI "std::vector< std::string > \fBSplitString\fP (const std::string &string, const std::string &delimiters)"
+.br
+.ti -1c
+.RI "std::vector< std::string > \fBSplitString\fP (const std::string &string, const char delimiter)"
+.br
+.ti -1c
+.RI "std::vector< std::string > \fBTokenize\fP (const std::string &string)"
+.br
+.ti -1c
+.RI "std::vector< std::string > \fBGetLines\fP (const std::string &string)"
+.br
+.ti -1c
+.RI "std::string \fBGetBlock\fP (const char *str, const char **outPosition)"
+.br
+.ti -1c
+.RI "std::string \fBGetStatement\fP (const char *str, const char **outPosition)"
+.br
+.ti -1c
+.RI "bool \fBStartsWith\fP (const std::string &string, const std::string &start)"
+.br
 .in -1c
 .SS "Variables"
 
@@ -419,11 +536,21 @@ THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 .SS "template<typename T > using \fBBrigerad::Ref\fP = typedef std::shared_ptr<T>"
 
+.SS "using \fBBrigerad::byte\fP = typedef unsigned char"
+
 .SS "typedef enum \fBBrigerad::KeyCode\fP \fBBrigerad::Key\fP"
 
 .PP
 All possible keycodes for standard keyboards\&. These codes come from GLFW\&. 
 .SS "typedef enum \fBBrigerad::MouseCode\fP \fBBrigerad::Mouse\fP"
+
+.SS "using \fBBrigerad::ShaderUniformDeclarationList\fP = typedef std::vector<\fBShaderUniformDeclaration\fP*>"
+
+.SS "using \fBBrigerad::ShaderUniformBufferList\fP = typedef std::vector<\fBShaderUniformBufferDeclaration\fP*>"
+
+.SS "using \fBBrigerad::ShaderStructList\fP = typedef std::vector<\fBShaderStruct\fP*>"
+
+.SS "using \fBBrigerad::ShaderResourceList\fP = typedef std::vector<\fBShaderResourceDeclaration\fP*>"
 
 .SH "Enumeration Type Documentation"
 .PP 
@@ -440,23 +567,14 @@ All possible keycodes for standard keyboards\&. These codes come from GLFW\&.
 \fB\fIApostrophe \fP\fP
 .TP
 \fB\fIComma \fP\fP
-' 
 .TP
 \fB\fIMinus \fP\fP
-, 
 .TP
 \fB\fIPeriod \fP\fP
-
-.IP "\(bu" 2
-
-.PP
-
 .TP
 \fB\fISlash \fP\fP
-
 .TP
 \fB\fID0 \fP\fP
-/ 
 .TP
 \fB\fID1 \fP\fP
 .TP
@@ -805,19 +923,40 @@ Lists all possible types of \fBEvent\fP for \fBBrigerad\fP\&.
 \fB\fIInt4 \fP\fP
 .TP
 \fB\fIBool \fP\fP
-.SS "enum \fBBrigerad::ImGuiButtonState\fP\fC [strong]\fP"
+.SS "enum \fBBrigerad::UniformType\fP\fC [strong]\fP"
 
 .PP
 \fBEnumerator\fP
 .in +1c
 .TP
-\fB\fIInactive \fP\fP
+\fB\fINone \fP\fP
 .TP
-\fB\fIPressed \fP\fP
+\fB\fIFloat \fP\fP
 .TP
-\fB\fIHeld \fP\fP
+\fB\fIFloat2 \fP\fP
 .TP
-\fB\fIReleased \fP\fP
+\fB\fIFloat3 \fP\fP
+.TP
+\fB\fIFloat4 \fP\fP
+.TP
+\fB\fIMatrix3x3 \fP\fP
+.TP
+\fB\fIMatrix4x4 \fP\fP
+.TP
+\fB\fIInt32 \fP\fP
+.TP
+\fB\fIUint32 \fP\fP
+.SS "enum \fBBrigerad::ShaderDomain\fP\fC [strong]\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fINone \fP\fP
+.TP
+\fB\fIVertex \fP\fP
+.TP
+\fB\fIPixel \fP\fP
 .SH "Function Documentation"
 .PP 
 .SS "\fBApplication\fP* Brigerad::CreateApplication ()"
@@ -835,6 +974,24 @@ Lists all possible types of \fBEvent\fP for \fBBrigerad\fP\&.
 .SS "std::ostream& Brigerad::operator<< (std::ostream & os, const \fBEvent\fP & e)\fC [inline]\fP"
 
 .SS "template<typename T > void Brigerad::DrawImGuiButton (\fBEntity\fP & entity, const std::function< bool(T &)> & func)"
+
+.SS "const char* Brigerad::FindToken (const char * str, const std::string & token)"
+
+.SS "const char* Brigerad::FindToken (const std::string & string, const std::string & token)"
+
+.SS "std::vector<std::string> Brigerad::SplitString (const std::string & string, const std::string & delimiters)"
+
+.SS "std::vector<std::string> Brigerad::SplitString (const std::string & string, const char delimiter)"
+
+.SS "std::vector<std::string> Brigerad::Tokenize (const std::string & string)"
+
+.SS "std::vector<std::string> Brigerad::GetLines (const std::string & string)"
+
+.SS "std::string Brigerad::GetBlock (const char * str, const char ** outPosition)"
+
+.SS "std::string Brigerad::GetStatement (const char * str, const char ** outPosition)"
+
+.SS "bool Brigerad::StartsWith (const std::string & string, const std::string & start)"
 
 .SH "Variable Documentation"
 .PP 

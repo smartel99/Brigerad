@@ -1,0 +1,124 @@
+.TH "Brigerad::OpenGLShaderResourceDeclaration" 3 "Sun Feb 7 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Brigerad::OpenGLShaderResourceDeclaration
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <OpenGLShaderUniform\&.h>\fP
+.PP
+Inherits \fBBrigerad::ShaderResourceDeclaration\fP\&.
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum class \fBType\fP { \fBNONE\fP, \fBTEXTURE2D\fP }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBOpenGLShaderResourceDeclaration\fP (\fBType\fP type, const std::string &name, uint32_t count)"
+.br
+.ti -1c
+.RI "virtual const std::string & \fBGetName\fP () const override"
+.br
+.ti -1c
+.RI "virtual uint32_t \fBGetRegister\fP () const override"
+.br
+.ti -1c
+.RI "virtual uint32_t \fBGetCount\fP () const override"
+.br
+.ti -1c
+.RI "\fBType\fP \fBGetType\fP () const"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBType\fP \fBStringToType\fP (const std::string &type)"
+.br
+.ti -1c
+.RI "static std::string \fBTypeToString\fP (\fBType\fP type)"
+.br
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "std::string \fBm_name\fP"
+.br
+.ti -1c
+.RI "uint32_t \fBm_register\fP = 0"
+.br
+.ti -1c
+.RI "uint32_t \fBm_count\fP"
+.br
+.ti -1c
+.RI "\fBType\fP \fBm_type\fP"
+.br
+.in -1c
+.SS "Friends"
+
+.in +1c
+.ti -1c
+.RI "class \fBOpenGLShader\fP"
+.br
+.in -1c
+.SH "Member Enumeration Documentation"
+.PP 
+.SS "enum \fBBrigerad::OpenGLShaderResourceDeclaration::Type\fP\fC [strong]\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fINONE \fP\fP
+.TP
+\fB\fITEXTURE2D \fP\fP
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Brigerad::OpenGLShaderResourceDeclaration::OpenGLShaderResourceDeclaration (\fBType\fP type, const std::string & name, uint32_t count)"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "virtual const std::string& Brigerad::OpenGLShaderResourceDeclaration::GetName () const\fC [inline]\fP, \fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBBrigerad::ShaderResourceDeclaration\fP\&.
+.SS "virtual uint32_t Brigerad::OpenGLShaderResourceDeclaration::GetRegister () const\fC [inline]\fP, \fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBBrigerad::ShaderResourceDeclaration\fP\&.
+.SS "virtual uint32_t Brigerad::OpenGLShaderResourceDeclaration::GetCount () const\fC [inline]\fP, \fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBBrigerad::ShaderResourceDeclaration\fP\&.
+.SS "\fBType\fP Brigerad::OpenGLShaderResourceDeclaration::GetType () const\fC [inline]\fP"
+
+.SS "\fBBrigerad::OpenGLShaderResourceDeclaration::Type\fP Brigerad::OpenGLShaderResourceDeclaration::StringToType (const std::string & type)\fC [static]\fP"
+
+.SS "std::string Brigerad::OpenGLShaderResourceDeclaration::TypeToString (\fBType\fP type)\fC [static]\fP"
+
+.SH "Friends And Related Function Documentation"
+.PP 
+.SS "friend class \fBOpenGLShader\fP\fC [friend]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "std::string Brigerad::OpenGLShaderResourceDeclaration::m_name\fC [private]\fP"
+
+.SS "uint32_t Brigerad::OpenGLShaderResourceDeclaration::m_register = 0\fC [private]\fP"
+
+.SS "uint32_t Brigerad::OpenGLShaderResourceDeclaration::m_count\fC [private]\fP"
+
+.SS "\fBType\fP Brigerad::OpenGLShaderResourceDeclaration::m_type\fC [private]\fP"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

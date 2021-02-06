@@ -1,7 +1,7 @@
 var dir_551616e5393134d8b364039122d94fb8 =
 [
     [ "Buffer.cpp", "_buffer_8cpp.html", null ],
-    [ "Buffer.h", "_buffer_8h.html", "_buffer_8h" ],
+    [ "Buffer.h", "_renderer_2_buffer_8h.html", "_renderer_2_buffer_8h" ],
     [ "Camera.h", "_camera_8h.html", [
       [ "Camera", "class_brigerad_1_1_camera.html", "class_brigerad_1_1_camera" ]
     ] ],
@@ -19,6 +19,13 @@ var dir_551616e5393134d8b364039122d94fb8 =
     [ "GraphicsContext.h", "_graphics_context_8h.html", [
       [ "GraphicsContext", "class_brigerad_1_1_graphics_context.html", "class_brigerad_1_1_graphics_context" ]
     ] ],
+    [ "Material.cpp", "_material_8cpp.html", null ],
+    [ "Material.h", "_material_8h.html", [
+      [ "Material", "class_brigerad_1_1_material.html", "class_brigerad_1_1_material" ],
+      [ "MaterialInstance", "class_brigerad_1_1_material_instance.html", "class_brigerad_1_1_material_instance" ]
+    ] ],
+    [ "Mesh.cpp", "_mesh_8cpp.html", null ],
+    [ "Mesh.h", "_mesh_8h.html", "_mesh_8h" ],
     [ "OrthographicCamera.cpp", "_orthographic_camera_8cpp.html", null ],
     [ "OrthographicCamera.h", "_orthographic_camera_8h.html", [
       [ "OrthographicCamera", "class_brigerad_1_1_orthographic_camera.html", "class_brigerad_1_1_orthographic_camera" ]
@@ -32,6 +39,10 @@ var dir_551616e5393134d8b364039122d94fb8 =
     [ "RenderCommand.h", "_render_command_8h.html", [
       [ "RenderCommand", "class_brigerad_1_1_render_command.html", null ]
     ] ],
+    [ "RenderCommandQueue.cpp", "_render_command_queue_8cpp.html", null ],
+    [ "RenderCommandQueue.h", "_render_command_queue_8h.html", [
+      [ "RenderCommandQueue", "class_brigerad_1_1_render_command_queue.html", "class_brigerad_1_1_render_command_queue" ]
+    ] ],
     [ "Renderer.cpp", "_renderer_8cpp.html", null ],
     [ "Renderer.h", "_renderer_8h.html", [
       [ "Renderer", "class_brigerad_1_1_renderer.html", "class_brigerad_1_1_renderer" ],
@@ -44,13 +55,12 @@ var dir_551616e5393134d8b364039122d94fb8 =
     ] ],
     [ "RendererAPI.cpp", "_renderer_a_p_i_8cpp.html", null ],
     [ "RendererAPI.h", "_renderer_a_p_i_8h.html", [
+      [ "RenderAPICapabilities", "struct_brigerad_1_1_render_a_p_i_capabilities.html", "struct_brigerad_1_1_render_a_p_i_capabilities" ],
       [ "RendererAPI", "class_brigerad_1_1_renderer_a_p_i.html", "class_brigerad_1_1_renderer_a_p_i" ]
     ] ],
     [ "Shader.cpp", "_shader_8cpp.html", null ],
-    [ "Shader.h", "_shader_8h.html", [
-      [ "Shader", "class_brigerad_1_1_shader.html", "class_brigerad_1_1_shader" ],
-      [ "ShaderLibrary", "class_brigerad_1_1_shader_library.html", "class_brigerad_1_1_shader_library" ]
-    ] ],
+    [ "Shader.h", "_shader_8h.html", "_shader_8h" ],
+    [ "ShaderUniform.h", "_shader_uniform_8h.html", "_shader_uniform_8h" ],
     [ "SubTexture2D.cpp", "_sub_texture2_d_8cpp.html", null ],
     [ "SubTexture2D.h", "_sub_texture2_d_8h.html", [
       [ "SubTexture2D", "class_brigerad_1_1_sub_texture2_d.html", "class_brigerad_1_1_sub_texture2_d" ]
@@ -58,7 +68,8 @@ var dir_551616e5393134d8b364039122d94fb8 =
     [ "Texture.cpp", "_texture_8cpp.html", null ],
     [ "Texture.h", "_texture_8h.html", [
       [ "Texture", "class_brigerad_1_1_texture.html", "class_brigerad_1_1_texture" ],
-      [ "Texture2D", "class_brigerad_1_1_texture2_d.html", null ]
+      [ "Texture2D", "class_brigerad_1_1_texture2_d.html", null ],
+      [ "TextureCube", "class_brigerad_1_1_texture_cube.html", "class_brigerad_1_1_texture_cube" ]
     ] ],
     [ "VertexArray.cpp", "_vertex_array_8cpp.html", null ],
     [ "VertexArray.h", "_vertex_array_8h.html", [

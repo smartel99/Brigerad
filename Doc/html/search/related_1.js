@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['scene_2041',['Scene',['../class_brigerad_1_1_scriptable_entity.html#a032858ae1fe02d2d1170981c2af2d67c',1,'Brigerad::ScriptableEntity::Scene()'],['../class_brigerad_1_1_lua_script_entity.html#a032858ae1fe02d2d1170981c2af2d67c',1,'Brigerad::LuaScriptEntity::Scene()']]],
-  ['scenehierarchypanel_2042',['SceneHierarchyPanel',['../class_brigerad_1_1_scene.html#a776c3b89de428075a81a63c2e78d8eaf',1,'Brigerad::Scene']]]
+  ['material_2493',['Material',['../class_brigerad_1_1_material_instance.html#aa1212b6e372a0f45d2c01f3cd203af77',1,'Brigerad::MaterialInstance']]],
+  ['materialinstance_2494',['MaterialInstance',['../class_brigerad_1_1_material.html#a992a4503c82571b8ad54faa38513501d',1,'Brigerad::Material']]]
 ];

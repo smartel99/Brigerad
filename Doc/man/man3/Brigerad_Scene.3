@@ -1,4 +1,4 @@
-.TH "Brigerad::Scene" 3 "Sun Jan 10 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.TH "Brigerad::Scene" 3 "Sun Feb 7 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -15,7 +15,16 @@ Brigerad::Scene
 .RI "\fBScene\fP ()"
 .br
 .ti -1c
+.RI "\fBScene\fP (const \fBRef\fP< \fBTextureCube\fP > &texture)"
+.br
+.ti -1c
 .RI "\fB~Scene\fP ()"
+.br
+.ti -1c
+.RI "void \fBSetSkyboxTexture\fP (const \fBRef\fP< \fBTextureCube\fP > &texture)"
+.br
+.ti -1c
+.RI "void \fBSetEnvironmentIrradiance\fP (const \fBRef\fP< \fBTextureCube\fP > &texture)"
 .br
 .ti -1c
 .RI "\fBEntity\fP \fBCreateEntity\fP (const std::string &name=std::string())"
@@ -49,7 +58,7 @@ Brigerad::Scene
 .RI "template<typename T > void \fBOnComponentAdded\fP (\fBEntity\fP entity, T &component)"
 .br
 .ti -1c
-.RI "void \fBHandleImGuiEntity\fP (\fBEntity\fP entity)"
+.RI "void \fBCreateSkyboxVA\fP ()"
 .br
 .ti -1c
 .RI "template<> void \fBOnComponentAdded\fP (\fBEntity\fP, \fBTagComponent\fP &component)"
@@ -82,40 +91,10 @@ Brigerad::Scene
 .RI "template<> void \fBOnComponentAdded\fP (\fBEntity\fP, \fBLuaScriptComponent\fP &component)"
 .br
 .ti -1c
-.RI "template<> void \fBOnComponentAdded\fP (\fBEntity\fP, \fBImGuiWindowComponent\fP &component)"
+.RI "template<> void \fBOnComponentAdded\fP (\fBEntity\fP, \fBMeshComponent\fP &component)"
 .br
 .ti -1c
-.RI "template<> void \fBOnComponentAdded\fP (\fBEntity\fP, \fBImGuiTextComponent\fP &component)"
-.br
-.ti -1c
-.RI "template<> void \fBOnComponentAdded\fP (\fBEntity\fP, \fBImGuiButtonComponent\fP &component)"
-.br
-.ti -1c
-.RI "template<> void \fBOnComponentAdded\fP (\fBEntity\fP, \fBImGuiButtonListenerComponent\fP< \fBImGuiButtonComponent\fP > &component)"
-.br
-.ti -1c
-.RI "template<> void \fBOnComponentAdded\fP (\fBEntity\fP, \fBImGuiSmallButtonComponent\fP &component)"
-.br
-.ti -1c
-.RI "template<> void \fBOnComponentAdded\fP (\fBEntity\fP, \fBImGuiButtonListenerComponent\fP< \fBImGuiSmallButtonComponent\fP > &component)"
-.br
-.ti -1c
-.RI "template<> void \fBOnComponentAdded\fP (\fBEntity\fP, \fBImGuiInvisibleButtonComponent\fP &component)"
-.br
-.ti -1c
-.RI "template<> void \fBOnComponentAdded\fP (\fBEntity\fP, \fBImGuiButtonListenerComponent\fP< \fBImGuiInvisibleButtonComponent\fP > &component)"
-.br
-.ti -1c
-.RI "template<> void \fBOnComponentAdded\fP (\fBEntity\fP, \fBImGuiArrowButtonComponent\fP &component)"
-.br
-.ti -1c
-.RI "template<> void \fBOnComponentAdded\fP (\fBEntity\fP, \fBImGuiButtonListenerComponent\fP< \fBImGuiArrowButtonComponent\fP > &component)"
-.br
-.ti -1c
-.RI "template<> void \fBOnComponentAdded\fP (\fBEntity\fP, \fBImGuiSeparatorComponent\fP &component)"
-.br
-.ti -1c
-.RI "template<> void \fBOnComponentAdded\fP (\fBEntity\fP, \fBImGuiSameLineComponent\fP &component)"
+.RI "template<> void \fBOnComponentAdded\fP (\fBEntity\fP entity, \fBLightComponent\fP &component)"
 .br
 .in -1c
 .SS "Private Attributes"
@@ -129,6 +108,27 @@ Brigerad::Scene
 .br
 .ti -1c
 .RI "uint32_t \fBm_viewportHeight\fP = 0"
+.br
+.ti -1c
+.RI "\fBRef\fP< \fBVertexArray\fP > \fBm_skybox\fP = nullptr"
+.br
+.ti -1c
+.RI "\fBRef\fP< \fBTextureCube\fP > \fBm_skyboxTexture\fP = nullptr"
+.br
+.ti -1c
+.RI "\fBRef\fP< \fBTextureCube\fP > \fBm_environmentIrradiance\fP = nullptr"
+.br
+.ti -1c
+.RI "\fBRef\fP< \fBShader\fP > \fBm_skyboxShader\fP = nullptr"
+.br
+.ti -1c
+.RI "float \fBm_exposure\fP = 1\&.0f"
+.br
+.ti -1c
+.RI "bool \fBm_radiancePrefilter\fP = false"
+.br
+.ti -1c
+.RI "float \fBm_envMapRotation\fP = 0\&.0f"
 .br
 .in -1c
 .SS "Friends"
@@ -145,10 +145,16 @@ Brigerad::Scene
 .PP 
 .SS "Brigerad::Scene::Scene ()"
 
+.SS "Brigerad::Scene::Scene (const \fBRef\fP< \fBTextureCube\fP > & texture)"
+
 .SS "Brigerad::Scene::~Scene ()"
 
 .SH "Member Function Documentation"
 .PP 
+.SS "void Brigerad::Scene::SetSkyboxTexture (const \fBRef\fP< \fBTextureCube\fP > & texture)\fC [inline]\fP"
+
+.SS "void Brigerad::Scene::SetEnvironmentIrradiance (const \fBRef\fP< \fBTextureCube\fP > & texture)\fC [inline]\fP"
+
 .SS "\fBEntity\fP Brigerad::Scene::CreateEntity (const std::string & name = \fCstd::string()\fP)"
 
 .SS "\fBEntity\fP Brigerad::Scene::CreateChildEntity (const std::string & name, \fBEntity\fP parent)"
@@ -167,7 +173,7 @@ Brigerad::Scene
 
 .SS "template<typename T > void Brigerad::Scene::OnComponentAdded (\fBEntity\fP entity, T & component)\fC [private]\fP"
 
-.SS "void Brigerad::Scene::HandleImGuiEntity (\fBEntity\fP entity)\fC [private]\fP"
+.SS "void Brigerad::Scene::CreateSkyboxVA ()\fC [private]\fP"
 
 .SS "template<> void Brigerad::Scene::OnComponentAdded (\fBEntity\fP, \fBTagComponent\fP & component)\fC [private]\fP"
 
@@ -189,29 +195,9 @@ Brigerad::Scene
 
 .SS "template<> void Brigerad::Scene::OnComponentAdded (\fBEntity\fP, \fBLuaScriptComponent\fP & component)\fC [private]\fP"
 
-.SS "template<> void Brigerad::Scene::OnComponentAdded (\fBEntity\fP, \fBImGuiWindowComponent\fP & component)\fC [private]\fP"
+.SS "template<> void Brigerad::Scene::OnComponentAdded (\fBEntity\fP, \fBMeshComponent\fP & component)\fC [private]\fP"
 
-.SS "template<> void Brigerad::Scene::OnComponentAdded (\fBEntity\fP, \fBImGuiTextComponent\fP & component)\fC [private]\fP"
-
-.SS "template<> void Brigerad::Scene::OnComponentAdded (\fBEntity\fP, \fBImGuiButtonComponent\fP & component)\fC [private]\fP"
-
-.SS "template<> void Brigerad::Scene::OnComponentAdded (\fBEntity\fP, \fBImGuiButtonListenerComponent\fP< \fBImGuiButtonComponent\fP > & component)\fC [private]\fP"
-
-.SS "template<> void Brigerad::Scene::OnComponentAdded (\fBEntity\fP, \fBImGuiSmallButtonComponent\fP & component)\fC [private]\fP"
-
-.SS "template<> void Brigerad::Scene::OnComponentAdded (\fBEntity\fP, \fBImGuiButtonListenerComponent\fP< \fBImGuiSmallButtonComponent\fP > & component)\fC [private]\fP"
-
-.SS "template<> void Brigerad::Scene::OnComponentAdded (\fBEntity\fP, \fBImGuiInvisibleButtonComponent\fP & component)\fC [private]\fP"
-
-.SS "template<> void Brigerad::Scene::OnComponentAdded (\fBEntity\fP, \fBImGuiButtonListenerComponent\fP< \fBImGuiInvisibleButtonComponent\fP > & component)\fC [private]\fP"
-
-.SS "template<> void Brigerad::Scene::OnComponentAdded (\fBEntity\fP, \fBImGuiArrowButtonComponent\fP & component)\fC [private]\fP"
-
-.SS "template<> void Brigerad::Scene::OnComponentAdded (\fBEntity\fP, \fBImGuiButtonListenerComponent\fP< \fBImGuiArrowButtonComponent\fP > & component)\fC [private]\fP"
-
-.SS "template<> void Brigerad::Scene::OnComponentAdded (\fBEntity\fP, \fBImGuiSeparatorComponent\fP & component)\fC [private]\fP"
-
-.SS "template<> void Brigerad::Scene::OnComponentAdded (\fBEntity\fP, \fBImGuiSameLineComponent\fP & component)\fC [private]\fP"
+.SS "template<> void Brigerad::Scene::OnComponentAdded (\fBEntity\fP entity, \fBLightComponent\fP & component)\fC [private]\fP"
 
 .SH "Friends And Related Function Documentation"
 .PP 
@@ -226,6 +212,20 @@ Brigerad::Scene
 .SS "uint32_t Brigerad::Scene::m_viewportWidth = 0\fC [private]\fP"
 
 .SS "uint32_t Brigerad::Scene::m_viewportHeight = 0\fC [private]\fP"
+
+.SS "\fBRef\fP<\fBVertexArray\fP> Brigerad::Scene::m_skybox = nullptr\fC [private]\fP"
+
+.SS "\fBRef\fP<\fBTextureCube\fP> Brigerad::Scene::m_skyboxTexture = nullptr\fC [private]\fP"
+
+.SS "\fBRef\fP<\fBTextureCube\fP> Brigerad::Scene::m_environmentIrradiance = nullptr\fC [private]\fP"
+
+.SS "\fBRef\fP<\fBShader\fP> Brigerad::Scene::m_skyboxShader = nullptr\fC [private]\fP"
+
+.SS "float Brigerad::Scene::m_exposure = 1\&.0f\fC [private]\fP"
+
+.SS "bool Brigerad::Scene::m_radiancePrefilter = false\fC [private]\fP"
+
+.SS "float Brigerad::Scene::m_envMapRotation = 0\&.0f\fC [private]\fP"
 
 
 .SH "Author"

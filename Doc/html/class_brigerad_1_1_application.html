@@ -275,7 +275,7 @@ This creates a new window and binds the event functions to it. </p>
 
 <p>Callback function for all events happening in the application. It dispatches and propagates the event through all layers until it is handled. </p>
 <dl class="section user"><dt>How to use this</dt><dd><div class="fragment"><div class="line"><span class="comment">// A button has been released.</span></div>
-<div class="line">button.state = <a class="code" href="namespace_brigerad.html#a6467114744c7c1031ef970d0f06d1f55aea1e34304a5d8ffa7c9b0ed8ede4ef1a">ImGuiButtonState::Released</a>;</div>
+<div class="line">button.state = ImGuiButtonState::Released;</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// Create the event object.</span></div>
 <div class="line">ImGuiButtonReleasedEvent e(entity);</div>
@@ -284,7 +284,6 @@ This creates a new window and binds the event functions to it. </p>
 <div class="line">* <a class="code" href="class_brigerad_1_1_application.html#a6032527a16ea63856f180e8be7535f1d">Application::Get</a>().<a class="code" href="class_brigerad_1_1_application.html#a3cfcd74e32ab3d043fee281be1c2e10e">OnEvent</a>(e);</div>
 <div class="ttc" id="aclass_brigerad_1_1_application_html_a3cfcd74e32ab3d043fee281be1c2e10e"><div class="ttname"><a href="class_brigerad_1_1_application.html#a3cfcd74e32ab3d043fee281be1c2e10e">Brigerad::Application::OnEvent</a></div><div class="ttdeci">void OnEvent(Event &amp;e)</div><div class="ttdoc">Callback function for all events happening in the application. It dispatches and propagates the event...</div><div class="ttdef"><b>Definition:</b> Application.cpp:112</div></div>
 <div class="ttc" id="aclass_brigerad_1_1_application_html_a6032527a16ea63856f180e8be7535f1d"><div class="ttname"><a href="class_brigerad_1_1_application.html#a6032527a16ea63856f180e8be7535f1d">Brigerad::Application::Get</a></div><div class="ttdeci">static Application &amp; Get()</div><div class="ttdef"><b>Definition:</b> Application.h:147</div></div>
-<div class="ttc" id="anamespace_brigerad_html_a6467114744c7c1031ef970d0f06d1f55aea1e34304a5d8ffa7c9b0ed8ede4ef1a"><div class="ttname"><a href="namespace_brigerad.html#a6467114744c7c1031ef970d0f06d1f55aea1e34304a5d8ffa7c9b0ed8ede4ef1a">Brigerad::ImGuiButtonState::Released</a></div><div class="ttdeci">@ Released</div></div>
 </div><!-- fragment --></dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -452,7 +451,7 @@ This creates a new window and binds the event functions to it. </p>
 <p>The only reason why you would want to get the ImGui layer is to set the block event flag.</p>
 <dl class="retval"><dt>Return values</dt><dd>
   <table class="retval">
-    <tr><td class="paramname">A</td><td>pointer to the ImGui <a class="el" href="class_brigerad_1_1_layer.html">Layer</a>. </td></tr>
+    <tr><td class="paramname">A</td><td>pointer to the ImGui <a class="el" href="class_brigerad_1_1_layer.html" title="Layer class, where most of the client&#39;s logic should occur.">Layer</a>. </td></tr>
   </table>
   </dd>
 </dl>
@@ -827,7 +826,7 @@ This creates a new window and binds the event functions to it. </p>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_brigerad.html">Brigerad</a></li><li class="navelem"><a class="el" href="class_brigerad_1_1_application.html">Application</a></li>
-    <li class="footer">Generated on Sun Jan 10 2021 14:46:23 for Brigerad by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.0 </li>
+    <li class="footer">Generated on Sun Feb 7 2021 13:20:23 for Brigerad by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.0 </li>
   </ul>
 </div>
 </body>

@@ -1,25 +1,11 @@
 var searchData=
 [
-  ['p_764',['P',['../namespace_brigerad.html#a6993791447a24ebca6753d974c56ff14a44c29edb103a2872f519ad0c9a0fdaaa',1,'Brigerad']]],
-  ['pagedown_765',['PageDown',['../namespace_brigerad.html#a6993791447a24ebca6753d974c56ff14aee3677bcca83ece9384b01e43952bf33',1,'Brigerad']]],
-  ['pageup_766',['PageUp',['../namespace_brigerad.html#a6993791447a24ebca6753d974c56ff14a9b869c510c75c5827ac82e49d4340927',1,'Brigerad']]],
-  ['parent_767',['parent',['../struct_brigerad_1_1_child_entity_component.html#abcffcafa0155d01943fd59eb794caa5f',1,'Brigerad::ChildEntityComponent']]],
-  ['parententitycomponent_768',['ParentEntityComponent',['../struct_brigerad_1_1_parent_entity_component.html',1,'Brigerad::ParentEntityComponent'],['../struct_brigerad_1_1_parent_entity_component.html#a67f8fdc16e7d8ce6344cf1edbb5a9190',1,'Brigerad::ParentEntityComponent::ParentEntityComponent()=default'],['../struct_brigerad_1_1_parent_entity_component.html#a3899182fa4d7e451e847d9344a49c656',1,'Brigerad::ParentEntityComponent::ParentEntityComponent(const ParentEntityComponent &amp;)=default'],['../struct_brigerad_1_1_parent_entity_component.html#abf3bf7a19b1836d99d780bafde24216a',1,'Brigerad::ParentEntityComponent::ParentEntityComponent(const std::vector&lt; Entity &gt; &amp;c)'],['../struct_brigerad_1_1_parent_entity_component.html#a756258ff65eb6cca2a22cb9941588286',1,'Brigerad::ParentEntityComponent::ParentEntityComponent(Entity child)']]],
-  ['parities_769',['Parities',['../class_brigerad_1_1_serial.html#a0b9493b354e59df519e62d47c2499f1f',1,'Brigerad::Serial']]],
-  ['path_770',['path',['../struct_brigerad_1_1_texture_renderer_component.html#a27435d17c7a0a416c1d55e842de85817',1,'Brigerad::TextureRendererComponent::path()'],['../struct_brigerad_1_1_lua_script_component.html#a0ce522872f57c2f435607e4767dd3d94',1,'Brigerad::LuaScriptComponent::path()']]],
-  ['pause_771',['Pause',['../namespace_brigerad.html#a6993791447a24ebca6753d974c56ff14a105b296a83f9c105355403f3332af50f',1,'Brigerad']]],
-  ['period_772',['Period',['../namespace_brigerad.html#a6993791447a24ebca6753d974c56ff14a1901606ea069a83dc7beea17881ef95a',1,'Brigerad']]],
-  ['perspective_773',['Perspective',['../class_brigerad_1_1_scene_camera.html#acbf9905629c1236d98f30113c04eff71aa80420eef88d11f77532f1b9cb467fa3',1,'Brigerad::SceneCamera']]],
-  ['poplayer_774',['PopLayer',['../class_brigerad_1_1_application.html#a233d5221462895a1def50facd55cdf95',1,'Brigerad::Application::PopLayer()'],['../class_brigerad_1_1_layer_stack.html#a19f8fc801708f1bb672a6b80554c358b',1,'Brigerad::LayerStack::PopLayer()']]],
-  ['popoverlay_775',['PopOverlay',['../class_brigerad_1_1_layer_stack.html#a935ea54877d1285a4eb689a1ff023dc0',1,'Brigerad::LayerStack']]],
-  ['portinfo_776',['PortInfo',['../class_brigerad_1_1_serial.html#a6050d5911b450b96f750edcf2e7360ee',1,'Brigerad::Serial']]],
-  ['position_777',['position',['../struct_brigerad_1_1_quad_vertex.html#a2953ea79e3770425492d636f4cd063c0',1,'Brigerad::QuadVertex::position()'],['../struct_brigerad_1_1_transform_component.html#a22e09e9ce929f05de1150ec800fe0eb5',1,'Brigerad::TransformComponent::position()']]],
-  ['preprocess_778',['PreProcess',['../class_brigerad_1_1_open_g_l_shader.html#aace819fc9be0e976f9e9260d8fe2b864',1,'Brigerad::OpenGLShader']]],
-  ['pressed_779',['Pressed',['../namespace_brigerad.html#a6467114744c7c1031ef970d0f06d1f55ad78a68f6a85421ae121c2cb5b73a1040',1,'Brigerad']]],
-  ['primary_780',['primary',['../struct_brigerad_1_1_camera_component.html#ad5f443422e14e1a86b3a75fdbc6ca973',1,'Brigerad::CameraComponent']]],
-  ['printscreen_781',['PrintScreen',['../namespace_brigerad.html#a6993791447a24ebca6753d974c56ff14abf54024481cd2ad6bbb9ae44b7312472',1,'Brigerad']]],
-  ['profileresult_782',['ProfileResult',['../struct_brigerad_1_1_profile_result.html',1,'Brigerad']]],
-  ['projectiontype_783',['ProjectionType',['../class_brigerad_1_1_scene_camera.html#acbf9905629c1236d98f30113c04eff71',1,'Brigerad::SceneCamera']]],
-  ['pushlayer_784',['PushLayer',['../class_brigerad_1_1_application.html#a84f7a154f03242f0ff516d66e4456b05',1,'Brigerad::Application::PushLayer()'],['../class_brigerad_1_1_layer_stack.html#a27bd8171593e413fb2a70e55d0a40161',1,'Brigerad::LayerStack::PushLayer()']]],
-  ['pushoverlay_785',['PushOverlay',['../class_brigerad_1_1_application.html#ab285b133177e1410d7385a9acf9a25a9',1,'Brigerad::Application::PushOverlay()'],['../class_brigerad_1_1_layer_stack.html#a327c06e7c6518bf8685b7f68b6277bb6',1,'Brigerad::LayerStack::PushOverlay()']]]
+  ['q_929',['Q',['../namespace_brigerad.html#a6993791447a24ebca6753d974c56ff14af09564c9ca56850d4cd6b3319e541aee',1,'Brigerad']]],
+  ['quadcount_930',['quadCount',['../struct_brigerad_1_1_renderer2_d_1_1_statistics.html#a9c074ac3d6b6a43aa049a13359ff6477',1,'Brigerad::Renderer2D::Statistics']]],
+  ['quadindexcount_931',['quadIndexCount',['../struct_brigerad_1_1_renderer2_d_data.html#a4797722e79fc79de2356835b507e35f0',1,'Brigerad::Renderer2DData']]],
+  ['quadvertex_932',['QuadVertex',['../struct_brigerad_1_1_quad_vertex.html',1,'Brigerad']]],
+  ['quadvertexbufferbase_933',['quadVertexBufferBase',['../struct_brigerad_1_1_renderer2_d_data.html#ac4e4b4ddc5c1e73f5c90c0f8e6f3bbdd',1,'Brigerad::Renderer2DData']]],
+  ['quadvertexbufferptr_934',['quadVertexBufferPtr',['../struct_brigerad_1_1_renderer2_d_data.html#a56ab60e18b7bc2d2257491493d043483',1,'Brigerad::Renderer2DData']]],
+  ['quadvertexposition_935',['quadVertexPosition',['../struct_brigerad_1_1_renderer2_d_data.html#a751551b6c162ef2e9645a26e125300c7',1,'Brigerad::Renderer2DData']]],
+  ['queuepostframetask_936',['QueuePostFrameTask',['../class_brigerad_1_1_application.html#abd27a212e2dce27f7cff5eeb5c08b075',1,'Brigerad::Application']]]
 ];

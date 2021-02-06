@@ -1,4 +1,4 @@
-.TH "F:/dev/Brigerad/Brigerad/src/Brigerad/Renderer/Shader.h" 3 "Sun Jan 10 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.TH "F:/dev/Brigerad/Brigerad/src/Brigerad/Renderer/Shader.h" 3 "Sun Feb 7 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -8,9 +8,11 @@ F:/dev/Brigerad/Brigerad/src/Brigerad/Renderer/Shader.h
 .PP
 \fC#include 'Brigerad/Core/Core\&.h'\fP
 .br
-\fC#include <string>\fP
+\fC#include 'Brigerad/Core/Buffer\&.h'\fP
 .br
-\fC#include <unordered_map>\fP
+\fC#include 'Brigerad/Renderer/ShaderUniform\&.h'\fP
+.br
+\fC#include <string>\fP
 .br
 \fC#include <glm/glm\&.hpp>\fP
 .br
@@ -18,6 +20,24 @@ F:/dev/Brigerad/Brigerad/src/Brigerad/Renderer/Shader.h
 .SS "Classes"
 
 .in +1c
+.ti -1c
+.RI "struct \fBBrigerad::ShaderUniform\fP"
+.br
+.ti -1c
+.RI "struct \fBBrigerad::ShaderUniformCollection\fP"
+.br
+.ti -1c
+.RI "struct \fBBrigerad::UniformDecl\fP"
+.br
+.ti -1c
+.RI "struct \fBBrigerad::UniformBuffer\fP"
+.br
+.ti -1c
+.RI "struct \fBBrigerad::UniformBufferBase\fP"
+.br
+.ti -1c
+.RI "struct \fBBrigerad::UniformBufferDeclaration< N, U >\fP"
+.br
 .ti -1c
 .RI "class \fBBrigerad::Shader\fP"
 .br
@@ -30,6 +50,13 @@ F:/dev/Brigerad/Brigerad/src/Brigerad/Renderer/Shader.h
 .in +1c
 .ti -1c
 .RI " \fBBrigerad\fP"
+.br
+.in -1c
+.SS "Enumerations"
+
+.in +1c
+.ti -1c
+.RI "enum class \fBBrigerad::UniformType\fP { \fBBrigerad::None\fP = 0, \fBBrigerad::Float\fP, \fBBrigerad::Float2\fP, \fBBrigerad::Float3\fP, \fBBrigerad::Float4\fP, \fBBrigerad::Matrix3x3\fP, \fBBrigerad::Matrix4x4\fP, \fBBrigerad::Int32\fP, \fBBrigerad::Uint32\fP }"
 .br
 .in -1c
 .SH "Author"

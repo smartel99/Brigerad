@@ -8,11 +8,6 @@ var dir_27be59062d27baadfc7f1cd1dc5a356b =
       [ "AppRenderEvent", "class_brigerad_1_1_app_render_event.html", "class_brigerad_1_1_app_render_event" ]
     ] ],
     [ "Event.h", "_event_8h.html", "_event_8h" ],
-    [ "ImGuiEvents.h", "_im_gui_events_8h.html", [
-      [ "ImGuiButtonEvent", "class_brigerad_1_1_im_gui_button_event.html", "class_brigerad_1_1_im_gui_button_event" ],
-      [ "ImGuiButtonPressedEvent", "class_brigerad_1_1_im_gui_button_pressed_event.html", "class_brigerad_1_1_im_gui_button_pressed_event" ],
-      [ "ImGuiButtonReleasedEvent", "class_brigerad_1_1_im_gui_button_released_event.html", "class_brigerad_1_1_im_gui_button_released_event" ]
-    ] ],
     [ "KeyEvents.h", "_key_events_8h.html", [
       [ "KeyEvent", "class_brigerad_1_1_key_event.html", "class_brigerad_1_1_key_event" ],
       [ "KeyPressedEvent", "class_brigerad_1_1_key_pressed_event.html", "class_brigerad_1_1_key_pressed_event" ],

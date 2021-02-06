@@ -6,6 +6,7 @@ var _core_8h =
     [ "BR_BIND_EVENT_FN", "_core_8h.html#ae1b7687338966f2775579400c7068835", null ],
     [ "Scope", "_core_8h.html#a011d5d27cd4a634f14c681b6e5dd0d67", null ],
     [ "Ref", "_core_8h.html#ae8e468075164a68e75cc3179124c006b", null ],
+    [ "byte", "_core_8h.html#af3b5122cc9759267bca3a987da99a46e", null ],
     [ "CreateScope", "_core_8h.html#a0209c85b6787732c9c7c266b848a2b8d", null ],
     [ "CreateRef", "_core_8h.html#ac30bd4fab64cece7c6a33eba4412229e", null ]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['imguibuttonstate_1826',['ImGuiButtonState',['../namespace_brigerad.html#a6467114744c7c1031ef970d0f06d1f55',1,'Brigerad']]]
+  ['keycode_2268',['KeyCode',['../namespace_brigerad.html#a6993791447a24ebca6753d974c56ff14',1,'Brigerad']]]
 ];

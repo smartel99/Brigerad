@@ -1,4 +1,4 @@
-.TH "Brigerad::Texture" 3 "Sun Jan 10 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.TH "Brigerad::Texture" 3 "Sun Feb 7 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -9,7 +9,7 @@ Brigerad::Texture
 .PP
 \fC#include <Texture\&.h>\fP
 .PP
-Inherited by \fBBrigerad::Texture2D\fP\&.
+Inherited by \fBBrigerad::Texture2D\fP, and \fBBrigerad::TextureCube\fP\&.
 .SS "Public Member Functions"
 
 .in +1c
@@ -50,35 +50,35 @@ Inherited by \fBBrigerad::Texture2D\fP\&.
 .SS "virtual uint32_t Brigerad::Texture::GetWidth () const\fC [pure virtual]\fP"
 
 .PP
-Implemented in \fBBrigerad::OpenGLTexture2D\fP\&.
+Implemented in \fBBrigerad::OpenGLTexture2D\fP, \fBBrigerad::TextureCube\fP, and \fBBrigerad::OpenGLTextureCube\fP\&.
 .SS "virtual uint32_t Brigerad::Texture::GetHeight () const\fC [pure virtual]\fP"
 
 .PP
-Implemented in \fBBrigerad::OpenGLTexture2D\fP\&.
+Implemented in \fBBrigerad::OpenGLTexture2D\fP, \fBBrigerad::TextureCube\fP, and \fBBrigerad::OpenGLTextureCube\fP\&.
 .SS "virtual uint32_t Brigerad::Texture::GetFormat () const\fC [pure virtual]\fP"
 
 .PP
-Implemented in \fBBrigerad::OpenGLTexture2D\fP\&.
+Implemented in \fBBrigerad::OpenGLTexture2D\fP, \fBBrigerad::TextureCube\fP, and \fBBrigerad::OpenGLTextureCube\fP\&.
 .SS "virtual const std::string& Brigerad::Texture::GetFilePath () const\fC [pure virtual]\fP"
 
 .PP
-Implemented in \fBBrigerad::OpenGLTexture2D\fP\&.
+Implemented in \fBBrigerad::OpenGLTexture2D\fP, \fBBrigerad::TextureCube\fP, and \fBBrigerad::OpenGLTextureCube\fP\&.
 .SS "virtual uint32_t Brigerad::Texture::GetRenderID () const\fC [pure virtual]\fP"
 
 .PP
-Implemented in \fBBrigerad::OpenGLTexture2D\fP\&.
+Implemented in \fBBrigerad::OpenGLTexture2D\fP, and \fBBrigerad::OpenGLTextureCube\fP\&.
 .SS "virtual void Brigerad::Texture::SetData (void * data, uint32_t size)\fC [pure virtual]\fP"
 
 .PP
-Implemented in \fBBrigerad::OpenGLTexture2D\fP\&.
+Implemented in \fBBrigerad::TextureCube\fP, \fBBrigerad::OpenGLTexture2D\fP, and \fBBrigerad::OpenGLTextureCube\fP\&.
 .SS "virtual void Brigerad::Texture::Bind (uint32_t slot = \fC0\fP) const\fC [pure virtual]\fP"
 
 .PP
-Implemented in \fBBrigerad::OpenGLTexture2D\fP\&.
+Implemented in \fBBrigerad::OpenGLTexture2D\fP, and \fBBrigerad::OpenGLTextureCube\fP\&.
 .SS "virtual bool Brigerad::Texture::operator== (const \fBTexture\fP & other) const\fC [pure virtual]\fP"
 
 .PP
-Implemented in \fBBrigerad::OpenGLTexture2D\fP\&.
+Implemented in \fBBrigerad::OpenGLTextureCube\fP, and \fBBrigerad::OpenGLTexture2D\fP\&.
 
 .SH "Author"
 .PP 

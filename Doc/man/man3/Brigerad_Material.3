@@ -1,0 +1,341 @@
+.TH "Brigerad::Material" 3 "Sun Feb 7 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Brigerad::Material \- Platform-agnostic \fBMaterial\fP class\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Material\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBMaterial\fP (const \fBRef\fP< \fBShader\fP > &shader)"
+.br
+.RI "Creates a \fBMaterial\fP from an existing \fBShader\fP\&. The \fBShader\fP's code is parsed to find all uniforms, allocating memory in the \fBMaterial\fP to store the data for each uniform\&. "
+.ti -1c
+.RI "virtual \fB~Material\fP ()"
+.br
+.ti -1c
+.RI "void \fBBind\fP () const"
+.br
+.RI "Binds all the information related to the shader: "
+.ti -1c
+.RI "template<typename T > void \fBSet\fP (const std::string &name, const T &value)"
+.br
+.RI "Set an uniform's value\&. "
+.ti -1c
+.RI "void \fBSet\fP (const std::string &name, const \fBRef\fP< \fBTexture\fP > &texture)"
+.br
+.RI "Set a \fBTexture\fP in the \fBShader\fP\&. "
+.ti -1c
+.RI "void \fBSet\fP (const std::string &name, const \fBRef\fP< \fBTexture2D\fP > &texture)"
+.br
+.RI "Set a \fBTexture2D\fP in the \fBShader\fP\&. "
+.ti -1c
+.RI "void \fBSet\fP (const std::string &name, const \fBRef\fP< \fBTextureCube\fP > &texture)"
+.br
+.RI "Set a \fBTextureCube\fP in the \fBShader\fP\&. "
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBRef\fP< \fBMaterial\fP > \fBCreate\fP (const \fBRef\fP< \fBShader\fP > &shader)"
+.br
+.RI "Creates a \fBMaterial\fP from an existing \fBShader\fP\&. The \fBShader\fP's code is parsed to find all uniforms, allocating memory in the \fBMaterial\fP to store the data for each uniform\&. "
+.in -1c
+.SS "Private Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBAllocateStorage\fP ()"
+.br
+.RI "Allocate and zero-initialize memory for the vertex shader's uniforms and the fragment/pixel shader's uniform\&. "
+.ti -1c
+.RI "void \fBOnShaderReloaded\fP ()"
+.br
+.RI "Clears and reallocates all uniform buffers, then notify all of the material instances\&. "
+.ti -1c
+.RI "void \fBBindTextures\fP () const"
+.br
+.RI "Loads all of the \fBMaterial\fP's textures into the GPU\&. "
+.ti -1c
+.RI "\fBShaderUniformDeclaration\fP * \fBFindUniformDeclaration\fP (const std::string &name)"
+.br
+.RI "Find a uniform's declaration, which contain the information critical to the material: Type, stride, size, and offset in the buffer\&. "
+.ti -1c
+.RI "\fBShaderResourceDeclaration\fP * \fBFindResourceDeclaration\fP (const std::string &name)"
+.br
+.ti -1c
+.RI "\fBBuffer\fP & \fBGetUniformBufferTarget\fP (\fBShaderUniformDeclaration\fP *uniformDeclaration)"
+.br
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBRef\fP< \fBShader\fP > \fBm_shader\fP"
+.br
+.RI "Reference to the \fBMaterial\fP's \fBShader\fP\&. "
+.ti -1c
+.RI "std::unordered_set< \fBMaterialInstance\fP * > \fBm_materialInstances\fP"
+.br
+.RI "Set of all material instances\&. "
+.ti -1c
+.RI "\fBBuffer\fP \fBm_vSUniformStorageBuffer\fP"
+.br
+.RI "\fBBuffer\fP containing all of the \fBVertex\fP \fBShader\fP's uniforms\&. "
+.ti -1c
+.RI "\fBBuffer\fP \fBm_pSUniformStorageBuffer\fP"
+.br
+.RI "\fBBuffer\fP containing all of the Fragment (Pixel) \fBShader\fP's uniforms\&. "
+.ti -1c
+.RI "std::vector< \fBRef\fP< \fBTexture\fP > > \fBm_textures\fP"
+.br
+.RI "\fBBuffer\fP containing all of the \fBShader\fP's textures\&. "
+.in -1c
+.SS "Friends"
+
+.in +1c
+.ti -1c
+.RI "class \fBMaterialInstance\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Platform-agnostic \fBMaterial\fP class\&. 
+
+Materials are a set of uniforms used in a \fBShader\fP (both vertex and fragment), usually used to set the visual property of the mesh being rendered\&. 
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Brigerad::Material::Material (const \fBRef\fP< \fBShader\fP > & shader)"
+
+.PP
+Creates a \fBMaterial\fP from an existing \fBShader\fP\&. The \fBShader\fP's code is parsed to find all uniforms, allocating memory in the \fBMaterial\fP to store the data for each uniform\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIshader\fP A reference to the \fBShader\fP to create the \fBMaterial\fP from\&. 
+.RE
+.PP
+
+.SS "Brigerad::Material::~Material ()\fC [virtual]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void Brigerad::Material::Bind () const"
+
+.PP
+Binds all the information related to the shader: 
+.IP "\(bu" 2
+The shader itself
+.IP "\(bu" 2
+Every uniforms for that shader
+.IP "\(bu" 2
+Every textures for that shader 
+.PP
+\fBParameters\fP
+.RS 4
+\fINone\fP 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+None 
+.RE
+.PP
+
+.PP
+
+.SS "template<typename T > void Brigerad::Material::Set (const std::string & name, const T & value)\fC [inline]\fP"
+
+.PP
+Set an uniform's value\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIname\fP The name of the uniform to set 
+.br
+\fIvalue\fP The value to assign to the uniform
+.RE
+.PP
+\fBNote\fP
+.RS 4
+This function asserts false if the uniform doesn't exist\&. 
+.RE
+.PP
+
+.SS "void Brigerad::Material::Set (const std::string & name, const \fBRef\fP< \fBTexture\fP > & texture)\fC [inline]\fP"
+
+.PP
+Set a \fBTexture\fP in the \fBShader\fP\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIname\fP The name of the \fBTexture\fP to set 
+.br
+\fItexture\fP A reference to the \fBTexture\fP to use\&.
+.RE
+.PP
+\fBNote\fP
+.RS 4
+This function asserts false if the resource doesn't exist\&. 
+.RE
+.PP
+
+.SS "void Brigerad::Material::Set (const std::string & name, const \fBRef\fP< \fBTexture2D\fP > & texture)\fC [inline]\fP"
+
+.PP
+Set a \fBTexture2D\fP in the \fBShader\fP\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIname\fP The name of the \fBTexture2D\fP to set 
+.br
+\fItexture\fP A reference to the \fBTexture2D\fP to use\&.
+.RE
+.PP
+\fBNote\fP
+.RS 4
+This function asserts false if the resource doesn't exist\&. 
+.RE
+.PP
+
+.SS "void Brigerad::Material::Set (const std::string & name, const \fBRef\fP< \fBTextureCube\fP > & texture)\fC [inline]\fP"
+
+.PP
+Set a \fBTextureCube\fP in the \fBShader\fP\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIname\fP The name of the \fBTextureCube\fP to set 
+.br
+\fItexture\fP A reference to the \fBTextureCube\fP to use\&.
+.RE
+.PP
+\fBNote\fP
+.RS 4
+This function asserts false if the resource doesn't exist\&. 
+.RE
+.PP
+
+.SS "\fBBrigerad::Ref\fP< \fBBrigerad::Material\fP > Brigerad::Material::Create (const \fBRef\fP< \fBShader\fP > & shader)\fC [static]\fP"
+
+.PP
+Creates a \fBMaterial\fP from an existing \fBShader\fP\&. The \fBShader\fP's code is parsed to find all uniforms, allocating memory in the \fBMaterial\fP to store the data for each uniform\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIshader\fP A reference to the \fBShader\fP to create the \fBMaterial\fP from\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+A reference to the newly created \fBMaterial\fP\&. 
+.RE
+.PP
+
+.SS "void Brigerad::Material::AllocateStorage ()\fC [private]\fP"
+
+.PP
+Allocate and zero-initialize memory for the vertex shader's uniforms and the fragment/pixel shader's uniform\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fINone\fP 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+None 
+.RE
+.PP
+
+.SS "void Brigerad::Material::OnShaderReloaded ()\fC [private]\fP"
+
+.PP
+Clears and reallocates all uniform buffers, then notify all of the material instances\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fINone\fP 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+None 
+.RE
+.PP
+
+.SS "void Brigerad::Material::BindTextures () const\fC [private]\fP"
+
+.PP
+Loads all of the \fBMaterial\fP's textures into the GPU\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fINone\fP 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+None 
+.RE
+.PP
+
+.SS "\fBShaderUniformDeclaration\fP * Brigerad::Material::FindUniformDeclaration (const std::string & name)\fC [private]\fP"
+
+.PP
+Find a uniform's declaration, which contain the information critical to the material: Type, stride, size, and offset in the buffer\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIname\fP The name of the uniform to find 
+.RE
+.PP
+\fBReturn values\fP
+.RS 4
+\fIPointer\fP to the uniform's declaration, if it is found 
+.br
+\fInullptr\fP if the uniform isn't found 
+.RE
+.PP
+
+.SS "\fBShaderResourceDeclaration\fP * Brigerad::Material::FindResourceDeclaration (const std::string & name)\fC [private]\fP"
+
+.SS "\fBBuffer\fP & Brigerad::Material::GetUniformBufferTarget (\fBShaderUniformDeclaration\fP * uniformDeclaration)\fC [private]\fP"
+
+.SH "Friends And Related Function Documentation"
+.PP 
+.SS "friend class \fBMaterialInstance\fP\fC [friend]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBRef\fP<\fBShader\fP> Brigerad::Material::m_shader\fC [private]\fP"
+
+.PP
+Reference to the \fBMaterial\fP's \fBShader\fP\&. 
+.SS "std::unordered_set<\fBMaterialInstance\fP*> Brigerad::Material::m_materialInstances\fC [private]\fP"
+
+.PP
+Set of all material instances\&. 
+.SS "\fBBuffer\fP Brigerad::Material::m_vSUniformStorageBuffer\fC [private]\fP"
+
+.PP
+\fBBuffer\fP containing all of the \fBVertex\fP \fBShader\fP's uniforms\&. 
+.SS "\fBBuffer\fP Brigerad::Material::m_pSUniformStorageBuffer\fC [private]\fP"
+
+.PP
+\fBBuffer\fP containing all of the Fragment (Pixel) \fBShader\fP's uniforms\&. 
+.SS "std::vector<\fBRef\fP<\fBTexture\fP> > Brigerad::Material::m_textures\fC [private]\fP"
+
+.PP
+\fBBuffer\fP containing all of the \fBShader\fP's textures\&. 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

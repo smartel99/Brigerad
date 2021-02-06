@@ -1,0 +1,108 @@
+.TH "Brigerad::MeshComponent" 3 "Sun Feb 7 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Brigerad::MeshComponent
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <MeshComponent\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBMeshComponent\fP ()=default"
+.br
+.ti -1c
+.RI "\fBMeshComponent\fP (const std::string &meshName, const std::string &meshPath)"
+.br
+.ti -1c
+.RI "\fBMeshComponent\fP (const std::string &meshName, const \fBRef\fP< \fBMesh\fP > &meshRef)"
+.br
+.ti -1c
+.RI "\fB~MeshComponent\fP ()=default"
+.br
+.ti -1c
+.RI "void \fBSetMaterialUniforms\fP ()"
+.br
+.ti -1c
+.RI "void \fBReloadMesh\fP (const std::string &meshPath='')"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBRef\fP< \fBMesh\fP > \fBMeshRef\fP = nullptr"
+.br
+.ti -1c
+.RI "\fBRef\fP< \fBMaterialInstance\fP > \fBMaterialRef\fP = nullptr"
+.br
+.ti -1c
+.RI "std::string \fBMeshName\fP = 'MeshComponent'"
+.br
+.ti -1c
+.RI "std::string \fBMeshPath\fP = ''"
+.br
+.ti -1c
+.RI "\fBAlbedoInput\fP \fBAlbedo\fP = {}"
+.br
+.ti -1c
+.RI "\fBNormalInput\fP \fBNormal\fP = {}"
+.br
+.ti -1c
+.RI "\fBMetalnessInput\fP \fBMetalness\fP = {}"
+.br
+.ti -1c
+.RI "\fBRoughnessInput\fP \fBRoughness\fP = {}"
+.br
+.ti -1c
+.RI "\fBRef\fP< \fBTexture2D\fP > \fBBrdfLut\fP = nullptr"
+.br
+.ti -1c
+.RI "bool \fBviewDebugMenu\fP = false"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Brigerad::MeshComponent::MeshComponent ()\fC [default]\fP"
+
+.SS "Brigerad::MeshComponent::MeshComponent (const std::string & meshName, const std::string & meshPath)\fC [inline]\fP"
+
+.SS "Brigerad::MeshComponent::MeshComponent (const std::string & meshName, const \fBRef\fP< \fBMesh\fP > & meshRef)\fC [inline]\fP"
+
+.SS "Brigerad::MeshComponent::~MeshComponent ()\fC [default]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void Brigerad::MeshComponent::SetMaterialUniforms ()\fC [inline]\fP"
+
+.SS "void Brigerad::MeshComponent::ReloadMesh (const std::string & meshPath = \fC''\fP)\fC [inline]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBRef\fP<\fBMesh\fP> Brigerad::MeshComponent::MeshRef = nullptr"
+
+.SS "\fBRef\fP<\fBMaterialInstance\fP> Brigerad::MeshComponent::MaterialRef = nullptr"
+
+.SS "std::string Brigerad::MeshComponent::MeshName = 'MeshComponent'"
+
+.SS "std::string Brigerad::MeshComponent::MeshPath = ''"
+
+.SS "\fBAlbedoInput\fP Brigerad::MeshComponent::Albedo = {}"
+
+.SS "\fBNormalInput\fP Brigerad::MeshComponent::Normal = {}"
+
+.SS "\fBMetalnessInput\fP Brigerad::MeshComponent::Metalness = {}"
+
+.SS "\fBRoughnessInput\fP Brigerad::MeshComponent::Roughness = {}"
+
+.SS "\fBRef\fP<\fBTexture2D\fP> Brigerad::MeshComponent::BrdfLut = nullptr"
+
+.SS "bool Brigerad::MeshComponent::viewDebugMenu = false"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

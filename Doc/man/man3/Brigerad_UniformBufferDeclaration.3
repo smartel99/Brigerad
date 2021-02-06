@@ -1,0 +1,94 @@
+.TH "Brigerad::UniformBufferDeclaration< N, U >" 3 "Sun Feb 7 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Brigerad::UniformBufferDeclaration< N, U >
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Shader\&.h>\fP
+.PP
+Inherits \fBBrigerad::UniformBufferBase\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const \fBbyte\fP * \fBGetBuffer\fP () const override"
+.br
+.ti -1c
+.RI "virtual const \fBUniformDecl\fP * \fBGetUniforms\fP () const override"
+.br
+.ti -1c
+.RI "virtual unsigned int \fBGetUniformCount\fP () const"
+.br
+.ti -1c
+.RI "template<typename T > void \fBPush\fP (const std::string &name, const T &data)"
+.br
+.ti -1c
+.RI "template<> void \fBPush\fP (const std::string &name, const float &data)"
+.br
+.ti -1c
+.RI "template<> void \fBPush\fP (const std::string &name, const glm::vec3 &data)"
+.br
+.ti -1c
+.RI "template<> void \fBPush\fP (const std::string &name, const glm::vec4 &data)"
+.br
+.ti -1c
+.RI "template<> void \fBPush\fP (const std::string &name, const glm::mat4 &data)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBbyte\fP \fBBuffer\fP [N]"
+.br
+.ti -1c
+.RI "\fBUniformDecl\fP \fBUniforms\fP [U]"
+.br
+.ti -1c
+.RI "std::ptrdiff_t \fBCursor\fP = 0"
+.br
+.ti -1c
+.RI "int \fBIndex\fP = 0"
+.br
+.in -1c
+.SH "Member Function Documentation"
+.PP 
+.SS "template<unsigned int N, unsigned int U> virtual const \fBbyte\fP* \fBBrigerad::UniformBufferDeclaration\fP< N, U >::GetBuffer () const\fC [inline]\fP, \fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBBrigerad::UniformBufferBase\fP\&.
+.SS "template<unsigned int N, unsigned int U> virtual const \fBUniformDecl\fP* \fBBrigerad::UniformBufferDeclaration\fP< N, U >::GetUniforms () const\fC [inline]\fP, \fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBBrigerad::UniformBufferBase\fP\&.
+.SS "template<unsigned int N, unsigned int U> virtual unsigned int \fBBrigerad::UniformBufferDeclaration\fP< N, U >::GetUniformCount () const\fC [inline]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBBrigerad::UniformBufferBase\fP\&.
+.SS "template<unsigned int N, unsigned int U> template<typename T > void \fBBrigerad::UniformBufferDeclaration\fP< N, U >::Push (const std::string & name, const T & data)\fC [inline]\fP"
+
+.SS "template<unsigned int N, unsigned int U> template<> void \fBBrigerad::UniformBufferDeclaration\fP< N, U >::Push (const std::string & name, const float & data)\fC [inline]\fP"
+
+.SS "template<unsigned int N, unsigned int U> template<> void \fBBrigerad::UniformBufferDeclaration\fP< N, U >::Push (const std::string & name, const glm::vec3 & data)\fC [inline]\fP"
+
+.SS "template<unsigned int N, unsigned int U> template<> void \fBBrigerad::UniformBufferDeclaration\fP< N, U >::Push (const std::string & name, const glm::vec4 & data)\fC [inline]\fP"
+
+.SS "template<unsigned int N, unsigned int U> template<> void \fBBrigerad::UniformBufferDeclaration\fP< N, U >::Push (const std::string & name, const glm::mat4 & data)\fC [inline]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "template<unsigned int N, unsigned int U> \fBbyte\fP \fBBrigerad::UniformBufferDeclaration\fP< N, U >::\fBBuffer\fP[N]"
+
+.SS "template<unsigned int N, unsigned int U> \fBUniformDecl\fP \fBBrigerad::UniformBufferDeclaration\fP< N, U >::Uniforms[U]"
+
+.SS "template<unsigned int N, unsigned int U> std::ptrdiff_t \fBBrigerad::UniformBufferDeclaration\fP< N, U >::Cursor = 0"
+
+.SS "template<unsigned int N, unsigned int U> int \fBBrigerad::UniformBufferDeclaration\fP< N, U >::\fBIndex\fP = 0"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

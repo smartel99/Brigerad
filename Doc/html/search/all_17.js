@@ -1,29 +1,4 @@
 var searchData=
 [
-  ['w_1000',['w',['../struct_brigerad_1_1_vec4.html#a040c047ed37297c5157228398d878746',1,'Brigerad::Vec4::w()'],['../namespace_brigerad.html#a6993791447a24ebca6753d974c56ff14a61e9c06ea9a85a5088a499df6458d276',1,'Brigerad::W()']]],
-  ['waitforbyte_1001',['WaitForByte',['../class_brigerad_1_1_serial.html#abf91e334323c17efb368ffe96c4f9fc3',1,'Brigerad::Serial']]],
-  ['waitforbytes_1002',['WaitForBytes',['../class_brigerad_1_1_serial.html#a320f2549602bfec942dc1fa98429b4eb',1,'Brigerad::Serial']]],
-  ['waitforchange_1003',['WaitForChange',['../class_brigerad_1_1_serial.html#a0d2f23a10989bffd1eb7d74b00679a62',1,'Brigerad::Serial']]],
-  ['whitetexture_1004',['whiteTexture',['../struct_brigerad_1_1_renderer2_d_data.html#ad1b3687e86a2348c1827562bc3af52c0',1,'Brigerad::Renderer2DData']]],
-  ['width_1005',['width',['../struct_brigerad_1_1_window_props.html#a35625358e9489396a39ad28c6aa53aa6',1,'Brigerad::WindowProps::width()'],['../struct_brigerad_1_1_framebuffer_specification.html#afc2e0049f3602c3399ad89c8b9e22493',1,'Brigerad::FramebufferSpecification::width()']]],
-  ['window_1006',['Window',['../class_brigerad_1_1_window.html',1,'Brigerad']]],
-  ['window_2eh_1007',['Window.h',['../_window_8h.html',1,'']]],
-  ['windowclose_1008',['WindowClose',['../namespace_brigerad.html#afca2a6bbedaa97fc6fd5e33c0f31c903ac984201d37197ab297a14d19efee4b07',1,'Brigerad']]],
-  ['windowcloseevent_1009',['WindowCloseEvent',['../class_brigerad_1_1_window_close_event.html',1,'Brigerad::WindowCloseEvent'],['../class_brigerad_1_1_window_close_event.html#adeab630c36c9553e9378c579360b70f2',1,'Brigerad::WindowCloseEvent::WindowCloseEvent()']]],
-  ['windowfocus_1010',['WindowFocus',['../namespace_brigerad.html#afca2a6bbedaa97fc6fd5e33c0f31c903a1c68d5453b28d52622bf5486a5fd95ca',1,'Brigerad']]],
-  ['windowlostfocus_1011',['WindowLostFocus',['../namespace_brigerad.html#afca2a6bbedaa97fc6fd5e33c0f31c903a1c2119b9d61e623975f13f1029f1d97c',1,'Brigerad']]],
-  ['windowmoved_1012',['WindowMoved',['../namespace_brigerad.html#afca2a6bbedaa97fc6fd5e33c0f31c903ab94473d9dfc85f8fdbf5cb3b1d992bda',1,'Brigerad']]],
-  ['windowprops_1013',['WindowProps',['../struct_brigerad_1_1_window_props.html',1,'Brigerad::WindowProps'],['../struct_brigerad_1_1_window_props.html#a4776d4b37d804c62accdcd2319d6e785',1,'Brigerad::WindowProps::WindowProps()']]],
-  ['windowresize_1014',['WindowResize',['../namespace_brigerad.html#afca2a6bbedaa97fc6fd5e33c0f31c903a9f8f27bff2915738c4fe1b970e12f89c',1,'Brigerad']]],
-  ['windowresizeevent_1015',['WindowResizeEvent',['../class_brigerad_1_1_window_resize_event.html',1,'Brigerad::WindowResizeEvent'],['../class_brigerad_1_1_window_resize_event.html#a4b7af40e2b7cb2085f6317ce690d8556',1,'Brigerad::WindowResizeEvent::WindowResizeEvent()']]],
-  ['windowsinput_2ecpp_1016',['WindowsInput.cpp',['../_windows_input_8cpp.html',1,'']]],
-  ['windowstime_2eh_1017',['WindowsTime.h',['../_windows_time_8h.html',1,'']]],
-  ['windowswindow_2ecpp_1018',['WindowsWindow.cpp',['../_windows_window_8cpp.html',1,'']]],
-  ['windowswindow_2eh_1019',['WindowsWindow.h',['../_windows_window_8h.html',1,'']]],
-  ['world1_1020',['World1',['../namespace_brigerad.html#a6993791447a24ebca6753d974c56ff14a74c7c1760efb02a127a01f7d7457b61d',1,'Brigerad']]],
-  ['world2_1021',['World2',['../namespace_brigerad.html#a6993791447a24ebca6753d974c56ff14a8bf6b1dbf5254c134b06997c602799a3',1,'Brigerad']]],
-  ['write_1022',['Write',['../class_brigerad_1_1_serial.html#aeb8dda1875a26f99018b0f4c58411e4f',1,'Brigerad::Serial::Write(const uint8_t *data, size_t len)'],['../class_brigerad_1_1_serial.html#ac9c22f9a2446499f10490b99a7c34388',1,'Brigerad::Serial::Write(const std::vector&lt; uint8_t &gt; &amp;data)'],['../class_brigerad_1_1_serial.html#a34071cd984350e04088ae5cde121f979',1,'Brigerad::Serial::Write(const std::string &amp;data)']]],
-  ['writefooter_1023',['WriteFooter',['../class_brigerad_1_1_instrumentor.html#aa9de22517c6357b9c6b9cf6f84074326',1,'Brigerad::Instrumentor']]],
-  ['writeheader_1024',['WriteHeader',['../class_brigerad_1_1_instrumentor.html#adb19761dfddab7706f1da6837ac2b28a',1,'Brigerad::Instrumentor']]],
-  ['writeprofile_1025',['WriteProfile',['../class_brigerad_1_1_instrumentor.html#abd8180e9b42e56c2db9287bfbc7dfd11',1,'Brigerad::Instrumentor']]]
+  ['x_1242',['x',['../struct_brigerad_1_1_vec2.html#a0436828d63aee1547cd29bbf0be544de',1,'Brigerad::Vec2::x()'],['../struct_brigerad_1_1_vec4.html#af9c1f8a261b5438234a9caeeb2e7053b',1,'Brigerad::Vec4::x()'],['../namespace_brigerad.html#a6993791447a24ebca6753d974c56ff14a02129bb861061d1a052c592e2dc6b383',1,'Brigerad::X()']]]
 ];

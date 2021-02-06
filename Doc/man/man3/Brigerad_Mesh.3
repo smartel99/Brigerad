@@ -1,0 +1,87 @@
+.TH "Brigerad::Mesh" 3 "Sun Feb 7 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Brigerad::Mesh
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Mesh\&.h>\fP
+.PP
+Inherited by \fBBrigerad::OpenGLMesh\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fB~Mesh\fP ()=default"
+.br
+.ti -1c
+.RI "virtual void \fBRender\fP (\fBTimestep\fP ts, \fBRef\fP< \fBMaterialInstance\fP > materialInstance=\fBRef\fP< \fBMaterialInstance\fP >())=0"
+.br
+.ti -1c
+.RI "virtual void \fBRender\fP (\fBTimestep\fP ts, const glm::mat4 &transform=glm::mat4(1\&.0f), \fBRef\fP< \fBMaterialInstance\fP > materialInstance=\fBRef\fP< \fBMaterialInstance\fP >())=0"
+.br
+.ti -1c
+.RI "virtual void \fBOnImGuiRender\fP ()=0"
+.br
+.ti -1c
+.RI "virtual void \fBDumpVertexBuffer\fP ()=0"
+.br
+.ti -1c
+.RI "virtual \fBRef\fP< \fBShader\fP > \fBGetMeshShader\fP ()=0"
+.br
+.ti -1c
+.RI "virtual \fBRef\fP< \fBMaterial\fP > \fBGetMaterial\fP ()=0"
+.br
+.ti -1c
+.RI "virtual const std::string & \fBGetFilePath\fP () const =0"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBRef\fP< \fBMesh\fP > \fBCreate\fP (const std::string &fileName)"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "virtual Brigerad::Mesh::~Mesh ()\fC [virtual]\fP, \fC [default]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "virtual void Brigerad::Mesh::Render (\fBTimestep\fP ts, \fBRef\fP< \fBMaterialInstance\fP > materialInstance = \fC\fBRef\fP< \fBMaterialInstance\fP >()\fP)\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLMesh\fP\&.
+.SS "virtual void Brigerad::Mesh::Render (\fBTimestep\fP ts, const glm::mat4 & transform = \fCglm::mat4(1\&.0f)\fP, \fBRef\fP< \fBMaterialInstance\fP > materialInstance = \fC\fBRef\fP< \fBMaterialInstance\fP >()\fP)\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLMesh\fP\&.
+.SS "virtual void Brigerad::Mesh::OnImGuiRender ()\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLMesh\fP\&.
+.SS "virtual void Brigerad::Mesh::DumpVertexBuffer ()\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLMesh\fP\&.
+.SS "virtual \fBRef\fP<\fBShader\fP> Brigerad::Mesh::GetMeshShader ()\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLMesh\fP\&.
+.SS "virtual \fBRef\fP<\fBMaterial\fP> Brigerad::Mesh::GetMaterial ()\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLMesh\fP\&.
+.SS "virtual const std::string& Brigerad::Mesh::GetFilePath () const\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLMesh\fP\&.
+.SS "\fBRef\fP< \fBMesh\fP > Brigerad::Mesh::Create (const std::string & fileName)\fC [static]\fP"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

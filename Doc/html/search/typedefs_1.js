@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['glenum_1813',['GLenum',['../_open_g_l_shader_8h.html#a7efd7809e1632cdae75603fd1fee61c0',1,'OpenGLShader.h']]]
+  ['eventcallbackfn_2247',['EventCallbackFn',['../class_brigerad_1_1_window.html#a2d5206fd1969deec9bd6d9685f52347f',1,'Brigerad::Window']]],
+  ['eventfn_2248',['EventFn',['../class_brigerad_1_1_event_dispatcher.html#a0dc880f504cbe58856e3c13d918a4197',1,'Brigerad::EventDispatcher']]]
 ];

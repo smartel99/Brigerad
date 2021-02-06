@@ -2,6 +2,9 @@ var dir_5c603fd4276555cc1dbec4b002ce4942 =
 [
     [ "Application.cpp", "_application_8cpp.html", "_application_8cpp" ],
     [ "Application.h", "_application_8h.html", "_application_8h" ],
+    [ "Buffer.h", "_core_2_buffer_8h.html", [
+      [ "Buffer", "struct_brigerad_1_1_buffer.html", "struct_brigerad_1_1_buffer" ]
+    ] ],
     [ "Core.h", "_core_8h.html", "_core_8h" ],
     [ "EntryPoint.h", "_entry_point_8h.html", null ],
     [ "Input.h", "_input_8h.html", [

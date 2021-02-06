@@ -1,7 +1,7 @@
 var class_brigerad_1_1_open_g_l_vertex_buffer =
 [
     [ "OpenGLVertexBuffer", "class_brigerad_1_1_open_g_l_vertex_buffer.html#a5a2cc4ea924c34bdd0bcbdd4b8e54b8b", null ],
-    [ "OpenGLVertexBuffer", "class_brigerad_1_1_open_g_l_vertex_buffer.html#adb8fae06b5b61ac04e305219125f5ca9", null ],
+    [ "OpenGLVertexBuffer", "class_brigerad_1_1_open_g_l_vertex_buffer.html#adb84aae563e7ae50c8c05aea5d92b3dd", null ],
     [ "~OpenGLVertexBuffer", "class_brigerad_1_1_open_g_l_vertex_buffer.html#add14b73b71057aaa0b56eac7809c2424", null ],
     [ "Bind", "class_brigerad_1_1_open_g_l_vertex_buffer.html#af39fadf857e7f7c8640419106b714481", null ],
     [ "Unbind", "class_brigerad_1_1_open_g_l_vertex_buffer.html#a5d33f79986d6ac669ad1df37299de1cc", null ],

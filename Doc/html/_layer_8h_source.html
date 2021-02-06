@@ -107,60 +107,47 @@ $(document).ready(function(){initNavTree('_layer_8h_source.html',''); initResiza
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">/*****************************************************************************/</span></div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">/* Exported types */</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="class_brigerad_1_1_layer.html">   32</a></span>&#160;<span class="keyword">class </span>BRIGERAD_API <a class="code" href="class_brigerad_1_1_layer.html">Layer</a></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;{</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <a class="code" href="class_brigerad_1_1_layer.html">Layer</a>(<span class="keyword">const</span> std::string &amp;name = <span class="stringliteral">&quot;Layer&quot;</span>);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="class_brigerad_1_1_layer.html">Layer</a>();</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="class_brigerad_1_1_layer.html#aa29c1c2127baecbbe747cf09e9777efa">   38</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_brigerad_1_1_layer.html#aa29c1c2127baecbbe747cf09e9777efa">OnAttach</a>()</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    {</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    }</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="class_brigerad_1_1_layer.html#a163a3c55d92dbc57b3b3644707e9c712">   42</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_brigerad_1_1_layer.html#a163a3c55d92dbc57b3b3644707e9c712">OnDetach</a>()</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    {</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    }</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="class_brigerad_1_1_layer.html#a08dd2d1affb5bfa01f4aea05a4a3cd08">   46</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_brigerad_1_1_layer.html#a08dd2d1affb5bfa01f4aea05a4a3cd08">OnUpdate</a>(<a class="code" href="class_brigerad_1_1_timestep.html">Timestep</a> timestep)</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    {</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    }</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="class_brigerad_1_1_layer.html#acb9380b7f23511569f31beddd13bd13d">   50</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_brigerad_1_1_layer.html#acb9380b7f23511569f31beddd13bd13d">OnImGuiRender</a>()</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    {</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    }</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="class_brigerad_1_1_layer.html#a524ac37bcf7d6eab4349228b1ffa1d98">   54</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_brigerad_1_1_layer.html#a524ac37bcf7d6eab4349228b1ffa1d98">OnEvent</a>(<a class="code" href="class_brigerad_1_1_event.html">Event</a> &amp;event)</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    {</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    }</div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="class_brigerad_1_1_layer.html">   38</a></span>&#160;<span class="keyword">class </span>BRIGERAD_API <a class="code" href="class_brigerad_1_1_layer.html">Layer</a></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;{</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <a class="code" href="class_brigerad_1_1_layer.html">Layer</a>(<span class="keyword">const</span> std::string&amp; name = <span class="stringliteral">&quot;Layer&quot;</span>);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="class_brigerad_1_1_layer.html">Layer</a>();</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="class_brigerad_1_1_layer.html#aa29c1c2127baecbbe747cf09e9777efa">   54</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_brigerad_1_1_layer.html#aa29c1c2127baecbbe747cf09e9777efa">OnAttach</a>() {}</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="class_brigerad_1_1_layer.html#a163a3c55d92dbc57b3b3644707e9c712">   56</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_brigerad_1_1_layer.html#a163a3c55d92dbc57b3b3644707e9c712">OnDetach</a>() {}</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="class_brigerad_1_1_layer.html#af498892cadcbed5c6fe4acdda010c9e6">   58</a></span>&#160;    <span class="keyword">inline</span> <span class="keyword">const</span> std::string &amp;<a class="code" href="class_brigerad_1_1_layer.html#af498892cadcbed5c6fe4acdda010c9e6">GetName</a>()<span class="keyword"> const</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="keyword">    </span>{</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keywordflow">return</span> m_debugName;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    }</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="class_brigerad_1_1_layer.html#a64b0f740c8265b45dba2018c1a90ee41">   64</a></span>&#160;    std::string <a class="code" href="class_brigerad_1_1_layer.html#a64b0f740c8265b45dba2018c1a90ee41">m_debugName</a>;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;};</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="comment">/*****************************************************************************/</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="comment">/* Exported functions */</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="class_brigerad_1_1_layer.html#a08dd2d1affb5bfa01f4aea05a4a3cd08">   58</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_brigerad_1_1_layer.html#a08dd2d1affb5bfa01f4aea05a4a3cd08">OnUpdate</a>(<a class="code" href="class_brigerad_1_1_timestep.html">Timestep</a> timestep) {}</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="class_brigerad_1_1_layer.html#acb9380b7f23511569f31beddd13bd13d">   60</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_brigerad_1_1_layer.html#acb9380b7f23511569f31beddd13bd13d">OnImGuiRender</a>() {}</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="class_brigerad_1_1_layer.html#a524ac37bcf7d6eab4349228b1ffa1d98">   62</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_brigerad_1_1_layer.html#a524ac37bcf7d6eab4349228b1ffa1d98">OnEvent</a>(<a class="code" href="class_brigerad_1_1_event.html">Event</a>&amp; event) {}</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="class_brigerad_1_1_layer.html#af498892cadcbed5c6fe4acdda010c9e6">   64</a></span>&#160;    <span class="keyword">inline</span> <span class="keyword">const</span> std::string&amp; <a class="code" href="class_brigerad_1_1_layer.html#af498892cadcbed5c6fe4acdda010c9e6">GetName</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_debugName; }</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="class_brigerad_1_1_layer.html#a64b0f740c8265b45dba2018c1a90ee41">   67</a></span>&#160;    std::string <a class="code" href="class_brigerad_1_1_layer.html#a64b0f740c8265b45dba2018c1a90ee41">m_debugName</a>;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;};</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;} <span class="comment">// namespace Brigerad</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="comment">/* Have a wonderful day :) */</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* _Layer */</span><span class="preprocessor"></span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="comment">/****** END OF FILE ******/</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="comment">/*****************************************************************************/</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="comment">/* Exported functions */</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;}    <span class="comment">// namespace Brigerad</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="comment">/* Have a wonderful day :) */</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* _Layer */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="comment">/****** END OF FILE ******/</span></div>
 <div class="ttc" id="a_core_8h_html"><div class="ttname"><a href="_core_8h.html">Core.h</a></div></div>
 <div class="ttc" id="a_event_8h_html"><div class="ttname"><a href="_event_8h.html">Event.h</a></div></div>
 <div class="ttc" id="a_timestep_8h_html"><div class="ttname"><a href="_timestep_8h.html">Timestep.h</a></div></div>
 <div class="ttc" id="aclass_brigerad_1_1_event_html"><div class="ttname"><a href="class_brigerad_1_1_event.html">Brigerad::Event</a></div><div class="ttdef"><b>Definition:</b> Event.h:63</div></div>
-<div class="ttc" id="aclass_brigerad_1_1_layer_html"><div class="ttname"><a href="class_brigerad_1_1_layer.html">Brigerad::Layer</a></div><div class="ttdef"><b>Definition:</b> Layer.h:33</div></div>
-<div class="ttc" id="aclass_brigerad_1_1_layer_html_a08dd2d1affb5bfa01f4aea05a4a3cd08"><div class="ttname"><a href="class_brigerad_1_1_layer.html#a08dd2d1affb5bfa01f4aea05a4a3cd08">Brigerad::Layer::OnUpdate</a></div><div class="ttdeci">virtual void OnUpdate(Timestep timestep)</div><div class="ttdef"><b>Definition:</b> Layer.h:46</div></div>
-<div class="ttc" id="aclass_brigerad_1_1_layer_html_a163a3c55d92dbc57b3b3644707e9c712"><div class="ttname"><a href="class_brigerad_1_1_layer.html#a163a3c55d92dbc57b3b3644707e9c712">Brigerad::Layer::OnDetach</a></div><div class="ttdeci">virtual void OnDetach()</div><div class="ttdef"><b>Definition:</b> Layer.h:42</div></div>
-<div class="ttc" id="aclass_brigerad_1_1_layer_html_a524ac37bcf7d6eab4349228b1ffa1d98"><div class="ttname"><a href="class_brigerad_1_1_layer.html#a524ac37bcf7d6eab4349228b1ffa1d98">Brigerad::Layer::OnEvent</a></div><div class="ttdeci">virtual void OnEvent(Event &amp;event)</div><div class="ttdef"><b>Definition:</b> Layer.h:54</div></div>
-<div class="ttc" id="aclass_brigerad_1_1_layer_html_a64b0f740c8265b45dba2018c1a90ee41"><div class="ttname"><a href="class_brigerad_1_1_layer.html#a64b0f740c8265b45dba2018c1a90ee41">Brigerad::Layer::m_debugName</a></div><div class="ttdeci">std::string m_debugName</div><div class="ttdef"><b>Definition:</b> Layer.h:64</div></div>
-<div class="ttc" id="aclass_brigerad_1_1_layer_html_aa29c1c2127baecbbe747cf09e9777efa"><div class="ttname"><a href="class_brigerad_1_1_layer.html#aa29c1c2127baecbbe747cf09e9777efa">Brigerad::Layer::OnAttach</a></div><div class="ttdeci">virtual void OnAttach()</div><div class="ttdef"><b>Definition:</b> Layer.h:38</div></div>
-<div class="ttc" id="aclass_brigerad_1_1_layer_html_acb9380b7f23511569f31beddd13bd13d"><div class="ttname"><a href="class_brigerad_1_1_layer.html#acb9380b7f23511569f31beddd13bd13d">Brigerad::Layer::OnImGuiRender</a></div><div class="ttdeci">virtual void OnImGuiRender()</div><div class="ttdef"><b>Definition:</b> Layer.h:50</div></div>
-<div class="ttc" id="aclass_brigerad_1_1_layer_html_af498892cadcbed5c6fe4acdda010c9e6"><div class="ttname"><a href="class_brigerad_1_1_layer.html#af498892cadcbed5c6fe4acdda010c9e6">Brigerad::Layer::GetName</a></div><div class="ttdeci">const std::string &amp; GetName() const</div><div class="ttdef"><b>Definition:</b> Layer.h:58</div></div>
+<div class="ttc" id="aclass_brigerad_1_1_layer_html"><div class="ttname"><a href="class_brigerad_1_1_layer.html">Brigerad::Layer</a></div><div class="ttdoc">Layer class, where most of the client's logic should occur.</div><div class="ttdef"><b>Definition:</b> Layer.h:39</div></div>
+<div class="ttc" id="aclass_brigerad_1_1_layer_html_a08dd2d1affb5bfa01f4aea05a4a3cd08"><div class="ttname"><a href="class_brigerad_1_1_layer.html#a08dd2d1affb5bfa01f4aea05a4a3cd08">Brigerad::Layer::OnUpdate</a></div><div class="ttdeci">virtual void OnUpdate(Timestep timestep)</div><div class="ttdef"><b>Definition:</b> Layer.h:58</div></div>
+<div class="ttc" id="aclass_brigerad_1_1_layer_html_a163a3c55d92dbc57b3b3644707e9c712"><div class="ttname"><a href="class_brigerad_1_1_layer.html#a163a3c55d92dbc57b3b3644707e9c712">Brigerad::Layer::OnDetach</a></div><div class="ttdeci">virtual void OnDetach()</div><div class="ttdef"><b>Definition:</b> Layer.h:56</div></div>
+<div class="ttc" id="aclass_brigerad_1_1_layer_html_a524ac37bcf7d6eab4349228b1ffa1d98"><div class="ttname"><a href="class_brigerad_1_1_layer.html#a524ac37bcf7d6eab4349228b1ffa1d98">Brigerad::Layer::OnEvent</a></div><div class="ttdeci">virtual void OnEvent(Event &amp;event)</div><div class="ttdef"><b>Definition:</b> Layer.h:62</div></div>
+<div class="ttc" id="aclass_brigerad_1_1_layer_html_a64b0f740c8265b45dba2018c1a90ee41"><div class="ttname"><a href="class_brigerad_1_1_layer.html#a64b0f740c8265b45dba2018c1a90ee41">Brigerad::Layer::m_debugName</a></div><div class="ttdeci">std::string m_debugName</div><div class="ttdef"><b>Definition:</b> Layer.h:67</div></div>
+<div class="ttc" id="aclass_brigerad_1_1_layer_html_aa29c1c2127baecbbe747cf09e9777efa"><div class="ttname"><a href="class_brigerad_1_1_layer.html#aa29c1c2127baecbbe747cf09e9777efa">Brigerad::Layer::OnAttach</a></div><div class="ttdeci">virtual void OnAttach()</div><div class="ttdoc">Called when the layer gets attached to the application.</div><div class="ttdef"><b>Definition:</b> Layer.h:54</div></div>
+<div class="ttc" id="aclass_brigerad_1_1_layer_html_acb9380b7f23511569f31beddd13bd13d"><div class="ttname"><a href="class_brigerad_1_1_layer.html#acb9380b7f23511569f31beddd13bd13d">Brigerad::Layer::OnImGuiRender</a></div><div class="ttdeci">virtual void OnImGuiRender()</div><div class="ttdef"><b>Definition:</b> Layer.h:60</div></div>
+<div class="ttc" id="aclass_brigerad_1_1_layer_html_af498892cadcbed5c6fe4acdda010c9e6"><div class="ttname"><a href="class_brigerad_1_1_layer.html#af498892cadcbed5c6fe4acdda010c9e6">Brigerad::Layer::GetName</a></div><div class="ttdeci">const std::string &amp; GetName() const</div><div class="ttdef"><b>Definition:</b> Layer.h:64</div></div>
 <div class="ttc" id="aclass_brigerad_1_1_timestep_html"><div class="ttname"><a href="class_brigerad_1_1_timestep.html">Brigerad::Timestep</a></div><div class="ttdef"><b>Definition:</b> Timestep.h:7</div></div>
 <div class="ttc" id="anamespace_brigerad_html"><div class="ttname"><a href="namespace_brigerad.html">Brigerad</a></div><div class="ttdef"><b>Definition:</b> Application.cpp:21</div></div>
 </div><!-- fragment --></div><!-- contents -->
@@ -169,7 +156,7 @@ $(document).ready(function(){initNavTree('_layer_8h_source.html',''); initResiza
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_3cd38574e93fdb8b050cbfd88c27adb0.html">Brigerad</a></li><li class="navelem"><a class="el" href="dir_1e206cf8687d19e79aeacac7b877c439.html">src</a></li><li class="navelem"><a class="el" href="dir_76597e8cd173567b2cf2ac94a77ee010.html">Brigerad</a></li><li class="navelem"><a class="el" href="dir_5c603fd4276555cc1dbec4b002ce4942.html">Core</a></li><li class="navelem"><a class="el" href="_layer_8h.html">Layer.h</a></li>
-    <li class="footer">Generated on Sun Jan 10 2021 14:46:23 for Brigerad by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.0 </li>
+    <li class="footer">Generated on Sun Feb 7 2021 13:20:23 for Brigerad by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.0 </li>
   </ul>
 </div>
 </body>

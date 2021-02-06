@@ -1,6 +1,7 @@
 var class_brigerad_1_1_open_g_l_index_buffer =
 [
     [ "OpenGLIndexBuffer", "class_brigerad_1_1_open_g_l_index_buffer.html#afcf10757aa6916d396fe52c07fb47dbd", null ],
+    [ "OpenGLIndexBuffer", "class_brigerad_1_1_open_g_l_index_buffer.html#aec090dd1bfa92143632fd898dddfbe8d", null ],
     [ "~OpenGLIndexBuffer", "class_brigerad_1_1_open_g_l_index_buffer.html#a2fd795e66a554e311b86e3ac6f6bc501", null ],
     [ "Bind", "class_brigerad_1_1_open_g_l_index_buffer.html#a46796c6568e17dad1edcb35555393668", null ],
     [ "Unbind", "class_brigerad_1_1_open_g_l_index_buffer.html#a886e5b8c3c330f421a4070c68c5604ae", null ],

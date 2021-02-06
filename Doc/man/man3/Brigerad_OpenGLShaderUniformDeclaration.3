@@ -1,0 +1,218 @@
+.TH "Brigerad::OpenGLShaderUniformDeclaration" 3 "Sun Feb 7 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Brigerad::OpenGLShaderUniformDeclaration
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <OpenGLShaderUniform\&.h>\fP
+.PP
+Inherits \fBBrigerad::ShaderUniformDeclaration\fP\&.
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum class \fBType\fP { \fBNONE\fP, \fBFLOAT32\fP, \fBVEC2\fP, \fBVEC3\fP, \fBVEC4\fP, \fBMAT3\fP, \fBMAT4\fP, \fBINT32\fP, \fBSTRUCT\fP }"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBOpenGLShaderUniformDeclaration\fP (\fBShaderDomain\fP domain, \fBType\fP type, const std::string &name, uint32_t count=1)"
+.br
+.ti -1c
+.RI "\fBOpenGLShaderUniformDeclaration\fP (\fBShaderDomain\fP domain, \fBShaderStruct\fP *uniformStruct, const std::string &name, uint32_t count=1)"
+.br
+.ti -1c
+.RI "virtual const std::string & \fBGetName\fP () const override"
+.br
+.ti -1c
+.RI "virtual uint32_t \fBGetSize\fP () const override"
+.br
+.ti -1c
+.RI "virtual uint32_t \fBGetCount\fP () const override"
+.br
+.ti -1c
+.RI "virtual uint32_t \fBGetOffset\fP () const override"
+.br
+.ti -1c
+.RI "uint32_t \fBGetAbsoluteOffset\fP () const"
+.br
+.ti -1c
+.RI "\fBShaderDomain\fP \fBGetDomain\fP () const"
+.br
+.ti -1c
+.RI "int32_t \fBGetLocation\fP () const"
+.br
+.ti -1c
+.RI "\fBType\fP \fBGetType\fP () const"
+.br
+.ti -1c
+.RI "bool \fBIsArray\fP () const"
+.br
+.ti -1c
+.RI "const \fBShaderStruct\fP & \fBGetShaderUniformStruct\fP () const"
+.br
+.ti -1c
+.RI "std::uint32_t \fBSizeOfUniformType\fP (\fBType\fP type)"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBType\fP \fBStringToType\fP (const std::string &type)"
+.br
+.ti -1c
+.RI "static std::string \fBTypeToString\fP (\fBType\fP type)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBSetOffset\fP (uint32_t offset) override"
+.br
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "std::string \fBm_name\fP"
+.br
+.ti -1c
+.RI "uint32_t \fBm_size\fP"
+.br
+.ti -1c
+.RI "uint32_t \fBm_count\fP"
+.br
+.ti -1c
+.RI "uint32_t \fBm_offset\fP"
+.br
+.ti -1c
+.RI "\fBShaderDomain\fP \fBm_domain\fP"
+.br
+.ti -1c
+.RI "\fBType\fP \fBm_type\fP"
+.br
+.ti -1c
+.RI "\fBShaderStruct\fP * \fBm_struct\fP"
+.br
+.ti -1c
+.RI "int32_t \fBm_location\fP"
+.br
+.in -1c
+.SS "Friends"
+
+.in +1c
+.ti -1c
+.RI "class \fBOpenGLShader\fP"
+.br
+.ti -1c
+.RI "class \fBOpenGLShaderUniformBufferDeclaration\fP"
+.br
+.in -1c
+.SH "Member Enumeration Documentation"
+.PP 
+.SS "enum \fBBrigerad::OpenGLShaderUniformDeclaration::Type\fP\fC [strong]\fP"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fINONE \fP\fP
+.TP
+\fB\fIFLOAT32 \fP\fP
+.TP
+\fB\fIVEC2 \fP\fP
+.TP
+\fB\fIVEC3 \fP\fP
+.TP
+\fB\fIVEC4 \fP\fP
+.TP
+\fB\fIMAT3 \fP\fP
+.TP
+\fB\fIMAT4 \fP\fP
+.TP
+\fB\fIINT32 \fP\fP
+.TP
+\fB\fISTRUCT \fP\fP
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Brigerad::OpenGLShaderUniformDeclaration::OpenGLShaderUniformDeclaration (\fBShaderDomain\fP domain, \fBType\fP type, const std::string & name, uint32_t count = \fC1\fP)"
+
+.SS "Brigerad::OpenGLShaderUniformDeclaration::OpenGLShaderUniformDeclaration (\fBShaderDomain\fP domain, \fBShaderStruct\fP * uniformStruct, const std::string & name, uint32_t count = \fC1\fP)"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "virtual const std::string& Brigerad::OpenGLShaderUniformDeclaration::GetName () const\fC [inline]\fP, \fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBBrigerad::ShaderUniformDeclaration\fP\&.
+.SS "virtual uint32_t Brigerad::OpenGLShaderUniformDeclaration::GetSize () const\fC [inline]\fP, \fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBBrigerad::ShaderUniformDeclaration\fP\&.
+.SS "virtual uint32_t Brigerad::OpenGLShaderUniformDeclaration::GetCount () const\fC [inline]\fP, \fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBBrigerad::ShaderUniformDeclaration\fP\&.
+.SS "virtual uint32_t Brigerad::OpenGLShaderUniformDeclaration::GetOffset () const\fC [inline]\fP, \fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBBrigerad::ShaderUniformDeclaration\fP\&.
+.SS "uint32_t Brigerad::OpenGLShaderUniformDeclaration::GetAbsoluteOffset () const\fC [inline]\fP"
+
+.SS "\fBShaderDomain\fP Brigerad::OpenGLShaderUniformDeclaration::GetDomain () const\fC [inline]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBBrigerad::ShaderUniformDeclaration\fP\&.
+.SS "int32_t Brigerad::OpenGLShaderUniformDeclaration::GetLocation () const\fC [inline]\fP"
+
+.SS "\fBType\fP Brigerad::OpenGLShaderUniformDeclaration::GetType () const\fC [inline]\fP"
+
+.SS "bool Brigerad::OpenGLShaderUniformDeclaration::IsArray () const\fC [inline]\fP"
+
+.SS "const \fBShaderStruct\fP& Brigerad::OpenGLShaderUniformDeclaration::GetShaderUniformStruct () const\fC [inline]\fP"
+
+.SS "void Brigerad::OpenGLShaderUniformDeclaration::SetOffset (uint32_t offset)\fC [override]\fP, \fC [protected]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBBrigerad::ShaderUniformDeclaration\fP\&.
+.SS "std::uint32_t Brigerad::OpenGLShaderUniformDeclaration::SizeOfUniformType (\fBType\fP type)"
+
+.SS "\fBBrigerad::OpenGLShaderUniformDeclaration::Type\fP Brigerad::OpenGLShaderUniformDeclaration::StringToType (const std::string & type)\fC [static]\fP"
+
+.SS "std::string Brigerad::OpenGLShaderUniformDeclaration::TypeToString (\fBType\fP type)\fC [static]\fP"
+
+.SH "Friends And Related Function Documentation"
+.PP 
+.SS "friend class \fBOpenGLShader\fP\fC [friend]\fP"
+
+.SS "friend class \fBOpenGLShaderUniformBufferDeclaration\fP\fC [friend]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "std::string Brigerad::OpenGLShaderUniformDeclaration::m_name\fC [private]\fP"
+
+.SS "uint32_t Brigerad::OpenGLShaderUniformDeclaration::m_size\fC [private]\fP"
+
+.SS "uint32_t Brigerad::OpenGLShaderUniformDeclaration::m_count\fC [private]\fP"
+
+.SS "uint32_t Brigerad::OpenGLShaderUniformDeclaration::m_offset\fC [private]\fP"
+
+.SS "\fBShaderDomain\fP Brigerad::OpenGLShaderUniformDeclaration::m_domain\fC [private]\fP"
+
+.SS "\fBType\fP Brigerad::OpenGLShaderUniformDeclaration::m_type\fC [private]\fP"
+
+.SS "\fBShaderStruct\fP* Brigerad::OpenGLShaderUniformDeclaration::m_struct\fC [private]\fP"
+
+.SS "int32_t Brigerad::OpenGLShaderUniformDeclaration::m_location\fC [mutable]\fP, \fC [private]\fP"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

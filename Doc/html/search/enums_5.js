@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['keycode_1827',['KeyCode',['../namespace_brigerad.html#a6993791447a24ebca6753d974c56ff14',1,'Brigerad']]]
+  ['mousecode_2269',['MouseCode',['../namespace_brigerad.html#acf78908f999dbff073233bbb85d77403',1,'Brigerad']]]
 ];

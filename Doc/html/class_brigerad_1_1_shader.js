@@ -1,8 +1,10 @@
 var class_brigerad_1_1_shader =
 [
+    [ "ShaderReloadedCallback", "class_brigerad_1_1_shader.html#ab7b91589d33b936ce7ab90bd90c74185", null ],
     [ "~Shader", "class_brigerad_1_1_shader.html#a27553352ddb1bc22f4b9f1ec682db883", null ],
+    [ "Reload", "class_brigerad_1_1_shader.html#ab1930809b7db8df4c5fc55e892861706", null ],
     [ "Bind", "class_brigerad_1_1_shader.html#a515d1017c8449d888eacb691961125ca", null ],
-    [ "Unbind", "class_brigerad_1_1_shader.html#a449029eaed972171741851305f11ce3f", null ],
+    [ "UploadUniformBuffer", "class_brigerad_1_1_shader.html#ad1cbda7399152e3c723986df0f508653", null ],
     [ "SetInt", "class_brigerad_1_1_shader.html#a3fa1e3b0808479a7cd6a35e5c8b16d41", null ],
     [ "SetIntArray", "class_brigerad_1_1_shader.html#a5def94e69554011d79f079cf9d6d3c6d", null ],
     [ "SetFloat", "class_brigerad_1_1_shader.html#afc7e0bef24f7b2cf40515fecdff6a508", null ],
@@ -11,5 +13,13 @@ var class_brigerad_1_1_shader =
     [ "SetFloat4", "class_brigerad_1_1_shader.html#ab78ae2e2725e77e060f1131ad0b3a228", null ],
     [ "SetMat3", "class_brigerad_1_1_shader.html#a7c32dbe57f184952b5db1676e367d65d", null ],
     [ "SetMat4", "class_brigerad_1_1_shader.html#ae3e8e0e93d7c4843d835e3e00bd40248", null ],
-    [ "GetName", "class_brigerad_1_1_shader.html#a88d89fc94911e9d59cf086837b1bf484", null ]
+    [ "GetName", "class_brigerad_1_1_shader.html#a88d89fc94911e9d59cf086837b1bf484", null ],
+    [ "SetVSMaterialUniformBuffer", "class_brigerad_1_1_shader.html#a530726d4ea9024daae2496afb48b2222", null ],
+    [ "SetPSMaterialUniformBuffer", "class_brigerad_1_1_shader.html#a08b77ade971c96ccbb9287302e61509c", null ],
+    [ "GetVSRendererUniforms", "class_brigerad_1_1_shader.html#a24c4e863224262f9b3b7a8f16b364727", null ],
+    [ "GetPSRendererUniforms", "class_brigerad_1_1_shader.html#a66252815f3fe0bb7a0c3f9361002645b", null ],
+    [ "GetVSMaterialUniformBuffer", "class_brigerad_1_1_shader.html#a52104b2809c4cf21e503779a68aff5e1", null ],
+    [ "GetPSMaterialUniformBuffer", "class_brigerad_1_1_shader.html#a18b36852cc6c65dbfca40a399550cd62", null ],
+    [ "GetResources", "class_brigerad_1_1_shader.html#a6b457f94fd1de40ae21b2d2c46d54a39", null ],
+    [ "AddShaderReloadedCallback", "class_brigerad_1_1_shader.html#a72db015740dcd9042c27cd2030ee742e", null ]
 ];

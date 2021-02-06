@@ -84,8 +84,10 @@ $(document).ready(function(){initNavTree('class_brigerad_1_1_shader.html',''); i
 
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="class_brigerad_1_1_shader-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Brigerad::Shader Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
@@ -103,14 +105,21 @@ Inheritance diagram for Brigerad::Shader:</div>
   </map>
 </div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:ab7b91589d33b936ce7ab90bd90c74185"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_brigerad_1_1_shader.html#ab7b91589d33b936ce7ab90bd90c74185">ShaderReloadedCallback</a> = std::function&lt; void()&gt;</td></tr>
+<tr class="separator:ab7b91589d33b936ce7ab90bd90c74185"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a27553352ddb1bc22f4b9f1ec682db883"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_brigerad_1_1_shader.html#a27553352ddb1bc22f4b9f1ec682db883">~Shader</a> ()=default</td></tr>
 <tr class="separator:a27553352ddb1bc22f4b9f1ec682db883"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1930809b7db8df4c5fc55e892861706"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_brigerad_1_1_shader.html#ab1930809b7db8df4c5fc55e892861706">Reload</a> ()=0</td></tr>
+<tr class="separator:ab1930809b7db8df4c5fc55e892861706"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a515d1017c8449d888eacb691961125ca"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_brigerad_1_1_shader.html#a515d1017c8449d888eacb691961125ca">Bind</a> () const =0</td></tr>
 <tr class="separator:a515d1017c8449d888eacb691961125ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a449029eaed972171741851305f11ce3f"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_brigerad_1_1_shader.html#a449029eaed972171741851305f11ce3f">Unbind</a> () const =0</td></tr>
-<tr class="separator:a449029eaed972171741851305f11ce3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1cbda7399152e3c723986df0f508653"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_brigerad_1_1_shader.html#ad1cbda7399152e3c723986df0f508653">UploadUniformBuffer</a> (const <a class="el" href="struct_brigerad_1_1_uniform_buffer_base.html">UniformBufferBase</a> &amp;uniformBuffer)=0</td></tr>
+<tr class="separator:ad1cbda7399152e3c723986df0f508653"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3fa1e3b0808479a7cd6a35e5c8b16d41"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_brigerad_1_1_shader.html#a3fa1e3b0808479a7cd6a35e5c8b16d41">SetInt</a> (const std::string &amp;name, int value)=0</td></tr>
 <tr class="separator:a3fa1e3b0808479a7cd6a35e5c8b16d41"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5def94e69554011d79f079cf9d6d3c6d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_brigerad_1_1_shader.html#a5def94e69554011d79f079cf9d6d3c6d">SetIntArray</a> (const std::string &amp;name, int *values, uint32_t count)=0</td></tr>
@@ -129,14 +138,50 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ae3e8e0e93d7c4843d835e3e00bd40248"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a88d89fc94911e9d59cf086837b1bf484"><td class="memItemLeft" align="right" valign="top">virtual const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_brigerad_1_1_shader.html#a88d89fc94911e9d59cf086837b1bf484">GetName</a> () const =0</td></tr>
 <tr class="separator:a88d89fc94911e9d59cf086837b1bf484"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a530726d4ea9024daae2496afb48b2222"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_brigerad_1_1_shader.html#a530726d4ea9024daae2496afb48b2222">SetVSMaterialUniformBuffer</a> (<a class="el" href="struct_brigerad_1_1_buffer.html">Buffer</a> buffer)=0</td></tr>
+<tr class="separator:a530726d4ea9024daae2496afb48b2222"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08b77ade971c96ccbb9287302e61509c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_brigerad_1_1_shader.html#a08b77ade971c96ccbb9287302e61509c">SetPSMaterialUniformBuffer</a> (<a class="el" href="struct_brigerad_1_1_buffer.html">Buffer</a> buffer)=0</td></tr>
+<tr class="separator:a08b77ade971c96ccbb9287302e61509c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24c4e863224262f9b3b7a8f16b364727"><td class="memItemLeft" align="right" valign="top">virtual const <a class="el" href="namespace_brigerad.html#a31d0838bfddb70749f0fb4e49a6b7f89">ShaderUniformBufferList</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_brigerad_1_1_shader.html#a24c4e863224262f9b3b7a8f16b364727">GetVSRendererUniforms</a> () const =0</td></tr>
+<tr class="separator:a24c4e863224262f9b3b7a8f16b364727"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66252815f3fe0bb7a0c3f9361002645b"><td class="memItemLeft" align="right" valign="top">virtual const <a class="el" href="namespace_brigerad.html#a31d0838bfddb70749f0fb4e49a6b7f89">ShaderUniformBufferList</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_brigerad_1_1_shader.html#a66252815f3fe0bb7a0c3f9361002645b">GetPSRendererUniforms</a> () const =0</td></tr>
+<tr class="separator:a66252815f3fe0bb7a0c3f9361002645b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52104b2809c4cf21e503779a68aff5e1"><td class="memItemLeft" align="right" valign="top">virtual const <a class="el" href="class_brigerad_1_1_shader_uniform_buffer_declaration.html">ShaderUniformBufferDeclaration</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_brigerad_1_1_shader.html#a52104b2809c4cf21e503779a68aff5e1">GetVSMaterialUniformBuffer</a> () const =0</td></tr>
+<tr class="separator:a52104b2809c4cf21e503779a68aff5e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18b36852cc6c65dbfca40a399550cd62"><td class="memItemLeft" align="right" valign="top">virtual const <a class="el" href="class_brigerad_1_1_shader_uniform_buffer_declaration.html">ShaderUniformBufferDeclaration</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_brigerad_1_1_shader.html#a18b36852cc6c65dbfca40a399550cd62">GetPSMaterialUniformBuffer</a> () const =0</td></tr>
+<tr class="separator:a18b36852cc6c65dbfca40a399550cd62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b457f94fd1de40ae21b2d2c46d54a39"><td class="memItemLeft" align="right" valign="top">virtual const <a class="el" href="namespace_brigerad.html#aba38b5210b2bf3c2af16b08507814be7">ShaderResourceList</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_brigerad_1_1_shader.html#a6b457f94fd1de40ae21b2d2c46d54a39">GetResources</a> () const =0</td></tr>
+<tr class="separator:a6b457f94fd1de40ae21b2d2c46d54a39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72db015740dcd9042c27cd2030ee742e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_brigerad_1_1_shader.html#a72db015740dcd9042c27cd2030ee742e">AddShaderReloadedCallback</a> (const <a class="el" href="class_brigerad_1_1_shader.html#ab7b91589d33b936ce7ab90bd90c74185">ShaderReloadedCallback</a> &amp;callback)=0</td></tr>
+<tr class="separator:a72db015740dcd9042c27cd2030ee742e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a9d5a9474c7769d410357e79237ea11f6"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="namespace_brigerad.html#ae8e468075164a68e75cc3179124c006b">Ref</a>&lt; <a class="el" href="class_brigerad_1_1_shader.html">Shader</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_brigerad_1_1_shader.html#a9d5a9474c7769d410357e79237ea11f6">Create</a> (const std::string &amp;filePath)</td></tr>
 <tr class="separator:a9d5a9474c7769d410357e79237ea11f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa8be3d431645212608e10b2de801c054"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="namespace_brigerad.html#ae8e468075164a68e75cc3179124c006b">Ref</a>&lt; <a class="el" href="class_brigerad_1_1_shader.html">Shader</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_brigerad_1_1_shader.html#aa8be3d431645212608e10b2de801c054">Create</a> (const std::string &amp;name, const std::string &amp;vertexSrc, const std::string &amp;fragmentSrc)</td></tr>
-<tr class="separator:aa8be3d431645212608e10b2de801c054"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03de6b2cff9ac155cac15edb62a9b7cd"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="namespace_brigerad.html#ae8e468075164a68e75cc3179124c006b">Ref</a>&lt; <a class="el" href="class_brigerad_1_1_shader.html">Shader</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_brigerad_1_1_shader.html#a03de6b2cff9ac155cac15edb62a9b7cd">CreateFromString</a> (const std::string &amp;source)</td></tr>
+<tr class="separator:a03de6b2cff9ac155cac15edb62a9b7cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a642b2286e950c0e7cc9eac83cb3875b9"><td class="memItemLeft" align="right" valign="top">static std::vector&lt; <a class="el" href="namespace_brigerad.html#ae8e468075164a68e75cc3179124c006b">Ref</a>&lt; <a class="el" href="class_brigerad_1_1_shader.html">Shader</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_brigerad_1_1_shader.html#a642b2286e950c0e7cc9eac83cb3875b9">s_AllShaders</a></td></tr>
+<tr class="separator:a642b2286e950c0e7cc9eac83cb3875b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="ab7b91589d33b936ce7ab90bd90c74185"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7b91589d33b936ce7ab90bd90c74185">&#9670;&nbsp;</a></span>ShaderReloadedCallback</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="class_brigerad_1_1_shader.html#ab7b91589d33b936ce7ab90bd90c74185">Brigerad::Shader::ShaderReloadedCallback</a> =  std::function&lt;void()&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a27553352ddb1bc22f4b9f1ec682db883"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a27553352ddb1bc22f4b9f1ec682db883">&#9670;&nbsp;</a></span>~Shader()</h2>
@@ -164,6 +209,33 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="ab1930809b7db8df4c5fc55e892861706"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1930809b7db8df4c5fc55e892861706">&#9670;&nbsp;</a></span>Reload()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void Brigerad::Shader::Reload </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="class_brigerad_1_1_open_g_l_shader.html#a732cc38c8c3ee274d7edb4e6d274057b">Brigerad::OpenGLShader</a>.</p>
+
+</div>
+</div>
 <a id="a515d1017c8449d888eacb691961125ca"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a515d1017c8449d888eacb691961125ca">&#9670;&nbsp;</a></span>Bind()</h2>
 
@@ -191,8 +263,8 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a449029eaed972171741851305f11ce3f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a449029eaed972171741851305f11ce3f">&#9670;&nbsp;</a></span>Unbind()</h2>
+<a id="ad1cbda7399152e3c723986df0f508653"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad1cbda7399152e3c723986df0f508653">&#9670;&nbsp;</a></span>UploadUniformBuffer()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -201,10 +273,11 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void Brigerad::Shader::Unbind </td>
+          <td class="memname">virtual void Brigerad::Shader::UploadUniformBuffer </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="paramtype">const <a class="el" href="struct_brigerad_1_1_uniform_buffer_base.html">UniformBufferBase</a> &amp;&#160;</td>
+          <td class="paramname"><em>uniformBuffer</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
   </td>
@@ -214,7 +287,7 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="class_brigerad_1_1_open_g_l_shader.html#a8c888569f5d5fbefdfd7001713a5e862">Brigerad::OpenGLShader</a>.</p>
+<p>Implemented in <a class="el" href="class_brigerad_1_1_open_g_l_shader.html#a3b543301efee5c7e4e0b395eaba05f96">Brigerad::OpenGLShader</a>.</p>
 
 </div>
 </div>
@@ -551,12 +624,12 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="class_brigerad_1_1_open_g_l_shader.html#ab99b7f71064d5cb3fbfbf75200aaca91">Brigerad::OpenGLShader</a>.</p>
+<p>Implemented in <a class="el" href="class_brigerad_1_1_open_g_l_shader.html#a7dd7e01dcebda7dd3e043345a8954814">Brigerad::OpenGLShader</a>.</p>
 
 </div>
 </div>
 <a id="a9d5a9474c7769d410357e79237ea11f6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9d5a9474c7769d410357e79237ea11f6">&#9670;&nbsp;</a></span>Create() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d5a9474c7769d410357e79237ea11f6">&#9670;&nbsp;</a></span>Create()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -581,8 +654,8 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="aa8be3d431645212608e10b2de801c054"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa8be3d431645212608e10b2de801c054">&#9670;&nbsp;</a></span>Create() <span class="overload">[2/2]</span></h2>
+<a id="a03de6b2cff9ac155cac15edb62a9b7cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03de6b2cff9ac155cac15edb62a9b7cd">&#9670;&nbsp;</a></span>CreateFromString()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -591,27 +664,253 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespace_brigerad.html#ae8e468075164a68e75cc3179124c006b">Ref</a>&lt; <a class="el" href="class_brigerad_1_1_shader.html">Shader</a> &gt; Brigerad::Shader::Create </td>
+          <td class="memname"><a class="el" href="namespace_brigerad.html#ae8e468075164a68e75cc3179124c006b">Ref</a>&lt; <a class="el" href="class_brigerad_1_1_shader.html">Shader</a> &gt; Brigerad::Shader::CreateFromString </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"><em>source</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>vertexSrc</em>, </td>
         </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a530726d4ea9024daae2496afb48b2222"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a530726d4ea9024daae2496afb48b2222">&#9670;&nbsp;</a></span>SetVSMaterialUniformBuffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
         <tr>
-          <td class="paramkey"></td>
+          <td class="memname">virtual void Brigerad::Shader::SetVSMaterialUniformBuffer </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_brigerad_1_1_buffer.html">Buffer</a>&#160;</td>
+          <td class="paramname"><em>buffer</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>fragmentSrc</em>&#160;</td>
         </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="class_brigerad_1_1_open_g_l_shader.html#a3eebc7e1bd22c4ac51456e4340da2545">Brigerad::OpenGLShader</a>.</p>
+
+</div>
+</div>
+<a id="a08b77ade971c96ccbb9287302e61509c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08b77ade971c96ccbb9287302e61509c">&#9670;&nbsp;</a></span>SetPSMaterialUniformBuffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
         <tr>
+          <td class="memname">virtual void Brigerad::Shader::SetPSMaterialUniformBuffer </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_brigerad_1_1_buffer.html">Buffer</a>&#160;</td>
+          <td class="paramname"><em>buffer</em></td><td>)</td>
           <td></td>
-          <td>)</td>
-          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="class_brigerad_1_1_open_g_l_shader.html#a297265d5364b3aa3677509d222fe062c">Brigerad::OpenGLShader</a>.</p>
+
+</div>
+</div>
+<a id="a24c4e863224262f9b3b7a8f16b364727"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24c4e863224262f9b3b7a8f16b364727">&#9670;&nbsp;</a></span>GetVSRendererUniforms()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual const <a class="el" href="namespace_brigerad.html#a31d0838bfddb70749f0fb4e49a6b7f89">ShaderUniformBufferList</a>&amp; Brigerad::Shader::GetVSRendererUniforms </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="class_brigerad_1_1_open_g_l_shader.html#a0fa8a96246f63d2deedecd2ce65ab0ae">Brigerad::OpenGLShader</a>.</p>
+
+</div>
+</div>
+<a id="a66252815f3fe0bb7a0c3f9361002645b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66252815f3fe0bb7a0c3f9361002645b">&#9670;&nbsp;</a></span>GetPSRendererUniforms()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual const <a class="el" href="namespace_brigerad.html#a31d0838bfddb70749f0fb4e49a6b7f89">ShaderUniformBufferList</a>&amp; Brigerad::Shader::GetPSRendererUniforms </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="class_brigerad_1_1_open_g_l_shader.html#abffbb0a100c069fcbc66336e564fdbf4">Brigerad::OpenGLShader</a>.</p>
+
+</div>
+</div>
+<a id="a52104b2809c4cf21e503779a68aff5e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52104b2809c4cf21e503779a68aff5e1">&#9670;&nbsp;</a></span>GetVSMaterialUniformBuffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual const <a class="el" href="class_brigerad_1_1_shader_uniform_buffer_declaration.html">ShaderUniformBufferDeclaration</a>&amp; Brigerad::Shader::GetVSMaterialUniformBuffer </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="class_brigerad_1_1_open_g_l_shader.html#a5c3150158d40d683897ae23dad8fd066">Brigerad::OpenGLShader</a>.</p>
+
+</div>
+</div>
+<a id="a18b36852cc6c65dbfca40a399550cd62"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18b36852cc6c65dbfca40a399550cd62">&#9670;&nbsp;</a></span>GetPSMaterialUniformBuffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual const <a class="el" href="class_brigerad_1_1_shader_uniform_buffer_declaration.html">ShaderUniformBufferDeclaration</a>&amp; Brigerad::Shader::GetPSMaterialUniformBuffer </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="class_brigerad_1_1_open_g_l_shader.html#ac61d2d2cdf9e236596ee3e9809539ea1">Brigerad::OpenGLShader</a>.</p>
+
+</div>
+</div>
+<a id="a6b457f94fd1de40ae21b2d2c46d54a39"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b457f94fd1de40ae21b2d2c46d54a39">&#9670;&nbsp;</a></span>GetResources()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual const <a class="el" href="namespace_brigerad.html#aba38b5210b2bf3c2af16b08507814be7">ShaderResourceList</a>&amp; Brigerad::Shader::GetResources </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="class_brigerad_1_1_open_g_l_shader.html#a8d2fd40d88790f8b3ec65a026e56df0d">Brigerad::OpenGLShader</a>.</p>
+
+</div>
+</div>
+<a id="a72db015740dcd9042c27cd2030ee742e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72db015740dcd9042c27cd2030ee742e">&#9670;&nbsp;</a></span>AddShaderReloadedCallback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void Brigerad::Shader::AddShaderReloadedCallback </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_brigerad_1_1_shader.html#ab7b91589d33b936ce7ab90bd90c74185">ShaderReloadedCallback</a> &amp;&#160;</td>
+          <td class="paramname"><em>callback</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="class_brigerad_1_1_open_g_l_shader.html#a81585902e8709c043e4976c36b7b8872">Brigerad::OpenGLShader</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a642b2286e950c0e7cc9eac83cb3875b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a642b2286e950c0e7cc9eac83cb3875b9">&#9670;&nbsp;</a></span>s_AllShaders</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="namespace_brigerad.html#ae8e468075164a68e75cc3179124c006b">Ref</a>&lt;<a class="el" href="class_brigerad_1_1_shader.html">Shader</a>&gt; &gt; Brigerad::Shader::s_AllShaders</td>
         </tr>
       </table>
   </td>
@@ -633,7 +932,7 @@ Static Public Member Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_brigerad.html">Brigerad</a></li><li class="navelem"><a class="el" href="class_brigerad_1_1_shader.html">Shader</a></li>
-    <li class="footer">Generated on Sun Jan 10 2021 14:46:24 for Brigerad by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.0 </li>
+    <li class="footer">Generated on Sun Feb 7 2021 13:20:24 for Brigerad by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.0 </li>
   </ul>
 </div>
 </body>

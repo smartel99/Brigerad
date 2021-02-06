@@ -1,0 +1,83 @@
+.TH "Brigerad::TextureCube" 3 "Sun Feb 7 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Brigerad::TextureCube
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Texture\&.h>\fP
+.PP
+Inherits \fBBrigerad::Texture\fP\&.
+.PP
+Inherited by \fBBrigerad::OpenGLTextureCube\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual uint32_t \fBGetFormat\fP () const =0"
+.br
+.ti -1c
+.RI "virtual uint32_t \fBGetWidth\fP () const =0"
+.br
+.ti -1c
+.RI "virtual uint32_t \fBGetHeight\fP () const =0"
+.br
+.ti -1c
+.RI "virtual void \fBSetData\fP (void *data, uint32_t size)=0"
+.br
+.ti -1c
+.RI "virtual const std::string & \fBGetFilePath\fP () const =0"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBRef\fP< \fBTextureCube\fP > \fBCreate\fP (uint32_t width, uint32_t height, uint8_t channels=4)"
+.br
+.ti -1c
+.RI "static \fBRef\fP< \fBTextureCube\fP > \fBCreate\fP (const std::string &path)"
+.br
+.in -1c
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBRef\fP< \fBTextureCube\fP > Brigerad::TextureCube::Create (uint32_t width, uint32_t height, uint8_t channels = \fC4\fP)\fC [static]\fP"
+
+.SS "\fBRef\fP< \fBTextureCube\fP > Brigerad::TextureCube::Create (const std::string & path)\fC [static]\fP"
+
+.SS "virtual uint32_t Brigerad::TextureCube::GetFormat () const\fC [pure virtual]\fP"
+
+.PP
+Implements \fBBrigerad::Texture\fP\&.
+.PP
+Implemented in \fBBrigerad::OpenGLTextureCube\fP\&.
+.SS "virtual uint32_t Brigerad::TextureCube::GetWidth () const\fC [pure virtual]\fP"
+
+.PP
+Implements \fBBrigerad::Texture\fP\&.
+.PP
+Implemented in \fBBrigerad::OpenGLTextureCube\fP\&.
+.SS "virtual uint32_t Brigerad::TextureCube::GetHeight () const\fC [pure virtual]\fP"
+
+.PP
+Implements \fBBrigerad::Texture\fP\&.
+.PP
+Implemented in \fBBrigerad::OpenGLTextureCube\fP\&.
+.SS "virtual void Brigerad::TextureCube::SetData (void * data, uint32_t size)\fC [pure virtual]\fP"
+
+.PP
+Implements \fBBrigerad::Texture\fP\&.
+.PP
+Implemented in \fBBrigerad::OpenGLTextureCube\fP\&.
+.SS "virtual const std::string& Brigerad::TextureCube::GetFilePath () const\fC [pure virtual]\fP"
+
+.PP
+Implements \fBBrigerad::Texture\fP\&.
+.PP
+Implemented in \fBBrigerad::OpenGLTextureCube\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

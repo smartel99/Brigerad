@@ -102,7 +102,7 @@ $(document).ready(function(){initNavTree('_application_8h_source.html',''); init
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_timestep_8h.html">Brigerad/Core/Timestep.h</a>&quot;</span></div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_shader_8h.html">Brigerad/Renderer/Shader.h</a>&quot;</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_buffer_8h.html">Brigerad/Renderer/Buffer.h</a>&quot;</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_renderer_2_buffer_8h.html">Brigerad/Renderer/Buffer.h</a>&quot;</span></div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_vertex_array_8h.html">Brigerad/Renderer/VertexArray.h</a>&quot;</span></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_renderer_8h.html">Brigerad/Renderer/Renderer.h</a>&quot;</span></div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_orthographic_camera_8h.html">Brigerad/Renderer/OrthographicCamera.h</a>&quot;</span></div>
@@ -167,12 +167,12 @@ $(document).ready(function(){initNavTree('_application_8h_source.html',''); init
 <div class="line"><a name="l00219"></a><span class="lineno"><a class="line" href="namespace_brigerad.html#a557b9570cd8d865a823b4892cd9488b3">  219</a></span>&#160;<a class="code" href="class_brigerad_1_1_application.html">Application</a>* <a class="code" href="namespace_brigerad.html#a557b9570cd8d865a823b4892cd9488b3">CreateApplication</a>();</div>
 <div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;}    <span class="comment">// namespace Brigerad</span></div>
 <div class="ttc" id="a_application_event_8h_html"><div class="ttname"><a href="_application_event_8h.html">ApplicationEvent.h</a></div></div>
-<div class="ttc" id="a_buffer_8h_html"><div class="ttname"><a href="_buffer_8h.html">Buffer.h</a></div></div>
 <div class="ttc" id="a_core_8h_html"><div class="ttname"><a href="_core_8h.html">Core.h</a></div></div>
 <div class="ttc" id="a_event_8h_html"><div class="ttname"><a href="_event_8h.html">Event.h</a></div></div>
 <div class="ttc" id="a_im_gui_layer_8h_html"><div class="ttname"><a href="_im_gui_layer_8h.html">ImGuiLayer.h</a></div></div>
 <div class="ttc" id="a_layer_stack_8h_html"><div class="ttname"><a href="_layer_stack_8h.html">LayerStack.h</a></div></div>
 <div class="ttc" id="a_orthographic_camera_8h_html"><div class="ttname"><a href="_orthographic_camera_8h.html">OrthographicCamera.h</a></div></div>
+<div class="ttc" id="a_renderer_2_buffer_8h_html"><div class="ttname"><a href="_renderer_2_buffer_8h.html">Buffer.h</a></div></div>
 <div class="ttc" id="a_renderer_8h_html"><div class="ttname"><a href="_renderer_8h.html">Renderer.h</a></div></div>
 <div class="ttc" id="a_shader_8h_html"><div class="ttname"><a href="_shader_8h.html">Shader.h</a></div></div>
 <div class="ttc" id="a_timestep_8h_html"><div class="ttname"><a href="_timestep_8h.html">Timestep.h</a></div></div>
@@ -191,7 +191,7 @@ $(document).ready(function(){initNavTree('_application_8h_source.html',''); init
 <div class="ttc" id="aclass_brigerad_1_1_event_html"><div class="ttname"><a href="class_brigerad_1_1_event.html">Brigerad::Event</a></div><div class="ttdef"><b>Definition:</b> Event.h:63</div></div>
 <div class="ttc" id="aclass_brigerad_1_1_im_gui_layer_html"><div class="ttname"><a href="class_brigerad_1_1_im_gui_layer.html">Brigerad::ImGuiLayer</a></div><div class="ttdef"><b>Definition:</b> ImGuiLayer.h:11</div></div>
 <div class="ttc" id="aclass_brigerad_1_1_key_pressed_event_html"><div class="ttname"><a href="class_brigerad_1_1_key_pressed_event.html">Brigerad::KeyPressedEvent</a></div><div class="ttdef"><b>Definition:</b> KeyEvents.h:27</div></div>
-<div class="ttc" id="aclass_brigerad_1_1_layer_html"><div class="ttname"><a href="class_brigerad_1_1_layer.html">Brigerad::Layer</a></div><div class="ttdef"><b>Definition:</b> Layer.h:33</div></div>
+<div class="ttc" id="aclass_brigerad_1_1_layer_html"><div class="ttname"><a href="class_brigerad_1_1_layer.html">Brigerad::Layer</a></div><div class="ttdoc">Layer class, where most of the client's logic should occur.</div><div class="ttdef"><b>Definition:</b> Layer.h:39</div></div>
 <div class="ttc" id="aclass_brigerad_1_1_layer_stack_html"><div class="ttname"><a href="class_brigerad_1_1_layer_stack.html">Brigerad::LayerStack</a></div><div class="ttdef"><b>Definition:</b> LayerStack.h:34</div></div>
 <div class="ttc" id="aclass_brigerad_1_1_window_close_event_html"><div class="ttname"><a href="class_brigerad_1_1_window_close_event.html">Brigerad::WindowCloseEvent</a></div><div class="ttdef"><b>Definition:</b> ApplicationEvent.h:40</div></div>
 <div class="ttc" id="aclass_brigerad_1_1_window_html"><div class="ttname"><a href="class_brigerad_1_1_window.html">Brigerad::Window</a></div><div class="ttdef"><b>Definition:</b> Window.h:27</div></div>
@@ -205,7 +205,7 @@ $(document).ready(function(){initNavTree('_application_8h_source.html',''); init
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_3cd38574e93fdb8b050cbfd88c27adb0.html">Brigerad</a></li><li class="navelem"><a class="el" href="dir_1e206cf8687d19e79aeacac7b877c439.html">src</a></li><li class="navelem"><a class="el" href="dir_76597e8cd173567b2cf2ac94a77ee010.html">Brigerad</a></li><li class="navelem"><a class="el" href="dir_5c603fd4276555cc1dbec4b002ce4942.html">Core</a></li><li class="navelem"><a class="el" href="_application_8h.html">Application.h</a></li>
-    <li class="footer">Generated on Sun Jan 10 2021 14:46:23 for Brigerad by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.0 </li>
+    <li class="footer">Generated on Sun Feb 7 2021 13:20:23 for Brigerad by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.0 </li>
   </ul>
 </div>
 </body>

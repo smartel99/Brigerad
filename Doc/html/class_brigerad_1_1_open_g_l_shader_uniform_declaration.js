@@ -1,0 +1,38 @@
+var class_brigerad_1_1_open_g_l_shader_uniform_declaration =
+[
+    [ "Type", "class_brigerad_1_1_open_g_l_shader_uniform_declaration.html#a0e3d98a963c4601db70555d80bc33e3b", [
+      [ "NONE", "class_brigerad_1_1_open_g_l_shader_uniform_declaration.html#a0e3d98a963c4601db70555d80bc33e3bab50339a10e1de285ac99d4c3990b8693", null ],
+      [ "FLOAT32", "class_brigerad_1_1_open_g_l_shader_uniform_declaration.html#a0e3d98a963c4601db70555d80bc33e3ba967d280b5c16d95f2947647dd2ca6cc2", null ],
+      [ "VEC2", "class_brigerad_1_1_open_g_l_shader_uniform_declaration.html#a0e3d98a963c4601db70555d80bc33e3ba9bd71a29dd44a2e0252b56ce5c6d251a", null ],
+      [ "VEC3", "class_brigerad_1_1_open_g_l_shader_uniform_declaration.html#a0e3d98a963c4601db70555d80bc33e3baa7c116def9f212182aa52ab1e936d77d", null ],
+      [ "VEC4", "class_brigerad_1_1_open_g_l_shader_uniform_declaration.html#a0e3d98a963c4601db70555d80bc33e3baee190f7a0572504036effa0134dc5d88", null ],
+      [ "MAT3", "class_brigerad_1_1_open_g_l_shader_uniform_declaration.html#a0e3d98a963c4601db70555d80bc33e3ba3540dd38f032c05d25340fa4ce9a1d15", null ],
+      [ "MAT4", "class_brigerad_1_1_open_g_l_shader_uniform_declaration.html#a0e3d98a963c4601db70555d80bc33e3ba3fd683d85fe04a4496d7f525182cd7f9", null ],
+      [ "INT32", "class_brigerad_1_1_open_g_l_shader_uniform_declaration.html#a0e3d98a963c4601db70555d80bc33e3ba6495adba09844fac8eeb0aba86e6f1bf", null ],
+      [ "STRUCT", "class_brigerad_1_1_open_g_l_shader_uniform_declaration.html#a0e3d98a963c4601db70555d80bc33e3bab8223be2455e0ea5a0e63e8f018d6fc3", null ]
+    ] ],
+    [ "OpenGLShaderUniformDeclaration", "class_brigerad_1_1_open_g_l_shader_uniform_declaration.html#af83a6df1bc7b72b28791545c3276695d", null ],
+    [ "OpenGLShaderUniformDeclaration", "class_brigerad_1_1_open_g_l_shader_uniform_declaration.html#a798f638c4433239dd33209ecdc164ace", null ],
+    [ "GetName", "class_brigerad_1_1_open_g_l_shader_uniform_declaration.html#a3d5ee93d942000ace73f65b269920ff1", null ],
+    [ "GetSize", "class_brigerad_1_1_open_g_l_shader_uniform_declaration.html#ac812f97e9668ab0f3780cedf9503482d", null ],
+    [ "GetCount", "class_brigerad_1_1_open_g_l_shader_uniform_declaration.html#aa5d015e672886834ff7e601e8dbdddad", null ],
+    [ "GetOffset", "class_brigerad_1_1_open_g_l_shader_uniform_declaration.html#a275f952e10d01fd776605ef19c3df3e8", null ],
+    [ "GetAbsoluteOffset", "class_brigerad_1_1_open_g_l_shader_uniform_declaration.html#aaf22b17a121b17c1862f02e9d957ba42", null ],
+    [ "GetDomain", "class_brigerad_1_1_open_g_l_shader_uniform_declaration.html#a89000d2955fc05b83427af0b0fa8830f", null ],
+    [ "GetLocation", "class_brigerad_1_1_open_g_l_shader_uniform_declaration.html#a5264c92d7ff9405cdcec219118f07d99", null ],
+    [ "GetType", "class_brigerad_1_1_open_g_l_shader_uniform_declaration.html#afc3200941e88476b8dc71ce3cfa9d765", null ],
+    [ "IsArray", "class_brigerad_1_1_open_g_l_shader_uniform_declaration.html#ac3de9b2d908030b4cb78c4c0ae52811a", null ],
+    [ "GetShaderUniformStruct", "class_brigerad_1_1_open_g_l_shader_uniform_declaration.html#a5f89a2f9889c27db3cd135aa3c86d2f3", null ],
+    [ "SetOffset", "class_brigerad_1_1_open_g_l_shader_uniform_declaration.html#adbc4f45c2c2c441c64f534a7ff6f002e", null ],
+    [ "SizeOfUniformType", "class_brigerad_1_1_open_g_l_shader_uniform_declaration.html#af3b0d58264849a5998088d1966b21154", null ],
+    [ "OpenGLShader", "class_brigerad_1_1_open_g_l_shader_uniform_declaration.html#a54e1cb1b63241a40cf1ef27081502ada", null ],
+    [ "OpenGLShaderUniformBufferDeclaration", "class_brigerad_1_1_open_g_l_shader_uniform_declaration.html#af056bfb83c08bb7d12b2defbbe4c49a3", null ],
+    [ "m_name", "class_brigerad_1_1_open_g_l_shader_uniform_declaration.html#ae53d9c2a99e6dee06e4e33d57062d940", null ],
+    [ "m_size", "class_brigerad_1_1_open_g_l_shader_uniform_declaration.html#adb6092f26a7c7fa75847530db77b07e3", null ],
+    [ "m_count", "class_brigerad_1_1_open_g_l_shader_uniform_declaration.html#affa8dda82f8b08ae2a1b5603c26d6049", null ],
+    [ "m_offset", "class_brigerad_1_1_open_g_l_shader_uniform_declaration.html#afbc5cf4fe26322f961157559038b5a94", null ],
+    [ "m_domain", "class_brigerad_1_1_open_g_l_shader_uniform_declaration.html#ac6b6be32ec69c32db9fc494b6f5f8220", null ],
+    [ "m_type", "class_brigerad_1_1_open_g_l_shader_uniform_declaration.html#a0af42b36dd19c3d4d7dd735fc072a347", null ],
+    [ "m_struct", "class_brigerad_1_1_open_g_l_shader_uniform_declaration.html#ab52f708368f610b34744d8da488207ff", null ],
+    [ "m_location", "class_brigerad_1_1_open_g_l_shader_uniform_declaration.html#a6363ec656a5499c76f9f761c6765bbeb", null ]
+];

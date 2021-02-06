@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['shaderdatatype_1831',['ShaderDataType',['../namespace_brigerad.html#ae8e76ad9bd6479d5ac69009a2450e98c',1,'Brigerad']]],
-  ['stopbits_1832',['StopBits',['../class_brigerad_1_1_serial.html#a86a264632c0e3c997e76504ab63dede4',1,'Brigerad::Serial']]]
+  ['type_2275',['Type',['../class_brigerad_1_1_open_g_l_shader_resource_declaration.html#a344bc05c885c3def228311594b3579d6',1,'Brigerad::OpenGLShaderResourceDeclaration::Type()'],['../class_brigerad_1_1_open_g_l_shader_uniform_declaration.html#a0e3d98a963c4601db70555d80bc33e3b',1,'Brigerad::OpenGLShaderUniformDeclaration::Type()']]]
 ];

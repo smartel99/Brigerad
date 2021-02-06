@@ -1,0 +1,97 @@
+.TH "Brigerad::Buffer" 3 "Sun Feb 7 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Brigerad::Buffer
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Buffer\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBBuffer\fP ()"
+.br
+.ti -1c
+.RI "\fBBuffer\fP (\fBbyte\fP *data, uint32_t size)"
+.br
+.ti -1c
+.RI "void \fBAllocate\fP (uint32_t size)"
+.br
+.ti -1c
+.RI "void \fBZeroInitialize\fP ()"
+.br
+.ti -1c
+.RI "void \fBWrite\fP (\fBbyte\fP *data, uint32_t size, uint32_t offset=0)"
+.br
+.ti -1c
+.RI "\fBoperator bool\fP () const"
+.br
+.ti -1c
+.RI "\fBbyte\fP & \fBoperator[]\fP (int index)"
+.br
+.ti -1c
+.RI "\fBbyte\fP \fBoperator[]\fP (int index) const"
+.br
+.ti -1c
+.RI "template<typename T > T * \fBAs\fP ()"
+.br
+.ti -1c
+.RI "uint32_t \fBGetSize\fP () const"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBBuffer\fP \fBCopy\fP (void *data, uint32_t size)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBbyte\fP * \fBData\fP"
+.br
+.ti -1c
+.RI "uint32_t \fBSize\fP"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Brigerad::Buffer::Buffer ()\fC [inline]\fP"
+
+.SS "Brigerad::Buffer::Buffer (\fBbyte\fP * data, uint32_t size)\fC [inline]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "static \fBBuffer\fP Brigerad::Buffer::Copy (void * data, uint32_t size)\fC [inline]\fP, \fC [static]\fP"
+
+.SS "void Brigerad::Buffer::Allocate (uint32_t size)\fC [inline]\fP"
+
+.SS "void Brigerad::Buffer::ZeroInitialize ()\fC [inline]\fP"
+
+.SS "void Brigerad::Buffer::Write (\fBbyte\fP * data, uint32_t size, uint32_t offset = \fC0\fP)\fC [inline]\fP"
+
+.SS "Brigerad::Buffer::operator bool () const\fC [inline]\fP"
+
+.SS "\fBbyte\fP& Brigerad::Buffer::operator[] (int index)\fC [inline]\fP"
+
+.SS "\fBbyte\fP Brigerad::Buffer::operator[] (int index) const\fC [inline]\fP"
+
+.SS "template<typename T > T* Brigerad::Buffer::As ()\fC [inline]\fP"
+
+.SS "uint32_t Brigerad::Buffer::GetSize () const\fC [inline]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBbyte\fP* Brigerad::Buffer::Data"
+
+.SS "uint32_t Brigerad::Buffer::Size"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

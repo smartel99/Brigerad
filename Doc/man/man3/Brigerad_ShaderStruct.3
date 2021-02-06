@@ -1,0 +1,94 @@
+.TH "Brigerad::ShaderStruct" 3 "Sun Feb 7 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Brigerad::ShaderStruct
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <ShaderUniform\&.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBShaderStruct\fP (const std::string &name)"
+.br
+.ti -1c
+.RI "void \fBAddField\fP (\fBShaderUniformDeclaration\fP *field)"
+.br
+.ti -1c
+.RI "void \fBSetOffset\fP (uint32_t offset)"
+.br
+.ti -1c
+.RI "const std::string & \fBGetName\fP () const"
+.br
+.ti -1c
+.RI "uint32_t \fBGetSize\fP () const"
+.br
+.ti -1c
+.RI "uint32_t \fBGetOffset\fP () const"
+.br
+.ti -1c
+.RI "const \fBShaderUniformDeclarationList\fP & \fBGetFields\fP () const"
+.br
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "std::string \fBm_name\fP"
+.br
+.ti -1c
+.RI "\fBShaderUniformDeclarationList\fP \fBm_fields\fP"
+.br
+.ti -1c
+.RI "uint32_t \fBm_size\fP"
+.br
+.ti -1c
+.RI "uint32_t \fBm_offset\fP"
+.br
+.in -1c
+.SS "Friends"
+
+.in +1c
+.ti -1c
+.RI "class \fBShader\fP"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Brigerad::ShaderStruct::ShaderStruct (const std::string & name)\fC [inline]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void Brigerad::ShaderStruct::AddField (\fBShaderUniformDeclaration\fP * field)\fC [inline]\fP"
+
+.SS "void Brigerad::ShaderStruct::SetOffset (uint32_t offset)\fC [inline]\fP"
+
+.SS "const std::string& Brigerad::ShaderStruct::GetName () const\fC [inline]\fP"
+
+.SS "uint32_t Brigerad::ShaderStruct::GetSize () const\fC [inline]\fP"
+
+.SS "uint32_t Brigerad::ShaderStruct::GetOffset () const\fC [inline]\fP"
+
+.SS "const \fBShaderUniformDeclarationList\fP& Brigerad::ShaderStruct::GetFields () const\fC [inline]\fP"
+
+.SH "Friends And Related Function Documentation"
+.PP 
+.SS "friend class \fBShader\fP\fC [friend]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "std::string Brigerad::ShaderStruct::m_name\fC [private]\fP"
+
+.SS "\fBShaderUniformDeclarationList\fP Brigerad::ShaderStruct::m_fields\fC [private]\fP"
+
+.SS "uint32_t Brigerad::ShaderStruct::m_size\fC [private]\fP"
+
+.SS "uint32_t Brigerad::ShaderStruct::m_offset\fC [private]\fP"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

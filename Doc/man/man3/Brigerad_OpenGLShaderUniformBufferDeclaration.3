@@ -1,0 +1,116 @@
+.TH "Brigerad::OpenGLShaderUniformBufferDeclaration" 3 "Sun Feb 7 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Brigerad::OpenGLShaderUniformBufferDeclaration
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <OpenGLShaderUniform\&.h>\fP
+.PP
+Inherits \fBBrigerad::ShaderUniformBufferDeclaration\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBOpenGLShaderUniformBufferDeclaration\fP (const std::string &name, \fBShaderDomain\fP domain)"
+.br
+.ti -1c
+.RI "void \fBPushUniform\fP (\fBOpenGLShaderUniformDeclaration\fP *uniform)"
+.br
+.ti -1c
+.RI "virtual const std::string & \fBGetName\fP () const override"
+.br
+.ti -1c
+.RI "virtual uint32_t \fBGetRegister\fP () const override"
+.br
+.ti -1c
+.RI "virtual uint32_t \fBGetSize\fP () const override"
+.br
+.ti -1c
+.RI "\fBShaderDomain\fP \fBGetDomain\fP () const"
+.br
+.ti -1c
+.RI "virtual const \fBShaderUniformDeclarationList\fP & \fBGetUniformDeclarations\fP () const override"
+.br
+.ti -1c
+.RI "\fBShaderUniformDeclaration\fP * \fBFindUniform\fP (const std::string &name)"
+.br
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "std::string \fBm_name\fP"
+.br
+.ti -1c
+.RI "\fBShaderUniformDeclarationList\fP \fBm_uniforms\fP"
+.br
+.ti -1c
+.RI "uint32_t \fBm_register\fP"
+.br
+.ti -1c
+.RI "uint32_t \fBm_size\fP"
+.br
+.ti -1c
+.RI "\fBShaderDomain\fP \fBm_domain\fP"
+.br
+.in -1c
+.SS "Friends"
+
+.in +1c
+.ti -1c
+.RI "class \fBShader\fP"
+.br
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Brigerad::OpenGLShaderUniformBufferDeclaration::OpenGLShaderUniformBufferDeclaration (const std::string & name, \fBShaderDomain\fP domain)"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void Brigerad::OpenGLShaderUniformBufferDeclaration::PushUniform (\fBOpenGLShaderUniformDeclaration\fP * uniform)"
+
+.SS "virtual const std::string& Brigerad::OpenGLShaderUniformBufferDeclaration::GetName () const\fC [inline]\fP, \fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBBrigerad::ShaderUniformBufferDeclaration\fP\&.
+.SS "virtual uint32_t Brigerad::OpenGLShaderUniformBufferDeclaration::GetRegister () const\fC [inline]\fP, \fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBBrigerad::ShaderUniformBufferDeclaration\fP\&.
+.SS "virtual uint32_t Brigerad::OpenGLShaderUniformBufferDeclaration::GetSize () const\fC [inline]\fP, \fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBBrigerad::ShaderUniformBufferDeclaration\fP\&.
+.SS "\fBShaderDomain\fP Brigerad::OpenGLShaderUniformBufferDeclaration::GetDomain () const\fC [inline]\fP"
+
+.SS "virtual const \fBShaderUniformDeclarationList\fP& Brigerad::OpenGLShaderUniformBufferDeclaration::GetUniformDeclarations () const\fC [inline]\fP, \fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBBrigerad::ShaderUniformBufferDeclaration\fP\&.
+.SS "\fBBrigerad::ShaderUniformDeclaration\fP * Brigerad::OpenGLShaderUniformBufferDeclaration::FindUniform (const std::string & name)\fC [virtual]\fP"
+
+.PP
+Implements \fBBrigerad::ShaderUniformBufferDeclaration\fP\&.
+.SH "Friends And Related Function Documentation"
+.PP 
+.SS "friend class \fBShader\fP\fC [friend]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "std::string Brigerad::OpenGLShaderUniformBufferDeclaration::m_name\fC [private]\fP"
+
+.SS "\fBShaderUniformDeclarationList\fP Brigerad::OpenGLShaderUniformBufferDeclaration::m_uniforms\fC [private]\fP"
+
+.SS "uint32_t Brigerad::OpenGLShaderUniformBufferDeclaration::m_register\fC [private]\fP"
+
+.SS "uint32_t Brigerad::OpenGLShaderUniformBufferDeclaration::m_size\fC [private]\fP"
+
+.SS "\fBShaderDomain\fP Brigerad::OpenGLShaderUniformBufferDeclaration::m_domain\fC [private]\fP"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

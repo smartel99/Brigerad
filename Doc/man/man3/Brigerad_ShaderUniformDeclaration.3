@@ -1,0 +1,89 @@
+.TH "Brigerad::ShaderUniformDeclaration" 3 "Sun Feb 7 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Brigerad::ShaderUniformDeclaration
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <ShaderUniform\&.h>\fP
+.PP
+Inherited by \fBBrigerad::OpenGLShaderUniformDeclaration\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual const std::string & \fBGetName\fP () const =0"
+.br
+.ti -1c
+.RI "virtual uint32_t \fBGetSize\fP () const =0"
+.br
+.ti -1c
+.RI "virtual uint32_t \fBGetCount\fP () const =0"
+.br
+.ti -1c
+.RI "virtual uint32_t \fBGetOffset\fP () const =0"
+.br
+.ti -1c
+.RI "virtual \fBShaderDomain\fP \fBGetDomain\fP () const =0"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual void \fBSetOffset\fP (uint32_t offset)=0"
+.br
+.in -1c
+.SS "Friends"
+
+.in +1c
+.ti -1c
+.RI "class \fBShader\fP"
+.br
+.ti -1c
+.RI "class \fBOpenGLShader\fP"
+.br
+.ti -1c
+.RI "class \fBShaderStruct\fP"
+.br
+.in -1c
+.SH "Member Function Documentation"
+.PP 
+.SS "virtual const std::string& Brigerad::ShaderUniformDeclaration::GetName () const\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLShaderUniformDeclaration\fP\&.
+.SS "virtual uint32_t Brigerad::ShaderUniformDeclaration::GetSize () const\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLShaderUniformDeclaration\fP\&.
+.SS "virtual uint32_t Brigerad::ShaderUniformDeclaration::GetCount () const\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLShaderUniformDeclaration\fP\&.
+.SS "virtual uint32_t Brigerad::ShaderUniformDeclaration::GetOffset () const\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLShaderUniformDeclaration\fP\&.
+.SS "virtual \fBShaderDomain\fP Brigerad::ShaderUniformDeclaration::GetDomain () const\fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLShaderUniformDeclaration\fP\&.
+.SS "virtual void Brigerad::ShaderUniformDeclaration::SetOffset (uint32_t offset)\fC [protected]\fP, \fC [pure virtual]\fP"
+
+.PP
+Implemented in \fBBrigerad::OpenGLShaderUniformDeclaration\fP\&.
+.SH "Friends And Related Function Documentation"
+.PP 
+.SS "friend class \fBShader\fP\fC [friend]\fP"
+
+.SS "friend class \fBOpenGLShader\fP\fC [friend]\fP"
+
+.SS "friend class \fBShaderStruct\fP\fC [friend]\fP"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

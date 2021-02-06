@@ -86,6 +86,9 @@ $(document).ready(function(){initNavTree('functions_s.html',''); initResizable()
 <div class="textblock">Here is a list of all class members with links to the classes they belong to:</div>
 
 <h3><a id="index_s"></a>- s -</h3><ul>
+<li>s_AllShaders
+: <a class="el" href="class_brigerad_1_1_shader.html#a642b2286e950c0e7cc9eac83cb3875b9">Brigerad::Shader</a>
+</li>
 <li>s_API
 : <a class="el" href="class_brigerad_1_1_renderer_a_p_i.html#ad1acd82b5a3c7979096f4b46d591506d">Brigerad::RendererAPI</a>
 </li>
@@ -97,6 +100,7 @@ $(document).ready(function(){initNavTree('functions_s.html',''); initResizable()
 </li>
 <li>s_instance
 : <a class="el" href="class_brigerad_1_1_application.html#a95a3aaad1eeca591718b5a5e81de02eb">Brigerad::Application</a>
+, <a class="el" href="class_brigerad_1_1_renderer.html#a491e4e76fe66e609599f7c6617d1686a">Brigerad::Renderer</a>
 </li>
 <li>s_rendererAPI
 : <a class="el" href="class_brigerad_1_1_render_command.html#a45746625025fcdb61f6ac7d2d0534b82">Brigerad::RenderCommand</a>
@@ -128,6 +132,10 @@ $(document).ready(function(){initNavTree('functions_s.html',''); initResizable()
 <li>Serial()
 : <a class="el" href="class_brigerad_1_1_serial.html#a054822840f4e3f3e26108354b6a67f29">Brigerad::Serial</a>
 </li>
+<li>Set()
+: <a class="el" href="class_brigerad_1_1_material.html#a571160886e3a39ca4fc84a85a7d18a0d">Brigerad::Material</a>
+, <a class="el" href="class_brigerad_1_1_material_instance.html#acf5ada405c37cf23e2bc6fb65cf03697">Brigerad::MaterialInstance</a>
+</li>
 <li>SetBaudrate()
 : <a class="el" href="class_brigerad_1_1_serial.html#ac09a883f34f8fd4fcf02519292324f74">Brigerad::Serial</a>
 </li>
@@ -150,12 +158,17 @@ $(document).ready(function(){initNavTree('functions_s.html',''); initResizable()
 </li>
 <li>SetData()
 : <a class="el" href="class_brigerad_1_1_open_g_l_texture2_d.html#a80d93be05f6067858b5b2f4bbd24ec3b">Brigerad::OpenGLTexture2D</a>
+, <a class="el" href="class_brigerad_1_1_open_g_l_texture_cube.html#ac303d62e4ae5c2404531025b6d0e48ea">Brigerad::OpenGLTextureCube</a>
 , <a class="el" href="class_brigerad_1_1_open_g_l_vertex_buffer.html#a94fab6a6fa7c41171c54de432df4e931">Brigerad::OpenGLVertexBuffer</a>
 , <a class="el" href="class_brigerad_1_1_texture.html#a23c48327eb0da41bc65c108dc84854c1">Brigerad::Texture</a>
+, <a class="el" href="class_brigerad_1_1_texture_cube.html#a8760e11aa2141a7bd4212b38090c5d4c">Brigerad::TextureCube</a>
 , <a class="el" href="class_brigerad_1_1_vertex_buffer.html#a0132f623f8fa7d4bff7fe97472167157">Brigerad::VertexBuffer</a>
 </li>
 <li>SetDTR()
 : <a class="el" href="class_brigerad_1_1_serial.html#a5eb12eaad96dc5ebee0a6fced3d3a715">Brigerad::Serial</a>
+</li>
+<li>SetEnvironmentIrradiance()
+: <a class="el" href="class_brigerad_1_1_scene.html#aba9e63dbbac43ff7d7beb2dc860ac1f3">Brigerad::Scene</a>
 </li>
 <li>SetEventCallback()
 : <a class="el" href="class_brigerad_1_1_window.html#a0ec252ab7d9ea8790af2b6dc7068f4f5">Brigerad::Window</a>
@@ -206,6 +219,14 @@ $(document).ready(function(){initNavTree('functions_s.html',''); initResizable()
 : <a class="el" href="class_brigerad_1_1_open_g_l_shader.html#a9ceb6c6874f937ce680d1386f87be78f">Brigerad::OpenGLShader</a>
 , <a class="el" href="class_brigerad_1_1_shader.html#ae3e8e0e93d7c4843d835e3e00bd40248">Brigerad::Shader</a>
 </li>
+<li>SetMaterialUniforms()
+: <a class="el" href="struct_brigerad_1_1_mesh_component.html#ab4c396f416714ed3b251c0a914d526b4">Brigerad::MeshComponent</a>
+</li>
+<li>SetOffset()
+: <a class="el" href="class_brigerad_1_1_open_g_l_shader_uniform_declaration.html#adbc4f45c2c2c441c64f534a7ff6f002e">Brigerad::OpenGLShaderUniformDeclaration</a>
+, <a class="el" href="class_brigerad_1_1_shader_struct.html#a8d37d2add0445492c9208cb5bf361d98">Brigerad::ShaderStruct</a>
+, <a class="el" href="class_brigerad_1_1_shader_uniform_declaration.html#a7d84b7c1694dc39b0c1f0604034d2b33">Brigerad::ShaderUniformDeclaration</a>
+</li>
 <li>SetOrthographic()
 : <a class="el" href="class_brigerad_1_1_scene_camera.html#a85f39318149eba20a828a056fd6fe2b7">Brigerad::SceneCamera</a>
 </li>
@@ -246,6 +267,10 @@ $(document).ready(function(){initNavTree('functions_s.html',''); initResizable()
 <li>SetProjectionType()
 : <a class="el" href="class_brigerad_1_1_scene_camera.html#af98bd89f89b949f3187db72ac4597168">Brigerad::SceneCamera</a>
 </li>
+<li>SetPSMaterialUniformBuffer()
+: <a class="el" href="class_brigerad_1_1_open_g_l_shader.html#a297265d5364b3aa3677509d222fe062c">Brigerad::OpenGLShader</a>
+, <a class="el" href="class_brigerad_1_1_shader.html#a08b77ade971c96ccbb9287302e61509c">Brigerad::Shader</a>
+</li>
 <li>SetRotation()
 : <a class="el" href="class_brigerad_1_1_orthographic_camera.html#af78bdaba0d6834f96b4cfa40421d5fb0">Brigerad::OrthographicCamera</a>
 , <a class="el" href="struct_brigerad_1_1_transform_component.html#aa0db1784889656382d8a422ed6a6af3e">Brigerad::TransformComponent</a>
@@ -256,14 +281,17 @@ $(document).ready(function(){initNavTree('functions_s.html',''); initResizable()
 <li>SetScale()
 : <a class="el" href="struct_brigerad_1_1_transform_component.html#a338d98d140540096a0ab1a5196cd3152">Brigerad::TransformComponent</a>
 </li>
+<li>SetSkyboxTexture()
+: <a class="el" href="class_brigerad_1_1_scene.html#ac9044fc1f58549da6d0c57362399fab0">Brigerad::Scene</a>
+</li>
 <li>SetStopBits()
 : <a class="el" href="class_brigerad_1_1_serial.html#a25fea33515b78ef302294fa4b1a58d25">Brigerad::Serial</a>
 </li>
-<li>SetTimeout()
-: <a class="el" href="class_brigerad_1_1_serial.html#aa0cbe2a720ee5bb66e41430097995524">Brigerad::Serial</a>
-</li>
 <li>setTimeout()
 : <a class="el" href="class_brigerad_1_1_serial.html#a2d185f60bd1325603480c1914eeb3e56">Brigerad::Serial</a>
+</li>
+<li>SetTimeout()
+: <a class="el" href="class_brigerad_1_1_serial.html#aa0cbe2a720ee5bb66e41430097995524">Brigerad::Serial</a>
 </li>
 <li>SetViewport()
 : <a class="el" href="class_brigerad_1_1_open_g_l_renderer_a_p_i.html#a40e7ca5d4aa6bdc338204794f6f660f9">Brigerad::OpenGLRendererAPI</a>
@@ -273,31 +301,50 @@ $(document).ready(function(){initNavTree('functions_s.html',''); initResizable()
 <li>SetViewportSize()
 : <a class="el" href="class_brigerad_1_1_scene_camera.html#a1839f6146c7dcca8b7856bbe74530d38">Brigerad::SceneCamera</a>
 </li>
+<li>SetVSMaterialUniformBuffer()
+: <a class="el" href="class_brigerad_1_1_open_g_l_shader.html#a3eebc7e1bd22c4ac51456e4340da2545">Brigerad::OpenGLShader</a>
+, <a class="el" href="class_brigerad_1_1_shader.html#a530726d4ea9024daae2496afb48b2222">Brigerad::Shader</a>
+</li>
 <li>SetVSync()
 : <a class="el" href="class_brigerad_1_1_window.html#adc3509e8dfbfdf60a20047d210621c29">Brigerad::Window</a>
 </li>
 <li>SetZoomLevel()
 : <a class="el" href="class_brigerad_1_1_orthographic_camera_controller.html#a8cf1113e28828c43e1d0b54d9c3da4eb">Brigerad::OrthographicCameraController</a>
 </li>
+<li>Shader
+: <a class="el" href="class_brigerad_1_1_open_g_l_shader_uniform_buffer_declaration.html#a03c2d524ace9ade9c3f55b43c99bcea1">Brigerad::OpenGLShaderUniformBufferDeclaration</a>
+, <a class="el" href="class_brigerad_1_1_shader_struct.html#a03c2d524ace9ade9c3f55b43c99bcea1">Brigerad::ShaderStruct</a>
+, <a class="el" href="class_brigerad_1_1_shader_uniform_declaration.html#a03c2d524ace9ade9c3f55b43c99bcea1">Brigerad::ShaderUniformDeclaration</a>
+</li>
+<li>ShaderReloadedCallback
+: <a class="el" href="class_brigerad_1_1_shader.html#ab7b91589d33b936ce7ab90bd90c74185">Brigerad::Shader</a>
+</li>
+<li>ShaderStruct()
+: <a class="el" href="class_brigerad_1_1_shader_struct.html#a63bfd027dff692d36482684a309154ee">Brigerad::ShaderStruct</a>
+, <a class="el" href="class_brigerad_1_1_shader_uniform_declaration.html#a97fe1bf1bd16c666252c145b2569a556">Brigerad::ShaderUniformDeclaration</a>
+</li>
+<li>ShaderTypeFromString()
+: <a class="el" href="class_brigerad_1_1_open_g_l_shader.html#a448dd6c6853062c2e9bee63160fa1f43">Brigerad::OpenGLShader</a>
+</li>
 <li>Shutdown()
 : <a class="el" href="class_brigerad_1_1_renderer2_d.html#a2a378b02bc0429372f0da989a23f91ce">Brigerad::Renderer2D</a>
 , <a class="el" href="class_brigerad_1_1_script_engine.html#a42d91f8c2105b02c82b0952de624e014">Brigerad::ScriptEngine</a>
 </li>
+<li>Size
+: <a class="el" href="struct_brigerad_1_1_buffer.html#a3c33e1256af2c41eeaf5061384461351">Brigerad::Buffer</a>
+</li>
 <li>size
 : <a class="el" href="struct_brigerad_1_1_buffer_elements.html#abf830ca0c280519238754ad38fdc1a3b">Brigerad::BufferElements</a>
-, <a class="el" href="struct_brigerad_1_1_im_gui_invisible_button_component.html#acae5f697a9f3132408cfde8ff3389445">Brigerad::ImGuiInvisibleButtonComponent</a>
+, <a class="el" href="struct_brigerad_1_1_g_l_shader_uniform_field.html#a97e4c1d709cdecfd613819e98b6e6adc">Brigerad::GLShaderUniformField</a>
 </li>
-<li>spacing
-: <a class="el" href="struct_brigerad_1_1_im_gui_same_line_component.html#a487ba8f72f9e0b096629652a97fb9bbe">Brigerad::ImGuiSameLineComponent</a>
+<li>SizeOfUniformType()
+: <a class="el" href="class_brigerad_1_1_open_g_l_shader_uniform_declaration.html#af3b0d58264849a5998088d1966b21154">Brigerad::OpenGLShaderUniformDeclaration</a>
+</li>
+<li>SRGB
+: <a class="el" href="struct_brigerad_1_1_albedo_input.html#a1eccff3fc47a119f79fe0df86ec4ec8f">Brigerad::AlbedoInput</a>
 </li>
 <li>Start
 : <a class="el" href="struct_brigerad_1_1_profile_result.html#a78a17cdbbafa95e8ef1298b6cc6153a6">Brigerad::ProfileResult</a>
-</li>
-<li>state
-: <a class="el" href="struct_brigerad_1_1_im_gui_arrow_button_component.html#a7926dbc8c5df689ae97550d720a5fd29">Brigerad::ImGuiArrowButtonComponent</a>
-, <a class="el" href="struct_brigerad_1_1_im_gui_button_component.html#a3fbcb510897aa77f1db9eb03c0395c8d">Brigerad::ImGuiButtonComponent</a>
-, <a class="el" href="struct_brigerad_1_1_im_gui_invisible_button_component.html#aa24ded53a2b8f41fcaaad96c0a1f7dcf">Brigerad::ImGuiInvisibleButtonComponent</a>
-, <a class="el" href="struct_brigerad_1_1_im_gui_small_button_component.html#a79098b273ca3b2f3c53ab6661c6f9c08">Brigerad::ImGuiSmallButtonComponent</a>
 </li>
 <li>stats
 : <a class="el" href="struct_brigerad_1_1_renderer2_d_data.html#a40012bd14c0589afd870088510931814">Brigerad::Renderer2DData</a>
@@ -310,6 +357,10 @@ $(document).ready(function(){initNavTree('functions_s.html',''); initResizable()
 </li>
 <li>Storage
 : <a class="el" href="struct_brigerad_1_1_br_bool_vector.html#ab46aee57e4248cd69103885f8c2b330e">Brigerad::BrBoolVector</a>
+</li>
+<li>StringToType()
+: <a class="el" href="class_brigerad_1_1_open_g_l_shader_resource_declaration.html#a10045f8e07cc6090ccf7d5b351c9c243">Brigerad::OpenGLShaderResourceDeclaration</a>
+, <a class="el" href="class_brigerad_1_1_open_g_l_shader_uniform_declaration.html#a910716a0464857520d95b6fa7f586e9c">Brigerad::OpenGLShaderUniformDeclaration</a>
 </li>
 <li>Submit()
 : <a class="el" href="class_brigerad_1_1_renderer.html#aef4b4ced55e89c655482db0acf2a30d2">Brigerad::Renderer</a>
@@ -330,7 +381,7 @@ $(document).ready(function(){initNavTree('functions_s.html',''); initResizable()
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Sun Jan 10 2021 14:46:24 for Brigerad by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.0 </li>
+    <li class="footer">Generated on Sun Feb 7 2021 13:20:25 for Brigerad by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.0 </li>
   </ul>
 </div>
 </body>

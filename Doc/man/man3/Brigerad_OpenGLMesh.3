@@ -1,0 +1,244 @@
+.TH "Brigerad::OpenGLMesh" 3 "Sun Feb 7 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Brigerad::OpenGLMesh
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <OpenGLMesh\&.h>\fP
+.PP
+Inherits \fBBrigerad::Mesh\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBOpenGLMesh\fP (const std::string &filename)"
+.br
+.ti -1c
+.RI "virtual \fB~OpenGLMesh\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBRender\fP (\fBTimestep\fP ts, \fBRef\fP< \fBMaterialInstance\fP > materialInstance=\fBRef\fP< \fBMaterialInstance\fP >()) override"
+.br
+.ti -1c
+.RI "virtual void \fBRender\fP (\fBTimestep\fP ts, const glm::mat4 &transform=glm::mat4(1\&.0f), \fBRef\fP< \fBMaterialInstance\fP > materialInstance=\fBRef\fP< \fBMaterialInstance\fP >()) override"
+.br
+.ti -1c
+.RI "virtual void \fBOnImGuiRender\fP () override"
+.br
+.ti -1c
+.RI "virtual void \fBDumpVertexBuffer\fP () override"
+.br
+.ti -1c
+.RI "virtual \fBRef\fP< \fBShader\fP > \fBGetMeshShader\fP () override"
+.br
+.ti -1c
+.RI "virtual \fBRef\fP< \fBMaterial\fP > \fBGetMaterial\fP () override"
+.br
+.ti -1c
+.RI "virtual const std::string & \fBGetFilePath\fP () const override"
+.br
+.in -1c
+.SS "Private Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBBoneTransform\fP (float time)"
+.br
+.ti -1c
+.RI "void \fBReadNodeHierarchy\fP (float animationTime, const aiNode *pNode, const glm::mat4 &parentTransform)"
+.br
+.ti -1c
+.RI "void \fBTraverseNode\fP (aiNode *node, int level=0)"
+.br
+.ti -1c
+.RI "const aiNodeAnim * \fBFindNodeAnim\fP (const aiAnimation *animation, const std::string &nodeName)"
+.br
+.ti -1c
+.RI "uint32_t \fBFindPosition\fP (float animationTime, const aiNodeAnim *pNodeAnim)"
+.br
+.ti -1c
+.RI "uint32_t \fBFindRotation\fP (float animationTime, const aiNodeAnim *pNodeAnim)"
+.br
+.ti -1c
+.RI "uint32_t \fBFindScaling\fP (float animationTime, const aiNodeAnim *pNodeAnim)"
+.br
+.ti -1c
+.RI "glm::vec3 \fBInterpolateTranslation\fP (float animationTime, const aiNodeAnim *pNodeAnim)"
+.br
+.ti -1c
+.RI "glm::quat \fBInterpolateRotation\fP (float animationTime, const aiNodeAnim *pNodeAnim)"
+.br
+.ti -1c
+.RI "glm::vec3 \fBInterpolateScale\fP (float animationTime, const aiNodeAnim *pNodeAnim)"
+.br
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "std::vector< \fBSubmesh\fP > \fBm_submeshes\fP"
+.br
+.ti -1c
+.RI "\fBScope\fP< Assimp::Importer > \fBm_importer\fP"
+.br
+.ti -1c
+.RI "glm::mat4 \fBm_inverseTranform\fP"
+.br
+.ti -1c
+.RI "uint32_t \fBm_boneCount\fP = 0"
+.br
+.ti -1c
+.RI "std::vector< \fBBoneInfo\fP > \fBm_boneInfo\fP"
+.br
+.ti -1c
+.RI "\fBRef\fP< \fBVertexArray\fP > \fBm_vertexArray\fP"
+.br
+.ti -1c
+.RI "std::vector< \fBVertex\fP > \fBm_staticVertices\fP"
+.br
+.ti -1c
+.RI "std::vector< \fBAnimatedVertex\fP > \fBm_animatedVertices\fP"
+.br
+.ti -1c
+.RI "std::vector< \fBIndex\fP > \fBm_indices\fP"
+.br
+.ti -1c
+.RI "std::unordered_map< std::string, uint32_t > \fBm_boneMapping\fP"
+.br
+.ti -1c
+.RI "std::vector< glm::mat4 > \fBm_boneTransforms\fP"
+.br
+.ti -1c
+.RI "const aiScene * \fBm_scene\fP"
+.br
+.ti -1c
+.RI "\fBRef\fP< \fBShader\fP > \fBm_meshShader\fP"
+.br
+.ti -1c
+.RI "\fBRef\fP< \fBMaterial\fP > \fBm_material\fP"
+.br
+.ti -1c
+.RI "bool \fBm_isAnimated\fP = false"
+.br
+.ti -1c
+.RI "float \fBm_animationTime\fP = 0\&.0f"
+.br
+.ti -1c
+.RI "float \fBm_worldTime\fP = 0\&.0f"
+.br
+.ti -1c
+.RI "float \fBm_timeMultiplier\fP = 1\&.0f"
+.br
+.ti -1c
+.RI "bool \fBm_animationPlaying\fP = true"
+.br
+.ti -1c
+.RI "std::string \fBm_filePath\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Brigerad::OpenGLMesh::OpenGLMesh (const std::string & filename)"
+
+.SS "Brigerad::OpenGLMesh::~OpenGLMesh ()\fC [virtual]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void Brigerad::OpenGLMesh::Render (\fBTimestep\fP ts, \fBRef\fP< \fBMaterialInstance\fP > materialInstance = \fC\fBRef\fP<\fBMaterialInstance\fP>()\fP)\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBBrigerad::Mesh\fP\&.
+.SS "void Brigerad::OpenGLMesh::Render (\fBTimestep\fP ts, const glm::mat4 & transform = \fCglm::mat4(1\&.0f)\fP, \fBRef\fP< \fBMaterialInstance\fP > materialInstance = \fC\fBRef\fP<\fBMaterialInstance\fP>()\fP)\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBBrigerad::Mesh\fP\&.
+.SS "void Brigerad::OpenGLMesh::OnImGuiRender ()\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBBrigerad::Mesh\fP\&.
+.SS "void Brigerad::OpenGLMesh::DumpVertexBuffer ()\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBBrigerad::Mesh\fP\&.
+.SS "virtual \fBRef\fP<\fBShader\fP> Brigerad::OpenGLMesh::GetMeshShader ()\fC [inline]\fP, \fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBBrigerad::Mesh\fP\&.
+.SS "virtual \fBRef\fP<\fBMaterial\fP> Brigerad::OpenGLMesh::GetMaterial ()\fC [inline]\fP, \fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBBrigerad::Mesh\fP\&.
+.SS "const std::string & Brigerad::OpenGLMesh::GetFilePath () const\fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBBrigerad::Mesh\fP\&.
+.SS "void Brigerad::OpenGLMesh::BoneTransform (float time)\fC [private]\fP"
+
+.SS "void Brigerad::OpenGLMesh::ReadNodeHierarchy (float animationTime, const aiNode * pNode, const glm::mat4 & parentTransform)\fC [private]\fP"
+
+.SS "void Brigerad::OpenGLMesh::TraverseNode (aiNode * node, int level = \fC0\fP)\fC [private]\fP"
+
+.SS "const aiNodeAnim * Brigerad::OpenGLMesh::FindNodeAnim (const aiAnimation * animation, const std::string & nodeName)\fC [private]\fP"
+
+.SS "uint32_t Brigerad::OpenGLMesh::FindPosition (float animationTime, const aiNodeAnim * pNodeAnim)\fC [private]\fP"
+
+.SS "uint32_t Brigerad::OpenGLMesh::FindRotation (float animationTime, const aiNodeAnim * pNodeAnim)\fC [private]\fP"
+
+.SS "uint32_t Brigerad::OpenGLMesh::FindScaling (float animationTime, const aiNodeAnim * pNodeAnim)\fC [private]\fP"
+
+.SS "glm::vec3 Brigerad::OpenGLMesh::InterpolateTranslation (float animationTime, const aiNodeAnim * pNodeAnim)\fC [private]\fP"
+
+.SS "glm::quat Brigerad::OpenGLMesh::InterpolateRotation (float animationTime, const aiNodeAnim * pNodeAnim)\fC [private]\fP"
+
+.SS "glm::vec3 Brigerad::OpenGLMesh::InterpolateScale (float animationTime, const aiNodeAnim * pNodeAnim)\fC [private]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "std::vector<\fBSubmesh\fP> Brigerad::OpenGLMesh::m_submeshes\fC [private]\fP"
+
+.SS "\fBScope\fP<Assimp::Importer> Brigerad::OpenGLMesh::m_importer\fC [private]\fP"
+
+.SS "glm::mat4 Brigerad::OpenGLMesh::m_inverseTranform\fC [private]\fP"
+
+.SS "uint32_t Brigerad::OpenGLMesh::m_boneCount = 0\fC [private]\fP"
+
+.SS "std::vector<\fBBoneInfo\fP> Brigerad::OpenGLMesh::m_boneInfo\fC [private]\fP"
+
+.SS "\fBRef\fP<\fBVertexArray\fP> Brigerad::OpenGLMesh::m_vertexArray\fC [private]\fP"
+
+.SS "std::vector<\fBVertex\fP> Brigerad::OpenGLMesh::m_staticVertices\fC [private]\fP"
+
+.SS "std::vector<\fBAnimatedVertex\fP> Brigerad::OpenGLMesh::m_animatedVertices\fC [private]\fP"
+
+.SS "std::vector<\fBIndex\fP> Brigerad::OpenGLMesh::m_indices\fC [private]\fP"
+
+.SS "std::unordered_map<std::string, uint32_t> Brigerad::OpenGLMesh::m_boneMapping\fC [private]\fP"
+
+.SS "std::vector<glm::mat4> Brigerad::OpenGLMesh::m_boneTransforms\fC [private]\fP"
+
+.SS "const aiScene* Brigerad::OpenGLMesh::m_scene\fC [private]\fP"
+
+.SS "\fBRef\fP<\fBShader\fP> Brigerad::OpenGLMesh::m_meshShader\fC [private]\fP"
+
+.SS "\fBRef\fP<\fBMaterial\fP> Brigerad::OpenGLMesh::m_material\fC [private]\fP"
+
+.SS "bool Brigerad::OpenGLMesh::m_isAnimated = false\fC [private]\fP"
+
+.SS "float Brigerad::OpenGLMesh::m_animationTime = 0\&.0f\fC [private]\fP"
+
+.SS "float Brigerad::OpenGLMesh::m_worldTime = 0\&.0f\fC [private]\fP"
+
+.SS "float Brigerad::OpenGLMesh::m_timeMultiplier = 1\&.0f\fC [private]\fP"
+
+.SS "bool Brigerad::OpenGLMesh::m_animationPlaying = true\fC [private]\fP"
+
+.SS "std::string Brigerad::OpenGLMesh::m_filePath\fC [private]\fP"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

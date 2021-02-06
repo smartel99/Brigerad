@@ -11,22 +11,20 @@ var dir_eac9f0a421e69c3f2af9357ec34c5b3a =
       [ "CameraComponent", "struct_brigerad_1_1_camera_component.html", "struct_brigerad_1_1_camera_component" ],
       [ "TextComponent", "struct_brigerad_1_1_text_component.html", "struct_brigerad_1_1_text_component" ],
       [ "NativeScriptComponent", "struct_brigerad_1_1_native_script_component.html", "struct_brigerad_1_1_native_script_component" ],
-      [ "LuaScriptComponent", "struct_brigerad_1_1_lua_script_component.html", "struct_brigerad_1_1_lua_script_component" ]
+      [ "LuaScriptComponent", "struct_brigerad_1_1_lua_script_component.html", "struct_brigerad_1_1_lua_script_component" ],
+      [ "LightComponent", "struct_brigerad_1_1_light_component.html", "struct_brigerad_1_1_light_component" ],
+      [ "Light", "struct_brigerad_1_1_light_component_1_1_light.html", "struct_brigerad_1_1_light_component_1_1_light" ]
     ] ],
     [ "Entity.cpp", "_entity_8cpp.html", null ],
     [ "Entity.h", "_entity_8h.html", [
       [ "Entity", "class_brigerad_1_1_entity.html", "class_brigerad_1_1_entity" ]
     ] ],
-    [ "ImGuiButtonComponents.h", "_im_gui_button_components_8h.html", "_im_gui_button_components_8h" ],
-    [ "ImGuiMiscComponents.h", "_im_gui_misc_components_8h.html", [
-      [ "ImGuiSeparatorComponent", "struct_brigerad_1_1_im_gui_separator_component.html", "struct_brigerad_1_1_im_gui_separator_component" ],
-      [ "ImGuiSameLineComponent", "struct_brigerad_1_1_im_gui_same_line_component.html", "struct_brigerad_1_1_im_gui_same_line_component" ]
-    ] ],
-    [ "ImGuiTextComponents.h", "_im_gui_text_components_8h.html", [
-      [ "ImGuiTextComponent", "struct_brigerad_1_1_im_gui_text_component.html", "struct_brigerad_1_1_im_gui_text_component" ]
-    ] ],
-    [ "ImGuiWindowComponents.h", "_im_gui_window_components_8h.html", [
-      [ "ImGuiWindowComponent", "struct_brigerad_1_1_im_gui_window_component.html", "struct_brigerad_1_1_im_gui_window_component" ]
+    [ "MeshComponent.h", "_mesh_component_8h.html", [
+      [ "AlbedoInput", "struct_brigerad_1_1_albedo_input.html", "struct_brigerad_1_1_albedo_input" ],
+      [ "NormalInput", "struct_brigerad_1_1_normal_input.html", "struct_brigerad_1_1_normal_input" ],
+      [ "MetalnessInput", "struct_brigerad_1_1_metalness_input.html", "struct_brigerad_1_1_metalness_input" ],
+      [ "RoughnessInput", "struct_brigerad_1_1_roughness_input.html", "struct_brigerad_1_1_roughness_input" ],
+      [ "MeshComponent", "struct_brigerad_1_1_mesh_component.html", "struct_brigerad_1_1_mesh_component" ]
     ] ],
     [ "Scene.cpp", "_scene_8cpp.html", "_scene_8cpp" ],
     [ "Scene.h", "_scene_8h.html", [

@@ -1,4 +1,4 @@
-.TH "F:/dev/Brigerad/Brigerad/src/Platform/OpenGL/OpenGLShader.cpp" 3 "Sun Jan 10 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.TH "F:/dev/Brigerad/Brigerad/src/Platform/OpenGL/OpenGLShader.cpp" 3 "Sun Feb 7 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -24,6 +24,53 @@ F:/dev/Brigerad/Brigerad/src/Platform/OpenGL/OpenGLShader.cpp
 .RI " \fBBrigerad\fP"
 .br
 .in -1c
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBUNIFORM_LOGGING\fP   1"
+.br
+.ti -1c
+.RI "#define \fBBR_LOG_UNIFORM\fP(\&.\&.\&.)   \fBBR_CORE_WARN\fP(__VA_ARGS__)"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "const char * \fBBrigerad::FindToken\fP (const char *str, const std::string &token)"
+.br
+.ti -1c
+.RI "const char * \fBBrigerad::FindToken\fP (const std::string &string, const std::string &token)"
+.br
+.ti -1c
+.RI "std::vector< std::string > \fBBrigerad::SplitString\fP (const std::string &string, const std::string &delimiters)"
+.br
+.ti -1c
+.RI "std::vector< std::string > \fBBrigerad::SplitString\fP (const std::string &string, const char delimiter)"
+.br
+.ti -1c
+.RI "std::vector< std::string > \fBBrigerad::Tokenize\fP (const std::string &string)"
+.br
+.ti -1c
+.RI "std::vector< std::string > \fBBrigerad::GetLines\fP (const std::string &string)"
+.br
+.ti -1c
+.RI "std::string \fBBrigerad::GetBlock\fP (const char *str, const char **outPosition)"
+.br
+.ti -1c
+.RI "std::string \fBBrigerad::GetStatement\fP (const char *str, const char **outPosition)"
+.br
+.ti -1c
+.RI "bool \fBBrigerad::StartsWith\fP (const std::string &string, const std::string &start)"
+.br
+.in -1c
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define UNIFORM_LOGGING   1"
+
+.SS "#define BR_LOG_UNIFORM( \&.\&.\&.)   \fBBR_CORE_WARN\fP(__VA_ARGS__)"
+
 .SH "Author"
 .PP 
 Generated automatically by Doxygen for Brigerad from the source code\&.

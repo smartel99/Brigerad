@@ -1,0 +1,146 @@
+.TH "Brigerad::OpenGLTextureCube" 3 "Sun Feb 7 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Brigerad::OpenGLTextureCube
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <OpenGLTexture\&.h>\fP
+.PP
+Inherits \fBBrigerad::TextureCube\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBOpenGLTextureCube\fP (uint32_t width, uint32_t height, uint8_t channels)"
+.br
+.ti -1c
+.RI "\fBOpenGLTextureCube\fP (const std::string &path)"
+.br
+.ti -1c
+.RI "virtual \fB~OpenGLTextureCube\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBBind\fP (uint32_t slot=0) const"
+.br
+.ti -1c
+.RI "virtual uint32_t \fBGetFormat\fP () const"
+.br
+.ti -1c
+.RI "virtual uint32_t \fBGetWidth\fP () const"
+.br
+.ti -1c
+.RI "virtual uint32_t \fBGetHeight\fP () const"
+.br
+.ti -1c
+.RI "virtual void \fBSetData\fP (void *data, uint32_t size)"
+.br
+.ti -1c
+.RI "virtual const std::string & \fBGetFilePath\fP () const"
+.br
+.ti -1c
+.RI "virtual uint32_t \fBGetRenderID\fP () const"
+.br
+.ti -1c
+.RI "virtual bool \fBoperator==\fP (const \fBTexture\fP &other) const override"
+.br
+.in -1c
+.SS "Private Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBCreateTexture\fP (uint8_t *data)"
+.br
+.in -1c
+.SS "Private Attributes"
+
+.in +1c
+.ti -1c
+.RI "uint32_t \fBm_rendererID\fP"
+.br
+.ti -1c
+.RI "uint32_t \fBm_width\fP"
+.br
+.ti -1c
+.RI "uint32_t \fBm_height\fP"
+.br
+.ti -1c
+.RI "\fBGLenum\fP \fBm_internalFormat\fP"
+.br
+.ti -1c
+.RI "\fBGLenum\fP \fBm_dataFormat\fP"
+.br
+.ti -1c
+.RI "uint8_t * \fBm_imageData\fP"
+.br
+.ti -1c
+.RI "std::string \fBm_path\fP"
+.br
+.in -1c
+.SS "Additional Inherited Members"
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Brigerad::OpenGLTextureCube::OpenGLTextureCube (uint32_t width, uint32_t height, uint8_t channels)"
+
+.SS "Brigerad::OpenGLTextureCube::OpenGLTextureCube (const std::string & path)"
+
+.SS "Brigerad::OpenGLTextureCube::~OpenGLTextureCube ()\fC [virtual]\fP"
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void Brigerad::OpenGLTextureCube::Bind (uint32_t slot = \fC0\fP) const\fC [virtual]\fP"
+
+.PP
+Implements \fBBrigerad::Texture\fP\&.
+.SS "virtual uint32_t Brigerad::OpenGLTextureCube::GetFormat () const\fC [inline]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBBrigerad::TextureCube\fP\&.
+.SS "virtual uint32_t Brigerad::OpenGLTextureCube::GetWidth () const\fC [inline]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBBrigerad::TextureCube\fP\&.
+.SS "virtual uint32_t Brigerad::OpenGLTextureCube::GetHeight () const\fC [inline]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBBrigerad::TextureCube\fP\&.
+.SS "void Brigerad::OpenGLTextureCube::SetData (void * data, uint32_t size)\fC [virtual]\fP"
+
+.PP
+Implements \fBBrigerad::TextureCube\fP\&.
+.SS "virtual const std::string& Brigerad::OpenGLTextureCube::GetFilePath () const\fC [inline]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBBrigerad::TextureCube\fP\&.
+.SS "virtual uint32_t Brigerad::OpenGLTextureCube::GetRenderID () const\fC [inline]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBBrigerad::Texture\fP\&.
+.SS "virtual bool Brigerad::OpenGLTextureCube::operator== (const \fBTexture\fP & other) const\fC [inline]\fP, \fC [override]\fP, \fC [virtual]\fP"
+
+.PP
+Implements \fBBrigerad::Texture\fP\&.
+.SS "void Brigerad::OpenGLTextureCube::CreateTexture (uint8_t * data)\fC [private]\fP"
+
+.SH "Member Data Documentation"
+.PP 
+.SS "uint32_t Brigerad::OpenGLTextureCube::m_rendererID\fC [private]\fP"
+
+.SS "uint32_t Brigerad::OpenGLTextureCube::m_width\fC [private]\fP"
+
+.SS "uint32_t Brigerad::OpenGLTextureCube::m_height\fC [private]\fP"
+
+.SS "\fBGLenum\fP Brigerad::OpenGLTextureCube::m_internalFormat\fC [private]\fP"
+
+.SS "\fBGLenum\fP Brigerad::OpenGLTextureCube::m_dataFormat\fC [private]\fP"
+
+.SS "uint8_t* Brigerad::OpenGLTextureCube::m_imageData\fC [private]\fP"
+
+.SS "std::string Brigerad::OpenGLTextureCube::m_path\fC [private]\fP"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Brigerad from the source code\&.

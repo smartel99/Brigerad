@@ -1,8 +1,9 @@
-.TH "Brigerad::Layer" 3 "Sun Jan 10 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
+.TH "Brigerad::Layer" 3 "Sun Feb 7 2021" "Version 0.2" "Brigerad" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
-Brigerad::Layer
+Brigerad::Layer \- \fBLayer\fP class, where most of the client's logic should occur\&.  
+
 .SH SYNOPSIS
 .br
 .PP
@@ -22,6 +23,7 @@ Inherited by \fBBrigerad::ImGuiLayer\fP\&.
 .ti -1c
 .RI "virtual void \fBOnAttach\fP ()"
 .br
+.RI "Called when the layer gets attached to the application\&. "
 .ti -1c
 .RI "virtual void \fBOnDetach\fP ()"
 .br
@@ -45,9 +47,21 @@ Inherited by \fBBrigerad::ImGuiLayer\fP\&.
 .RI "std::string \fBm_debugName\fP"
 .br
 .in -1c
+.SH "Detailed Description"
+.PP 
+\fBLayer\fP class, where most of the client's logic should occur\&. 
+
+To use it in your client code, define a class that inherits from the layer and then override the functions you need\&. 
 .SH "Constructor & Destructor Documentation"
 .PP 
 .SS "Brigerad::Layer::Layer (const std::string & name = \fC'Layer'\fP)"
+The constructor of \fBLayer\fP\&. You shouldn't load your assets in here, but instead in the OnAttach method, where the layer is attached to the application\&.
+.PP
+\fBParameters\fP
+.RS 4
+\fIname\fP The name of the layer\&. 
+.RE
+.PP
 
 .SS "Brigerad::Layer::~Layer ()\fC [virtual]\fP"
 
@@ -55,6 +69,8 @@ Inherited by \fBBrigerad::ImGuiLayer\fP\&.
 .PP 
 .SS "virtual void Brigerad::Layer::OnAttach ()\fC [inline]\fP, \fC [virtual]\fP"
 
+.PP
+Called when the layer gets attached to the application\&. 
 .PP
 Reimplemented in \fBBrigerad::ImGuiLayer\fP\&.
 .SS "virtual void Brigerad::Layer::OnDetach ()\fC [inline]\fP, \fC [virtual]\fP"

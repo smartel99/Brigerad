@@ -85,7 +85,9 @@ $(document).ready(function(){initNavTree('class_brigerad_1_1_renderer.html','');
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="#pri-static-attribs">Static Private Attributes</a> &#124;
 <a href="class_brigerad_1_1_renderer-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -100,6 +102,11 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_brigerad_1_1_renderer_1_1_scene_data.html">SceneData</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a6250e6f3d7d043cae3cd74bb2f1834fe"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_brigerad_1_1_renderer.html#a6250e6f3d7d043cae3cd74bb2f1834fe">RenderCommandFn</a>) (void *)</td></tr>
+<tr class="separator:a6250e6f3d7d043cae3cd74bb2f1834fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a180bdf37f326c65b1bc45f9e27752f53"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_brigerad_1_1_renderer.html#a180bdf37f326c65b1bc45f9e27752f53">Init</a> ()</td></tr>
@@ -112,16 +119,42 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:a8abfeeb1ffe9a1895636b1ade4f0a6d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a291ad19dc93e9af18f132ce35b8cd7"><td class="memItemLeft" align="right" valign="top">static long long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_brigerad_1_1_renderer.html#a0a291ad19dc93e9af18f132ce35b8cd7">GetFrameCount</a> ()</td></tr>
 <tr class="separator:a0a291ad19dc93e9af18f132ce35b8cd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94d34666051b7ace0b223ad57ce7ded5"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="namespace_brigerad.html#a011d5d27cd4a634f14c681b6e5dd0d67">Scope</a>&lt; <a class="el" href="class_brigerad_1_1_shader_library.html">ShaderLibrary</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_brigerad_1_1_renderer.html#a94d34666051b7ace0b223ad57ce7ded5">GetShaderLibrary</a> ()</td></tr>
+<tr class="separator:a94d34666051b7ace0b223ad57ce7ded5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aef4b4ced55e89c655482db0acf2a30d2"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_brigerad_1_1_renderer.html#aef4b4ced55e89c655482db0acf2a30d2">Submit</a> (const <a class="el" href="namespace_brigerad.html#ae8e468075164a68e75cc3179124c006b">Ref</a>&lt; <a class="el" href="class_brigerad_1_1_shader.html">Shader</a> &gt; &amp;shader, const <a class="el" href="namespace_brigerad.html#ae8e468075164a68e75cc3179124c006b">Ref</a>&lt; <a class="el" href="class_brigerad_1_1_vertex_array.html">VertexArray</a> &gt; &amp;vertexArray, const glm::mat4 &amp;transform=glm::mat4(1.0f))</td></tr>
 <tr class="separator:aef4b4ced55e89c655482db0acf2a30d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeeec675f3e48496d6c440f4ef275f67c"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_brigerad_1_1_renderer_a_p_i.html#a0050c992e895f3894b721cd91c208228">RendererAPI::API</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_brigerad_1_1_renderer.html#aeeec675f3e48496d6c440f4ef275f67c">GetAPI</a> ()</td></tr>
 <tr class="separator:aeeec675f3e48496d6c440f4ef275f67c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69d7a0d85a7697198b81dd08affffab8"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_brigerad_1_1_renderer.html">Renderer</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_brigerad_1_1_renderer.html#a69d7a0d85a7697198b81dd08affffab8">Get</a> ()</td></tr>
+<tr class="separator:a69d7a0d85a7697198b81dd08affffab8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a4d924352c770f5d686b94fb484acd5e3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_brigerad.html#a011d5d27cd4a634f14c681b6e5dd0d67">Scope</a>&lt; <a class="el" href="class_brigerad_1_1_shader_library.html">ShaderLibrary</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_brigerad_1_1_renderer.html#a4d924352c770f5d686b94fb484acd5e3">m_shaderLibrary</a></td></tr>
+<tr class="separator:a4d924352c770f5d686b94fb484acd5e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-attribs"></a>
 Static Private Attributes</h2></td></tr>
+<tr class="memitem:a491e4e76fe66e609599f7c6617d1686a"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_brigerad_1_1_renderer.html">Renderer</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_brigerad_1_1_renderer.html#a491e4e76fe66e609599f7c6617d1686a">s_instance</a> = new <a class="el" href="class_brigerad_1_1_renderer.html">Renderer</a></td></tr>
+<tr class="separator:a491e4e76fe66e609599f7c6617d1686a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a632ecc92cbdd80f3f0f3f6407ee55ee0"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="struct_brigerad_1_1_renderer_1_1_scene_data.html">SceneData</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_brigerad_1_1_renderer.html#a632ecc92cbdd80f3f0f3f6407ee55ee0">m_sceneData</a> = new <a class="el" href="struct_brigerad_1_1_renderer_1_1_scene_data.html">Renderer::SceneData</a></td></tr>
 <tr class="separator:a632ecc92cbdd80f3f0f3f6407ee55ee0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a6250e6f3d7d043cae3cd74bb2f1834fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6250e6f3d7d043cae3cd74bb2f1834fe">&#9670;&nbsp;</a></span>RenderCommandFn</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* Brigerad::Renderer::RenderCommandFn) (void *)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="a180bdf37f326c65b1bc45f9e27752f53"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a180bdf37f326c65b1bc45f9e27752f53">&#9670;&nbsp;</a></span>Init()</h2>
@@ -260,6 +293,31 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a94d34666051b7ace0b223ad57ce7ded5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94d34666051b7ace0b223ad57ce7ded5">&#9670;&nbsp;</a></span>GetShaderLibrary()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static const <a class="el" href="namespace_brigerad.html#a011d5d27cd4a634f14c681b6e5dd0d67">Scope</a>&lt;<a class="el" href="class_brigerad_1_1_shader_library.html">ShaderLibrary</a>&gt;&amp; Brigerad::Renderer::GetShaderLibrary </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="aef4b4ced55e89c655482db0acf2a30d2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aef4b4ced55e89c655482db0acf2a30d2">&#9670;&nbsp;</a></span>Submit()</h2>
 
@@ -327,7 +385,76 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a69d7a0d85a7697198b81dd08affffab8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69d7a0d85a7697198b81dd08affffab8">&#9670;&nbsp;</a></span>Get()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="class_brigerad_1_1_renderer.html">Renderer</a>&amp; Brigerad::Renderer::Get </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="a491e4e76fe66e609599f7c6617d1686a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a491e4e76fe66e609599f7c6617d1686a">&#9670;&nbsp;</a></span>s_instance</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_brigerad_1_1_renderer.html">Renderer</a> * Brigerad::Renderer::s_instance = new <a class="el" href="class_brigerad_1_1_renderer.html">Renderer</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4d924352c770f5d686b94fb484acd5e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d924352c770f5d686b94fb484acd5e3">&#9670;&nbsp;</a></span>m_shaderLibrary</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespace_brigerad.html#a011d5d27cd4a634f14c681b6e5dd0d67">Scope</a>&lt;<a class="el" href="class_brigerad_1_1_shader_library.html">ShaderLibrary</a>&gt; Brigerad::Renderer::m_shaderLibrary</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a632ecc92cbdd80f3f0f3f6407ee55ee0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a632ecc92cbdd80f3f0f3f6407ee55ee0">&#9670;&nbsp;</a></span>m_sceneData</h2>
 
@@ -360,7 +487,7 @@ Static Private Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_brigerad.html">Brigerad</a></li><li class="navelem"><a class="el" href="class_brigerad_1_1_renderer.html">Renderer</a></li>
-    <li class="footer">Generated on Sun Jan 10 2021 14:46:24 for Brigerad by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.0 </li>
+    <li class="footer">Generated on Sun Feb 7 2021 13:20:24 for Brigerad by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.0 </li>
   </ul>
 </div>
 </body>

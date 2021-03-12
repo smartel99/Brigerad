@@ -14,3 +14,6 @@
 	url = https://github.com/g-truc/glm
 [submodule "GLFW"]
 	branch = master
+[submodule "Brigerad/vendor/yaml-cpp"]
+	path = Brigerad/vendor/yaml-cpp
+	url = https://github.com/smartel99/yaml-cpp

@@ -393,19 +393,19 @@ void SceneHierarchyPanel::DrawComponents(Entity entity) const
             ImGui::NextColumn();
             ImGui::TextUnformatted("Near Clip");
             ImGui::NextColumn();
-            float nearClip = camera.camera.GetOrtographicNearClip();
+            float nearClip = camera.camera.GetOrthographicNearClip();
             if (ImGui::DragFloat("##Near", &nearClip, 0.01f, -1000.0f, 1000.0f))
             {
-                camera.camera.SetOrtographicNearClip(nearClip);
+                camera.camera.SetOrthographicNearClip(nearClip);
             }
 
             ImGui::NextColumn();
             ImGui::TextUnformatted("Far Clip");
             ImGui::NextColumn();
-            float farClip = camera.camera.GetOrtographicFarClip();
+            float farClip = camera.camera.GetOrthographicFarClip();
             if (ImGui::DragFloat("##Far", &farClip, 0.01f, -1000.0f, 1000.0f))
             {
-                camera.camera.SetOrtographicFarClip(farClip);
+                camera.camera.SetOrthographicFarClip(farClip);
             }
         }
 

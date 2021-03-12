@@ -1,12 +1,12 @@
 /**
- * @file    Scene
+ * @file    yamlConverters
  * @author  Samuel Martel
  * @p       https://github.com/smartel99
- * @date    9/25/2020 3:09:52 PM
+ * @date    3/12/2021 2:28:38 PM
  *
  * @brief
  ******************************************************************************
- * Copyright (C) 2020  Samuel Martel
+ * Copyright (C) 2021  Samuel Martel
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -26,11 +26,11 @@
 /*********************************************************************************************************************/
 // [SECTION] Includes
 /*********************************************************************************************************************/
-#include "entt.hpp"
+#include "yaml-cpp/yaml.h"
+#include "glm/glm.hpp"
 
-#include "Brigerad/Core/Timestep.h"
-#include "Brigerad/Events/Event.h"
-
+namespace YAML
+{
 
 /*********************************************************************************************************************/
 // [SECTION] Defines
@@ -40,42 +40,57 @@
 /*********************************************************************************************************************/
 // [SECTION] Class Declarations
 /*********************************************************************************************************************/
-namespace Brigerad
+template<>
+struct convert<glm::vec3>
 {
+    static Node encode(const glm::vec3& rhs)
+    {
+        Node node;
+        node.push_back(rhs.x);
+        node.push_back(rhs.y);
+        node.push_back(rhs.z);
+        return node;
+    }
 
-class Entity;
+    static bool decode(const Node& node, glm::vec3& rhs)
+    {
+        if (!node.IsSequence() || node.size() != 3)
+        {
+            return false;
+        }
 
-class Scene
-{
-public:
-    Scene();
-    ~Scene();
-
-    Entity CreateEntity(const std::string& name = std::string());
-    Entity CreateChildEntity(const std::string& name, Entity parent);
-    void   DestroyEntity(Entity entity);
-
-    entt::registry& Reg() { return m_registry; }
-
-    void OnUpdate(Timestep ts);
-    void OnImguiRender();
-    void OnViewportResize(uint32_t w, uint32_t h);
-    void OnEvent(Event& e);
-
-private:
-    template<typename T>
-    void OnComponentAdded(Entity entity, T& component);
-
-    void HandleImGuiEntity(Entity entity);
-
-private:
-    entt::registry m_registry;
-    uint32_t       m_viewportWidth  = 0;
-    uint32_t       m_viewportHeight = 0;
-
-    friend class Entity;
-    friend class SceneSerializer;
-    friend class SceneDesirializer;
-    friend class SceneHierarchyPanel;
+        rhs.x = node[0].as<float>();
+        rhs.y = node[1].as<float>();
+        rhs.z = node[2].as<float>();
+        return true;
+    }
 };
-}    // namespace Brigerad
+
+template<>
+struct convert<glm::vec4>
+{
+    static Node encode(const glm::vec4& rhs)
+    {
+        Node node;
+        node.push_back(rhs.x);
+        node.push_back(rhs.y);
+        node.push_back(rhs.z);
+        node.push_back(rhs.w);
+        return node;
+    }
+
+    static bool decode(const Node& node, glm::vec4& rhs)
+    {
+        if (!node.IsSequence() || node.size() != 4)
+        {
+            return false;
+        }
+
+        rhs.x = node[0].as<float>();
+        rhs.y = node[1].as<float>();
+        rhs.z = node[2].as<float>();
+        rhs.w = node[3].as<float>();
+        return true;
+    }
+};
+}    // namespace YAML

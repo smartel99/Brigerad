@@ -27,12 +27,14 @@ IncludeDir["serial"] = "Brigerad/vendor/serial"
 IncludeDir["entt"] = "Brigerad/vendor/entt/include"
 IncludeDir["lua"] = "Brigerad/vendor/lua"
 IncludeDir["sol"] = "Brigerad/vendor/sol"
+IncludeDir["yaml_cpp"] = "Brigerad/vendor/yaml-cpp/include"
 
 group "Dependencies"
     include "Brigerad/vendor/GLFW"
     include "Brigerad/vendor/Glad"
     include "Brigerad/vendor/ImGui"
     include "Brigerad/vendor/lua"
+    include "Brigerad/vendor/yaml-cpp"
 
 group ""
 
@@ -73,7 +75,8 @@ project "Brigerad"
         "%{IncludeDir.serial}/include",
         "%{IncludeDir.entt}",
         "%{IncludeDir.lua}/src",
-        "%{IncludeDir.sol}/include"
+        "%{IncludeDir.sol}/include",
+        "%{IncludeDir.yaml_cpp}"
     }
 
     defines
@@ -97,7 +100,8 @@ project "Brigerad"
             "Glad",
             "ImGui",
             "lua",
-            "opengl32.lib"
+            "opengl32.lib",
+            "yaml-cpp"
         }
 
         excludes

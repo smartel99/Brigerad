@@ -6,6 +6,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "Brigerad/Utils/Serial.h"
+#include "Brigerad/Scene/SceneSerializer.h"
 
 #include <cmath>
 #include "Brigerad/Events/ImGuiEvents.h"
@@ -32,7 +33,7 @@ void EditorLayer::OnAttach()
     m_fb = Framebuffer::Create(spec);
 
     m_scene = CreateRef<Scene>();
-
+#if 0
     m_imguiWindowEntity = m_scene->CreateEntity("ImGui Window");
     auto& window        = m_imguiWindowEntity.AddComponent<ImGuiWindowComponent>("Test Window uwu");
 
@@ -152,8 +153,11 @@ void EditorLayer::OnAttach()
     // auto& trans      = m_textEntity.GetComponentRef<TransformComponent>();
     // trans.position.x = -2.70f;
     // trans.position.y = 0.90f;
-
+#endif
     m_sceneHierarchyPanel = SceneHierarchyPanel(m_scene);
+
+    // SceneSerializer serializer = SceneSerializer(m_scene);
+    // serializer.Serialize("assets/scenes/Example.brigerad");
 }
 
 void EditorLayer::OnDetach()
@@ -243,6 +247,19 @@ void EditorLayer::OnImGuiRender()
     {
         if (ImGui::BeginMenu("File"))
         {
+            if (ImGui::MenuItem("Serialize"))
+            {
+                SceneSerializer serializer(m_scene);
+                serializer.Serialize("assets/scenes/Example.brigerad");
+            }
+
+            if (ImGui::MenuItem("Deserialize"))
+            {
+                SceneSerializer serializer(m_scene);
+                serializer.Deserialize("assets/scenes/Example.brigerad");
+            }
+
+
             if (ImGui::MenuItem("Exit"))
             {
                 Application::Get().Close();

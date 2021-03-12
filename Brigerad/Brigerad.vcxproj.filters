@@ -144,6 +144,9 @@
     <ClInclude Include="src\Brigerad\Events\Event.h">
       <Filter>src\Brigerad\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\Brigerad\Events\ImGuiEvents.h">
+      <Filter>src\Brigerad\Events</Filter>
+    </ClInclude>
     <ClInclude Include="src\Brigerad\Events\KeyEvents.h">
       <Filter>src\Brigerad\Events</Filter>
     </ClInclude>
@@ -202,6 +205,15 @@
       <Filter>src\Brigerad\Scene</Filter>
     </ClInclude>
     <ClInclude Include="src\Brigerad\Scene\Entity.h">
+      <Filter>src\Brigerad\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Brigerad\Scene\ImGuiButtonComponents.h">
+      <Filter>src\Brigerad\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Brigerad\Scene\ImGuiTextComponents.h">
+      <Filter>src\Brigerad\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Brigerad\Scene\ImGuiWindowComponents.h">
       <Filter>src\Brigerad\Scene</Filter>
     </ClInclude>
     <ClInclude Include="src\Brigerad\Scene\Scene.h">
@@ -1497,10 +1509,9 @@
     <ClInclude Include="vendor\stb_image\stb_image_write.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\Brigerad\Events\ImGuiEvents.h" />
-    <ClInclude Include="src\Brigerad\Scene\ImGuiWindowComponents.h" />
-    <ClInclude Include="src\Brigerad\Scene\ImGuiTextComponents.h" />
-    <ClInclude Include="src\Brigerad\Scene\ImGuiButtonComponents.h" />
+    <ClInclude Include="src\Brigerad\Scene\SceneSerializer.h" />
+    <ClInclude Include="src\Brigerad\Scene\SceneDesirializer.h" />
+    <ClInclude Include="src\Brigerad\Scene\YamlConverters.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Brigerad\Core\Application.cpp">
@@ -1650,5 +1661,7 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
+    <ClCompile Include="src\Brigerad\Scene\SceneSerializer.cpp" />
+    <ClCompile Include="src\Brigerad\Scene\SceneDesirializer.cpp" />
   </ItemGroup>
 </Project>

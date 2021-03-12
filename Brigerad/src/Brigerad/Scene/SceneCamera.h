@@ -65,14 +65,14 @@ public:
         RecalculateProjection();
     }
 
-    float GetOrtographicNearClip() const { return m_orthographicNear; }
-    void  SetOrtographicNearClip(float clip)
+    float GetOrthographicNearClip() const { return m_orthographicNear; }
+    void  SetOrthographicNearClip(float clip)
     {
         m_orthographicNear = clip;
         RecalculateProjection();
     }
-    float GetOrtographicFarClip() const { return m_orthographicFar; }
-    void  SetOrtographicFarClip(float clip)
+    float GetOrthographicFarClip() const { return m_orthographicFar; }
+    void  SetOrthographicFarClip(float clip)
     {
         m_orthographicFar = clip;
         RecalculateProjection();

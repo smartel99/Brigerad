@@ -28,6 +28,13 @@
 /*********************************************************************************************************************/
 #include "Scene.h"
 
+
+#include <vector>
+
+namespace YAML
+{
+class Node;
+}
 namespace Brigerad
 {
 /*********************************************************************************************************************/
@@ -50,6 +57,8 @@ public:
     bool DeserializeRuntime(const std::string& filepath);
 
 private:
-    Ref<Scene> m_scene;
+    Ref<Scene>            m_scene;
+    std::vector<Entity>   m_parentEntities;
+    std::vector<uint64_t> m_childNodes;
 };
 }    // namespace Brigerad

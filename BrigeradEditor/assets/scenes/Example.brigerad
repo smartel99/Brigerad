@@ -1,84 +1,6 @@
 Scene: Unnamed Scene
 Entities:
-  - Entity: 12345678906669
-    TagComponent:
-      Tag: ImGui Window
-    TransformComponent:
-      Position: [0, 0, 0]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
-  - Entity: 12345678906669
-    TagComponent:
-      Tag: ImGui Text
-    TransformComponent:
-      Position: [0, 0, 0]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
-  - Entity: 12345678906669
-    TagComponent:
-      Tag: Button
-    TransformComponent:
-      Position: [0, 0, 0]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
-  - Entity: 12345678906669
-    TagComponent:
-      Tag: Smoll Button
-    TransformComponent:
-      Position: [0, 0, 0]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
-  - Entity: 12345678906669
-    TagComponent:
-      Tag: Invisible Button
-    TransformComponent:
-      Position: [0, 0, 0]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
-  - Entity: 12345678906669
-    TagComponent:
-      Tag: Arrow Button
-    TransformComponent:
-      Position: [0, 0, 0]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
-  - Entity: 12345678906669
-    TagComponent:
-      Tag: Square
-    TransformComponent:
-      Position: [0, 2.5999999, 0]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
-    ColorRendererComponent:
-      Color: [1, 0, 0, 1]
-  - Entity: 12345678906669
-    TagComponent:
-      Tag: Textured Square
-    TransformComponent:
-      Position: [0, 0, 0]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
-    TextureRendererComponent:
-      Path: assets/textures/checkboard.png
-  - Entity: 12345678906669
-    TagComponent:
-      Tag: Camera
-    TransformComponent:
-      Position: [0, 0, 0]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
-    CameraComponent:
-      Camera:
-        ProjectionType: 1
-        OrthographicSize: 10
-        OrthographicNearClip: -1
-        OrthographicFarClip: 1
-        PerspectiveNearClip: 0.00999999978
-        PerspectiveFarClip: 1000
-        PerspectiveFov: 0.785398185
-      Primary: true
-      FixedAspectRatio: false
-  - Entity: 12345678906669
+  - Entity: 9
     TagComponent:
       Tag: Camera 2
     TransformComponent:
@@ -96,3 +18,103 @@ Entities:
         PerspectiveFov: 0.785398185
       Primary: false
       FixedAspectRatio: false
+    NativeScriptComponent:
+      Placeholder: Value
+  - Entity: 8
+    TagComponent:
+      Tag: Camera
+    TransformComponent:
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    CameraComponent:
+      Camera:
+        ProjectionType: 1
+        OrthographicSize: 10
+        OrthographicNearClip: -1
+        OrthographicFarClip: 1
+        PerspectiveNearClip: 0.00999999978
+        PerspectiveFarClip: 1000
+        PerspectiveFov: 0.785398185
+      Primary: true
+      FixedAspectRatio: false
+    NativeScriptComponent:
+      Placeholder: Value
+  - Entity: 7
+    TagComponent:
+      Tag: Textured Square0.006432056427002
+    TransformComponent:
+      Position: [0, 5.63473034, 0]
+      Rotation: [0, 0, 5.63473034]
+      Scale: [5.63473034, 1, 1]
+    TextureRendererComponent:
+      Path: assets/textures/checkboard.png
+    LuaScriptComponent:
+      Path: assets/scripts/test.lua
+      Name: Player
+  - Entity: 6
+    TagComponent:
+      Tag: Square
+    TransformComponent:
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    ColorRendererComponent:
+      Color: [1, 0, 0, 1]
+    NativeScriptComponent:
+      Placeholder: Value
+  - Entity: 5
+    TagComponent:
+      Tag: Arrow Button
+    ChildEntityComponent:
+      ParentID: 0
+    TransformComponent:
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - Entity: 4
+    TagComponent:
+      Tag: Invisible Button
+    ChildEntityComponent:
+      ParentID: 0
+    TransformComponent:
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - Entity: 3
+    TagComponent:
+      Tag: Smoll Button
+    ChildEntityComponent:
+      ParentID: 0
+    TransformComponent:
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - Entity: 2
+    TagComponent:
+      Tag: Button
+    ChildEntityComponent:
+      ParentID: 0
+    TransformComponent:
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - Entity: 1
+    TagComponent:
+      Tag: ImGui Text
+    ChildEntityComponent:
+      ParentID: 0
+    TransformComponent:
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - Entity: 0
+    TagComponent:
+      Tag: ImGui Window
+    ParentEntityComponent:
+      UUID: 0
+      Child: [1, 2, 3, 4, 5]
+    TransformComponent:
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]

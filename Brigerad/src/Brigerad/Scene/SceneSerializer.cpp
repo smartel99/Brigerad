@@ -60,10 +60,16 @@ YAML::Emitter& operator<<(YAML::Emitter& out, const glm::vec4& v)
 // [SECTION] Private Function Declarations
 /*********************************************************************************************************************/
 static void SerializeEntity(YAML::Emitter& out, Entity entity);
-static void DeserializeEntity(const YAML::Node& node, Ref<Scene> scene);
+static void DeserializeEntity(const YAML::Node& node, Entity entity);
 
 static void        SerializeTagComponent(YAML::Emitter& out, Entity entity);
 static std::string DeserializeTagComponent(const YAML::Node& node);
+
+static void SerializeParentEntityComponent(YAML::Emitter& out, Entity entity);
+static void DeserializeParentEntityComponent(const YAML::Node& node, Entity entity);
+
+static void SerializeChildEntityComponent(YAML::Emitter& out, Entity entity);
+static void DeserializeChildEntityComponent(const YAML::Node& node, Entity entity);
 
 static void SerializeTransformComponent(YAML::Emitter& out, Entity entity);
 static void DeserializeTransformComponent(const YAML::Node& node, Entity entity);
@@ -79,6 +85,12 @@ static void DeserializeCameraComponent(const YAML::Node& node, Entity entity);
 
 static void SerializeTextComponent(YAML::Emitter& out, Entity entity);
 static void DeserializeTextComponent(const YAML::Node& node, Entity entity);
+
+static void SerializeNativeScriptComponent(YAML::Emitter& out, Entity entity);
+static void DeserializeNativeScriptComponent(const YAML::Node& node, Entity entity);
+
+static void SerializeLuaScriptComponent(YAML::Emitter& out, Entity entity);
+static void DeserializeLuaScriptComponent(const YAML::Node& node, Entity entity);
 
 /*********************************************************************************************************************/
 // [SECTION] Public Method Definitions
@@ -134,9 +146,63 @@ bool SceneSerializer::Deserialize(const std::string& filepath)
     auto entities = data["Entities"];
     if (entities)
     {
-        for (const auto& entity : entities)
+        // Deserialize all entities except those with ChildEntityComponents.
+        for (const auto& serializedEntity : entities)
         {
-            DeserializeEntity(entity, m_scene);
+            uint64_t uuid = serializedEntity["Entity"].as<uint64_t>();    // #TODO
+
+            std::string name;
+            if (serializedEntity["TagComponent"])
+            {
+                name = DeserializeTagComponent(serializedEntity["TagComponent"]);
+            }
+
+            if (serializedEntity["ChildEntityComponent"])
+            {
+                m_childNodes.emplace_back(uuid);
+                continue;
+            }
+
+            Entity deserializedEntity = m_scene->CreateEntity(name);
+            if (serializedEntity["ParentEntityComponent"])
+            {
+                m_parentEntities.emplace_back(deserializedEntity);
+            }
+
+            BR_CORE_TRACE("Deserialized node with ID = {}, name = {}", uuid, name);
+            DeserializeEntity(serializedEntity, deserializedEntity);
+        }
+
+        for (const auto& childId : m_childNodes)
+        {
+            for (const auto& entity : entities)
+            {
+                if (entity["Entity"].as<uint64_t>() == childId)
+                {
+                    uint64_t uuid = entity["Entity"].as<uint64_t>();    // #TODO
+
+                    std::string name;
+                    if (entity["TagComponent"])
+                    {
+                        name = DeserializeTagComponent(entity["TagComponent"]);
+                    }
+
+                    uint64_t parentId = entity["ChildEntityComponent"]["ParentID"].as<uint64_t>();
+                    for (const auto& p : m_parentEntities)
+                    {
+                        auto& pec = p.GetComponent<ParentEntityComponent>();
+                        if (pec.uuid == parentId)
+                        {
+                            Entity childEntity = m_scene->CreateChildEntity(name, p);
+                            BR_CORE_TRACE(
+                              "Deserialized child node with ID = {}, name = {}", uuid, name);
+                            DeserializeEntity(entity, childEntity);
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
         }
     }
 
@@ -161,11 +227,21 @@ static void SerializeEntity(YAML::Emitter& out, Entity entity)
 {
     out << YAML::BeginMap;    // In the Entity map of the scene.
     // #TODO Entity ID goes here.
-    out << YAML::Key << "Entity" << YAML::Value << "12345678906669";
+    out << YAML::Key << "Entity" << YAML::Value << (uint32_t)entity;
 
     if (entity.HasComponent<TagComponent>())
     {
         SerializeTagComponent(out, entity);
+    }
+
+    if (entity.HasComponent<ParentEntityComponent>())
+    {
+        SerializeParentEntityComponent(out, entity);
+    }
+
+    if (entity.HasComponent<ChildEntityComponent>())
+    {
+        SerializeChildEntityComponent(out, entity);
     }
 
     if (entity.HasComponent<TransformComponent>())
@@ -193,46 +269,64 @@ static void SerializeEntity(YAML::Emitter& out, Entity entity)
         SerializeTextComponent(out, entity);
     }
 
+    if (entity.HasComponent<NativeScriptComponent>())
+    {
+        SerializeNativeScriptComponent(out, entity);
+    }
+
+    if (entity.HasComponent<LuaScriptComponent>())
+    {
+        SerializeLuaScriptComponent(out, entity);
+    }
+
     out << YAML::EndMap;    // End of Entity map.
 }
 
-static void DeserializeEntity(const YAML::Node& node, Ref<Scene> scene)
+static void DeserializeEntity(const YAML::Node& node, Entity entity)
 {
-    uint64_t uuid = node["Entity"].as<uint64_t>();    // #TODO
-
-    std::string name;
-    if (node["TagComponent"])
+    if (node["ChildEntityComponent"])
     {
-        name = DeserializeTagComponent(node["TagComponent"]);
+        DeserializeChildEntityComponent(node["ChildEntityComponent"], entity);
     }
 
-    BR_CORE_TRACE("Desirialized node with ID = {}, name = {}", uuid, name);
-
-    Entity deserializedEntity = scene->CreateEntity(name);
+    if (node["ParentEntityComponent"])
+    {
+        DeserializeParentEntityComponent(node["ParentEntityComponent"], entity);
+    }
 
     if (node["TransformComponent"])
     {
-        DeserializeTransformComponent(node["TransformComponent"], deserializedEntity);
+        DeserializeTransformComponent(node["TransformComponent"], entity);
     }
 
     if (node["ColorRendererComponent"])
     {
-        DeserializeColorRendererComponent(node["ColorRendererComponent"], deserializedEntity);
+        DeserializeColorRendererComponent(node["ColorRendererComponent"], entity);
     }
 
     if (node["TextureRendererComponent"])
     {
-        DeserializeTextureRendererComponent(node["TextureRendererComponent"], deserializedEntity);
+        DeserializeTextureRendererComponent(node["TextureRendererComponent"], entity);
     }
 
     if (node["CameraComponent"])
     {
-        DeserializeCameraComponent(node["CameraComponent"], deserializedEntity);
+        DeserializeCameraComponent(node["CameraComponent"], entity);
     }
 
     if (node["TextComponent"])
     {
-        DeserializeTextComponent(node["TextComponent"], deserializedEntity);
+        DeserializeTextComponent(node["TextComponent"], entity);
+    }
+
+    if (node["NativeScriptComponent"])
+    {
+        DeserializeNativeScriptComponent(node["NativeScriptComponent"], entity);
+    }
+
+    if (node["LuaScriptComponent"])
+    {
+        DeserializeLuaScriptComponent(node["LuaScriptComponent"], entity);
     }
 }
 
@@ -252,17 +346,58 @@ static std::string DeserializeTagComponent(const YAML::Node& node)
     return node["Tag"].as<std::string>();
 }
 
+
+static void SerializeParentEntityComponent(YAML::Emitter& out, Entity entity)
+{
+    out << YAML::Key << "ParentEntityComponent";
+    out << YAML::BeginMap;
+
+    auto& pec = entity.GetComponent<ParentEntityComponent>();
+    out << YAML::Key << "UUID" << YAML::Value << pec.uuid;
+    out << YAML::Key << "Child";
+    out << YAML::Flow;
+    out << YAML::BeginSeq;
+    for (const auto& c : pec.childs)
+    {
+        out << YAML::Value << (uint32_t)c;
+    }
+    out << YAML::EndSeq;
+    out << YAML::EndMap;
+}
+
+static void DeserializeParentEntityComponent(const YAML::Node& node, Entity entity)
+{
+    auto& pec = entity.AddComponent<ParentEntityComponent>();
+    pec.uuid  = node["UUID"].as<uint64_t>();
+}
+
+static void SerializeChildEntityComponent(YAML::Emitter& out, Entity entity)
+{
+    out << YAML::Key << "ChildEntityComponent";
+    out << YAML::BeginMap;    // ChildEntityComponent.
+
+    out << YAML::Key << "ParentID";
+    out << YAML::Value << (uint32_t)entity.GetComponent<ChildEntityComponent>().parent;
+
+    out << YAML::EndMap;    // ChildEntityComponent.
+}
+
+static void DeserializeChildEntityComponent(const YAML::Node& node, Entity entity)
+{
+    // We don't have to do anything here since the child is already created.
+}
+
 static void SerializeTransformComponent(YAML::Emitter& out, Entity entity)
 {
     out << YAML::Key << "TransformComponent";
-    out << YAML::BeginMap;    // TransformComponent.
+    out << YAML::BeginMap;
 
     auto& tc = entity.GetComponent<TransformComponent>();
     out << YAML::Key << "Position" << YAML::Value << tc.position;
     out << YAML::Key << "Rotation" << YAML::Value << tc.rotation;
     out << YAML::Key << "Scale" << YAML::Value << tc.scale;
 
-    out << YAML::EndMap;    // TransformComponent.
+    out << YAML::EndMap;
 }
 
 static void DeserializeTransformComponent(const YAML::Node& node, Entity entity)
@@ -279,7 +414,7 @@ static void SerializeColorRendererComponent(YAML::Emitter& out, Entity entity)
     out << YAML::Key << "ColorRendererComponent";
     out << YAML::BeginMap;    // ColorRendererComponent.
 
-    auto crc = entity.GetComponent<ColorRendererComponent>();
+    auto& crc = entity.GetComponent<ColorRendererComponent>();
     out << YAML::Key << "Color" << YAML::Value << crc.color;
 
     out << YAML::EndMap;    // ColorRendererComponent.
@@ -296,7 +431,7 @@ static void SerializeTextureRendererComponent(YAML::Emitter& out, Entity entity)
     out << YAML::Key << "TextureRendererComponent";
     out << YAML::BeginMap;    // TextureRendererComponent.
 
-    auto trc = entity.GetComponent<TextureRendererComponent>();
+    auto& trc = entity.GetComponent<TextureRendererComponent>();
     out << YAML::Key << "Path" << YAML::Value << trc.path;
 
     out << YAML::EndMap;    // TextureRendererComponent.
@@ -314,7 +449,7 @@ static void SerializeCameraComponent(YAML::Emitter& out, Entity entity)
     out << YAML::BeginMap;    // CameraComponent.
 
     out << YAML::Key << "Camera" << YAML::BeginMap;    // Camera.
-    auto cc = entity.GetComponent<CameraComponent>();
+    auto& cc = entity.GetComponent<CameraComponent>();
     out << YAML::Key << "ProjectionType" << YAML::Value << (int)cc.camera.GetProjectionType();
     out << YAML::Key << "OrthographicSize" << YAML::Value << cc.camera.GetOrthographicSize();
     out << YAML::Key << "OrthographicNearClip" << YAML::Value
@@ -364,5 +499,41 @@ static void DeserializeTextComponent(const YAML::Node& node, Entity entity)
     auto& tc = entity.AddComponent<TextComponent>();
     tc.text  = node["Text"].as<std::string>();
     tc.scale = node["Scale"].as<float>();
+}
+
+static void SerializeNativeScriptComponent(YAML::Emitter& out, Entity entity)
+{
+    out << YAML::Key << "NativeScriptComponent";
+    out << YAML::BeginMap;    // NativeScriptComponent.
+
+    auto& nsc = entity.GetComponent<NativeScriptComponent>();
+    out << YAML::Key << "Placeholder" << YAML::Value << "Value";
+
+    out << YAML::EndMap;    // NativeScriptComponent.
+}
+
+static void DeserializeNativeScriptComponent(const YAML::Node& node, Entity entity)
+{
+    // #TODO
+}
+
+
+static void SerializeLuaScriptComponent(YAML::Emitter& out, Entity entity)
+{
+    out << YAML::Key << "LuaScriptComponent";
+    out << YAML::BeginMap;    // LuaScriptComponent.
+
+    auto& lsc = entity.GetComponent<LuaScriptComponent>();
+    out << YAML::Key << "Path" << YAML::Value << lsc.path;
+    out << YAML::Key << "Name" << YAML::Value << lsc.name;
+
+    out << YAML::EndMap;    // LuaScriptComponent.
+}
+
+static void DeserializeLuaScriptComponent(const YAML::Node& node, Entity entity)
+{
+    std::string path = node["Path"].as<std::string>();
+    std::string name = node["Name"].as<std::string>();
+    entity.AddComponent<LuaScriptComponent>(path, name);
 }
 }    // namespace Brigerad

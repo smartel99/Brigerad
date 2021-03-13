@@ -78,6 +78,7 @@ struct ChildEntityComponent
 
 struct ParentEntityComponent
 {
+    uint64_t            uuid = 0;
     std::vector<Entity> childs;
 
     ParentEntityComponent()                             = default;

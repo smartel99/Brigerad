@@ -6,6 +6,13 @@ Sandbox/BrigeradProfile-*.json
 *.sln
 Makefile
 *.vcxproj
+*.vcxproj.filters
+
+BrigeradProfil*.json
+
+imgui.ini
+
+.vscode/
 
 # User-specific files
 *.rsuser
